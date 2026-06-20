@@ -1,0 +1,17 @@
+<svg width="900" height="200" viewBox="0 0 900 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <clipPath id="shieldClipLockup">
+      <path d="M70 0 L140 22 L140 78 C140 122 109 152 70 168 C31 152 0 122 0 78 L0 22 Z"/>
+    </clipPath>
+  </defs>
+  <g transform="translate(20,16)">
+    <g clip-path="url(#shieldClipLockup)">
+      <rect x="0" y="0" width="140" height="168" fill="#161616"/>
+      <polygon points="0,168 140,0 140,168" fill="#7a1530"/>
+    </g>
+  </g>
+  <g transform="translate(196,78)">
+    <text x="0" y="0" font-family="Georgia, 'Times New Roman', serif" font-size="46" letter-spacing="0.5" fill="#1f1f1f">Risk</text>
+    <text x="0" y="50" font-family="Georgia, 'Times New Roman', serif" font-size="46" letter-spacing="0.5" fill="#7a1530">Continuum</text>
+  </g>
+</svg>

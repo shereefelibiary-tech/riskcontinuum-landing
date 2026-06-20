@@ -1,0 +1,11 @@
+<svg width="512" height="512" viewBox="0 0 140 168" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <clipPath id="shieldClip">
+      <path d="M70 0 L140 22 L140 78 C140 122 109 152 70 168 C31 152 0 122 0 78 L0 22 Z"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#shieldClip)">
+    <rect x="0" y="0" width="140" height="168" fill="#161616"/>
+    <polygon points="0,168 140,0 140,168" fill="#7a1530"/>
+  </g>
+</svg>

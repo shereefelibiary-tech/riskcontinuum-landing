@@ -450,11 +450,11 @@
     <li><a href="#why-now">Why now</a></li>
     <li><a href="#features">Features</a></li>
     <li><a href="#how">How it works</a></li>
-    <li><a href="https://app.riskcontinuum.health/?auth=signup" data-auth-mode="signup">Join</a></li>
+    <li><a href="https://app.riskcontinuum.health/?auth=signin">Join</a></li>
   </ul>
   <div class="nav-right">
-    <a href="https://app.riskcontinuum.health/?auth=signin" data-auth-mode="signin" class="btn-ghost">Sign in</a>
-    <a href="https://app.riskcontinuum.health/?auth=signup" data-auth-mode="signup" class="btn-primary">Get started</a>
+    <a href="https://app.riskcontinuum.health/?auth=signin" class="btn-ghost">Sign in</a>
+    <a href="https://app.riskcontinuum.health/?auth=signin" class="btn-primary">Get started</a>
   </div>
 </nav>
 
@@ -469,7 +469,7 @@
     <p class="hero-subtitle">Risk Continuum helps them tell it.</p>
     <p class="hero-body">Drop in the labs, meds, and history. In seconds: a high yield report showing risk level, the drivers behind it, targets, ICD codes, a copy-paste report, and patient roadmap, along with an AI Clinical Pearl.</p>
     <div class="hero-ctas">
-      <a href="https://app.riskcontinuum.health/?auth=signup" data-auth-mode="signup" class="btn-lg">Get started</a>
+      <a href="https://app.riskcontinuum.health/?auth=signin" class="btn-lg">Get started</a>
       <a href="#how" class="btn-lg-ghost" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'});return false;">See how it works</a>
     </div>
     <p class="hero-trust"><span class="trust-dot" aria-hidden="true"></span>Try it Out, 30 + demos, smartphrase template available, EMR agnostic</p>
@@ -1006,7 +1006,33 @@
       <h3>Five levels. One clear position.</h3>
       <p>Every patient is placed on a continuum from minimal signal to very high risk. Direction and urgency emerge from the data already in the chart.</p>
     </div>
-    <div class="ss-wrap"><img src="assets/risk-continuum.png" alt="Risk Continuum five-level staging bar with current patient at Level 5" class="ss-img" /></div>
+    <div class="rcce">
+      <div class="rcce-head">
+        <span class="rcce-title">Risk Continuum</span>
+        <span class="rcce-current">Current: Level 3B</span>
+      </div>
+      <div class="rcce-bar">
+        <div class="rcce-level"><strong>Level 1</strong>Minimal risk signal</div>
+        <div class="rcce-level"><strong>Level 2</strong>Emerging risk signals</div>
+        <div class="rcce-level"><strong>Level 3B</strong>Actionable early CKM<br>/ atherogenic risk<br><small>Plaque unmeasured</small></div>
+        <div class="rcce-level"><strong>Level 4</strong>Subclinical<br>atherosclerosis<br>present</div>
+        <div class="rcce-level"><strong>Level 5</strong>Very high risk</div>
+      </div>
+      <div class="rcce-arrow">▼</div>
+      <div class="rcce-detail">
+        <ul>
+          <li>UACR 45 mg/g</li>
+          <li>eGFR 55</li>
+          <li>Diabetes (A1c 7.1%)</li>
+          <li>BP 132/82</li>
+          <li>ApoB 110 mg/dL</li>
+        </ul>
+      </div>
+      <div class="rcce-footer">
+        <span>Lower signal / lower urgency</span>
+        <span>Higher signal / higher urgency</span>
+      </div>
+    </div>
   </div>
 
   <div class="fpane" id="fpane-prevent" hidden>
@@ -1021,7 +1047,7 @@
       </ul>
     </div>
     <div class="ss-wrap">
-      <img src="assets/landing-prevent-output.jpg" alt="PREVENT 10-year and 30-year cardiovascular risk output" class="ss-img" />
+      <img src="/__l5e/assets-v1/afcc858f-9813-4c2f-8600-f1214d631b05/prevent.png" alt="PREVENT 10-year and 30-year cardiovascular risk output" class="ss-img" />
     </div>
   </div>
 
@@ -1037,7 +1063,7 @@
       </ul>
     </div>
     <div class="ss-wrap">
-      <img src="assets/landing-patient-roadmap.jpg" alt="Patient-facing prevention roadmap handout" class="ss-img" />
+      <img src="/__l5e/assets-v1/55307490-42a2-407d-ae1e-2c3b5f7ab5b2/roadmap.png" alt="Patient-facing prevention roadmap handout" class="ss-img" />
     </div>
   </div>
 
@@ -1053,7 +1079,7 @@
       </ul>
     </div>
     <div class="ss-wrap">
-      <img src="assets/targets-action.png" alt="Copy-ready clinical report with assessment, risk drivers, and recommendations" class="ss-img" />
+      <img src="/__l5e/assets-v1/f8c69886-64df-4246-8c1a-28558c02806e/clinical-report.png" alt="Copy-ready clinical report with assessment, risk drivers, and recommendations" class="ss-img" />
     </div>
   </div>
 
@@ -1063,7 +1089,7 @@
       <p>Risk Signal Score is evidence-informed and clinically calibrated. Markers that directly show disease burden or strongly change management — CAC/plaque, ASCVD, CKD with albuminuria, diabetes, ApoB, LDL-C, and Lp(a) — receive higher weights. Broader risk enhancers such as OSA, obesity, and family history receive lower weights because they add context but are less specific.</p>
     </div>
     <div class="ss-wrap">
-      <img src="assets/landing-risk-signal-score.jpg" alt="Risk Signal Score showing weighted contributors and total score of 38 out of 100" class="ss-img" />
+      <img src="/__l5e/assets-v1/1e6ca7af-cb77-40e1-98eb-8668dcde8790/risk-signal-score.png" alt="Risk Signal Score showing weighted contributors and total score of 38 out of 100" class="ss-img" />
     </div>
   </div>
 </section>
@@ -1237,7 +1263,7 @@
     </p>
   </div>
   <div>
-    <a href="https://app.riskcontinuum.health/?auth=signup" data-auth-mode="signup" class="btn-capture" style="display:inline-block;text-align:center;text-decoration:none;">Get started</a>
+    <a href="https://app.riskcontinuum.health/?auth=signin" class="btn-capture" style="display:inline-block;text-align:center;text-decoration:none;">Get started</a>
   </div>
 </section>
 
@@ -1398,4 +1424,3 @@
 </script>
 </body>
 </html>
-

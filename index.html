@@ -323,6 +323,22 @@
     .step-title { font-family: "Playfair Display", serif; font-size: .95rem; color: var(--text-primary); margin-bottom: .5rem; }
     .step-body { font-size: .84rem; color: var(--text-muted); line-height: 1.65; }
 
+    /* MISSION */
+    .mission-section { background: var(--white); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 5.5rem 4rem 5.5rem; }
+    .mission-inner { max-width: 680px; }
+    .mission-eyebrow { font-size: .67rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--garnet-mid); margin-bottom: 1rem; display: block; }
+    .mission-section h2 { font-family: "Playfair Display", serif; font-size: clamp(1.9rem, 3.2vw, 2.6rem); line-height: 1.15; letter-spacing: -.02em; color: var(--text-primary); margin-bottom: 1.75rem; }
+    .mission-opening { margin-bottom: 2rem; }
+    .mission-opening p { font-family: "Playfair Display", serif; font-size: clamp(1.5rem, 2.5vw, 1.95rem); line-height: 1.3; color: var(--text-primary); margin-bottom: 0.15rem; letter-spacing: -0.01em; font-weight: 500; }
+    .mission-body { font-size: 1.05rem; color: var(--text-secondary); line-height: 1.8; font-weight: 300; max-width: 56ch; margin-bottom: 1.4rem; }
+    .mission-body strong { font-weight: 500; color: var(--text-primary); }
+    .mission-emotional { max-width: 52ch; margin: 2.5rem auto 1.5rem; text-align: center; }
+    .mission-emotional p { font-family: "Playfair Display", serif; font-size: 1.25rem; font-style: italic; color: var(--text-secondary); line-height: 1.55; letter-spacing: 0.01em; }
+    .mission-goal-label { font-family: "Playfair Display", serif; font-size: 1.15rem; font-style: italic; color: var(--garnet); margin-bottom: 1rem; line-height: 1.4; }
+    .mission-goal { display: flex; flex-direction: column; align-items: center; gap: .25rem; margin-top: 1rem; text-align: center; }
+    .mission-goal p { font-size: 1.15rem; font-weight: 400; color: var(--text-primary); line-height: 1.5; letter-spacing: .01em; }
+    .mission-moments { font-family: "Playfair Display", serif; font-size: 1.35rem; font-weight: 400; font-style: italic; color: var(--text-muted); text-align: center; line-height: 1.4; letter-spacing: .04em; margin-top: 1.5rem; }
+
     /* CAPTURE */
     .capture { background: #4a1525; padding: 6rem 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
     .capture .section-label { color: rgba(248,244,242,.3); }
@@ -436,6 +452,11 @@
       .spec-grid, .steps, .filmstrip-grid { grid-template-columns: 1fr; }
       .ftabs { overflow-x: auto; }
       .ftab { white-space: nowrap; }
+      .mission-section { padding: 4rem 1.5rem 4.5rem; }
+      .mission-opening p { font-size: 1.25rem; }
+      .mission-emotional { margin: 2rem auto 1.25rem; }
+      .mission-emotional p { font-size: 1.1rem; }
+      .mission-moments { font-size: 1.15rem; margin-top: 1.25rem; }
     }
   </style>
 </head>
@@ -937,13 +958,13 @@
     <div>
       <span class="section-label">Why this matters now</span>
       <h2 id="why-h2">Surface the risk signals buried in the chart.</h2>
-      <p class="section-sub">ApoB, Lp(a), a missing UACR, eGFR, CAC score, A1c, BP, medications — the most important cardiometabolic data points are scattered across the record, or may not have been checked. Until now, clinicians have had to process all that information quickly, while simultaneously handling all the other aspects of a visit. RCCKM does that assembly for you.</p>
-      <p class="pull-quote">From scattered chart data to structured CKM interpretation.</p>
+      <p class="section-sub">ApoB, Lp(a), a missing UACR, eGFR, CAC score, A1c, BP, medications — the most important cardiometabolic data points are spread across the record, or may not have been checked. Clinicians have had to process all that information quickly, while simultaneously handling all the other aspects of a visit...until now. RCCKM does that assembly for you.</p>
+      <p class="pull-quote">From fragmented chart data to structured CKM interpretation.</p>
     </div>
     <div class="problem-cards">
       <div class="problem-card">
         <div class="problem-card-title">Find the patterns hiding in plain sight.</div>
-        <p class="problem-card-body">Scattered labs, imaging, medications, and risk markers go in. The cardiometabolic story they tell together comes out — surfaced, structured, and ready to review.</p>
+        <p class="problem-card-body">Labs, imaging, medications, and risk markers from across the record go in. The cardiometabolic story they tell together comes out — surfaced, structured, and ready to review.</p>
       </div>
       <div class="problem-card">
         <div class="problem-card-title">Turn fragmented data into a clear clinical report.</div>
@@ -969,10 +990,10 @@
     <span class="section-label">What this is</span>
     <div class="positioning-trio">
       <p>Surface the cardiovascular, kidney, and metabolic risk signals buried in the chart.</p>
-      <p class="positioning-trio-hl">From scattered data to structured interpretation.</p>
+      <p class="positioning-trio-hl">From fragmented data to structured interpretation.</p>
     </div>
     <h2 id="pos-h2">Physician-built clinical decision support.</h2>
-    <p class="positioning-body">Turn scattered labs, imaging, medications, and risk markers into structured CKM interpretation. Expert Commentary included. The visit stays about the patient.</p>
+    <p class="positioning-body">Turn siloed labs, imaging, medications, and risk markers into structured CKM interpretation. Expert Commentary included. The visit stays about the patient.</p>
     <div class="attr-chips" role="list">
       <span class="attr-chip">Deterministic</span>
       <span class="attr-chip">Guideline-aligned</span>
@@ -1047,7 +1068,7 @@
       </ul>
     </div>
     <div class="ss-wrap">
-      <img src="/__l5e/assets-v1/afcc858f-9813-4c2f-8600-f1214d631b05/prevent.png" alt="PREVENT 10-year and 30-year cardiovascular risk output" class="ss-img" />
+      <img src="assets/landing-prevent-output.jpg" alt="PREVENT 10-year and 30-year cardiovascular risk output" class="ss-img" />
     </div>
   </div>
 
@@ -1063,7 +1084,7 @@
       </ul>
     </div>
     <div class="ss-wrap">
-      <img src="/__l5e/assets-v1/55307490-42a2-407d-ae1e-2c3b5f7ab5b2/roadmap.png" alt="Patient-facing prevention roadmap handout" class="ss-img" />
+      <img src="assets/landing-patient-roadmap.jpg" alt="Patient-facing prevention roadmap handout" class="ss-img" />
     </div>
   </div>
 
@@ -1079,7 +1100,7 @@
       </ul>
     </div>
     <div class="ss-wrap">
-      <img src="/__l5e/assets-v1/f8c69886-64df-4246-8c1a-28558c02806e/clinical-report.png" alt="Copy-ready clinical report with assessment, risk drivers, and recommendations" class="ss-img" />
+      <img src="assets/targets-action.png" alt="Copy-ready clinical report with assessment, risk drivers, and recommendations" class="ss-img" />
     </div>
   </div>
 
@@ -1089,7 +1110,7 @@
       <p>Risk Signal Score is evidence-informed and clinically calibrated. Markers that directly show disease burden or strongly change management — CAC/plaque, ASCVD, CKD with albuminuria, diabetes, ApoB, LDL-C, and Lp(a) — receive higher weights. Broader risk enhancers such as OSA, obesity, and family history receive lower weights because they add context but are less specific.</p>
     </div>
     <div class="ss-wrap">
-      <img src="/__l5e/assets-v1/1e6ca7af-cb77-40e1-98eb-8668dcde8790/risk-signal-score.png" alt="Risk Signal Score showing weighted contributors and total score of 38 out of 100" class="ss-img" />
+      <img src="assets/landing-risk-signal-score.jpg" alt="Risk Signal Score showing weighted contributors and total score of 38 out of 100" class="ss-img" />
     </div>
   </div>
 </section>
@@ -1101,7 +1122,7 @@
       <span class="section-label">Shared decision making</span>
       <h2 id="sdm-h2">Clarity, on both sides of the conversation.</h2>
       <p class="section-sub">Your structured report, ready to paste. A plain-language summary your patient takes home. One analysis covers both.</p>
-      <p class="pull-quote" style="color: var(--garnet); margin-top: 1.25rem;">The best clinical decisions happen when patients understand what you understand.</p>
+      <p class="pull-quote" style="color: var(--garnet); margin-top: 1.25rem;">Better clarity, better decisions.</p>
     </div>
     <div class="sdm-cards">
       <div class="sdm-card">
@@ -1153,7 +1174,7 @@
   <div class="how-header">
     <span class="section-label">How it works</span>
     <h2 id="how-h2">From patient data to documented insight in under 60 seconds.</h2>
-    <p class="section-sub">Four layers working together. Seconds to run. Ready before the patient leaves.</p>
+    <p class="section-sub">Basic data in, consistent, guideline-aligned recommendations out, with just a few clicks.</p>
   </div>
   <div class="steps">
     <div class="step"><div class="step-num">01</div><div class="step-title">Paste de-identified data</div><p class="step-body">Copy and paste de-identified data from your note into the provided template, or key it in directly. The hardwired parser catches most common formats — no AI, no PHI leaves your browser.</p></div>
@@ -1252,6 +1273,36 @@
     section[aria-labelledby="tue-h2"] > div > div:nth-of-type(2) { grid-template-columns: 1fr !important; }
   }
 </style>
+
+<!-- MISSION -->
+<section class="mission-section" aria-labelledby="mission-h2">
+  <div class="mission-inner">
+    <span class="mission-eyebrow">Mission</span>
+    <h2 id="mission-h2">Why Risk Continuum Was Built</h2>
+
+    <div class="mission-opening">
+      <p>Every patient carries a risk story.</p>
+      <p>Risk Continuum helps them tell it.</p>
+    </div>
+
+    <p class="mission-body">RCCKM was created by a practicing physician after years of caring for patients across primary care, hospital medicine, and population health.</p>
+
+    <p class="mission-body">RCCKM was designed to bring the data points together into a clear, actionable picture of risk and opportunity, helping clinicians quickly identify what matters most and where intervention may have the greatest impact.</p>
+
+    <div class="mission-emotional">
+      <p>Because behind every risk score is a person, a family, and moments that still lie ahead.</p>
+    </div>
+
+    <div class="mission-goal">
+      <p class="mission-goal-label">Our goal is simple:</p>
+      <p>Better prevention.</p>
+      <p>Clearer decisions.</p>
+      <p>More time for the moments that matter.</p>
+    </div>
+
+    <p class="mission-moments">More birthdays. More weddings. More graduations.</p>
+  </div>
+</section>
 
 <!-- CAPTURE -->
 <section class="capture" id="capture" aria-labelledby="capture-h2">

@@ -458,6 +458,29 @@
       .mission-emotional p { font-size: 1.1rem; }
       .mission-moments { font-size: 1.15rem; margin-top: 1.25rem; }
     }
+  
+    /* Meet the founder: isolated landing-page styles */
+    .founder-section { padding: clamp(4rem, 7vw, 6.5rem) clamp(1.5rem, 5vw, 4rem); background: var(--paper); border-top: 1px solid var(--rule); }
+    .founder-inner { max-width: 1150px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(2.25rem, 5.5vw, 5rem); align-items: center; }
+    .founder-figure { margin: 0; }
+    .founder-image-wrap { aspect-ratio: 4 / 5; background: var(--paper-dark); border-radius: 7px; overflow: hidden; border: 1px solid var(--rule); }
+    .founder-image { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center center; }
+    .founder-caption { margin-top: .75rem; font-size: .74rem; color: var(--text-muted); }
+    .founder-kicker { display: flex; gap: .7rem; align-items: center; color: var(--garnet-mid); font-size: .68rem; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; margin-bottom: 1.15rem; }
+    .founder-kicker::before { content: ""; display: block; width: 28px; height: 1px; background: currentColor; }
+    .founder-title { font-family: "Playfair Display", Georgia, serif; color: var(--text-primary); font-size: clamp(2rem, 3.4vw, 3.3rem); font-weight: 400; line-height: 1.16; letter-spacing: -.025em; max-width: 18ch; margin-bottom: 1.45rem; }
+    .founder-name { font-size: 1.08rem; color: var(--ink); font-weight: 600; margin-bottom: .15rem; }
+    .founder-credentials { font-size: .8rem; color: var(--text-muted); margin-bottom: 1.3rem; line-height: 1.65; }
+    .founder-bio p { font-size: .97rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem; max-width: 62ch; }
+    .founder-quote { margin: 1.55rem 0 1.15rem; border-left: 2px solid var(--garnet-mid); padding-left: 1.25rem; font: italic 1.15rem/1.55 "Playfair Display", Georgia, serif; color: var(--garnet); }
+    .founder-signoff { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--garnet); font-weight: 600; }
+    @media (max-width: 850px) {
+      .founder-inner { grid-template-columns: 1fr; gap: 2.3rem; }
+      .founder-figure { max-width: 400px; width: 100%; margin: 0 auto; }
+      .founder-content { max-width: 650px; margin: 0 auto; }
+      .founder-title { max-width: none; }
+    }
+
   </style>
 </head>
 <body>
@@ -471,6 +494,7 @@
     <li><a href="#why-now">Why now</a></li>
     <li><a href="#features">Features</a></li>
     <li><a href="#how">How it works</a></li>
+    <li><a href="#founder">Founder</a></li>
     <li><a href="https://rcckm-nextjs-preview-web.onrender.com/">Open app</a></li>
   </ul>
   <div class="nav-right">
@@ -1301,6 +1325,33 @@
     </div>
 
     <p class="mission-moments">More birthdays. More weddings. More graduations.</p>
+  </div>
+</section>
+
+<!-- MEET THE FOUNDER -->
+<section class="founder-section" id="founder" aria-labelledby="founder-heading">
+  <div class="founder-inner">
+    <figure class="founder-figure">
+      <div class="founder-image-wrap">
+        <img class="founder-image" src="/assets/founder-shereef.webp" width="480" height="600"
+             alt="Shereef El-Ibiary, MD, founder of Risk Continuum CKM, smiling in a black polo"
+             loading="lazy" decoding="async" />
+      </div>
+      <figcaption class="founder-caption">Shereef El-Ibiary, MD · Founder, Risk Continuum CKM</figcaption>
+    </figure>
+    <div class="founder-content">
+      <span class="founder-kicker">Meet the founder</span>
+      <h2 class="founder-title" id="founder-heading">Built by a physician. Grounded in clinical practice.</h2>
+      <p class="founder-name">Shereef El-Ibiary, MD</p>
+      <p class="founder-credentials">Internal Medicine · Primary Care · Hospital Medicine · Population Health</p>
+      <div class="founder-bio">
+        <p>RCCKM began with a problem I kept seeing in practice: the data needed to recognize emerging cardiovascular, kidney, and metabolic risk was often already in the chart, but scattered across years of visits, labs, and reports.</p>
+        <p>After nearly two decades caring for patients across primary care, hospital medicine, and population health, I built Risk Continuum CKM to bring those pieces together. The goal is a clear, consistent, patient-specific interpretation that clinicians can review, explain, and act on during an actual visit.</p>
+        <p>RCCKM does not replace physician judgment. It is designed to make the evidence easier to see so clinical decisions can be more informed, transparent, and personal.</p>
+      </div>
+      <blockquote class="founder-quote">The chart contains the pieces. The evidence contains the rules. The physician still has to assemble them.</blockquote>
+      <p class="founder-signoff">Reconcile. Curate. Care.</p>
+    </div>
   </div>
 </section>
 

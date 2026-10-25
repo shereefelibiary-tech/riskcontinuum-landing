@@ -66,7 +66,7 @@
     .nav-logo { opacity: 0; pointer-events: none; transition: opacity .35s var(--ease); }
     .nav.show-logo .nav-logo { opacity: 1; pointer-events: auto; }
     .nav-links { display: flex; gap: 34px; list-style: none; }
-    .nav-links a { text-decoration: none; font-size: 16px; font-weight: 500; color: var(--muted); transition: color .2s; }
+    .nav-links a { text-decoration: none; font-size: 16px; font-weight: 500; color: var(--muted); white-space: nowrap; transition: color .2s; }
     .nav-links a:hover { color: var(--ink); }
     .nav-cta { display: flex; gap: 10px; }
     .nav .btn { padding: 11px 20px; font-size: 15px; }
@@ -365,8 +365,11 @@
       .walker.hop svg, .people svg.pv { animation: none; }
     }
 
-    @media (max-width: 1020px) {
+    /* Five links plus two buttons need about 1180px; hide the links below that instead of wrapping. */
+    @media (max-width: 1180px) {
       .nav-links { display: none; }
+    }
+    @media (max-width: 1020px) {
       .plan-foot, .note-row, .sdm-top, .report-head, .sdm-shots, .rp-body, .founder-grid, .rssx { grid-template-columns: minmax(0, 1fr); gap: 36px; }
       .sdm-cards, .sections { grid-template-columns: repeat(2, 1fr); }
       .how-grid { grid-template-columns: repeat(2, 1fr); gap: 34px; }

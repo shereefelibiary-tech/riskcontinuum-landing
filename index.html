@@ -127,6 +127,13 @@
     .stats { padding: 0 0 120px; }
     .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
     .stat { background: var(--surface); padding: 34px 32px; }
+    .cont-tag { margin-top: 10px; font-size: 16px; color: var(--muted); }
+    .cont-tag b { color: var(--ink); font-weight: 600; }
+    .stats-note { margin-top: 28px; padding: 22px 26px; border-left: 4px solid var(--accent); background: var(--surface); border-radius: 0 18px 18px 0; box-shadow: var(--shadow); }
+    .stats-note h3 { font-size: clamp(24px, 2.6vw, 32px); line-height: 1.15; margin-bottom: 10px; }
+    .stats-note p { font-size: 18px; color: var(--body); max-width: 72ch; }
+    .stats-note p + p { margin-top: 10px; }
+    .stats-note .stats-src { display: block; margin-top: 12px; font-size: 13px; font-style: normal; color: var(--muted); }
     .stat-num { font-family: var(--display); font-size: 54px; line-height: 1; color: var(--ink); font-weight: 500; }
     .stat p { margin-top: 14px; font-size: 17px; color: var(--body); }
     .stat cite { display: block; margin-top: 14px; font-size: 14px; font-style: normal; color: var(--muted); }
@@ -171,7 +178,9 @@
     .lever em { font-style: normal; font-size: 14px; font-weight: 600; color: var(--good); white-space: nowrap; }
     .lever.on { background: var(--good-soft); border-color: var(--good); }
     .lever.on .chk { width: 14px; }
-    .lever.static { cursor: default; color: var(--muted); }
+    .lever .mark { margin-left: -8px; font-size: 11px; color: var(--muted); cursor: help; }
+    .marks { margin: 8px 0 0; font-size: 12.5px; color: var(--muted); }
+    .marks span { cursor: help; }
     .summary { margin-top: 14px; background: var(--bg-2); border-radius: 14px; padding: 14px 18px; font-size: 17px; color: var(--body); min-height: 54px; }
     .summary b { color: var(--ink); }
     .summary .g { color: var(--good); font-weight: 700; }
@@ -182,6 +191,7 @@
     .legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 15px; color: var(--muted); margin-top: 6px; }
     .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
     .people-box { background: var(--bg-2); border: 1px solid var(--line); border-radius: 18px; padding: 18px; }
+    .people-box h4 small.people-src { display: block; margin-top: 2px; font-family: var(--ui); font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
     .people-box h4 { font-family: var(--display); font-size: 17px; font-weight: 500; color: var(--ink); margin-bottom: 12px; }
     .people { display: grid; grid-template-columns: repeat(10, 1fr); gap: 5px 6px; max-width: 320px; }
     .people svg { width: 100%; height: auto; display: block; fill: var(--icon-off); transition: fill .45s; }
@@ -474,27 +484,28 @@
       <p class="hero-meta">38 synthetic demo cases to try &middot; SmartPhrase template &middot; Paste from any EMR</p>
     </div>
 
-    <div class="card cont" id="cont" aria-label="RCCKM Clinical Summary: emerging risk trajectory, category 3B, plaque unmeasured">
+    <div class="card cont" id="cont" aria-label="Risk Continuum: this patient is at Level 3B, Emerging Risk Trajectory, plaque unmeasured">
       <div class="cont-head">
-        <div><div class="card-eyebrow">Position</div><div class="card-title">RCCKM Clinical Summary</div></div>
+        <div><div class="card-eyebrow">Position</div><div class="card-title">Risk Continuum</div></div>
         <div style="display:flex; gap:10px; align-items:center;">
-          <span class="pill-now">Current: Emerging risk trajectory</span>
+          <span class="pill-now">Current: Level 3B</span>
           <button class="btn btn-ghost btn-sm" id="cont-replay" type="button">↻ Replay</button>
         </div>
       </div>
       <div class="tiles" aria-hidden="true">
         <div class="walker" id="walker"><span class="here-lbl">YOU ARE HERE</span><svg width="28" height="40" viewBox="0 0 24 34"><circle cx="12" cy="5" r="4.2" fill="#861327"/><path d="M7 11h10a3 3 0 0 1 3 3v8h-3v12h-4v-9h-2v9H7V22H4v-8a3 3 0 0 1 3-3z" fill="#861327"/></svg></div>
-        <div class="tile" style="background:var(--t1); --acc:var(--a1); --d:8px; transition-delay:0s"><i class="dot"></i><div><b>Minimal risk signal</b><span>category 1</span></div></div>
-        <div class="tile" style="background:var(--t2); --acc:var(--a2); --d:12px; transition-delay:.08s"><i class="dot"></i><div><b>Emerging risk signals</b><span>category 2</span></div></div>
-        <div class="tile" style="background:var(--t3); --acc:var(--a3); --d:16px; transition-delay:.16s"><i class="dot"></i><div><b>Emerging risk trajectory</b><span>category 3B</span></div><small>Plaque unmeasured</small></div>
-        <div class="tile future" style="background:var(--t4); --acc:var(--a4); --d:20px; transition-delay:.24s"><i class="dot"></i><div><b>Coronary plaque present</b><span>category 4</span></div></div>
-        <div class="tile future" style="background:var(--t5); --acc:var(--a5); --d:24px; transition-delay:.32s"><i class="dot"></i><div><b>Established disease or high plaque burden</b><span>category 5</span></div></div>
+        <div class="tile" style="background:var(--t1); --acc:var(--a1); --d:8px; transition-delay:0s"><i class="dot"></i><div><b>Level 1</b><span>Minimal risk signal</span></div></div>
+        <div class="tile" style="background:var(--t2); --acc:var(--a2); --d:12px; transition-delay:.08s"><i class="dot"></i><div><b>Level 2</b><span>Emerging risk signals</span></div></div>
+        <div class="tile" style="background:var(--t3); --acc:var(--a3); --d:16px; transition-delay:.16s"><i class="dot"></i><div><b>Level 3B</b><span>Emerging Risk Trajectory</span></div><small>Plaque unmeasured</small></div>
+        <div class="tile future" style="background:var(--t4); --acc:var(--a4); --d:20px; transition-delay:.24s"><i class="dot"></i><div><b>Level 4</b><span>Subclinical atherosclerosis present</span></div></div>
+        <div class="tile future" style="background:var(--t5); --acc:var(--a5); --d:24px; transition-delay:.32s"><i class="dot"></i><div><b>Level 5</b><span>Very high risk</span></div></div>
       </div>
       <div class="cont-foot"><span>&larr; Lower signal / lower urgency</span><span>Higher signal / higher urgency &rarr;</span></div>
-      <p class="cont-line"><b>Emerging risk trajectory &middot; category 3B.</b> Elevated 30-year trajectory plus actionable biologic burden.</p>
+      <p class="cont-line"><b>Level 3B | Emerging Risk Trajectory.</b> Elevated 30-year trajectory plus actionable biologic burden.</p>
+      <p class="cont-tag"><b>A Level describes the pattern. PREVENT supplies the probability.</b> Every patient gets a Level, including when a PREVENT estimate doesn't apply.</p>
       <div class="levels-info">
-        <button class="levels-btn" type="button" aria-expanded="false" aria-controls="levels-pop"><span aria-hidden="true">ⓘ</span> How to read the summary</button>
-        <div class="levels-pop" id="levels-pop" role="tooltip">RCCKM brings the patient's findings together into a concise clinical summary. Its interpretation categories organize the evidence and explain the pattern driving the assessment. Formal CKM staging, kidney classification, and PREVENT risk estimates are reported separately using their respective frameworks.</div>
+        <button class="levels-btn" type="button" aria-expanded="false" aria-controls="levels-pop"><span aria-hidden="true">ⓘ</span> How to read the levels</button>
+        <div class="levels-pop" id="levels-pop" role="tooltip">RCCKM brings the patient's findings together into a concise clinical summary. The levels organize the evidence and name the pattern driving the assessment. Formal CKM staging, KDIGO kidney classification and PREVENT risk estimates are reported separately, each using its own framework.</div>
       </div>
     </div>
   </div>
@@ -506,19 +517,25 @@
     <div class="stats-grid reveal">
       <div class="stat">
         <div class="stat-num">90%</div>
-        <p>of U.S. adults have at least one CKM risk factor. Nearly half meet criteria for stage 2 or higher, often without knowing it.</p>
-        <cite>Aggarwal et al., <a href="https://jamanetwork.com/journals/jama/fullarticle/2818761" target="_blank" rel="noopener">JAMA, 2024</a></cite>
+        <p>of U.S. adults meet criteria for CKM syndrome. Nearly half are at stage 2, with metabolic risk factors or kidney disease, where prevention has the most room to work.</p>
+        <cite>Aggarwal et al., <a href="https://doi.org/10.1001/jama.2024.6892" target="_blank" rel="noopener">JAMA, 2024</a></cite>
       </div>
       <div class="stat">
         <div class="stat-num">15 min</div>
-        <p>is the median primary care visit. Not much time to pull a full cardiometabolic picture together by hand.</p>
-        <cite>Neprash et al., <a href="https://doi.org/10.1097/MLR.0000000000001450" target="_blank" rel="noopener">Medical Care, 2020</a></cite>
+        <p>is the median primary care visit. The evidence is ready; bringing the whole cardiometabolic picture together in that time is the opportunity.</p>
+        <cite>Neprash et al., <a href="https://doi.org/10.1097/MLR.0000000000001450" target="_blank" rel="noopener">Medical Care, 2021</a></cite>
       </div>
       <div class="stat">
         <div class="stat-num">47%</div>
-        <p>of adults eligible for lipid-lowering therapy are not receiving it. A clear risk conversation at the point of care can help close that gap.</p>
-        <cite>Patel et al., <a href="https://publichealth.jhu.edu/2025/tens-of-thousands-of-heart-attacks-and-strokes-could-be-avoided-each-year-if-cholesterol-lowering-drugs-were-used-according-to-guidelines" target="_blank" rel="noopener">Johns Hopkins, 2025</a></cite>
+        <p>of U.S. adults 40&ndash;75 without heart disease are eligible for cholesterol-lowering therapy, and about 23% take it. A clear risk conversation at the point of care can help close that gap.</p>
+        <cite>Alexander et al., <a href="https://doi.org/10.1007/s11606-025-09625-0" target="_blank" rel="noopener">J Gen Intern Med, 2025</a></cite>
       </div>
+    </div>
+    <div class="stats-note reveal">
+      <h3>A low score isn&rsquo;t always the whole story.</h3>
+      <p>When we applied RCCKM to national CDC survey data, nearly 1 in 5 adults with a low 10-year PREVENT risk, representing about 14 million Americans, had additional findings worth surfacing. RCCKM helps do that.</p>
+      <p>Decades of research and the information already in a patient&rsquo;s chart can now come together at the point of care, to see the fuller picture, explore what could change, and turn that conversation into a prevention plan.</p>
+      <cite class="stats-src">Source: NHANES 2017&ndash;2018, adults 40&ndash;75; RCCKM engine run, October 2026.</cite>
     </div>
   </div>
 </section>
@@ -560,25 +577,21 @@
       </div>
       <p class="rp-sub">Tap an intervention and watch the picture change. Each scenario is a full engine run.</p>
       <div class="chips" role="group" aria-label="Interventions">
-        <button class="lever" type="button" data-lever="statin" aria-pressed="false"><span class="chk">✓</span>💊 Start a statin <em>&minus;2.7 pts (30-yr)</em></button>
-        <button class="lever" type="button" data-lever="bp" aria-pressed="false"><span class="chk">✓</span>🩺 Systolic BP to 120 <em>&minus;1.8 pts (30-yr)</em></button>
-        <span class="lever static">Triglycerides under 150 <em>RSS &minus;4</em></span>
-        <span class="lever static">A1c under 5.7% <em>RSS &minus;2</em></span>
+        <button class="lever" type="button" data-lever="statin" aria-pressed="false"><span class="chk">✓</span>💊 Start a statin<sup class="mark" title="Trial-derived treatment effect (CTT Collaboration)">†</sup> <em>&minus;2.8 pts &rarr; 9.4% &middot; 30-yr ASCVD</em></button>
+        <button class="lever" type="button" data-lever="bp" aria-pressed="false"><span class="chk">✓</span>🩺 Systolic BP to 120<sup class="mark" title="Trial-derived treatment effect (Ettehad 2016)">†</sup> <em>&minus;1.9 pts &rarr; 10.3% &middot; 30-yr ASCVD</em></button>
+        <button class="lever" type="button" data-lever="a1c" aria-pressed="false"><span class="chk">✓</span>🩸 A1c 6.1% &rarr; 5.5%<sup class="mark" title="Recalculated risk factor: PREVENT full model rerun with the new value. A modeled scenario, not a proven treatment effect.">*</sup> <em>&minus;0.5 pts &rarr; 11.7% &middot; 30-yr ASCVD</em></button>
       </div>
+      <p class="marks"><span title="Today's PREVENT risk with the relative risk reduction seen in trials: CTT Collaboration for LDL-C, Ettehad 2016 for systolic BP."><sup>†</sup> Trial-derived treatment effect</span> &nbsp; <span title="PREVENT full model rerun with the new value. A modeled scenario, not a proven treatment effect."><sup>*</sup> Recalculated risk factor, not a treatment effect</span></p>
       <div class="summary" id="summary" aria-live="polite"></div>
       <div class="rp-body">
         <div>
           <p class="sentence" id="sentence"></p>
-          <svg class="chart" id="tl" viewBox="0 0 600 270" role="img" aria-label="Cumulative ASCVD risk timeline: 1.9% by age 62 and 11.8% by age 82 today"></svg>
+          <svg class="chart" id="tl" viewBox="0 0 600 270" role="img" aria-label="Cumulative ASCVD risk timeline: 2.1% by age 62 and 12.2% by age 82 today"></svg>
           <div class="legend"><span><i style="background:var(--muted)"></i>Today</span><span><i style="background:var(--good)"></i>With plan</span></div>
-          <div class="tiles-row">
-            <div class="mini"><span>Signal score</span><b id="m-rss">12</b></div>
-            <div class="mini"><span>Level</span><b id="m-lvl">3B</b></div>
-          </div>
         </div>
         <div>
           <div class="people-box">
-            <h4>100 similar patients over 30 years</h4>
+            <h4>100 similar patients over 30 years <small class="people-src">PREVENT model</small></h4>
             <div class="people" id="people" aria-hidden="true"></div>
             <div class="people-leg">
               <span><i style="background:var(--accent)"></i><b id="pl-ev">12</b> may have a heart attack or stroke</span>
@@ -599,13 +612,13 @@
         <ul class="ticks">
           <li><span>🔬</span>LDL-C and systolic BP effects use CTT Collaboration and Ettehad 2016 trial data, cited on screen.</li>
           <li><span>🔁</span>Other changes rerun the PREVENT equations with the new value.</li>
-          <li><span>🧭</span>Level, Risk Signal Score and actions update for the patient with those values.</li>
+          <li><span>🧭</span>Level and actions update for the patient with those values.</li>
         </ul>
         <p class="fineprint">Modeled estimates for clinician review. A lower modeled value does not establish an individual treatment benefit.</p>
       </div>
       <div class="window reveal">
         <div class="window-bar"><i></i><i></i><i></i><span>Risk and plan</span></div>
-        <img src="assets/landing/app-tryplan.jpg" alt="The app's Risk and plan card: statin and systolic BP 120 selected, timeline showing 30-year ASCVD 11.8% today and 7.7% with the plan, ranked levers with trial sources" width="2336" height="3700" loading="lazy" />
+        <img src="assets/landing/app-tryplan.jpg" alt="The app's Risk and plan card: statin and systolic BP 120 selected, each button showing its PREVENT change, timeline showing 30-year ASCVD 12.2% today and 7.9% with the plan, ranked levers with trial sources" width="2336" height="3394" loading="lazy" />
       </div>
     </div>
 
@@ -617,7 +630,7 @@
       </div>
       <div class="window reveal">
         <div class="window-bar"><i></i><i></i><i></i><span>Clinical report &middot; EMR plain text</span></div>
-        <img src="assets/landing/app-note.jpg" alt="EMR plain-text note ending with Risk Reduction Discussed: statin therapy and systolic BP 120 mmHg, modeled PREVENT ASCVD 10-year 1.9% to 1.2%, 30-year 11.8% to 7.7%" width="2336" height="1468" loading="lazy" />
+        <img src="assets/landing/app-note.jpg" alt="EMR plain-text note ending with Risk Reduction Discussed: statin therapy and systolic BP 120 mmHg, modeled PREVENT ASCVD 10-year 2.1% to 1.4%, 30-year 12.2% to 7.9%" width="2336" height="1528" loading="lazy" />
       </div>
     </div>
   </div>
@@ -640,7 +653,7 @@
       <div class="sdm-card reveal"><div class="em">🗺️</div><h3>A roadmap to take home</h3><p>Where you stand, why, your goals and your next steps, in plain language.</p></div>
     </div>
     <figure class="sdm-wide reveal">
-      <div class="paper-frame"><img src="assets/landing/app-prevent-room.jpg" alt="PREVENT card: 1.92% 10-year ASCVD risk, about 2 in 100 similar patients, shown as 2 highlighted people out of 100" width="2336" height="1020" loading="lazy" /></div>
+      <div class="paper-frame"><img src="assets/landing/app-prevent-room.jpg" alt="PREVENT card: 2.12% 10-year ASCVD risk, about 2 in 100 similar patients, shown as 2 highlighted people out of 100" width="2336" height="1020" loading="lazy" /></div>
       <figcaption class="shot-cap"><b>In the room.</b> Risk represented visually.</figcaption>
     </figure>
     <div class="sdm-shots">
@@ -650,7 +663,7 @@
         <p class="lede">Where they stand, why their risk is higher, their goals next to their current numbers, and numbered next steps. Copy it into the after-visit summary or print it.</p>
       </div>
       <figure class="reveal">
-        <div class="paper-frame"><img src="assets/landing/app-roadmap-light.jpg" alt="Patient Prevention Roadmap: where you stand, why your risk is higher, your goals, your next steps" width="2336" height="2738" loading="lazy" /></div>
+        <div class="paper-frame"><img src="assets/landing/app-roadmap-light.jpg" alt="Patient Prevention Roadmap: where you stand, why your risk is higher, your goals, your next steps" width="2336" height="2732" loading="lazy" /></div>
         <figcaption class="shot-cap"><b>On the way out.</b> A printable roadmap in the patient's language.</figcaption>
       </figure>
     </div>
@@ -668,7 +681,7 @@
       <p class="lede">Paste de-identified chart text or enter values in the worksheet, then press Start Assessment. Everything below comes back in seconds from a deterministic engine you can audit.</p>
     </div>
     <div class="sections">
-      <div class="sec reveal"><div class="em">📍</div><h3>Position</h3><p>A clinical summary that names the pattern, with its category on the continuum.</p></div>
+      <div class="sec reveal"><div class="em">📍</div><h3>Position</h3><p>Level 1 to 5 on the continuum, with the pattern named.</p></div>
       <div class="sec reveal"><div class="em">❤️</div><h3>Risk and plan</h3><p>PREVENT at 10 and 30 years, the timeline, and Try a plan.</p></div>
       <div class="sec reveal"><div class="em">📈</div><h3>Trajectory</h3><p>How A1c, LDL-C, eGFR, BP and weight have moved.</p></div>
       <div class="sec reveal"><div class="em">🫘</div><h3>Staging</h3><p>CKM and KDIGO stage, plus diagnoses you confirm.</p></div>
@@ -725,7 +738,7 @@
     <div class="demo-head reveal">
       <span class="eyebrow">Try it here</span>
       <h2 class="h2" id="demo-h2">Pick a patient. Read the note RCCKM wrote.</h2>
-      <p class="lede">Four synthetic demo patients, from a clean prevention visit to high coronary plaque burden on a statin. Each note is the engine's own output.</p>
+      <p class="lede">Four synthetic demo patients, from a clean prevention visit to very high plaque burden on a statin. Each note is the engine's own output.</p>
     </div>
     <div class="chips" role="tablist" aria-label="Demo patients">
       <button class="pchip is-on" data-p="0" role="tab" type="button">🌱 34F &middot; clean visit</button>
@@ -733,13 +746,13 @@
       <button class="pchip" data-p="2" role="tab" type="button">🫀 62F &middot; CAC 38</button>
       <button class="pchip" data-p="3" role="tab" type="button">🚨 67M &middot; on statin, CAC 420</button>
     </div>
-    <div class="track" aria-hidden="true"><div class="marker" id="marker"><span class="marker-label" id="marker-label">Minimal risk signal</span></div></div>
+    <div class="track" aria-hidden="true"><div class="marker" id="marker"><span class="marker-label" id="marker-label">Level 1</span></div></div>
     <div class="zones" aria-hidden="true">
-      <div>Minimal risk signal<span>category 1</span></div>
-      <div>Emerging risk signals<span>category 2</span></div>
-      <div>Actionable biologic risk<span>category 3</span></div>
-      <div>Coronary plaque present<span>category 4</span></div>
-      <div>Very high risk<span>category 5</span></div>
+      <div>Level 1<span>Minimal risk signal</span></div>
+      <div>Level 2<span>Emerging risk signals</span></div>
+      <div>Level 3<span>Emerging risk trajectory</span></div>
+      <div>Level 4<span>Subclinical atherosclerosis</span></div>
+      <div>Level 5<span>Very high risk</span></div>
     </div>
     <div class="demo-panel">
       <aside class="pt">
@@ -995,7 +1008,7 @@
     }, 0.2);
 
     /* 2b. Risk Signal Score tower: engine contributors; each block falls in from the top and lands on the stack. */
-    var RSS = [{"name": "52F · category 3B", "score": 12, "label": "Low", "items": [{"label": "A1c 6.1%", "sub": "", "tag": "A1c 6.1%", "pts": 2, "color": "#7C3AED"}, {"label": "Reproductive history", "sub": "", "tag": "Reproductive history", "pts": 2, "color": "#C2410C"}, {"label": "Triglycerides 168 mg/dL", "sub": "", "tag": "TG 168 mg/dL", "pts": 4, "color": "#2F5F8F"}, {"label": "ApoB 92 mg/dL", "sub": "", "tag": "ApoB 92 mg/dL", "pts": 4, "color": "#D97706"}]}, {"name": "67M · category 5", "score": 55, "label": "High", "items": [{"label": "A1c 5.9%", "sub": "", "tag": "A1c 5.9%", "pts": 2, "color": "#7C3AED"}, {"label": "Triglycerides 190 mg/dL", "sub": "", "tag": "TG 190 mg/dL", "pts": 4, "color": "#2F5F8F"}, {"label": "Blood pressure, 126/74 mmHg; treated", "sub": "", "tag": "126/74 mmHg; treated", "pts": 3, "color": "#2563EB"}, {"label": "Lp(a) 210.0 nmol/L", "sub": "", "tag": "Lp(a) 210.0 nmol/L", "pts": 8, "color": "#4F46E5"}, {"label": "ApoB 102 mg/dL", "sub": "", "tag": "ApoB 102 mg/dL", "pts": 8, "color": "#D97706"}, {"label": "Coronary calcium 420", "sub": "", "tag": "CAC 420", "pts": 30, "color": "#7A1530"}]}];
+    var RSS = [{"name": "52F · Level 3B", "score": 12, "label": "Low", "items": [{"label": "A1c 6.1%", "sub": "", "tag": "A1c 6.1%", "pts": 2, "color": "#7C3AED"}, {"label": "Reproductive history", "sub": "", "tag": "Reproductive history", "pts": 2, "color": "#C2410C"}, {"label": "Triglycerides 168 mg/dL", "sub": "", "tag": "TG 168 mg/dL", "pts": 4, "color": "#2F5F8F"}, {"label": "ApoB 92 mg/dL", "sub": "", "tag": "ApoB 92 mg/dL", "pts": 4, "color": "#D97706"}]}, {"name": "67M · Level 5", "score": 55, "label": "High", "items": [{"label": "A1c 5.9%", "sub": "", "tag": "A1c 5.9%", "pts": 2, "color": "#7C3AED"}, {"label": "Triglycerides 190 mg/dL", "sub": "", "tag": "TG 190 mg/dL", "pts": 4, "color": "#2F5F8F"}, {"label": "Blood pressure, 126/74 mmHg; treated", "sub": "", "tag": "126/74 mmHg; treated", "pts": 3, "color": "#2563EB"}, {"label": "Lp(a) 210.0 nmol/L", "sub": "", "tag": "Lp(a) 210.0 nmol/L", "pts": 8, "color": "#4F46E5"}, {"label": "ApoB 102 mg/dL", "sub": "", "tag": "ApoB 102 mg/dL", "pts": 8, "color": "#D97706"}, {"label": "Coronary calcium 420", "sub": "", "tag": "CAC 420", "pts": 30, "color": "#7A1530"}]}];
     var CANVAS = 100, FALL_MS = 380, LABEL_MIN_PX = 24;
     var towerEl = document.getElementById("tower"), contribEl = document.getElementById("contribs");
     var rssNum = document.getElementById("rss-num"), rssPill = document.getElementById("rss-pill"), rssChips = document.getElementById("rss-chips");
@@ -1059,14 +1072,20 @@
 
     /* 3. Try a plan: the engine's simulate output for this patient, per lever combination. */
     var AGE = 52;
+    /* Keyed by the selected levers in this order; rel is null below a 1-point change. */
     var SCEN = {
-      none:   { r10: 1.92, r30: 11.81, rss: 12, lvl: "3B", rel: null },
-      statin: { r10: 1.46, r30: 9.10,  rss: 8,  lvl: "2B", rel: 25 },
-      bp:     { r10: 1.61, r30: 9.98,  rss: 12, lvl: "3B", rel: 15 },
-      both:   { r10: 1.22, r30: 7.67,  rss: 8,  lvl: "2B", rel: 35 }
+      none:            { r10: 2.12, r30: 12.17, lvl: "3B", rel: null },
+      statin:          { r10: 1.61, r30: 9.38,  lvl: "3B", rel: 25 },
+      bp:              { r10: 1.78, r30: 10.29, lvl: "3B", rel: 15 },
+      a1c:             { r10: 1.97, r30: 11.67, lvl: "3B", rel: null },
+      "statin+bp":     { r10: 1.35, r30: 7.91,  lvl: "2B", rel: 35 },
+      "statin+a1c":    { r10: 1.50, r30: 8.99,  lvl: "2B", rel: 25 },
+      "bp+a1c":        { r10: 1.65, r30: 9.87,  lvl: "3B", rel: 20 },
+      "statin+bp+a1c": { r10: 1.26, r30: 7.58,  lvl: "2B", rel: 40 }
     };
-    var NOW = SCEN.none, NAMES = { statin: "Start a statin", bp: "Systolic BP to 120" };
-    var on = { statin: false, bp: false }, cur = { r10: NOW.r10, r30: NOW.r30 };
+    var ORDER = ["statin", "bp", "a1c"];
+    var NOW = SCEN.none, NAMES = { statin: "Start a statin", bp: "Systolic BP to 120", a1c: "A1c 6.1% \u2192 5.5%" };
+    var on = { statin: false, bp: false, a1c: false }, cur = { r10: NOW.r10, r30: NOW.r30 };
     var levers = document.querySelectorAll(".lever[data-lever]");
     var tl = document.getElementById("tl"), people = document.getElementById("people");
     var W = 600, H = 270, L = 46, R = 76, T = 18, B = 40, TOP = 20;
@@ -1124,20 +1143,20 @@
       document.getElementById("pl-pv").textContent = evToday - evPlan;
       document.getElementById("pl-pv-row").style.visibility = evToday - evPlan > 0 ? "visible" : "hidden";
     }
-    function key() { return on.statin && on.bp ? "both" : on.statin ? "statin" : on.bp ? "bp" : "none"; }
+    function key() { return ORDER.filter(function (n) { return on[n]; }).join("+") || "none"; }
     function render(animate) {
       var k = key(), s = SCEN[k], moved = k !== "none";
       levers.forEach(function (b) { var o = on[b.dataset.lever]; b.classList.toggle("on", o); b.setAttribute("aria-pressed", o ? "true" : "false"); });
-      var names = ["statin", "bp"].filter(function (n) { return on[n]; }).map(function (n) { return NAMES[n]; }).join(" + ");
+      var names = ORDER.filter(function (n) { return on[n]; }).map(function (n) { return NAMES[n]; }).join(" + ");
       document.getElementById("summary").innerHTML = moved
-        ? "<b>" + names + "</b>&nbsp;&nbsp;30-yr ASCVD " + NOW.r30.toFixed(2) + "% &rarr; <span class=\"g\">" + s.r30.toFixed(2) + "% (about " + s.rel + "% lower)</span> &middot; 10-yr ASCVD " + NOW.r10.toFixed(2) + "% &rarr; <span class=\"g\">" + s.r10.toFixed(2) + "%</span>"
+        ? "<b>" + names + "</b>&nbsp;&nbsp;30-yr ASCVD " + NOW.r30.toFixed(2) + "% &rarr; <span class=\"g\">" + s.r30.toFixed(2) + "%" + (s.rel ? " (about " + s.rel + "% lower)" : "") + "</span> &middot; 10-yr ASCVD " + NOW.r10.toFixed(2) + "% &rarr; <span class=\"g\">" + s.r10.toFixed(2) + "%</span>"
         : "Today: 30-yr ASCVD <b>" + NOW.r30.toFixed(2) + "%</b> &middot; 10-yr ASCVD <b>" + NOW.r10.toFixed(2) + "%</b>. Tap an intervention.";
       document.getElementById("sentence").textContent = moved
-        ? "By age " + (AGE + 30) + ", about " + Math.round(s.r30) + " in 100 similar patients instead of " + Math.round(NOW.r30) + " (about " + s.rel + "% lower)."
+        ? (Math.round(s.r30) === Math.round(NOW.r30)
+          ? "By age " + (AGE + 30) + ", about " + Math.round(s.r30) + " in 100 similar patients, a change of less than one person in 100."
+          : "By age " + (AGE + 30) + ", about " + Math.round(s.r30) + " in 100 similar patients instead of " + Math.round(NOW.r30) + (s.rel ? " (about " + s.rel + "% lower)." : "."))
         : "Without changes, about " + Math.round(NOW.r30) + " in 100 similar patients may have a heart attack or stroke by age " + (AGE + 30) + ".";
-      document.getElementById("m-rss").innerHTML = moved && s.rss !== NOW.rss ? NOW.rss + " <em>&rarr; " + s.rss + "</em>" : String(NOW.rss);
-      document.getElementById("m-lvl").innerHTML = moved && s.lvl !== NOW.lvl ? NOW.lvl + " <em>&rarr; " + s.lvl + "</em>" : NOW.lvl;
-      tl.setAttribute("aria-label", "Cumulative ASCVD risk: today 1.9% by age 62 and 11.8% by age 82" + (moved ? "; with plan " + s.r10.toFixed(1) + "% and " + s.r30.toFixed(1) + "%" : ""));
+      tl.setAttribute("aria-label", "Cumulative ASCVD risk: today 2.1% by age 62 and 12.2% by age 82" + (moved ? "; with plan " + s.r10.toFixed(1) + "% and " + s.r30.toFixed(1) + "%" : ""));
       setPeople(Math.round(NOW.r30), Math.round(s.r30));
       if (!moved) { cur.r10 = NOW.r10; cur.r30 = NOW.r30; drawPlan(NOW.r10, NOW.r30, false); return; }
       var f10 = cur.r10, f30 = cur.r30;
@@ -1147,10 +1166,10 @@
       });
     }
     var auto = !reduced, autoTimer = null, autoIdx = 0;
-    var SEQ = [{ statin: false, bp: false }, { statin: true, bp: false }, { statin: true, bp: true }, { statin: true, bp: true }];
+    var SEQ = [{ statin: false, bp: false, a1c: false }, { statin: true, bp: false, a1c: false }, { statin: true, bp: true, a1c: false }, { statin: true, bp: true, a1c: true }, { statin: true, bp: true, a1c: true }];
     var autoNote = document.getElementById("autoplay");
     function stopAuto() { auto = false; if (autoTimer) clearInterval(autoTimer); autoTimer = null; autoNote.textContent = "Tap the levers to compare plans."; }
-    function tick() { autoIdx = (autoIdx + 1) % SEQ.length; on = { statin: SEQ[autoIdx].statin, bp: SEQ[autoIdx].bp }; render(); }
+    function tick() { autoIdx = (autoIdx + 1) % SEQ.length; on = { statin: SEQ[autoIdx].statin, bp: SEQ[autoIdx].bp, a1c: SEQ[autoIdx].a1c }; render(); }
     levers.forEach(function (b) {
       b.addEventListener("click", function () { stopAuto(); on[b.dataset.lever] = !on[b.dataset.lever]; render(); });
     });
@@ -1173,7 +1192,7 @@
     });
 
     /* 4. Live demo: synthetic demo cases; each note is RCCKM engine output. */
-    var patients = [{"name": "Patient A", "meta": "34F · non-smoker · clean prevention visit", "labs": [["A1c", "5.2 %"], ["LDL-C", "88 mg/dL"], ["ApoB", "70 mg/dL"], ["BP", "108/68"], ["eGFR · UACR", "105 · 4"], ["BMI", "22.0"]], "flags": [], "pos": 10, "label": "Minimal risk signal · category 1", "note": "[k]Risk Continuum CKM™[/k]\nLevel 1 | CKM 0\n[k]PREVENT ASCVD:[/k] 10y 0.2% (Low), 30y 1.2% (Low) | Total CVD: 10y 0.2%, 30y 1.9%\n\n[k]Management Considerations:[/k]\n- [k]Lipids:[/k] No lipid-lowering medication indicated. LDL-C 88.\n- [k]Plaque:[/k] CAC not indicated.\n- [k]Kidney:[/k] Stable.\n- [k]BP:[/k] Continue routine BP surveillance.\n- [k]Metabolic:[/k] No glycemic action. A1c 5.2%.\n- [k]Aspirin:[/k] Not indicated."}, {"name": "Patient B", "meta": "52F · gestational diabetes hx · labs rising since 2024", "labs": [["A1c", "6.1 % ↑"], ["LDL-C", "122 mg/dL ↑"], ["ApoB", "92 mg/dL"], ["TG", "168 mg/dL ↑"], ["BP", "128/78 ↑"], ["BMI", "31.6"]], "flags": [0, 1, 3, 5], "pos": 50, "label": "Emerging risk trajectory · category 3B", "note": "[k]Risk Continuum CKM™[/k]\nLevel 3B | Emerging Risk Trajectory | CKM 2 | CAC Not Measured\n[k]PREVENT ASCVD:[/k] 10y 1.9% (Low), 30y 11.8% (Mildly elevated) | Total CVD: 10y 3.0%, 30y 19.6%\n\n[k]Assessment (ICD-10):[/k]\n- Hypertriglyceridemia (E78.1)\n- Prediabetes (R73.03)\n- Obesity, BMI 31.6 (E66.9, Z68.31)\n\n[k]Management Considerations:[/k]\n- [k]Lipids:[/k] Moderate-intensity statin reasonable. LDL-C 122. If treatment is selected: LDL-C goal <100.\n- [k]Plaque:[/k] Consider CAC.\n- [k]Kidney:[/k] Stable.\n- [k]BP:[/k] Continue routine BP surveillance.\n- [k]Metabolic:[/k] BMI >=30 — consider GLP-1 RA for weight/cardiometabolic risk. A1c 6.1%.\n- [k]Aspirin:[/k] Not indicated."}, {"name": "Patient C", "meta": "62F · treated hypertension · CAC 38 (82nd percentile)", "labs": [["A1c", "5.8 %"], ["LDL-C", "128 mg/dL"], ["ApoB", "95 mg/dL"], ["BP", "132/78 · treated"], ["Lp(a)", "82 nmol/L"], ["CAC", "38"]], "flags": [1, 4, 5], "pos": 70, "label": "Coronary plaque present · category 4", "note": "[k]Risk Continuum CKM™[/k]\nLevel 4 | CKM 3 (CAC/subclinical CVD; CKD not established) | CAC 38\n[k]PREVENT ASCVD:[/k] 10y 4.4% (Borderline) | Total CVD: 10y 7.7%\n\n[k]Assessment (ICD-10):[/k]\n- Subclinical coronary atherosclerosis (CAC 38)\n- Primary hypertension (I10)\n- Prediabetes (R73.03)\n\n[k]Risk Drivers:[/k]\nCAC 38\n\n[k]Context:[/k]\n- Lp(a) 82 nmol/L (intermediate)\n\n[k]Management Considerations:[/k]\n- [k]Lipids:[/k] Moderate-intensity statin recommended. LDL-C 128; target <70.\n- [k]Plaque:[/k] Known plaque.\n- [k]Kidney:[/k] Stable.\n- [k]BP:[/k] Confirm BP; treat if persistent. Current BP 132/78 mmHg.\n- [k]Metabolic:[/k] GLP-1 weight therapy: eligible. BMI 29.5 with hypertension; A1c 5.8%.\n- [k]Aspirin:[/k] Not indicated.\n\n[k]Further Risk Assessment:[/k]\n- hsCRP"}, {"name": "Patient D", "meta": "67M · on rosuvastatin 20 mg · CAC 420 · Lp(a) 210", "labs": [["LDL-C", "104 mg/dL on statin"], ["ApoB", "102 mg/dL"], ["Lp(a)", "210 nmol/L"], ["CAC", "420"], ["BP", "126/74 · treated"], ["A1c", "5.9 %"]], "flags": [0, 1, 2, 3], "pos": 90, "label": "High coronary plaque burden · category 5", "note": "[k]Risk Continuum CKM™[/k]\nLevel 5 | CKM 3 (CAC/subclinical CVD; CKD not established) | CAC 420\n[k]PREVENT:[/k] Not applicable (CAC >=300 indicates severe subclinical cardiovascular disease; PREVENT is not reported in this context)\n\n[k]Assessment (ICD-10):[/k]\n- Severe subclinical coronary atherosclerosis (CAC 420)\n- Primary hypertension (I10)\n- Elevated lipoprotein(a) (E78.41)\n- Hypertriglyceridemia (E78.1)\n- Prediabetes (R73.03)\n\n[k]Risk Drivers:[/k]\nCAC 420 | ApoB 102 mg/dL | Lp(a) 210 nmol/L\n\n[k]Management Considerations:[/k]\n- [k]Lipids:[/k] Currently receiving rosuvastatin 20 mg. LDL-C 104; target <70. Review current lipid-lowering regimen and residual target gap. Consider additional nonstatin LDL-lowering therapy.\n- [k]Plaque:[/k] Known plaque.\n- [k]Kidney:[/k] Stable.\n- [k]BP:[/k] Continue current BP regimen.\n- [k]Metabolic:[/k] GLP-1 weight therapy: eligible. BMI 29 with hypertension; A1c 5.9%.\n- [k]Aspirin:[/k] Low-dose aspirin is generally reasonable if bleeding risk is acceptable."}];
+    var patients = [{"name": "Patient A", "meta": "34F · non-smoker · clean prevention visit", "labs": [["A1c", "5.2 %"], ["LDL-C", "88 mg/dL"], ["ApoB", "70 mg/dL"], ["BP", "108/68"], ["eGFR · UACR", "105 · 4"], ["BMI", "22.0"]], "flags": [], "pos": 10, "label": "Level 1 · Minimal risk signal", "note": "[k]Risk Continuum CKM™[/k]\nLevel 1 | CKM 0\n[k]PREVENT ASCVD:[/k] 10y 0.2% (Low), 30y 1.2% (Low) | Total CVD: 10y 0.2%, 30y 1.9%\n\n[k]Management Considerations:[/k]\n- [k]Lipids:[/k] No lipid-lowering medication indicated. LDL-C 88.\n- [k]Plaque:[/k] CAC not indicated.\n- [k]Kidney:[/k] Stable.\n- [k]BP:[/k] Continue routine BP surveillance.\n- [k]Metabolic:[/k] No glycemic action. A1c 5.2%.\n- [k]Aspirin:[/k] Not indicated."}, {"name": "Patient B", "meta": "52F · gestational diabetes hx · labs rising since 2024", "labs": [["A1c", "6.1 % ↑"], ["LDL-C", "122 mg/dL ↑"], ["ApoB", "92 mg/dL"], ["TG", "168 mg/dL ↑"], ["BP", "128/78 ↑"], ["BMI", "31.6"]], "flags": [0, 1, 3, 5], "pos": 50, "label": "Level 3B · Emerging Risk Trajectory", "note": "[k]Risk Continuum CKM™[/k]\nLevel 3B | Emerging Risk Trajectory | CKM 2 | CAC Not Measured\n[k]PREVENT ASCVD:[/k] 10y 2.1% (Low), 30y 12.2% (Mildly elevated) | Total CVD: 10y 3.4%, 30y 20.3%\n\n[k]Assessment (ICD-10):[/k]\n- Hypertriglyceridemia (E78.1)\n- Prediabetes (R73.03)\n- Obesity, BMI 31.6 (E66.9, Z68.31)\n\n[k]Management Considerations:[/k]\n- [k]Lipids:[/k] Moderate-intensity statin reasonable. LDL-C 122. If treatment is selected: LDL-C goal <100.\n- [k]Plaque:[/k] Consider CAC.\n- [k]Kidney:[/k] Stable.\n- [k]BP:[/k] Continue routine BP surveillance.\n- [k]Metabolic:[/k] BMI >=30 — consider GLP-1 RA for weight/cardiometabolic risk. A1c 6.1%.\n- [k]Aspirin:[/k] Not indicated."}, {"name": "Patient C", "meta": "62F · treated hypertension · CAC 38 (82nd percentile)", "labs": [["A1c", "5.8 %"], ["LDL-C", "128 mg/dL"], ["ApoB", "95 mg/dL"], ["BP", "132/78 · treated"], ["Lp(a)", "82 nmol/L"], ["CAC", "38"]], "flags": [1, 4, 5], "pos": 70, "label": "Level 4 · Subclinical atherosclerosis", "note": "[k]Risk Continuum CKM™[/k]\nLevel 4 | CKM 3 (CAC/subclinical CVD; CKD not established) | CAC 38\n[k]PREVENT ASCVD:[/k] 10y 4.4% (Borderline) | Total CVD: 10y 7.7%\n\n[k]Assessment (ICD-10):[/k]\n- Subclinical coronary atherosclerosis (CAC 38)\n- Primary hypertension (I10)\n- Prediabetes (R73.03)\n\n[k]Risk Drivers:[/k]\nCAC 38\n\n[k]Context:[/k]\n- Lp(a) 82 nmol/L (intermediate)\n\n[k]Management Considerations:[/k]\n- [k]Lipids:[/k] Moderate-intensity statin recommended. LDL-C 128; target <70.\n- [k]Plaque:[/k] Known plaque.\n- [k]Kidney:[/k] Stable.\n- [k]BP:[/k] Confirm BP; treat if persistent. Current BP 132/78 mmHg.\n- [k]Metabolic:[/k] GLP-1 weight therapy: eligible. BMI 29.5 with hypertension; A1c 5.8%.\n- [k]Aspirin:[/k] Not indicated.\n\n[k]Further Risk Assessment:[/k]\n- hsCRP"}, {"name": "Patient D", "meta": "67M · on rosuvastatin 20 mg · CAC 420 · Lp(a) 210", "labs": [["LDL-C", "104 mg/dL on statin"], ["ApoB", "102 mg/dL"], ["Lp(a)", "210 nmol/L"], ["CAC", "420"], ["BP", "126/74 · treated"], ["A1c", "5.9 %"]], "flags": [0, 1, 2, 3], "pos": 90, "label": "Level 5 · Very high risk", "note": "[k]Risk Continuum CKM™[/k]\nLevel 5 | CKM 3 (CAC/subclinical CVD; CKD not established) | CAC 420\n[k]PREVENT:[/k] Not applicable (CAC >=300 indicates severe subclinical cardiovascular disease; PREVENT is not reported in this context)\n\n[k]Assessment (ICD-10):[/k]\n- Severe subclinical coronary atherosclerosis (CAC 420)\n- Primary hypertension (I10)\n- Elevated lipoprotein(a) (E78.41)\n- Hypertriglyceridemia (E78.1)\n- Prediabetes (R73.03)\n\n[k]Risk Drivers:[/k]\nCAC 420 | ApoB 102 mg/dL | Lp(a) 210 nmol/L\n\n[k]Management Considerations:[/k]\n- [k]Lipids:[/k] Currently receiving rosuvastatin 20 mg. LDL-C 104; target <70. Review current lipid-lowering regimen and residual target gap. Consider additional nonstatin LDL-lowering therapy.\n- [k]Plaque:[/k] Known plaque.\n- [k]Kidney:[/k] Stable.\n- [k]BP:[/k] Continue current BP regimen.\n- [k]Metabolic:[/k] GLP-1 weight therapy: eligible. BMI 29 with hypertension; A1c 5.9%.\n- [k]Aspirin:[/k] Low-dose aspirin is generally reasonable if bleeding risk is acceptable."}];
     var marker = document.getElementById("marker"), label = document.getElementById("marker-label");
     var pchips = document.querySelectorAll(".demo .pchip"), note = document.getElementById("note"), body = document.getElementById("note-body"), copy = document.getElementById("copy");
     function esc(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }

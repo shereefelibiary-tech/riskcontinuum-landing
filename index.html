@@ -117,6 +117,11 @@
     .cont-line { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 18px; color: var(--body); opacity: 0; transform: translateY(8px); transition: opacity .5s .1s, transform .5s .1s; }
     .cont-line b { color: var(--ink); }
     .cont.done .cont-line { opacity: 1; transform: none; }
+    .levels-info { position: relative; margin-top: 10px; }
+    .levels-btn { background: none; border: 0; padding: 4px 0; font-size: 14px; font-weight: 500; color: var(--muted); cursor: pointer; }
+    .levels-btn:hover, .levels-btn:focus-visible, .levels-info.open .levels-btn { color: var(--accent); }
+    .levels-pop { position: absolute; left: 0; bottom: calc(100% + 6px); z-index: 5; width: min(420px, 100%); background: var(--surface); border: 1px solid var(--line-2); border-radius: 14px; padding: 14px 16px; font-size: 15px; line-height: 1.55; color: var(--body); box-shadow: var(--shadow-lift); opacity: 0; transform: translateY(4px); pointer-events: none; transition: opacity .2s, transform .2s; }
+    .levels-info:hover .levels-pop, .levels-btn:focus-visible + .levels-pop, .levels-info.open .levels-pop { opacity: 1; transform: none; pointer-events: auto; }
 
     /* STATS */
     .stats { padding: 0 0 120px; }
@@ -484,6 +489,10 @@
       </div>
       <div class="cont-foot"><span>&larr; Lower signal / lower urgency</span><span>Higher signal / higher urgency &rarr;</span></div>
       <p class="cont-line"><b>Level 3B | Emerging Risk Trajectory.</b> Elevated 30-year trajectory plus actionable biologic burden.</p>
+      <div class="levels-info">
+        <button class="levels-btn" type="button" aria-expanded="false" aria-controls="levels-pop"><span aria-hidden="true">ⓘ</span> How to read the levels</button>
+        <div class="levels-pop" id="levels-pop" role="tooltip">RCCKM brings the patient's findings together into a concise clinical summary. Its levels organize the evidence and name the pattern driving the assessment. Formal CKM staging, KDIGO kidney classification and PREVENT risk estimates are reported separately, each using its own framework.</div>
+      </div>
     </div>
   </div>
 </section>
@@ -885,6 +894,19 @@
       contTimers.push(setTimeout(function () { tiles[TARGET].classList.add("here"); cont.classList.add("done"); }, 900 + TARGET * 420 + 380));
     }
     document.getElementById("cont-replay").addEventListener("click", runContinuum);
+    // "How to read the levels": opens on hover (CSS), or on tap/click for touch and keyboard users
+    var levelsInfo = document.querySelector(".levels-info"), levelsBtn = levelsInfo.querySelector(".levels-btn");
+    levelsBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var open = levelsInfo.classList.toggle("open");
+      levelsBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    document.addEventListener("click", function (e) {
+      if (!levelsInfo.contains(e.target)) { levelsInfo.classList.remove("open"); levelsBtn.setAttribute("aria-expanded", "false"); }
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") { levelsInfo.classList.remove("open"); levelsBtn.setAttribute("aria-expanded", "false"); }
+    });
     var contStarted = false;
     onView(cont, function (v) { if (v && !contStarted) { contStarted = true; runContinuum(); } }, 0.35);
 

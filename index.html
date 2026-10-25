@@ -3,1525 +3,1183 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Risk Continuum CKM: A tool for thinking and educating</title>
-  <meta name="description" content="Complete cardiometabolic risk assessment in seconds. Risk level, targets, ICD codes, and a report ready to paste. Built by a practicing internist." />
+  <title>Risk Continuum CKM</title>
+  <meta name="description" content="See where your patient stands on the cardiometabolic risk continuum, see where their numbers are heading, try a plan together and watch the risk curve bend. Then leave with an EMR-ready note and a patient roadmap. Built by a practicing internist." />
+  <meta name="theme-color" content="#F8F5F3" />
+  <link rel="icon" href="assets/brand/risk-continuum/risk-continuum-icon-64.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Instrument+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
+    /* Tokens follow the RCCKM web app's dark theme (web/app/globals.css). */
     :root {
-      --paper: #f8f4f2;
-      --paper-warm: #f0eae7;
-      --paper-dark: #e4dbd7;
-      --white: #ffffff;
-      --ink: #2e0d16;
-      --garnet: #7b1a2e;
-      --garnet-light: #9b2a40;
-      --garnet-mid: #b03a52;
-      --text-primary: #1a0a0e;
-      --text-secondary: #4a1e28;
-      --text-muted: #8c6a70;
-      --rule: rgba(123,26,46,0.1);
-      --card-border: #e8dfe2;
-      --radius-sm: 3px; --radius-md: 6px; --radius-lg: 10px;
+      --bg: #F8F5F3; --bg-2: #F3ECE9; --surface: #FFFFFF; --surface-2: #F8F3F2;
+      --ink: #1D1416; --body: #3C2D31; --muted: #6F6064; --faint: #9C8D90;
+      --line: #ECE4E3; --line-2: #DDD0CF;
+      --accent: #861327; --accent-ink: #FFFFFF; --garnet: #861327; --garnet-glow: rgba(134, 19, 39, .12);
+      --good: #1E7148; --good-soft: #E4F1E8; --garnet-soft: #F6E4E7;
+      --t1: #EEF2F6; --t2: #EAF3ED; --t3: #FAF2DF; --t4: #F8E7E0; --t5: #F6E2E6;
+      --a1: #2E9E4F; --a2: #C9A21E; --a3: #E5851F; --a4: #DC4E36; --a5: #861327;
+      --icon-off: #E2D8D9;
+      --shadow: 0 1px 1px rgba(45, 12, 20, .03), 0 2px 6px rgba(45, 12, 20, .035), 0 18px 40px -22px rgba(45, 12, 20, .16);
+      --shadow-lift: 0 2px 4px rgba(45, 12, 20, .05), 0 40px 80px -36px rgba(45, 12, 20, .32);
+      --radius: 20px;
+      --display: "Jost", "Instrument Sans", system-ui, sans-serif;
+      --ui: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+      --ease: cubic-bezier(.2, .8, .2, 1);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { font-family: "Instrument Sans", sans-serif; background: var(--paper); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
-
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.4; } }
+    body { font-family: var(--ui); font-size: 18px; line-height: 1.6; background: radial-gradient(1200px 520px at 12% -8%, rgba(134,19,39,.06), transparent 70%), radial-gradient(900px 480px at 100% 0%, rgba(134,19,39,.04), transparent 70%), var(--bg); color: var(--body); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    img { max-width: 100%; display: block; height: auto; }
+    a { color: inherit; }
+    figure { margin: 0; }
+    button { font: inherit; color: inherit; }
+    h1, h2, h3 { font-family: var(--display); color: var(--ink); font-weight: 500; letter-spacing: -0.015em; text-wrap: balance; }
+    p { text-wrap: pretty; }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 12px; font-family: var(--display); font-size: 14px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); }
+    .eyebrow::before { content: ""; width: 28px; height: 1.5px; background: currentColor; opacity: .8; }
+    .h2 { font-size: clamp(34px, 4.4vw, 56px); line-height: 1.06; margin: 18px 0 20px; }
+    .lede { font-size: 20px; line-height: 1.6; color: var(--body); max-width: 60ch; }
+    .center { text-align: center; }
+    .center .lede { margin-left: auto; margin-right: auto; }
+    .btn { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; font-size: 17px; text-decoration: none; border-radius: 999px; padding: 15px 26px; border: 0; cursor: pointer; transition: transform .2s var(--ease), box-shadow .2s var(--ease), border-color .2s; }
+    .btn-primary { background: var(--accent); color: var(--accent-ink); box-shadow: 0 10px 30px -12px rgba(134, 19, 39, .55); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 40px -12px rgba(134, 19, 39, .6); }
+    .btn-ghost { color: var(--ink); background: var(--surface); border: 1px solid var(--line-2); }
+    .btn-ghost:hover { border-color: var(--accent); }
+    .btn-sm { font-size: 14px; padding: 8px 14px; }
+    section { position: relative; }
+    .card { background: var(--surface); border: 1px solid var(--line); border-radius: 24px; box-shadow: var(--shadow-lift); }
+    .card-eyebrow { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-size: 13px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); }
+    .card-eyebrow::before { content: ""; width: 22px; height: 1.5px; background: currentColor; }
+    .card-title { font-family: var(--display); font-size: 28px; color: var(--ink); margin-top: 4px; }
 
     /* NAV */
-    nav {
-      position: sticky; top: 0; z-index: 200;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1.1rem 4rem;
-      background: var(--paper);
-      border-bottom: 1px solid var(--rule);
-      animation: fadeIn .4s ease both;
-    }
-    .wordmark { text-decoration: none; display: flex; align-items: baseline; gap: .4rem; }
-    .wordmark-rc { font-family: "Playfair Display", serif; font-size: 1.2rem; font-weight: 600; color: var(--garnet); }
-    .wordmark-ckm { font-size: .68rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--text-muted); }
-    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-    .nav-links a { text-decoration: none; color: var(--text-muted); font-size: .83rem; transition: color .2s; }
-    .nav-links a:hover { color: var(--garnet); }
-    .nav-right { display: flex; gap: 1rem; align-items: center; }
-    .btn-ghost { font-family: "Instrument Sans", sans-serif; font-size: .83rem; color: var(--text-secondary); background: none; border: 1px solid var(--rule); border-radius: var(--radius-sm); padding: .4rem .9rem; cursor: pointer; text-decoration: none; transition: border-color .2s, color .2s; }
-    .btn-ghost:hover { border-color: var(--garnet-mid); color: var(--garnet); }
-    .btn-primary { font-family: "Instrument Sans", sans-serif; font-size: .83rem; font-weight: 500; color: #fff; background: var(--garnet); border: none; border-radius: var(--radius-sm); padding: .4rem 1rem; cursor: pointer; text-decoration: none; transition: background .2s; }
-    .btn-primary:hover { background: var(--garnet-light); }
+    .nav { position: sticky; top: 0; z-index: 50; background: rgba(248, 245, 243, .86); backdrop-filter: saturate(1.4) blur(14px); -webkit-backdrop-filter: saturate(1.4) blur(14px); border-bottom: 1px solid var(--line); }
+    .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 76px; gap: 24px; }
+    .logo { display: block; height: auto; }
+    .nav-logo .logo { width: 168px; }
+    /* The hero carries the big logo; the nav logo fades in once you scroll past it. */
+    .nav-logo { opacity: 0; pointer-events: none; transition: opacity .35s var(--ease); }
+    .nav.show-logo .nav-logo { opacity: 1; pointer-events: auto; }
+    .nav-links { display: flex; gap: 34px; list-style: none; }
+    .nav-links a { text-decoration: none; font-size: 16px; font-weight: 500; color: var(--muted); transition: color .2s; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta { display: flex; gap: 10px; }
+    .nav .btn { padding: 11px 20px; font-size: 15px; }
 
     /* HERO */
-    .hero { min-height: 92vh; display: grid; grid-template-columns: 55% 45%; border-bottom: 1px solid var(--rule); }
-    .hero-left { padding: 6rem 4rem 5rem; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--rule); animation: fadeUp .7s ease .1s both; }
-    .hero-eyebrow { display: flex; align-items: center; gap: .75rem; margin-bottom: 2rem; }
-    .hero-eyebrow-line { width: 2rem; height: 1px; background: var(--garnet-mid); }
-    .hero-eyebrow-text { font-size: .68rem; font-weight: 500; letter-spacing: .15em; text-transform: uppercase; color: var(--garnet-mid); }
-    h1 { font-family: "Playfair Display", serif; font-size: clamp(2.8rem, 4.5vw, 4.5rem); line-height: 1.06; letter-spacing: -.03em; color: var(--text-primary); margin-bottom: 1rem; }
-    h1 em { font-style: italic; color: var(--garnet-light); }
-    .hero-subtitle { font-size: 1.15rem; font-weight: 400; color: var(--text-muted); letter-spacing: .01em; max-width: 44ch; margin-bottom: 1rem; line-height: 1.6; }
-    .hero-urgency { font-family: "Playfair Display", serif; font-size: 1.35rem; font-style: italic; color: var(--garnet); margin-bottom: 1.25rem; }
-    .hero-body { font-size: 1rem; line-height: 1.8; font-weight: 300; color: var(--text-secondary); max-width: 46ch; margin-bottom: 2.5rem; }
-    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
-    .btn-lg { font-family: "Instrument Sans", sans-serif; font-size: .9375rem; font-weight: 500; color: #fff; background: var(--garnet); border: none; border-radius: var(--radius-sm); padding: .8rem 1.75rem; cursor: pointer; text-decoration: none; display: inline-block; transition: background .2s; }
-    .btn-lg:hover { background: var(--garnet-light); }
-    .btn-lg-ghost { font-family: "Instrument Sans", sans-serif; font-size: .9375rem; font-weight: 400; color: var(--text-secondary); background: transparent; border: 1px solid var(--rule); border-radius: var(--radius-sm); padding: .8rem 1.75rem; cursor: pointer; text-decoration: none; display: inline-block; transition: border-color .2s, color .2s; }
-    .btn-lg-ghost:hover { border-color: var(--garnet-mid); color: var(--garnet); }
-    .hero-trust { margin-top: 2rem; font-size: .76rem; color: var(--text-muted); display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
-    .trust-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--garnet-mid); animation: pulse 2.5s ease infinite; flex-shrink: 0; }
+    .hero { padding: 90px 0 110px; overflow: hidden; }
+    .hero::before { content: ""; position: absolute; inset: -20% -10% auto; height: 1000px; background: radial-gradient(620px 380px at 50% 16%, rgba(134, 19, 39, .09), transparent 70%), radial-gradient(520px 320px at 85% 70%, rgba(229, 133, 31, .07), transparent 70%); pointer-events: none; }
+    .hero-copy { position: relative; text-align: center; max-width: 920px; margin: 0 auto; }
+    .hero-lockup { display: inline-flex; align-items: center; gap: 28px; margin: 0 auto 40px; }
+    .hero-mark { width: 260px; flex: none; }
+    .lockup-text { display: flex; flex-direction: column; gap: 8px; padding-left: 28px; border-left: 1.5px solid var(--line-2); text-align: left; font-family: var(--display); font-weight: 500; text-transform: uppercase; letter-spacing: .2em; line-height: 1.3; }
+    .lockup-name { font-size: 15px; color: var(--ink); }
+    .lockup-ckm { font-size: 15px; color: var(--muted); }
+    .lockup-ckm b { color: var(--accent); font-weight: 600; }
+    .hero h1 { font-size: clamp(44px, 6.6vw, 88px); line-height: 1.0; letter-spacing: -0.025em; }
+    .hero h1 .soft { color: var(--accent); }
+    .hero .sub { font-family: var(--display); font-size: clamp(22px, 2.4vw, 28px); color: var(--muted); margin-top: 18px; }
+    .hero .lede { margin: 24px auto 0; text-align: center; max-width: 56ch; }
+    .hero-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 36px; }
+    .hero-meta { margin-top: 20px; font-size: 15px; color: var(--muted); }
 
-    /* HERO RIGHT */
-    .hero-right { background: var(--ink); display: flex; align-items: center; justify-content: center; padding: 4rem 3rem; position: relative; overflow: hidden; animation: fadeUp .7s ease .2s both; }
-    .hero-right::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 50%, rgba(123,26,46,.2) 0%, transparent 70%); }
-    .hero-data { position: relative; z-index: 1; width: 100%; max-width: 380px; }
-    .hd-label { font-size: .65rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: rgba(248,244,242,.25); margin-bottom: 1.5rem; }
-    .hd-level { margin-bottom: 1.75rem; }
-    .hd-level-tag { display: inline-block; font-size: .72rem; color: rgba(248,244,242,.5); border: 1px solid rgba(248,244,242,.12); border-radius: 20px; padding: .25rem .75rem; margin-bottom: .6rem; }
-    .hd-level-val { font-family: "Playfair Display", serif; font-size: 1.75rem; color: #fff; line-height: 1.2; }
-    .hd-level-sub { font-size: .8rem; color: rgba(248,244,242,.45); margin-top: .25rem; }
-    .hd-rows { display: flex; flex-direction: column; }
-    .hd-row { display: flex; justify-content: space-between; align-items: baseline; padding: .55rem 0; border-bottom: 1px solid rgba(255,255,255,.05); }
-    .hd-row:last-child { border-bottom: none; }
-    .hd-key { font-size: .78rem; color: rgba(248,244,242,.35); }
-    .hd-val { font-family: "JetBrains Mono", monospace; font-size: .78rem; color: rgba(248,244,242,.75); }
-    .hd-val.warn { color: #fcd34d; }
-    .hd-val.alert { color: #fca5a5; }
-    .hd-val.ok { color: #86efac; }
-    .hd-val.dim { color: rgba(248,244,242,.35); }
-    .hd-divider { height: 1px; background: rgba(255,255,255,.06); margin: .75rem 0; }
-    .hd-footer { margin-top: 1.5rem; font-size: .65rem; color: rgba(248,244,242,.18); letter-spacing: .05em; text-align: right; }
+    /* Continuum (recreates the app's Position card) */
+    .cont { position: relative; max-width: 1136px; margin: 70px auto 0; padding: 30px 34px; }
+    .cont-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+    .pill-now { font-size: 15px; font-weight: 600; color: var(--accent); background: var(--garnet-soft); border: 1px solid rgba(134,19,39,.2); border-radius: 999px; padding: 7px 14px; opacity: 0; transition: opacity .5s; }
+    .cont.done .pill-now { opacity: 1; }
+    .tiles { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 78px; }
+    .tile { position: relative; min-height: 190px; border-radius: 18px; padding: 22px 12px 26px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow: hidden; opacity: 0; transform: translateY(26px); transition: opacity .55s var(--ease), transform .55s var(--ease), background .45s, box-shadow .45s; }
+    .cont.shown .tile { opacity: 1; transform: none; }
+    .tile::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 6px; background: var(--acc); }
+    .tile .dot { width: var(--d); height: var(--d); border-radius: 50%; background: var(--acc); margin-bottom: 14px; }
+    .tile b { font-family: var(--display); font-size: 25px; font-weight: 500; color: var(--ink); }
+    .tile span { display: block; font-size: 16px; font-weight: 600; color: var(--body); margin-top: 6px; line-height: 1.3; }
+    .tile small { display: none; font-size: 15px; font-weight: 700; margin-top: 10px; padding-top: 10px; border-top: 1.5px solid rgba(255, 255, 255, .45); }
+    .tile.future b, .tile.future span { color: var(--faint); }
+    .tile.future .dot { opacity: .55; }
+    .cont.shown .tile.here { background: var(--a3) !important; transform: translateY(-8px) scale(1.04); box-shadow: 0 28px 60px -22px rgba(229, 133, 31, .6); z-index: 2; }
+    .tile.here b, .tile.here span, .tile.here small { color: #fff; }
+    .tile.here .dot { background: #fff; }
+    .tile.here small { display: block; }
+    .walker { position: absolute; top: -70px; left: 0; width: 20%; display: flex; flex-direction: column; align-items: center; transition: left .34s var(--ease); pointer-events: none; z-index: 3; }
+    .walker .here-lbl { font-family: var(--display); font-size: 13px; font-weight: 600; letter-spacing: .2em; color: var(--accent); opacity: 0; transition: opacity .4s; margin-bottom: 6px; white-space: nowrap; }
+    .cont.done .walker .here-lbl { opacity: 1; }
+    .walker svg { display: block; }
+    .walker.hop svg { animation: hop .34s ease-out; }
+    @keyframes hop { 0% { transform: translateY(0); } 45% { transform: translateY(-14px); } 100% { transform: translateY(0); } }
+    .cont-foot { display: flex; justify-content: space-between; margin-top: 16px; font-size: 15px; color: var(--muted); }
+    .cont-line { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 18px; color: var(--body); opacity: 0; transform: translateY(8px); transition: opacity .5s .1s, transform .5s .1s; }
+    .cont-line b { color: var(--ink); }
+    .cont.done .cont-line { opacity: 1; transform: none; }
 
     /* STATS */
-    .stats-bar { display: grid; grid-template-columns: repeat(3,1fr); border-bottom: 1px solid var(--rule); }
-    .stat-cell { padding: 2.5rem 3.5rem; border-right: 1px solid var(--rule); }
-    .stat-cell:last-child { border-right: none; }
-    .stat-num { font-family: "Playfair Display", serif; font-size: 3rem; line-height: 1; color: var(--garnet); margin-bottom: .4rem; }
-    .stat-num sup { font-size: 1.4rem; vertical-align: super; }
-    .stat-desc { font-size: .85rem; color: var(--text-muted); line-height: 1.65; }
-    .stat-cite { display: block; margin-top: .5rem; font-size: .68rem; color: var(--text-muted); opacity: .55; font-style: italic; }
-    .stat-cite a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+    .stats { padding: 0 0 120px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+    .stat { background: var(--surface); padding: 34px 32px; }
+    .stat-num { font-family: var(--display); font-size: 54px; line-height: 1; color: var(--ink); font-weight: 500; }
+    .stat p { margin-top: 14px; font-size: 17px; color: var(--body); }
+    .stat cite { display: block; margin-top: 14px; font-size: 14px; font-style: normal; color: var(--muted); }
 
-    /* TRUST STRIP */
-    .trust-strip { display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap; background: var(--paper-warm); padding: 1rem 2rem; border-bottom: 1px solid var(--rule); font-size: .78rem; color: var(--text-muted); }
-    .trust-strip span { display: inline-flex; align-items: center; gap: .4rem; }
+    /* TRAJECTORY */
+    .traj { padding: 120px 0; border-top: 1px solid var(--line); }
+    .traj-head { max-width: 860px; margin: 0 auto 56px; }
+    .spark-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+    .spark { background: var(--surface); box-shadow: var(--shadow); border: 1px solid var(--line); border-radius: 18px; padding: 18px 18px 16px; min-width: 0; }
+    .spark.big { grid-column: span 2; grid-row: span 2; display: flex; flex-direction: column; }
+    .spark-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+    .spark-top span { font-size: 16px; font-weight: 600; color: var(--body); }
+    .badge { font-style: normal; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); background: var(--garnet-soft); border-radius: 999px; padding: 4px 10px; white-space: nowrap; }
+    .badge.neutral { color: var(--muted); background: var(--surface-2); }
+    .spark-val { font-family: var(--display); font-size: 34px; font-weight: 500; color: var(--ink); margin-top: 6px; line-height: 1.1; }
+    .spark-val small { font-family: var(--ui); font-size: 15px; color: var(--muted); margin-left: 4px; }
+    .spark svg { width: 100%; height: 54px; margin: 10px 0 6px; overflow: visible; }
+    .spark .delta { font-size: 15px; color: var(--muted); }
+    .spark path.ln { fill: none; stroke: var(--accent); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+    .spark.up-good path.ln { stroke: var(--muted); }
+    .big-chart { flex: 1; display: flex; flex-direction: column; }
+    .big-chart svg { width: 100%; height: auto; margin-top: 12px; overflow: visible; }
+    .big-chart .cap { font-size: 17px; color: var(--body); margin-top: 6px; }
+    .traj-note { margin-top: 18px; font-size: 15px; color: var(--muted); text-align: center; }
 
-    /* SHARED */
-    .section-label { font-size: .67rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--garnet-mid); margin-bottom: .9rem; display: block; }
-    h2 { font-family: "Playfair Display", serif; font-size: clamp(1.9rem, 3vw, 2.6rem); line-height: 1.15; letter-spacing: -.02em; color: var(--text-primary); margin-bottom: 1.1rem; }
-    .section-sub { font-size: .9375rem; color: var(--text-secondary); line-height: 1.8; font-weight: 300; max-width: 46ch; }
-    .pad { padding: 6rem 4rem; }
-    .pull-quote { font-family: "Playfair Display", serif; font-style: italic; font-size: 1.1rem; color: var(--garnet); margin-top: 1.5rem; }
+    /* TRY A PLAN */
+    .plan { padding: 120px 0; background: linear-gradient(180deg, var(--bg) 0%, #F1E8E4 50%, var(--bg) 100%); border-top: 1px solid var(--line); }
+    .plan::before { content: ""; position: absolute; left: 50%; top: 300px; width: min(1000px, 100%); height: 700px; transform: translateX(-50%); background: radial-gradient(closest-side, rgba(30, 113, 72, .07), transparent); pointer-events: none; }
+    .plan-head { max-width: 900px; margin: 0 auto 56px; }
+    .plan-big { font-size: clamp(40px, 5.8vw, 76px); }
+    .rp { position: relative; padding: 30px 34px 28px; }
+    .rp-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+    .seg { display: inline-flex; background: var(--bg-2); border: 1px solid var(--line-2); border-radius: 999px; padding: 4px; }
+    .seg span { font-size: 15px; font-weight: 600; color: var(--muted); padding: 8px 16px; border-radius: 999px; }
+    .seg span.on { background: var(--surface); color: var(--accent); box-shadow: 0 1px 3px rgba(45,12,20,.12); }
+    .rp-sub { font-size: 16px; color: var(--muted); margin: 14px 0 16px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+    .lever { display: inline-flex; align-items: center; gap: 10px; background: transparent; border: 1.5px solid var(--line-2); border-radius: 999px; padding: 10px 18px; font-size: 16px; font-weight: 600; color: var(--ink); cursor: pointer; transition: border-color .25s, background .25s, transform .15s; }
+    button.lever:hover { border-color: var(--good); }
+    button.lever:active { transform: scale(.97); }
+    .lever .chk { width: 0; overflow: hidden; color: var(--good); transition: width .25s; }
+    .lever em { font-style: normal; font-size: 14px; font-weight: 600; color: var(--good); white-space: nowrap; }
+    .lever.on { background: var(--good-soft); border-color: var(--good); }
+    .lever.on .chk { width: 14px; }
+    .lever.static { cursor: default; color: var(--muted); }
+    .summary { margin-top: 14px; background: var(--bg-2); border-radius: 14px; padding: 14px 18px; font-size: 17px; color: var(--body); min-height: 54px; }
+    .summary b { color: var(--ink); }
+    .summary .g { color: var(--good); font-weight: 700; }
+    .rp-body { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 34px; margin-top: 22px; align-items: start; }
+    .sentence { font-size: 19px; color: var(--ink); min-height: 31px; }
+    .chart { width: 100%; height: auto; display: block; margin-top: 6px; overflow: visible; }
+    .chart text { font-family: var(--ui); }
+    .legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 15px; color: var(--muted); margin-top: 6px; }
+    .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+    .people-box { background: var(--bg-2); border: 1px solid var(--line); border-radius: 18px; padding: 18px; }
+    .people-box h4 { font-family: var(--display); font-size: 17px; font-weight: 500; color: var(--ink); margin-bottom: 12px; }
+    .people { display: grid; grid-template-columns: repeat(10, 1fr); gap: 5px 6px; max-width: 320px; }
+    .people svg { width: 100%; height: auto; display: block; fill: var(--icon-off); transition: fill .45s; }
+    .people svg.ev { fill: var(--accent); }
+    .people svg.pv { fill: var(--good); animation: pop .5s var(--ease); }
+    @keyframes pop { 0% { transform: scale(.6); } 60% { transform: scale(1.18); } 100% { transform: scale(1); } }
+    .people-leg { display: grid; gap: 4px; margin-top: 14px; font-size: 15px; color: var(--muted); }
+    .people-leg i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 8px; vertical-align: -1px; }
+    .people-leg b { color: var(--ink); }
+    .tiles-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 14px; }
+    .mini { background: var(--bg-2); border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; }
+    .mini span { display: block; font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+    .mini b { display: block; font-family: var(--display); font-size: 28px; font-weight: 500; color: var(--ink); margin-top: 4px; }
+    .mini b em { font-style: normal; color: var(--good); font-size: 22px; }
+    .rp-note { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 15px; color: var(--muted); }
+    .autoplay { display: block; text-align: right; margin-top: 12px; font-size: 14px; color: var(--muted); }
+    .plan-foot { display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: center; margin-top: 120px; }
+    .plan-foot h3, .note-row h3 { font-size: clamp(28px, 3vw, 40px); line-height: 1.12; margin: 16px 0 18px; }
+    .ticks { list-style: none; margin-top: 24px; display: grid; gap: 14px; }
+    .ticks li { display: grid; grid-template-columns: 34px 1fr; gap: 8px; font-size: 18px; color: var(--body); }
+    .ticks li span { font-size: 21px; }
+    .fineprint { margin-top: 24px; font-size: 15px; color: var(--muted); line-height: 1.55; }
+    .window { position: relative; border-radius: 22px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-lift); overflow: hidden; }
+    .window-bar { display: flex; align-items: center; gap: 8px; height: 42px; padding: 0 18px; border-bottom: 1px solid var(--line); background: var(--bg-2); }
+    .window-bar i { width: 11px; height: 11px; border-radius: 50%; background: var(--line-2); }
+    .window-bar span { margin-left: 14px; font-family: var(--mono); font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .window img { width: 100%; }
+    .note-row { display: grid; grid-template-columns: 1fr 1.6fr; gap: 56px; align-items: center; margin-top: 110px; }
 
-    /* SECTION BREAK */
-    .section-break { padding: 2.5rem 4rem; background: var(--paper); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); text-align: center; }
-    .section-break-line { font-family: "Playfair Display", serif; font-style: italic; font-size: 1.3rem; color: var(--text-muted); letter-spacing: -.01em; opacity: .7; }
+    /* SHARED DECISIONS (light, like the patient handout) */
+    .sdm { background: #FFFFFF; color: var(--body); padding: 130px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .sdm .eyebrow { color: var(--garnet); }
+    .sdm h2, .sdm h3 { color: var(--ink); }
+    .sdm .lede { color: var(--body); }
+    .sdm-top { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; margin-bottom: 60px; }
+    .sdm-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 72px; }
+    .sdm-card { background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px 24px; box-shadow: 0 1px 2px rgba(45,12,20,.04), 0 18px 40px -26px rgba(45,12,20,.22); }
+    .sdm-card .em { font-size: 34px; }
+    .sdm-card h3 { font-size: 22px; margin: 14px 0 8px; line-height: 1.2; }
+    .sdm-card p { font-size: 17px; line-height: 1.55; color: var(--body); }
+    .sdm-wide { margin-bottom: 72px; }
+    .sdm-shots { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 56px; align-items: center; }
+    .sdm-out h3 { font-size: clamp(28px, 3vw, 40px); line-height: 1.12; margin: 16px 0 18px; }
+    .paper-frame { background: var(--bg); border: 1px solid var(--line); border-radius: 22px; padding: 12px; box-shadow: 0 40px 90px -40px rgba(45,12,20,.35); }
+    .paper-frame img { border-radius: 14px; }
+    .shot-cap { margin-top: 14px; font-size: 16px; color: #6F6064; }
+    .shot-cap b { color: var(--ink); font-weight: 600; }
 
-    /* WHY NOW */
-    .why-now { background: var(--paper-warm); }
-    .why-now-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-    .problem-cards { display: flex; flex-direction: column; gap: .75rem; }
-    .problem-card { background: var(--white); border: 1px solid var(--card-border); border-radius: var(--radius-md); padding: 1.4rem; }
-    .problem-card-title { font-family: "Playfair Display", serif; font-size: 1rem; color: var(--text-primary); margin-bottom: .4rem; }
-    .problem-card-body { font-size: .855rem; color: var(--text-muted); line-height: 1.65; }
+    /* THE REPORT */
+    .report { padding: 130px 0 120px; }
+    .report-head { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; margin-bottom: 56px; }
+    .sections { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 80px; }
+    .sec { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 22px; }
+    .sec .em { font-size: 26px; }
+    .sec h3 { font-size: 20px; margin: 10px 0 6px; }
+    .sec p { font-size: 16px; color: var(--muted); line-height: 1.5; }
+    .bento { display: grid; grid-template-columns: repeat(12, 1fr); gap: 44px 24px; }
+    .bt { grid-column: span 12; min-width: 0; }
+    .bt.seven { grid-column: span 7; }
+    .bt.five { grid-column: span 5; }
+    .bt figcaption { margin-top: 16px; }
+    .bt figcaption b { display: block; font-family: var(--display); font-size: 22px; font-weight: 500; color: var(--ink); }
+    .bt figcaption span { display: block; font-size: 17px; color: var(--muted); margin-top: 4px; }
 
-    /* POSITIONING */
-    .positioning { background: #3d1020; padding: 6rem 4rem; }
-    .positioning-inner { max-width: 780px; margin: 0 auto; text-align: center; }
-    .positioning .section-label { color: rgba(248,244,242,.3); }
-    .positioning-trio { margin-bottom: 2rem; display: flex; flex-direction: column; gap: .35rem; }
-    .positioning-trio p { font-family: "Instrument Sans", sans-serif; font-size: 1rem; color: rgba(248,244,242,.45); font-weight: 300; letter-spacing: .01em; }
-    .positioning-trio-hl { font-family: "Playfair Display", serif !important; font-size: 1.4rem !important; color: var(--paper) !important; font-weight: 600 !important; font-style: italic; }
-    .positioning h2 { color: var(--paper); font-size: clamp(2rem, 3.5vw, 3rem); }
-    .positioning h2 em { font-style: normal; color: rgba(248,244,242,.4); display: block; font-size: .7em; font-family: "Instrument Sans", sans-serif; font-weight: 300; letter-spacing: .02em; margin-bottom: .2rem; }
-    .positioning-body { font-size: 1rem; color: rgba(248,244,242,.62); line-height: 1.85; max-width: 56ch; margin: 1.25rem auto 2rem; font-weight: 300; }
-    .attr-chips { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; }
-    .attr-chip { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); color: rgba(248,244,242,.6); border-radius: 20px; padding: .35rem .8rem; font-size: .72rem; font-weight: 500; }
-
-    /* FEATURES */
-    .features { background: var(--paper-warm); }
-    .features-header { max-width: 52ch; margin-bottom: 3rem; }
-    .ftabs { display: flex; border-bottom: 1px solid var(--rule); margin-bottom: 2.5rem; }
-    .ftab { font-family: "Instrument Sans", sans-serif; font-size: .8rem; color: var(--text-muted); background: none; border: none; border-bottom: 2px solid transparent; padding: .7rem 1.4rem; cursor: pointer; transition: color .2s, border-color .2s; margin-bottom: -1px; }
-    .ftab:hover { color: var(--garnet); }
-    .ftab.active { color: var(--garnet); border-bottom-color: var(--garnet); font-weight: 500; }
-    .fpane { display: none; }
-    .fpane.active { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: start; }
-    #fpane-continuum.active { grid-template-columns: 1fr 2fr; }
-    .fpane-text h3 { font-family: "Playfair Display", serif; font-size: 1.7rem; color: var(--text-primary); margin-bottom: .75rem; line-height: 1.25; }
-    .fpane-text p { font-size: 1.05rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: 1rem; }
-    .fpane-text ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
-    .fpane-text ul li { font-size: 1rem; color: var(--text-muted); line-height: 1.6; display: flex; align-items: flex-start; gap: .6rem; }
-    .fpane-text ul li::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--garnet-mid); flex-shrink: 0; margin-top: .55rem; }
-    .ss-wrap { display: flex; align-items: flex-start; }
-    .ss-img { width: 100%; border-radius: var(--radius-lg); border: 1px solid var(--card-border); box-shadow: 0 6px 28px rgba(123,26,46,.1); }
-
-    /* Report card — actual RCCKM output style */
-    .report-card {
-      background: #2a1218;
-      border-radius: var(--radius-lg);
-      padding: 2rem 2.5rem;
-      color: rgba(248,244,242,.85);
-      font-size: 1rem;
-      line-height: 1.6;
-      width: 100%;
-      max-width: 560px;
-      margin: 0 auto;
-    }
-    .report-card-title {
-      font-family: "Playfair Display", serif;
-      font-size: 1.15rem;
-      font-weight: 600;
-      color: #fff;
-      letter-spacing: .01em;
-      margin-bottom: .6rem;
-      line-height: 1.3;
-    }
-    .report-summary-line {
-      font-family: "JetBrains Mono", monospace;
-      font-size: .88rem;
-      color: rgba(248,244,242,.72);
-      letter-spacing: .02em;
-      margin-bottom: 1.25rem;
-      line-height: 1.4;
-    }
-    .report-summary-line .pipe { color: rgba(248,244,242,.25); margin: 0 .35rem; }
-    .report-prevent {
-      font-family: "JetBrains Mono", monospace;
-      font-size: .95rem;
-      color: rgba(248,244,242,.9);
-      letter-spacing: .01em;
-      margin-bottom: .2rem;
-      line-height: 1.4;
-    }
-    .report-prevent .prevent-label {
-      color: rgba(248,244,242,.55);
-      font-weight: 400;
-    }
-    .report-prevent .prevent-val {
-      color: #fca5a5;
-      font-weight: 500;
-    }
-    .report-card-divider {
-      height: 1px;
-      background: rgba(255,255,255,.1);
-      margin: 1rem 0;
-    }
-    .report-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      padding: .45rem 0;
-    }
-    .report-label {
-      font-size: .9rem;
-      color: rgba(248,244,242,.45);
-    }
-    .report-val {
-      font-family: "JetBrains Mono", monospace;
-      font-size: .92rem;
-      color: rgba(248,244,242,.92);
-    }
-    .report-val.warn { color: #fcd34d; }
-    .report-val.alert { color: #fca5a5; }
-    .report-val.ok { color: #86efac; }
-    .report-val.dim { color: rgba(248,244,242,.45); }
-    .report-section-title {
-      font-size: .78rem;
-      font-weight: 600;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: rgba(248,244,242,.5);
-      margin: 1.1rem 0 .4rem;
-    }
-    .report-list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-    .report-list li {
-      font-size: .95rem;
-      color: rgba(248,244,242,.7);
-      padding: .3rem 0;
-      line-height: 1.55;
-    }
-    .report-list li strong {
-      color: rgba(248,244,242,.88);
-      font-weight: 500;
-    }
-    .report-footer {
-      margin-top: 1.2rem;
-      font-size: .72rem;
-      color: rgba(248,244,242,.25);
-      text-align: right;
-      letter-spacing: .03em;
-    }
-
-    .hero-right .report-card { max-width: 520px; margin: 0; }
-
-    /* Risk Continuum bar */
-    .rcce { width: 100%; background: var(--white); border: 1px solid var(--card-border); border-radius: var(--radius-lg); padding: 1.75rem 2rem; }
-    .rcce-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
-    .rcce-title { font-family: "Playfair Display", serif; font-size: 1.05rem; font-weight: 600; color: var(--text-primary); }
-    .rcce-current { font-family: "Playfair Display", serif; font-size: .9rem; font-weight: 600; color: var(--garnet); }
-    .rcce-bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; border-radius: var(--radius-md); overflow: hidden; margin-bottom: .5rem; border: 1px solid var(--card-border); }
-    .rcce-level { padding: 1.1rem .5rem; text-align: center; font-size: .72rem; line-height: 1.5; color: var(--text-primary); min-height: 90px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-    .rcce-level strong { font-family: "Playfair Display", serif; font-size: .85rem; font-weight: 600; display: block; margin-bottom: .2rem; line-height: 1.2; }
-    .rcce-level small { font-size: .65rem; opacity: .75; display: block; margin-top: .15rem; }
-    .rcce-level:nth-child(1) { background: #e8eef5; }
-    .rcce-level:nth-child(2) { background: #dce8dc; }
-    .rcce-level:nth-child(3) { background: #f5ece4; border: 2px solid #c97045; position: relative; z-index: 1; }
-    .rcce-level:nth-child(4) { background: #f0ddd0; }
-    .rcce-level:nth-child(5) { background: var(--garnet); color: #fff; }
-    .rcce-level:nth-child(5) strong { color: #fff; }
-    .rcce-arrow { text-align: center; font-size: 1rem; color: var(--text-muted); margin-bottom: .25rem; line-height: 1; }
-    .rcce-detail { max-width: 260px; margin: 0 auto 1rem; background: #1e2a3a; color: #fff; border-radius: var(--radius-md); padding: .9rem 1.25rem; font-size: .78rem; line-height: 1.65; }
-    .rcce-detail ul { list-style: none; margin: 0; padding: 0; }
-    .rcce-footer { display: flex; justify-content: space-between; font-size: .72rem; color: var(--text-muted); padding: 0 .25rem; }
-
-    /* SHARED DECISION MAKING */
-    .sdm-section { padding: 6rem 4rem; background: var(--white); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
-    .sdm-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-    .sdm-text { position: sticky; top: 6rem; }
-    .sdm-cards { display: flex; flex-direction: column; gap: .75rem; }
-    .sdm-card { background: var(--paper); border: 1px solid var(--card-border); border-radius: var(--radius-md); padding: 1.4rem; }
-    .sdm-card-wide { border-left: 3px solid var(--garnet-mid); }
-    .sdm-card-icon { font-size: 1.3rem; margin-bottom: .6rem; display: block; }
-    .sdm-card-title { font-family: "Playfair Display", serif; font-size: 1rem; color: var(--text-primary); margin-bottom: .4rem; }
-    .sdm-card-body { font-size: .855rem; color: var(--text-muted); line-height: 1.65; }
-
-    /* TESTIMONIAL */
-    .testimonial-section { padding: 4rem; background: var(--paper); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
-    .testimonial-card { max-width: 680px; margin: 0 auto; text-align: center; }
-    .testimonial-text { font-family: "Playfair Display", serif; font-size: 1.25rem; line-height: 1.55; color: var(--text-primary); margin-bottom: .9rem; font-style: italic; }
-    .testimonial-author { font-size: .82rem; color: var(--text-muted); }
-
-    /* WHO */
-    .for-section { padding: 6rem 4rem; }
-    .for-header { max-width: 52ch; margin-bottom: 3.5rem; }
-    .spec-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: var(--radius-md); overflow: hidden; }
-    .spec-card { background: var(--paper); padding: 1.75rem; transition: background .2s; }
-    .spec-card:hover { background: var(--white); }
-    .spec-icon { font-size: 1.4rem; margin-bottom: .75rem; display: block; }
-    .spec-name { font-family: "Playfair Display", serif; font-size: 1rem; color: var(--text-primary); margin-bottom: .4rem; }
-    .spec-body { font-size: .84rem; color: var(--text-muted); line-height: 1.65; }
-    .spec-dark { background: var(--garnet); display: flex; flex-direction: column; justify-content: center; }
-    .spec-dark:hover { background: var(--garnet-light); }
-    .spec-dark-hl { font-family: "Playfair Display", serif; font-size: 1.2rem; font-style: italic; color: var(--paper); line-height: 1.3; margin-bottom: .6rem; }
-    .spec-dark-sub { font-size: .8rem; color: rgba(248,244,242,.5); line-height: 1.65; }
-
-    /* HOW */
-    .how-section { background: var(--paper-warm); padding: 6rem 4rem; }
-    .how-header { max-width: 50ch; margin-bottom: 3.5rem; }
-    .steps { display: grid; grid-template-columns: repeat(4,1fr); border: 1px solid var(--rule); border-radius: var(--radius-md); overflow: hidden; }
-    .step { padding: 2rem 1.75rem; border-right: 1px solid var(--rule); background: var(--paper-warm); transition: background .2s; }
-    .step:last-child { border-right: none; }
-    .step:hover { background: var(--white); }
-    .step-num { font-family: "Playfair Display", serif; font-size: 2rem; color: var(--paper-dark); line-height: 1; margin-bottom: .9rem; }
-    .step-title { font-family: "Playfair Display", serif; font-size: .95rem; color: var(--text-primary); margin-bottom: .5rem; }
-    .step-body { font-size: .84rem; color: var(--text-muted); line-height: 1.65; }
-
-    /* MISSION */
-    .mission-section { background: var(--white); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 5.5rem 4rem 5.5rem; }
-    .mission-inner { max-width: 680px; }
-    .mission-eyebrow { font-size: .67rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--garnet-mid); margin-bottom: 1rem; display: block; }
-    .mission-section h2 { font-family: "Playfair Display", serif; font-size: clamp(1.9rem, 3.2vw, 2.6rem); line-height: 1.15; letter-spacing: -.02em; color: var(--text-primary); margin-bottom: 1.75rem; }
-    .mission-opening { margin-bottom: 2rem; }
-    .mission-opening p { font-family: "Playfair Display", serif; font-size: clamp(1.5rem, 2.5vw, 1.95rem); line-height: 1.3; color: var(--text-primary); margin-bottom: 0.15rem; letter-spacing: -0.01em; font-weight: 500; }
-    .mission-body { font-size: 1.05rem; color: var(--text-secondary); line-height: 1.8; font-weight: 300; max-width: 56ch; margin-bottom: 1.4rem; }
-    .mission-body strong { font-weight: 500; color: var(--text-primary); }
-    .mission-emotional { max-width: 52ch; margin: 2.5rem auto 1.5rem; text-align: center; }
-    .mission-emotional p { font-family: "Playfair Display", serif; font-size: 1.25rem; font-style: italic; color: var(--text-secondary); line-height: 1.55; letter-spacing: 0.01em; }
-    .mission-goal-label { font-family: "Playfair Display", serif; font-size: 1.15rem; font-style: italic; color: var(--garnet); margin-bottom: 1rem; line-height: 1.4; }
-    .mission-goal { display: flex; flex-direction: column; align-items: center; gap: .25rem; margin-top: 1rem; text-align: center; }
-    .mission-goal p { font-size: 1.15rem; font-weight: 400; color: var(--text-primary); line-height: 1.5; letter-spacing: .01em; }
-    .mission-moments { font-family: "Playfair Display", serif; font-size: 1.35rem; font-weight: 400; font-style: italic; color: var(--text-muted); text-align: center; line-height: 1.4; letter-spacing: .04em; margin-top: 1.5rem; }
-
-    /* CAPTURE */
-    .capture { background: #4a1525; padding: 6rem 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
-    .capture .section-label { color: rgba(248,244,242,.3); }
-    .capture h2 { color: var(--paper); }
-    .capture .section-sub { color: rgba(248,244,242,.55); margin-top: .9rem; max-width: 38ch; }
-    .capture-form { display: flex; flex-direction: column; gap: .75rem; }
-    .field { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius-sm); padding: .8rem 1rem; color: var(--paper); font-family: "Instrument Sans", sans-serif; font-size: .875rem; outline: none; transition: border-color .2s; }
-    .field::placeholder { color: rgba(248,244,242,.25); }
-    .field:focus { border-color: rgba(176,58,82,.6); }
-    select.field option { background: #2e0d16; }
-    .btn-capture { background: var(--garnet); color: #fff; border: none; border-radius: var(--radius-sm); padding: .875rem 1.5rem; font-family: "Instrument Sans", sans-serif; font-size: .9375rem; font-weight: 500; cursor: pointer; transition: background .2s; width: 100%; }
-    .btn-capture:hover { background: var(--garnet-light); }
-    .capture-note { font-size: .72rem; color: rgba(248,244,242,.25); text-align: center; }
-    .success-card { display: none; background: rgba(123,26,46,.2); border: 1px solid rgba(176,58,82,.35); border-radius: var(--radius-md); padding: 1.4rem; color: rgba(248,244,242,.8); font-size: .9rem; line-height: 1.7; text-align: center; }
-
-    /* FILMSTRIP — window-framed product shots */
-    .filmstrip { padding: 5rem 4rem; background: linear-gradient(160deg,#f4ece0 0%,#efe3d2 45%,#e9d8c2 100%); border-top: 1px solid var(--rule); }
-    .filmstrip-label { font-size: .67rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--text-muted); opacity: .55; margin-bottom: .4rem; display: block; }
-    .filmstrip-note { font-size: .78rem; color: var(--text-muted); opacity: .55; margin-bottom: 2.25rem; }
-    .filmstrip-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; }
-    .filmstrip-item { display: flex; flex-direction: column; gap: .65rem; }
-    /* macOS window frame */
-    .winframe { background:#FFFDF8; border-radius:10px; box-shadow: 0 24px 50px -18px rgba(11,31,58,.28), 0 8px 18px -8px rgba(11,31,58,.18); overflow:hidden; border:1px solid rgba(11,31,58,.06); transition: transform .25s ease, box-shadow .25s ease; }
-    .winframe:hover { transform: translateY(-3px); box-shadow: 0 32px 60px -18px rgba(11,31,58,.34), 0 10px 22px -8px rgba(11,31,58,.22); }
-    .winbar { display:flex; align-items:center; gap:6px; padding:9px 12px; background:linear-gradient(180deg,#f3eee4 0%,#ebe3d3 100%); border-bottom:1px solid rgba(11,31,58,.07); }
-    .windot { width:11px; height:11px; border-radius:50%; display:inline-block; }
-    .windot.r{background:#ff5f57;} .windot.y{background:#febc2e;} .windot.g{background:#28c840;}
-    .wintitle { flex:1; text-align:center; font-size:.62rem; color:rgba(11,31,58,.45); letter-spacing:.04em; font-family:"Instrument Sans",sans-serif; margin-right:33px; }
-    /* mockup canvas — uses the real RCCKM tokens */
-    .mock { --rc-garnet:#73000A; --rc-ivory:#F7F2E8; --rc-panel:#FFFDF8; --rc-text:#111; --rc-muted:#5D6B7A; --rc-line:rgba(17,17,17,.12); --rc-apob:#D97706; --rc-kidney:#0F8B8D; --rc-metabolic:#7C3AED; --rc-lpa:#4F46E5; --rc-accent:#2F5F8F;
-      background: linear-gradient(180deg,#FFFDF8 0%,#FBF7EF 100%); padding:14px 16px; min-height:230px; font-family:Inter,-apple-system,"Segoe UI",sans-serif; color:var(--rc-text); font-size:11px; line-height:1.5; }
-    .mock h4 { font-family:Georgia,"Times New Roman",serif; font-size:13px; font-weight:600; margin:0 0 8px; color:var(--rc-text); letter-spacing:.01em; }
-    .mock .lbl { font-size:8.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--rc-muted); opacity:.75; font-weight:500; }
-    .mock .row { display:flex; justify-content:space-between; align-items:baseline; padding:4px 0; border-bottom:1px solid var(--rc-line); }
-    .mock .row:last-child { border-bottom:none; }
-    /* Continuum bar */
-    .mk-bar { display:flex; height:22px; border-radius:5px; overflow:hidden; margin:10px 0 6px; border:1px solid var(--rc-line); }
-    .mk-bar > div { flex:1; display:flex; align-items:center; justify-content:center; color:#fff; font-size:8.5px; font-weight:600; letter-spacing:.04em; }
-    .mk-bar .l1{background:#5D6B7A;} .mk-bar .l2{background:#0F8B8D;} .mk-bar .l3{background:#D97706;} .mk-bar .l4{background:#B45309;} .mk-bar .l5{background:var(--rc-garnet);}
-    .mk-marker { position:relative; height:16px; }
-    .mk-marker::after { content:"▲"; position:absolute; right:6%; top:-4px; color:var(--rc-garnet); font-size:11px; }
     /* RSS tower */
-    .mk-tower { display:flex; flex-direction:column; gap:3px; margin-top:6px; }
-    .mk-seg { display:flex; align-items:center; gap:7px; font-size:10px; }
-    .mk-seg .swatch { width:8px; height:14px; border-radius:2px; flex-shrink:0; }
-    .mk-seg .pts { margin-left:auto; font-variant-numeric:tabular-nums; color:var(--rc-muted); font-size:9.5px; }
-    /* PREVENT cards */
-    .mk-prevent { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px; }
-    .mk-card { border:1px solid var(--rc-line); border-radius:7px; padding:8px 10px; background:#fff; }
-    .mk-card .big { font-family:Georgia,serif; font-size:22px; font-weight:600; color:var(--rc-garnet); line-height:1; }
-    .mk-card .unit { font-size:9px; color:var(--rc-muted); margin-top:2px; }
-    /* Action plan */
-    .mk-step { display:flex; gap:8px; padding:5px 0; align-items:flex-start; border-bottom:1px dashed var(--rc-line); }
-    .mk-step:last-child { border:none; }
-    .mk-num { width:16px; height:16px; border-radius:50%; background:var(--rc-garnet); color:#fff; font-size:9px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-weight:600; }
-    .mk-step .txt { font-size:10px; line-height:1.45; }
-    /* Diagnoses pills */
-    .mk-dx { display:flex; flex-direction:column; gap:5px; margin-top:6px; }
-    .mk-dx-row { display:flex; align-items:center; gap:6px; padding:5px 7px; background:#fff; border:1px solid var(--rc-line); border-radius:6px; font-size:10px; }
-    .mk-icd { margin-left:auto; font-family:"SF Mono",ui-monospace,monospace; font-size:9px; color:var(--rc-muted); background:rgba(115,0,10,.06); padding:1px 5px; border-radius:3px; }
-    .mk-hcc { font-size:8px; color:var(--rc-accent); border:1px solid var(--rc-accent); padding:1px 4px; border-radius:3px; }
-    /* Where-this-patient-falls */
-    .mk-wp-row { display:flex; align-items:center; gap:8px; padding:5px 0; border-bottom:1px solid var(--rc-line); font-size:10px; }
-    .mk-wp-row:last-child { border:none; }
-    .mk-pill { font-size:8.5px; font-weight:600; padding:2px 6px; border-radius:3px; letter-spacing:.02em; }
-    .mk-pill.major { background:var(--rc-garnet); color:#fff; }
-    .mk-pill.contrib { background:#D97706; color:#fff; }
-    .mk-pill.context { background:rgba(93,107,122,.15); color:var(--rc-muted); }
-    .mk-pill.missing { background:transparent; color:var(--rc-accent); border:1px solid var(--rc-accent); }
-    .mk-wp-val { margin-left:auto; font-variant-numeric:tabular-nums; color:var(--rc-muted); font-size:9.5px; }
-    .filmstrip-caption { font-size:.72rem; color:var(--text-muted); opacity:.62; font-family:"Instrument Sans",sans-serif; letter-spacing:.02em; }
-    .filmstrip-disclaimer { font-size:.66rem; color:var(--text-muted); opacity:.45; margin-top:2rem; font-style:italic; }
+    .rssx { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 56px; align-items: center; margin-bottom: 80px; }
+    .rssx-copy h3 { font-size: clamp(28px, 3vw, 40px); line-height: 1.12; margin: 16px 0 18px; }
+    .rssx-copy .chips { margin-top: 24px; }
+    .rss-card { padding: 28px 30px; }
+    .rss-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+    .rss-score { display: flex; align-items: center; gap: 12px; }
+    .rss-num { font-family: var(--display); font-size: 64px; line-height: 1; color: var(--ink); min-width: 2ch; text-align: right; }
+    .rss-pill { font-size: 15px; font-weight: 600; border-radius: 999px; padding: 6px 14px; opacity: 0; transform: scale(.9); transition: opacity .35s, transform .35s; }
+    .rss-pill.show { opacity: 1; transform: none; }
+    .rss-pill.Low { color: #1E7148; background: #E4F1E8; }
+    .rss-pill.Moderate { color: #85590A; background: #F8EED3; }
+    .rss-pill.High { color: #B4470F; background: #FAE6D6; }
+    .rss-pill.Severe { color: #861327; background: #F6E4E7; }
+    .rss-body { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 24px; margin-top: 20px; }
+    .tower { position: relative; width: 150px; height: 440px; border-radius: 24px; overflow: hidden; background: #F3ECEB; border: 1px solid var(--line); box-shadow: inset 0 2px 8px rgba(45,12,20,.05); }
+    .tblock { position: absolute; left: 0; right: 0; border-top: 2px solid #fff; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 12px; font-weight: 800; text-align: center; padding: 0 6px; line-height: 1.1; transition: transform .38s cubic-bezier(.5,0,.75,0); }
+    .rss-sub { font-family: var(--display); font-size: 13px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+    .contrib { display: flex; align-items: flex-start; gap: 10px; padding: 9px 10px; margin: 0 -10px; border-radius: 10px; border-bottom: 1px solid var(--line); transition: opacity .25s, background .3s; }
+    .contrib .sw { width: 12px; height: 12px; border-radius: 3px; margin-top: 5px; flex: none; }
+    .contrib .c-main { flex: 1; min-width: 0; }
+    .contrib .c-label { display: block; font-size: 16px; font-weight: 600; color: var(--ink); }
+    .contrib .c-sub { display: block; font-size: 14px; color: var(--muted); }
+    .contrib .c-pts { font-weight: 800; font-size: 16px; color: var(--ink); transition: opacity .2s, transform .2s; }
+    .contrib.pending { opacity: .35; }
+    .contrib.pending .c-pts { opacity: 0; transform: translateX(-6px); }
+    .contrib.hl { background: var(--surface-2); }
+    .rss-note { margin-top: 14px; font-size: 15px; color: var(--muted); }
 
-    /* FOOTER */
-    footer { padding: 2rem 4rem; border-top: 1px solid var(--rule); display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
-    .footer-brand { font-family: "Playfair Display", serif; font-size: .95rem; color: var(--garnet); }
-    .footer-legal { font-size: .7rem; color: var(--text-muted); opacity: .45; max-width: 420px; line-height: 1.5; margin-top: .3rem; }
-    .footer-links { display: flex; gap: 2rem; }
-    .footer-links a { font-size: .78rem; color: var(--text-muted); text-decoration: none; transition: color .2s; }
-    .footer-links a:hover { color: var(--garnet); }
-    .footer-copy { font-size: .75rem; color: var(--text-muted); opacity: .6; }
+    /* LIVE DEMO */
+    .demo { padding: 120px 0; background: var(--bg-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .demo-head { max-width: 760px; margin-bottom: 40px; }
+    .pchip { font-size: 16px; font-weight: 500; background: var(--surface); color: var(--body); border: 1px solid var(--line-2); border-radius: 999px; padding: 11px 18px; cursor: pointer; transition: all .2s; }
+    .pchip:hover { border-color: var(--accent); }
+    .pchip.is-on { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+    .track { position: relative; height: 12px; border-radius: 999px; background: linear-gradient(90deg, #2E9E4F, #C9A21E 30%, #E5851F 55%, #DC4E36 78%, #861327); margin: 92px 14px 0; }
+    .marker { position: absolute; top: 50%; left: 10%; width: 30px; height: 30px; border-radius: 50%; background: var(--accent); border: 6px solid #fff; box-shadow: 0 0 0 2px var(--accent), 0 8px 20px rgba(45,12,20,.25); transform: translate(-50%, -50%); transition: left .9s cubic-bezier(.65,.05,.36,1); }
+    .marker-label { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: 15px; font-weight: 600; color: var(--ink); background: var(--surface-2); border: 1px solid var(--line-2); padding: 7px 12px; border-radius: 10px; }
+    .zones { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin: 22px 14px 0; }
+    .zones div { font-size: 14px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+    .zones span { display: block; font-size: 16px; font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--body); margin-top: 2px; }
+    .demo-panel { display: grid; grid-template-columns: 340px 1fr; margin-top: 44px; background: var(--surface); box-shadow: var(--shadow-lift); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+    .pt { padding: 30px; border-right: 1px solid var(--line); background: var(--surface-2); }
+    .pt h3 { font-size: 26px; }
+    .pt-meta { font-size: 16px; color: var(--muted); margin: 6px 0 22px; }
+    .labs { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 18px; }
+    .labs span { display: block; font-size: 13px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+    .labs b { font-family: var(--mono); font-size: 17px; font-weight: 500; color: var(--ink); }
+    .labs b.flag { color: var(--accent); }
+    .note { padding: 30px; min-width: 0; }
+    .note-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-bottom: 14px; margin-bottom: 18px; border-bottom: 1px dashed var(--line-2); }
+    .note-top span { font-size: 14px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+    .copy { font-size: 14px; font-weight: 600; color: var(--ink); background: transparent; border: 1px solid var(--line-2); border-radius: 999px; padding: 8px 14px; cursor: pointer; }
+    .copy:hover { border-color: var(--accent); }
+    .note pre { font-family: var(--mono); font-size: 15px; line-height: 1.75; color: var(--body); white-space: pre-wrap; overflow-wrap: anywhere; transition: opacity .3s; }
+    .note pre .k { color: var(--accent); font-weight: 500; }
+    .note.loading pre { opacity: .25; }
 
-    /* RESPONSIVE */
-    @media (max-width: 960px) {
-      nav { padding: .85rem 1.5rem; }
+    /* HOW / WHO */
+    .how { padding: 130px 0 90px; }
+    .how-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 52px; }
+    .how-card { border-top: 2px solid var(--line-2); padding-top: 22px; }
+    .how-card .n { font-family: var(--display); font-size: 15px; font-weight: 600; letter-spacing: .14em; color: var(--accent); }
+    .how-card h3 { font-size: 24px; margin: 10px 0; }
+    .how-card p { font-size: 17px; color: var(--body); }
+    .who { padding: 60px 0 130px; }
+    .who-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-top: 44px; }
+    .who-card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 24px 22px; }
+    .who-card .em { font-size: 30px; }
+    .who-card h3 { font-size: 20px; margin: 12px 0 6px; }
+    .who-card p { font-size: 16px; color: var(--muted); line-height: 1.5; }
+
+    /* FOUNDER / CTA */
+    .founder { padding: 130px 0 120px; border-top: 1px solid var(--line); background: #FFFFFF; }
+    .founder-grid { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 64px; align-items: center; }
+    .founder-photo { aspect-ratio: 4 / 5; border-radius: 24px; overflow: hidden; background: var(--bg-2); box-shadow: var(--shadow-lift); }
+    .founder-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .founder-fig figcaption { margin-top: 14px; font-size: 15px; color: var(--muted); }
+    .founder-name { font-family: var(--display); font-size: 22px; font-weight: 500; color: var(--ink); }
+    .founder-cred { font-size: 16px; color: var(--muted); margin: 4px 0 22px; }
+    .founder-bio p { font-size: 18px; line-height: 1.75; color: var(--body); margin-bottom: 16px; max-width: 62ch; }
+    .founder-sign { margin-top: 10px; font-family: var(--display); font-size: 15px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); }
+    .founder-quote { text-align: center; margin-top: 96px; padding-top: 72px; border-top: 1px solid var(--line); }
+    .founder-quote blockquote { font-family: var(--display); font-size: clamp(26px, 3.2vw, 40px); line-height: 1.3; color: var(--ink); max-width: 32ch; margin: 0 auto; }
+    .founder-quote .moments { margin-top: 28px; font-family: var(--display); font-size: 24px; color: var(--accent); }
+    .cta { padding: 120px 0 130px; text-align: center; overflow: hidden; border-top: 1px solid var(--line); }
+    .cta::before { content: ""; position: absolute; inset: 0; background: radial-gradient(600px 300px at 50% 60%, rgba(134, 19, 39, .1), transparent 70%); pointer-events: none; }
+    .cta .wrap { position: relative; }
+    .cta-mark { width: 300px; margin: 0 auto 36px; }
+    .cta h2 { font-size: clamp(38px, 5vw, 64px); line-height: 1.05; }
+    .cta .lede { margin: 18px auto 34px; text-align: center; }
+
+    footer { border-top: 1px solid var(--line); padding: 40px 0 56px; font-size: 15px; color: var(--muted); }
+    footer .wrap { display: grid; grid-template-columns: 1.6fr 1fr auto; gap: 48px; align-items: start; }
+    .foot-mark { width: 150px; margin-bottom: 16px; }
+    footer nav { display: flex; gap: 24px; }
+    .foot-h { display: block; font-family: var(--display); font-size: 13px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+    .foot-contact p + p { margin-top: 6px; }
+    .foot-contact a { color: var(--body); }
+    .foot-contact .foot-pilot { margin-top: 12px; }
+    .foot-contact .foot-pilot a { color: var(--accent); font-weight: 600; }
+    .pilot { display: inline-flex; align-items: center; gap: 14px; margin-top: 40px; max-width: 640px; text-align: left; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px 22px; box-shadow: var(--shadow); }
+    .pilot-em { font-size: 28px; flex: none; }
+    .pilot p { font-size: 17px; color: var(--body); }
+    .pilot b { color: var(--ink); }
+    .pilot a { color: var(--accent); font-weight: 600; }
+    footer nav a { text-decoration: none; color: var(--body); }
+    footer nav a:hover { color: var(--accent); }
+
+    /* Reveal on scroll */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+    .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal, .tile, .cont-line { opacity: 1; transform: none; transition: none; }
+      .walker, .marker { transition: none; }
+      .walker.hop svg, .people svg.pv { animation: none; }
+    }
+
+    @media (max-width: 1020px) {
       .nav-links { display: none; }
-      .btn-ghost { display: none; }
-      .hero { grid-template-columns: 1fr; min-height: auto; }
-      .hero-right { display: none; }
-      .hero-left { padding: 3.5rem 1.5rem; }
-      .stats-bar { grid-template-columns: 1fr; }
-      .sdm-section { padding: 4rem 1.5rem; }
-      .sdm-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-      .sdm-text { position: static; }
-      .stat-cell { border-right: none; border-bottom: 1px solid var(--rule); padding: 2rem 1.5rem; }
-      .pad, .for-section, .how-section, .filmstrip { padding: 4rem 1.5rem; }
-      .section-break { padding: 2rem 1.5rem; }
-      .positioning { padding: 4rem 1.5rem; }
-      .testimonial-section { padding: 3rem 1.5rem; }
-      .capture { grid-template-columns: 1fr; padding: 4rem 1.5rem; gap: 3rem; }
-      .why-now-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-      .fpane.active { grid-template-columns: 1fr; }
-      .spec-grid { grid-template-columns: 1fr 1fr; }
-      .steps { grid-template-columns: 1fr 1fr; }
-      .filmstrip-grid { grid-template-columns: 1fr 1fr; }
-      footer { flex-direction: column; text-align: center; padding: 1.75rem 1.5rem; }
-      .footer-legal { max-width: 100%; }
+      .plan-foot, .note-row, .sdm-top, .report-head, .sdm-shots, .rp-body, .founder-grid, .rssx { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+      .sdm-cards, .sections { grid-template-columns: repeat(2, 1fr); }
+      .how-grid { grid-template-columns: repeat(2, 1fr); gap: 34px; }
+      .who-grid { grid-template-columns: repeat(2, 1fr); }
+      .bt.seven, .bt.five { grid-column: span 12; }
+      .spark-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .tile b { font-size: 21px; }
+      .tile span { font-size: 14px; }
     }
-    @media (max-width: 640px) {
-      h1 { font-size: 2.6rem; }
-      .spec-grid, .steps, .filmstrip-grid { grid-template-columns: 1fr; }
-      .ftabs { overflow-x: auto; }
-      .ftab { white-space: nowrap; }
-      .mission-section { padding: 4rem 1.5rem 4.5rem; }
-      .mission-opening p { font-size: 1.25rem; }
-      .mission-emotional { margin: 2rem auto 1.25rem; }
-      .mission-emotional p { font-size: 1.1rem; }
-      .mission-moments { font-size: 1.15rem; margin-top: 1.25rem; }
+    @media (max-width: 720px) {
+      body { font-size: 17px; }
+      .wrap { padding: 0 16px; }
+      .nav .wrap { height: 64px; }
+      .nav-logo .logo { width: 132px; }
+      .nav .btn { padding: 9px 14px; font-size: 14px; }
+      .nav-cta .btn-ghost { display: none; }
+      .hero { padding: 56px 0 84px; }
+      .hero-lockup { flex-direction: column; gap: 16px; }
+      .hero-mark { width: 220px; }
+      .lockup-text { padding: 14px 0 0; border-left: 0; border-top: 1.5px solid var(--line-2); text-align: center; letter-spacing: .14em; }
+      .lockup-name, .lockup-ckm { font-size: 13px; }
+      .lede { font-size: 18px; }
+      .cont { padding: 22px 16px; margin-top: 48px; }
+      .cont-head .pill-now { display: none; }
+      .tiles { grid-template-columns: minmax(0, 1fr); gap: 8px; margin-top: 20px; }
+      .tile { min-height: 0; flex-direction: row; justify-content: flex-start; gap: 14px; padding: 16px 18px 18px; text-align: left; }
+      .tile .dot { margin: 0; flex: none; }
+      .tile span { margin-top: 0; }
+      .tile small { margin-left: auto; border: 0; padding: 0; margin-top: 0; }
+      .cont.shown .tile.here { transform: none; }
+      .walker, .cont-foot { display: none; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .traj, .plan, .sdm, .report, .demo, .how, .founder, .cta { padding: 84px 0; }
+      .who { padding: 20px 0 84px; }
+      .founder-photo { max-width: 420px; margin: 0 auto; }
+      .founder-quote { margin-top: 64px; padding-top: 48px; }
+      .rss-card { padding: 20px 16px; }
+      .rss-body { grid-template-columns: 96px minmax(0, 1fr); gap: 14px; }
+      .tower { width: 96px; height: 340px; }
+      .rss-num { font-size: 48px; }
+      .rss-head { flex-wrap: wrap; }
+      .spark-grid { grid-template-columns: minmax(0, 1fr); }
+      .spark.big { grid-column: auto; grid-row: auto; }
+      .rp { padding: 22px 16px; }
+      .sdm-cards, .sections, .who-grid, .how-grid { grid-template-columns: 1fr; }
+      .zones { grid-template-columns: repeat(2, 1fr); }
+      .demo-panel { grid-template-columns: 1fr; }
+      .pt { border-right: none; border-bottom: 1px solid var(--line); }
+      .marker-label { white-space: normal; width: max-content; max-width: 190px; text-align: center; }
+      footer .wrap { grid-template-columns: 1fr; gap: 24px; }
     }
-  
-    /* Meet the founder: isolated landing-page styles */
-    .founder-section { padding: clamp(4rem, 7vw, 6.5rem) clamp(1.5rem, 5vw, 4rem); background: var(--paper); border-top: 1px solid var(--rule); }
-    .founder-inner { max-width: 1150px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(2.25rem, 5.5vw, 5rem); align-items: center; }
-    .founder-figure { margin: 0; }
-    .founder-image-wrap { aspect-ratio: 4 / 5; background: var(--paper-dark); border-radius: 7px; overflow: hidden; border: 1px solid var(--rule); }
-    .founder-image { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center center; }
-    .founder-caption { margin-top: .75rem; font-size: .74rem; color: var(--text-muted); }
-    .founder-kicker { display: flex; gap: .7rem; align-items: center; color: var(--garnet-mid); font-size: .68rem; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; margin-bottom: 1.15rem; }
-    .founder-kicker::before { content: ""; display: block; width: 28px; height: 1px; background: currentColor; }
-    .founder-title { font-family: "Playfair Display", Georgia, serif; color: var(--text-primary); font-size: clamp(2rem, 3.4vw, 3.3rem); font-weight: 400; line-height: 1.16; letter-spacing: -.025em; max-width: 18ch; margin-bottom: 1.45rem; }
-    .founder-name { font-size: 1.08rem; color: var(--ink); font-weight: 600; margin-bottom: .15rem; }
-    .founder-credentials { font-size: .8rem; color: var(--text-muted); margin-bottom: 1.3rem; line-height: 1.65; }
-    .founder-bio p { font-size: .97rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem; max-width: 62ch; }
-    .founder-quote { margin: 1.55rem 0 1.15rem; border-left: 2px solid var(--garnet-mid); padding-left: 1.25rem; font: italic 1.15rem/1.55 "Playfair Display", Georgia, serif; color: var(--garnet); }
-    .founder-signoff { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--garnet); font-weight: 600; }
-    @media (max-width: 850px) {
-      .founder-inner { grid-template-columns: 1fr; gap: 2.3rem; }
-      .founder-figure { max-width: 400px; width: 100%; margin: 0 auto; }
-      .founder-content { max-width: 650px; margin: 0 auto; }
-      .founder-title { max-width: none; }
-    }
-
   </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="rc-logo" viewBox="0 0 900 300">
+    <g fill="#861327" transform="translate(-44.2 -46) scale(.675)">
+      <circle cx="372.25" cy="190.75" r="18.75"/><circle cx="507" cy="186.5" r="35.5"/><circle cx="669.5" cy="180.5" r="51.25"/><circle cx="851.5" cy="172" r="64.75"/><circle cx="1050.5" cy="161.25" r="80"/>
+    </g>
+    <text x="450" y="218" text-anchor="middle" textLength="884" lengthAdjust="spacing" font-family="Jost, 'Instrument Sans', sans-serif" font-size="74" font-weight="500" fill="#1D1416">RISK CONTINUUM</text>
+    <line x1="64" x2="236" y1="272" y2="272" stroke="#861327" stroke-width="3"/>
+    <line x1="664" x2="836" y1="272" y2="272" stroke="#861327" stroke-width="3"/>
+    <text x="450" y="291" text-anchor="middle" textLength="300" lengthAdjust="spacing" font-family="Jost, 'Instrument Sans', sans-serif" font-size="50" font-weight="500" fill="#861327">HEALTH</text>
+  </symbol>
+</svg>
 
-<nav aria-label="Main navigation">
-  <a class="wordmark" href="#">
-    <span class="wordmark-rc">Risk Continuum</span>
-    <span class="wordmark-ckm">CKM</span>
-  </a>
-  <ul class="nav-links" role="list">
-    <li><a href="#why-now">Why now</a></li>
-    <li><a href="#features">Features</a></li>
-    <li><a href="#how">How it works</a></li>
-    <li><a href="#founder">Founder</a></li>
-    <li><a href="https://app.riskcontinuum.health/">Open app</a></li>
-  </ul>
-  <div class="nav-right">
-    <a href="https://app.riskcontinuum.health/" class="btn-ghost">Open app</a>
-    <a href="https://app.riskcontinuum.health/sign-up" class="btn-primary">Get started</a>
+<header class="nav">
+  <div class="wrap">
+    <a class="nav-logo" href="#" aria-label="Risk Continuum Health home"><svg class="logo" viewBox="0 0 900 300" aria-hidden="true"><use href="#rc-logo"/></svg></a>
+    <ul class="nav-links" role="list">
+      <li><a href="#trajectory">Trajectory</a></li>
+      <li><a href="#plan">Try a plan</a></li>
+      <li><a href="#decide">Shared decisions</a></li>
+      <li><a href="#report">The report</a></li>
+      <li><a href="#founder">Founder</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="https://app.riskcontinuum.health/" class="btn btn-ghost">Open app</a>
+      <a href="https://app.riskcontinuum.health/sign-up" class="btn btn-primary">Get started</a>
+    </div>
   </div>
-</nav>
+</header>
 
 <!-- HERO -->
-<section class="hero" aria-label="Hero">
-  <div class="hero-left">
-    <div class="hero-eyebrow">
-      <div class="hero-eyebrow-line"></div>
-      <span class="hero-eyebrow-text">Structured risk interpretation</span>
+<section class="hero" aria-labelledby="hero-h1">
+  <div class="wrap">
+    <div class="hero-copy">
+      <div class="hero-lockup">
+        <svg class="logo hero-mark" viewBox="0 0 900 300" role="img" aria-label="Risk Continuum Health"><use href="#rc-logo"/></svg>
+        <p class="lockup-text">
+          <span class="lockup-name">CKM prevention interpretation</span>
+          <span class="lockup-ckm"><b>C</b>ardiovascular &middot; <b>K</b>idney &middot; <b>M</b>etabolic</span>
+        </p>
+      </div>
+      <h1 id="hero-h1">Every patient carries a <span class="soft">risk story.</span></h1>
+      <p class="sub">Risk Continuum helps them tell it.</p>
+      <p class="lede">See where your patient stands, where their numbers are heading, and what a plan would change.</p>
+      <div class="hero-ctas">
+        <a href="https://app.riskcontinuum.health/" class="btn btn-primary">Start RCCKM Assessment</a>
+        <a href="#plan" class="btn btn-ghost">Watch a plan bend the curve &darr;</a>
+      </div>
+      <p class="hero-meta">38 synthetic demo cases to try &middot; SmartPhrase template &middot; Paste from any EMR</p>
     </div>
-    <h1>Every patient carries a <em>risk story.</em></h1>
-    <p class="hero-subtitle">Risk Continuum helps them tell it.</p>
-    <p class="hero-body">Drop in the labs, meds, and history. In seconds: a high yield report showing risk level, the drivers behind it, targets, ICD codes, a copy-paste report, and patient roadmap, along with an AI Clinical Pearl.</p>
-    <div class="hero-ctas">
-      <a href="https://app.riskcontinuum.health/sign-up" class="btn-lg">Get started</a>
-      <a href="#how" class="btn-lg-ghost" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'});return false;">See how it works</a>
-    </div>
-    <p class="hero-trust"><span class="trust-dot" aria-hidden="true"></span>Try it Out, 30 + demos, smartphrase template available, EMR agnostic</p>
-  </div>
-  <div class="hero-right" aria-hidden="true">
-    <div class="report-card">
-      <div class="report-card-title">Risk Continuum CKM Clinical Report</div>
 
-      <div class="report-summary-line">
-        Level 3B<span class="pipe">|</span>CKM 3<span class="pipe">|</span>G3aA2<span class="pipe">|</span>CAC not measured
+    <div class="card cont" id="cont" aria-label="Risk Continuum: this patient is at Level 3B, Emerging Risk Trajectory, plaque unmeasured">
+      <div class="cont-head">
+        <div><div class="card-eyebrow">Position</div><div class="card-title">Risk Continuum</div></div>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <span class="pill-now">Current: Level 3B</span>
+          <button class="btn btn-ghost btn-sm" id="cont-replay" type="button">↻ Replay</button>
+        </div>
       </div>
-
-      <div class="report-prevent">
-        <span class="prevent-label">PREVENT ASCVD:</span> <span class="prevent-val">10y 15.85% High</span>
+      <div class="tiles" aria-hidden="true">
+        <div class="walker" id="walker"><span class="here-lbl">YOU ARE HERE</span><svg width="28" height="40" viewBox="0 0 24 34"><circle cx="12" cy="5" r="4.2" fill="#861327"/><path d="M7 11h10a3 3 0 0 1 3 3v8h-3v12h-4v-9h-2v9H7V22H4v-8a3 3 0 0 1 3-3z" fill="#861327"/></svg></div>
+        <div class="tile" style="background:var(--t1); --acc:var(--a1); --d:8px; transition-delay:0s"><i class="dot"></i><div><b>Level 1</b><span>Minimal risk signal</span></div></div>
+        <div class="tile" style="background:var(--t2); --acc:var(--a2); --d:12px; transition-delay:.08s"><i class="dot"></i><div><b>Level 2</b><span>Emerging risk signals</span></div></div>
+        <div class="tile" style="background:var(--t3); --acc:var(--a3); --d:16px; transition-delay:.16s"><i class="dot"></i><div><b>Level 3B</b><span>Emerging Risk Trajectory</span></div><small>Plaque unmeasured</small></div>
+        <div class="tile future" style="background:var(--t4); --acc:var(--a4); --d:20px; transition-delay:.24s"><i class="dot"></i><div><b>Level 4</b><span>Subclinical atherosclerosis present</span></div></div>
+        <div class="tile future" style="background:var(--t5); --acc:var(--a5); --d:24px; transition-delay:.32s"><i class="dot"></i><div><b>Level 5</b><span>Very high risk</span></div></div>
       </div>
-
-      <div class="report-card-divider"></div>
-
-      <div class="report-section-title">Assessment</div>
-      <ul class="report-list">
-        <li>T2DM with CKD G3aA2 <span class="report-val dim">(E11.22, N18.31)</span></li>
-        <li>Hypertension <span class="report-val dim">(I10)</span></li>
-        <li>Hypertriglyceridemia <span class="report-val dim">(E78.1)</span></li>
-        <li>Obesity, BMI 32.9 <span class="report-val dim">(E66.9, Z68.32)</span></li>
-      </ul>
-
-      <div class="report-section-title">Risk Drivers</div>
-      <div class="report-row">
-        <span class="report-label">Key drivers</span>
-        <span class="report-val warn">UACR 210 | A1c 7.4%</span>
-      </div>
-      <div class="report-row">
-        <span class="report-label"></span>
-        <span class="report-val">ApoB 110 | BP 136/80</span>
-      </div>
-      <div class="report-row">
-        <span class="report-label">Family history</span>
-        <span class="report-val">Father with premature ASCVD</span>
-      </div>
-
-      <div class="report-card-divider"></div>
-
-      <div class="report-section-title">Recommendations / Priority Actions</div>
-      <ul class="report-list">
-        <li><strong>Lipids:</strong> High-intensity statin; LDL &lt;70, ApoB &lt;80, non-HDL &lt;100</li>
-        <li><strong>Kidney:</strong> eGFR 52; UACR 210; recommend SGLT2i unless contraindicated</li>
-        <li><strong>Metabolic:</strong> Consider GLP-1 / GLP-1-GIP therapy; A1c 7.4%, goal &lt;7.0</li>
-        <li><strong>Aspirin:</strong> Not indicated</li>
-      </ul>
-
-      <div class="report-footer">fake patient &mdash; real output</div>
+      <div class="cont-foot"><span>&larr; Lower signal / lower urgency</span><span>Higher signal / higher urgency &rarr;</span></div>
+      <p class="cont-line"><b>Level 3B | Emerging Risk Trajectory.</b> Elevated 30-year trajectory plus actionable biologic burden.</p>
     </div>
   </div>
 </section>
 
 <!-- STATS -->
-<div class="stats-bar" role="region" aria-label="Clinical context">
-  <div class="stat-cell">
-    <div class="stat-num">90<sup>%</sup></div>
-    <div class="stat-desc">of U.S. adults have at least one CKM risk factor. Nearly half meet criteria for stage 2 or higher, often without knowing it.</div>
-    <span class="stat-cite">Aggarwal et al., <a href="https://jamanetwork.com/journals/jama/fullarticle/2818761" target="_blank" rel="noopener">JAMA, 2024</a></span>
-  </div>
-  <div class="stat-cell">
-    <div class="stat-num">15 min</div>
-    <div class="stat-desc">Median primary care visit. Not enough time to piece together a full cardiometabolic picture without a structured layer.</div>
-    <span class="stat-cite">Neprash et al., <a href="https://doi.org/10.1097/MLR.0000000000001450" target="_blank" rel="noopener">Medical Care, 2020</a></span>
-  </div>
-  <div class="stat-cell">
-    <div class="stat-num">47<sup>%</sup></div>
-    <div class="stat-desc">of adults eligible for lipid-lowering therapy are not receiving it. Structured risk interpretation may help close that gap at the point of care.</div>
-    <span class="stat-cite">Patel et al., <a href="https://publichealth.jhu.edu/2025/tens-of-thousands-of-heart-attacks-and-strokes-could-be-avoided-each-year-if-cholesterol-lowering-drugs-were-used-according-to-guidelines" target="_blank" rel="noopener">Johns Hopkins, 2025</a></span>
-  </div>
-</div>
-
-<!-- TRUST STRIP -->
-<div class="trust-strip">
-  <span>Built by a practicing internist</span>
-  <span>Current risk equations</span>
-  <span>Transparent, auditable engine</span>
-  <span>Clinical decision support only</span>
-  <span>No patient identifiers</span>
-</div>
-
-<!-- WHAT YOU GET -->
-<style>
-  .deliverables { padding: 4.5rem 4rem 4rem; background: var(--paper); border-bottom: 1px solid var(--rule); }
-  .deliverables-inner { max-width: 1200px; margin: 0 auto; }
-  .deliverables-head { margin-bottom: 2.25rem; max-width: 720px; }
-  .deliverables-eyebrow { font-size: .68rem; font-weight: 500; letter-spacing: .15em; text-transform: uppercase; color: var(--garnet-mid); display: flex; align-items: center; gap: .75rem; margin-bottom: 1rem; }
-  .deliverables-eyebrow::before { content: ""; width: 2rem; height: 1px; background: var(--garnet-mid); }
-  .deliverables-h2 { font-family: "Playfair Display", serif; font-size: clamp(1.75rem, 2.8vw, 2.4rem); font-weight: 400; color: var(--text-primary); line-height: 1.15; letter-spacing: -0.01em; }
-  .deliverables-h2 em { color: var(--garnet); font-style: italic; }
-  .deliv-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); }
-  .deliv-cell { padding: 1.75rem 1.5rem; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); background: #fff; }
-  .deliv-num { font-family: "Playfair Display", serif; font-size: 1.1rem; color: var(--garnet); margin-bottom: .6rem; font-style: italic; }
-  .deliv-title { font-size: .95rem; font-weight: 600; color: var(--text-primary); margin-bottom: .4rem; line-height: 1.3; }
-  .deliv-body { font-size: .82rem; color: var(--text-secondary); line-height: 1.55; font-weight: 300; }
-  @media (max-width: 980px) { .deliv-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 560px) { .deliv-grid { grid-template-columns: 1fr; } .deliverables { padding: 3rem 1.5rem; } }
-</style>
-<section class="deliverables" aria-labelledby="deliv-h2">
-  <div class="deliverables-inner">
-    <div class="deliverables-head">
-      <div class="deliverables-eyebrow">One click · Five outputs</div>
-      <h2 class="deliverables-h2" id="deliv-h2">Data in. <em>Clarity out.</em></h2>
-    </div>
-    <div class="deliv-grid">
-      <div class="deliv-cell">
-        <div class="deliv-num">01</div>
-        <div class="deliv-title">Risk level on the continuum</div>
-        <p class="deliv-body">Level 1–5 placement, with the named driver pattern (e.g. <em>"Level 3B · early CKM / atherogenic"</em>).</p>
+<section class="stats" aria-label="Why this matters">
+  <div class="wrap">
+    <div class="stats-grid reveal">
+      <div class="stat">
+        <div class="stat-num">90%</div>
+        <p>of U.S. adults have at least one CKM risk factor. Nearly half meet criteria for stage 2 or higher, often without knowing it.</p>
+        <cite>Aggarwal et al., <a href="https://jamanetwork.com/journals/jama/fullarticle/2818761" target="_blank" rel="noopener">JAMA, 2024</a></cite>
       </div>
-      <div class="deliv-cell">
-        <div class="deliv-num">02</div>
-        <div class="deliv-title">PREVENT 10y &amp; 30y risk</div>
-        <p class="deliv-body">Current AHA equations, both horizons. Banded Low / Borderline / Intermediate / High.</p>
+      <div class="stat">
+        <div class="stat-num">15 min</div>
+        <p>is the median primary care visit. Not much time to pull a full cardiometabolic picture together by hand.</p>
+        <cite>Neprash et al., <a href="https://doi.org/10.1097/MLR.0000000000001450" target="_blank" rel="noopener">Medical Care, 2020</a></cite>
       </div>
-      <div class="deliv-cell">
-        <div class="deliv-num">03</div>
-        <div class="deliv-title">Signal Score with drivers</div>
-        <p class="deliv-body">A 0–100 score that names the actual contributors — ApoB, family hx, hsCRP, A1c — with weights.</p>
-      </div>
-      <div class="deliv-cell">
-        <div class="deliv-num">04</div>
-        <div class="deliv-title">ICD codes &amp; targets</div>
-        <p class="deliv-body">Diagnoses derived from the data (E78.89, E11.9, N18.x…) plus per-domain targets ready to discuss.</p>
-      </div>
-      <div class="deliv-cell">
-        <div class="deliv-num">05</div>
-        <div class="deliv-title">AI Clinical Pearl</div>
-        <p class="deliv-body">Copy-paste structured report for the chart, and an Independent AI review with Clinical Pearl.</p>
+      <div class="stat">
+        <div class="stat-num">47%</div>
+        <p>of adults eligible for lipid-lowering therapy are not receiving it. A clear risk conversation at the point of care can help close that gap.</p>
+        <cite>Patel et al., <a href="https://publichealth.jhu.edu/2025/tens-of-thousands-of-heart-attacks-and-strokes-could-be-avoided-each-year-if-cholesterol-lowering-drugs-were-used-according-to-guidelines" target="_blank" rel="noopener">Johns Hopkins, 2025</a></cite>
       </div>
     </div>
   </div>
 </section>
 
-
-<!-- SIGNAL SCORE EXPLAINER (10s animated loop) -->
-<style>
-  .sigx { padding: 5rem 4rem; background: linear-gradient(180deg, #fbf6ec 0%, #f4ece0 100%); border-bottom: 1px solid var(--rule); }
-  .sigx-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.15fr; gap: 4rem; align-items: center; }
-  .sigx-eyebrow { font-size: .68rem; font-weight: 500; letter-spacing: .15em; text-transform: uppercase; color: var(--garnet-mid); display: flex; align-items: center; gap: .75rem; margin-bottom: 1rem; }
-  .sigx-eyebrow::before { content: ""; width: 2rem; height: 1px; background: var(--garnet-mid); }
-  .sigx-h2 { font-family: "Playfair Display", serif; font-size: clamp(1.7rem, 2.6vw, 2.25rem); font-weight: 400; color: var(--text-primary); line-height: 1.18; letter-spacing: -0.01em; margin-bottom: 1.1rem; }
-  .sigx-h2 em { color: var(--garnet); font-style: italic; }
-  .sigx-lede { font-size: .98rem; color: var(--text-secondary); line-height: 1.6; font-weight: 300; max-width: 38ch; }
-  .sigx-legend { margin-top: 1.4rem; font-size: .72rem; color: var(--text-muted); letter-spacing: .04em; }
-
-  .sigx-panel { background: #fff; border: 1px solid var(--rule); border-radius: 6px; padding: 1.75rem 1.85rem 1.6rem; box-shadow: 0 24px 60px -32px rgba(80, 30, 30, .25); position: relative; overflow: hidden; }
-  .sigx-panel-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.25rem; }
-  .sigx-panel-title { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--text-muted); font-weight: 500; }
-  .sigx-panel-sub { font-size: .68rem; color: var(--text-muted); opacity: .6; font-style: italic; font-family: "Instrument Sans", sans-serif; }
-
-  .sigx-drivers { display: flex; flex-direction: column; gap: .55rem; margin-bottom: 1.5rem; }
-  .sigx-row { display: grid; grid-template-columns: 7rem 1fr 2.4rem; align-items: center; gap: .75rem; font-size: .78rem; }
-  .sigx-row-label { color: var(--text-primary); font-weight: 500; }
-  .sigx-row-track { height: 8px; background: #f0e6d6; border-radius: 4px; position: relative; overflow: hidden; }
-  .sigx-row-fill { position: absolute; left: 0; top: 0; bottom: 0; background: linear-gradient(90deg, var(--garnet-mid), var(--garnet)); border-radius: 4px; width: 0%; animation: sigx-fill 10s ease-out infinite; }
-  .sigx-row-weight { font-family: "Instrument Sans", sans-serif; font-size: .72rem; color: var(--text-muted); text-align: right; opacity: 0; animation: sigx-show 10s linear infinite; }
-
-  .sigx-row:nth-child(1) .sigx-row-fill { animation-delay: 0.4s; --target: 95%; }
-  .sigx-row:nth-child(2) .sigx-row-fill { animation-delay: 1.0s; --target: 55%; }
-  .sigx-row:nth-child(3) .sigx-row-fill { animation-delay: 1.6s; --target: 55%; }
-  .sigx-row:nth-child(4) .sigx-row-fill { animation-delay: 2.2s; --target: 55%; }
-  .sigx-row:nth-child(5) .sigx-row-fill { animation-delay: 2.8s; --target: 42%; }
-  .sigx-row:nth-child(1) .sigx-row-weight { animation-delay: 0.7s; }
-  .sigx-row:nth-child(2) .sigx-row-weight { animation-delay: 1.3s; }
-  .sigx-row:nth-child(3) .sigx-row-weight { animation-delay: 1.9s; }
-  .sigx-row:nth-child(4) .sigx-row-weight { animation-delay: 2.5s; }
-  .sigx-row:nth-child(5) .sigx-row-weight { animation-delay: 3.1s; }
-
-  .sigx-score-wrap { display: flex; align-items: flex-end; justify-content: space-between; padding: 1.1rem 0 1.25rem; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 1.25rem; }
-  .sigx-score-label { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--text-muted); font-weight: 500; margin-bottom: .35rem; }
-  .sigx-score-num { font-family: "Playfair Display", serif; font-size: 3.5rem; line-height: 1; color: var(--garnet); font-weight: 400; letter-spacing: -0.02em; display: flex; align-items: baseline; }
-  .sigx-score-num .sigx-suffix { font-size: 1.1rem; color: var(--text-muted); margin-left: .15rem; font-family: "Instrument Sans", sans-serif; }
-  .sigx-score-band { font-size: .75rem; color: var(--text-secondary); font-style: italic; opacity: 0; animation: sigx-show 10s linear infinite; animation-delay: 4.2s; }
-
-  .sigx-chips { display: flex; flex-wrap: wrap; gap: .5rem; }
-  .sigx-chip { font-size: .72rem; padding: .42rem .7rem; border: 1px solid var(--rule); border-radius: 999px; background: #fbf6ec; color: var(--text-secondary); opacity: 0; transform: translateY(6px); animation: sigx-chip 10s ease-out infinite; }
-  .sigx-chip strong { color: var(--garnet); font-weight: 600; margin-right: .3rem; }
-  .sigx-chip:nth-child(1) { animation-delay: 4.6s; }
-  .sigx-chip:nth-child(2) { animation-delay: 5.0s; }
-  .sigx-chip:nth-child(3) { animation-delay: 5.4s; }
-  .sigx-chip:nth-child(4) { animation-delay: 5.8s; }
-
-  @keyframes sigx-fill {
-    0%, 3% { width: 0%; }
-    14%, 78% { width: var(--target, 60%); }
-    88%, 100% { width: var(--target, 60%); opacity: .3; }
-  }
-  @keyframes sigx-show {
-    0%, 4% { opacity: 0; }
-    10%, 80% { opacity: 1; }
-    90%, 100% { opacity: 0; }
-  }
-  @keyframes sigx-chip {
-    0%, 45% { opacity: 0; transform: translateY(6px); }
-    52%, 82% { opacity: 1; transform: translateY(0); }
-    92%, 100% { opacity: 0; transform: translateY(0); }
-  }
-  @keyframes sigx-count {
-    0%, 3% { content: "0"; }
-    10% { content: "14"; }
-    18% { content: "32"; }
-    26% { content: "50"; }
-    34% { content: "66"; }
-    42%, 90% { content: "80"; }
-    100% { content: "80"; }
-  }
-  .sigx-score-num .sigx-count::before { content: "0"; animation: sigx-count 10s steps(1, end) infinite; }
-
-  @media (prefers-reduced-motion: reduce) {
-    .sigx-row-fill { animation: none !important; width: var(--target, 60%) !important; }
-    .sigx-row-weight, .sigx-chip, .sigx-score-band { animation: none !important; opacity: 1 !important; transform: none !important; }
-    .sigx-score-num .sigx-count::before { animation: none !important; content: "80" !important; }
-  }
-  @media (max-width: 880px) {
-    .sigx { padding: 3.5rem 1.5rem; }
-    .sigx-inner { grid-template-columns: 1fr; gap: 2.25rem; }
-    .sigx-row { grid-template-columns: 5.5rem 1fr 2.2rem; font-size: .74rem; }
-    .sigx-score-num { font-size: 2.75rem; }
-  }
-</style>
-<!-- Signal Score build moved into Features tab below -->
-
-
-
-
-
-
-<!-- INTERACTIVE RISK CONTINUUM -->
-<style>
-  .rcx { padding: 6rem 4rem 5rem; border-bottom: 1px solid var(--rule); background: var(--paper); }
-  .rcx-head { max-width: 1200px; margin: 0 auto 2.75rem; }
-  .rcx-eyebrow { font-size: .68rem; font-weight: 500; letter-spacing: .15em; text-transform: uppercase; color: var(--garnet-mid); display: flex; align-items: center; gap: .75rem; margin-bottom: 1.25rem; }
-  .rcx-eyebrow::before { content: ""; width: 2rem; height: 1px; background: var(--garnet-mid); }
-  .rcx-h2 { font-family: "Playfair Display", serif; font-size: clamp(1.9rem, 3.2vw, 2.7rem); font-weight: 400; color: var(--text-primary); line-height: 1.15; letter-spacing: -0.01em; margin-bottom: .9rem; }
-  .rcx-h2 em { color: var(--garnet); font-style: italic; }
-  .rcx-sub { font-size: 1rem; color: var(--text-secondary); max-width: 60ch; line-height: 1.7; font-weight: 300; }
-
-  .rcx-wrap { max-width: 1200px; margin: 0 auto; }
-
-  /* chips */
-  .rcx-chips { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 3rem; }
-  .rcx-chip {
-    font-family: "JetBrains Mono", monospace; font-size: .74rem; font-weight: 400;
-    background: var(--white); border: 1px solid var(--card-border); color: var(--text-secondary);
-    padding: .65rem 1rem; border-radius: 999px; cursor: pointer;
-    transition: all .25s ease; letter-spacing: .01em; white-space: nowrap;
-  }
-  .rcx-chip:hover { border-color: var(--garnet-mid); color: var(--garnet); transform: translateY(-1px); }
-  .rcx-chip.is-active { background: var(--ink); border-color: var(--ink); color: var(--paper); }
-  .rcx-chip .rcx-chip-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: .55rem; vertical-align: middle; background: currentColor; opacity: .6; }
-
-  /* continuum */
-  .rcx-axis { position: relative; padding: 0 .5rem; margin-bottom: .9rem; }
-  .rcx-track {
-    position: relative; height: 10px; border-radius: 999px;
-    background: linear-gradient(90deg, #cfd9c9 0%, #e8c98a 35%, #c97045 68%, var(--garnet) 100%);
-    box-shadow: inset 0 1px 2px rgba(0,0,0,.08);
-  }
-  .rcx-ticks { position: absolute; inset: 0; display: flex; justify-content: space-between; pointer-events: none; }
-  .rcx-tick { width: 1px; height: 16px; background: rgba(46,13,22,.25); margin-top: -3px; }
-  .rcx-marker {
-    position: absolute; top: 50%; left: 8%;
-    width: 28px; height: 28px; border-radius: 50%;
-    background: var(--white); border: 2px solid var(--ink);
-    transform: translate(-50%, -50%);
-    transition: left .9s cubic-bezier(.65,.05,.36,1), border-color .4s ease, box-shadow .4s ease;
-    box-shadow: 0 4px 14px rgba(46,13,22,.18), 0 0 0 6px rgba(248,244,242,.7);
-    z-index: 2;
-  }
-  .rcx-marker::after {
-    content: ""; position: absolute; inset: 5px; border-radius: 50%;
-    background: var(--garnet); transition: background .4s ease;
-  }
-  .rcx-marker-label {
-    position: absolute; top: -42px; left: 50%; transform: translateX(-50%);
-    font-family: "JetBrains Mono", monospace; font-size: .68rem; letter-spacing: .12em;
-    text-transform: uppercase; color: var(--ink); white-space: nowrap;
-    background: var(--white); padding: .35rem .65rem; border: 1px solid var(--card-border);
-    border-radius: 3px;
-  }
-  .rcx-marker-label::after {
-    content: ""; position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%) rotate(45deg);
-    width: 8px; height: 8px; background: var(--white); border-right: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border);
-  }
-  .rcx-zones { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; padding: 0 .5rem; margin-top: 1.5rem; }
-  .rcx-zone { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--text-muted); font-weight: 500; }
-  .rcx-zone span { display: block; font-family: "Playfair Display", serif; font-style: italic; font-size: .85rem; letter-spacing: 0; text-transform: none; color: var(--text-secondary); margin-top: .25rem; font-weight: 400; }
-
-  /* note panel */
-  .rcx-panel {
-    margin-top: 3rem;
-    display: grid; grid-template-columns: 1fr 1.3fr; gap: 0;
-    background: var(--white); border: 1px solid var(--card-border); border-radius: var(--radius-lg);
-    overflow: hidden; min-height: 340px;
-  }
-  .rcx-patient { padding: 2rem 2.25rem; border-right: 1px solid var(--rule); background: var(--paper-warm); }
-  .rcx-patient-label { font-size: .68rem; letter-spacing: .15em; text-transform: uppercase; color: var(--garnet-mid); margin-bottom: 1rem; }
-  .rcx-patient-name { font-family: "Playfair Display", serif; font-size: 1.5rem; color: var(--text-primary); margin-bottom: .25rem; }
-  .rcx-patient-meta { font-family: "JetBrains Mono", monospace; font-size: .78rem; color: var(--text-muted); margin-bottom: 1.5rem; }
-  .rcx-labs { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem .9rem; }
-  .rcx-lab { display: flex; flex-direction: column; }
-  .rcx-lab-key { font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); }
-  .rcx-lab-val { font-family: "JetBrains Mono", monospace; font-size: .9rem; color: var(--text-primary); font-weight: 500; }
-  .rcx-lab-val.is-flag { color: var(--garnet); }
-
-  .rcx-note { padding: 2rem 2.25rem; position: relative; }
-  .rcx-note-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; padding-bottom: .85rem; border-bottom: 1px dashed var(--rule); }
-  .rcx-note-title { font-size: .68rem; letter-spacing: .15em; text-transform: uppercase; color: var(--text-muted); }
-  .rcx-note-copy { font-family: "JetBrains Mono", monospace; font-size: .7rem; color: var(--garnet); cursor: pointer; background: none; border: 1px solid var(--rule); padding: .35rem .65rem; border-radius: 3px; transition: all .2s; }
-  .rcx-note-copy:hover { background: var(--garnet); color: var(--white); border-color: var(--garnet); }
-  .rcx-note-body { font-family: "JetBrains Mono", monospace; font-size: .82rem; line-height: 1.75; color: var(--text-secondary); white-space: pre-wrap; }
-  .rcx-note-body .k { color: var(--garnet); font-weight: 500; }
-  .rcx-note.is-loading .rcx-note-body { opacity: .35; }
-  .rcx-fade { animation: fadeUp .45s ease both; }
-
-  @media (max-width: 880px) {
-    .rcx { padding: 4rem 1.5rem 3rem; }
-    .rcx-panel { grid-template-columns: 1fr; }
-    .rcx-patient { border-right: none; border-bottom: 1px solid var(--rule); }
-    .rcx-zones { grid-template-columns: repeat(2, 1fr); }
-  }
-</style>
-
-<section class="rcx" aria-labelledby="rcx-h2">
-  <div class="rcx-head">
-    <div class="rcx-eyebrow">Live demo · The risk continuum</div>
-    <h2 id="rcx-h2">See where a patient lands. <em>Then see the report.</em></h2>
-    <p class="rcx-sub">Pick a representative patient. The marker slides to their position on the risk continuum and a structured report appears inline — the same shape of output RCCKM produces from your real inputs. <em style="color:var(--text-muted); font-style:italic;">Representative examples shown for demonstration.</em></p>
-  </div>
-
-  <div class="rcx-wrap">
-    <div class="rcx-chips" role="tablist" aria-label="Example patients">
-      <button class="rcx-chip is-active" data-rcx="0" role="tab"><span class="rcx-chip-dot"></span>42F · A1c 5.4 · LDL 92 · CAC 0</button>
-      <button class="rcx-chip" data-rcx="1" role="tab"><span class="rcx-chip-dot"></span>55M · A1c 6.1 · LDL 138 · HTN</button>
-      <button class="rcx-chip" data-rcx="2" role="tab"><span class="rcx-chip-dot"></span>58F · A1c 7.2 · LDL 156 · CAC 90</button>
-      <button class="rcx-chip" data-rcx="3" role="tab"><span class="rcx-chip-dot"></span>67M · post-MI · A1c 7.8 · eGFR 48</button>
+<!-- TRAJECTORY -->
+<section class="traj" id="trajectory" aria-labelledby="traj-h2">
+  <div class="wrap">
+    <div class="traj-head center reveal">
+      <span class="eyebrow">Trajectory</span>
+      <h2 class="h2" id="traj-h2">Every number looked fine on its own.</h2>
+      <p class="lede">Paste chart text with dated results and RCCKM lines them up. For this 52-year-old, three years of labs tell a story no single visit showed.</p>
     </div>
-
-    <div class="rcx-axis">
-      <div class="rcx-track" aria-hidden="true">
-        <div class="rcx-ticks">
-          <span class="rcx-tick"></span><span class="rcx-tick"></span><span class="rcx-tick"></span><span class="rcx-tick"></span><span class="rcx-tick"></span>
-        </div>
-        <div class="rcx-marker" id="rcx-marker" aria-hidden="true">
-          <span class="rcx-marker-label" id="rcx-marker-label">Level 1 · Low</span>
+    <div class="spark-grid" id="sparks">
+      <div class="spark big">
+        <div class="spark-top"><span>A1c &middot; 3 dated results, Feb 2024 to Sep 2026</span><i class="badge">Worsening</i></div>
+        <div class="big-chart">
+          <svg id="a1c-chart" viewBox="0 0 520 250" role="img" aria-label="A1c rose from 5.2% in February 2024 to 5.7% in June 2025 and 6.1% in September 2026, crossing the 5.7% prediabetes threshold"></svg>
+          <p class="cap">A1c increased from 5.2% to 6.1%.</p>
         </div>
       </div>
-      <div class="rcx-zones">
-        <div class="rcx-zone">Low<span>Level 1 · CKM 0–1</span></div>
-        <div class="rcx-zone">Borderline<span>Level 2–3 · CKM 1</span></div>
-        <div class="rcx-zone">High<span>Level 4 · CKM 2</span></div>
-        <div class="rcx-zone">Very High<span>Level 5 · CKM 3–4</span></div>
-      </div>
+    </div>
+    <p class="traj-note">Synthetic demo patient, dated results from the chart text. Trends add context; they never change the level, PREVENT or the actions on their own.</p>
+  </div>
+</section>
+
+<!-- TRY A PLAN -->
+<section class="plan" id="plan" aria-labelledby="plan-h2">
+  <div class="wrap">
+    <div class="plan-head center reveal">
+      <span class="eyebrow">Try a plan</span>
+      <h2 class="h2 plan-big" id="plan-h2">What happens if&hellip;</h2>
+      <p class="lede">Start a statin? Bring her blood pressure down? Answer it in the room. Tap an intervention and RCCKM reruns the whole assessment for that scenario.</p>
     </div>
 
-    <div class="rcx-panel">
-      <aside class="rcx-patient">
-        <div class="rcx-patient-label">Patient</div>
-        <div class="rcx-patient-name" id="rcx-name">—</div>
-        <div class="rcx-patient-meta" id="rcx-meta">—</div>
-        <div class="rcx-labs" id="rcx-labs"></div>
-      </aside>
-      <div class="rcx-note" id="rcx-note">
-        <div class="rcx-note-head">
-          <span class="rcx-note-title">Generated assessment · ready to paste</span>
-          <button class="rcx-note-copy" id="rcx-copy" type="button">Copy</button>
+    <div class="card rp" id="rp">
+      <div class="rp-top">
+        <div><div class="card-eyebrow">PREVENT population model</div><div class="card-title">Risk and plan</div></div>
+        <div class="seg" aria-hidden="true"><span>Today's risk</span><span class="on">Try a plan</span></div>
+      </div>
+      <p class="rp-sub">Tap an intervention and watch the picture change. Each scenario is a full engine run.</p>
+      <div class="chips" role="group" aria-label="Interventions">
+        <button class="lever" type="button" data-lever="statin" aria-pressed="false"><span class="chk">✓</span>💊 Start a statin <em>&minus;2.7 pts (30-yr)</em></button>
+        <button class="lever" type="button" data-lever="bp" aria-pressed="false"><span class="chk">✓</span>🩺 Systolic BP to 120 <em>&minus;1.8 pts (30-yr)</em></button>
+        <span class="lever static">Triglycerides under 150 <em>RSS &minus;4</em></span>
+        <span class="lever static">A1c under 5.7% <em>RSS &minus;2</em></span>
+      </div>
+      <div class="summary" id="summary" aria-live="polite"></div>
+      <div class="rp-body">
+        <div>
+          <p class="sentence" id="sentence"></p>
+          <svg class="chart" id="tl" viewBox="0 0 600 270" role="img" aria-label="Cumulative ASCVD risk timeline: 1.9% by age 62 and 11.8% by age 82 today"></svg>
+          <div class="legend"><span><i style="background:var(--muted)"></i>Today</span><span><i style="background:var(--good)"></i>With plan</span></div>
+          <div class="tiles-row">
+            <div class="mini"><span>Signal score</span><b id="m-rss">12</b></div>
+            <div class="mini"><span>Level</span><b id="m-lvl">3B</b></div>
+          </div>
         </div>
-        <div class="rcx-note-body" id="rcx-body"></div>
+        <div>
+          <div class="people-box">
+            <h4>100 similar patients over 30 years</h4>
+            <div class="people" id="people" aria-hidden="true"></div>
+            <div class="people-leg">
+              <span><i style="background:var(--accent)"></i><b id="pl-ev">12</b> may have a heart attack or stroke</span>
+              <span id="pl-pv-row"><i style="background:var(--good)"></i><b id="pl-pv">0</b> fewer with this plan</span>
+            </div>
+          </div>
+        </div>
       </div>
+      <p class="rp-note">Points are PREVENT's 10-year and 30-year estimates; the dotted lines only connect them. The 30-year plan value assumes the treatment effect is sustained. Synthetic demo patient; every value is RCCKM engine output.</p>
     </div>
-  </div>
-</section>
+    <span class="autoplay" id="autoplay">Playing a demo. Tap a lever to take over.</span>
 
-<script>
-  (function () {
-    var patients = [
-      {
-        name: "Patient A", meta: "42F · non-smoker · no family hx · CAC 0",
-        labs: [["A1c","5.4 %"],["LDL-C","92 mg/dL"],["BP","118/74"],["eGFR","98"],["BMI","23.4"],["CAC","0"]],
-        flags: [],
-        pos: 8, label: "Level 1 · Low",
-        note: "ASSESSMENT — Cardiometabolic Risk\n\n[k]Risk Continuum Level:[/k] 1 (Low)\n[k]CKM Stage:[/k] 0–1\n[k]Key drivers:[/k] none — optimal lipids, normoglycemia, CAC 0.\n\n[k]Plan:[/k]\n  • Lifestyle reinforcement; reassess in 3–5 years.\n  • No pharmacotherapy indicated.\n\n[k]ICD-10:[/k] Z13.6"
-      },
-      {
-        name: "Patient B", meta: "55M · former smoker · father MI at 62",
-        labs: [["A1c","6.1 %"],["LDL-C","138 mg/dL"],["BP","142/88"],["eGFR","82"],["BMI","27.8"],["Trig","165"]],
-        flags: [1,2],
-        pos: 34, label: "Level 2–3 · Borderline",
-        note: "ASSESSMENT — Cardiometabolic Risk\n\n[k]Risk Continuum Level:[/k] 2–3 (Borderline / Elevated)\n[k]CKM Stage:[/k] 1 (metabolic risk factors)\n[k]Key drivers:[/k] prediabetes, stage 1 HTN, elevated LDL, family hx of premature ASCVD.\n\n[k]Plan:[/k]\n  • Consider moderate-intensity statin; CAC scoring to refine risk.\n  • BP target <130/80; lifestyle Rx.\n  • Recheck lipids + A1c at 12 weeks.\n\n[k]ICD-10:[/k] R73.03, I10, E78.00"
-      },
-      {
-        name: "Patient C", meta: "58F · BMI 31 · sedentary · OSA · CAC 90",
-        labs: [["A1c","7.2 %"],["LDL-C","156 mg/dL"],["BP","148/92"],["eGFR","74"],["BMI","31.2"],["CAC","90"]],
-        flags: [0,1,2,5],
-        pos: 68, label: "Level 4 · High",
-        note: "ASSESSMENT — Cardiometabolic Risk\n\n[k]Risk Continuum Level:[/k] 4 (High)\n[k]CKM Stage:[/k] 2 (metabolic risk + subclinical atherosclerosis)\n[k]Key drivers:[/k] T2DM (A1c 7.2), LDL 156, CAC 90 (subclinical plaque), stage 2 HTN, obesity.\n\n[k]Plan:[/k]\n  • High-intensity statin (rosuvastatin 20–40 mg); LDL goal <70.\n  • SGLT2 inhibitor — glycemic + cardiorenal benefit.\n  • BP <130/80; weight-management referral.\n\n[k]ICD-10:[/k] E11.9, I10, E78.5, E66.01"
-      },
-      {
-        name: "Patient D", meta: "67M · MI 2022 · LAD stent · HFrEF (EF 40%)",
-        labs: [["A1c","7.8 %"],["LDL-C","112 mg/dL"],["BP","134/82"],["eGFR","48"],["Kidney","CKD G3a"],["UACR","118"]],
-        flags: [0,1,3,4,5],
-        pos: 94, label: "Level 5 · Very High · Secondary Prevention",
-        note: "ASSESSMENT — Cardiometabolic Risk\n\n[k]Risk Continuum Level:[/k] 5 (Very High — Secondary Prevention)\n[k]CKM Stage:[/k] 3 (established CVD with metabolic + renal disease)\n[k]Kidney stage:[/k] CKD G3a A3 (eGFR 48, UACR 118)\n[k]Key drivers:[/k] prior MI / ASCVD, T2DM, CKD with macroalbuminuria, HFrEF.\n\n[k]Plan:[/k]\n  • Intensify lipid lowering: add ezetimibe ± PCSK9i; LDL goal <55.\n  • SGLT2i — CV + renal + HF benefit; consider GLP-1 RA.\n  • Optimize GDMT (ARNI, BB, MRA, SGLT2i); continue antiplatelet.\n\n[k]ICD-10:[/k] I25.2, I50.22, E11.22, N18.30"
-      }
-    ];
-
-
-    var marker = document.getElementById("rcx-marker");
-    var markerLabel = document.getElementById("rcx-marker-label");
-    var nameEl = document.getElementById("rcx-name");
-    var metaEl = document.getElementById("rcx-meta");
-    var labsEl = document.getElementById("rcx-labs");
-    var bodyEl = document.getElementById("rcx-body");
-    var noteEl = document.getElementById("rcx-note");
-    var copyBtn = document.getElementById("rcx-copy");
-    var chips = document.querySelectorAll(".rcx-chip");
-
-    function fmtNote(s) {
-      return s.replace(/\[k\]/g, '<span class="k">').replace(/\[\/k\]/g, '</span>');
-    }
-    function plainNote(s) { return s.replace(/\[\/?k\]/g, ''); }
-
-    function render(i) {
-      var p = patients[i];
-      marker.style.left = p.pos + "%";
-      markerLabel.textContent = p.label;
-      nameEl.textContent = p.name;
-      metaEl.textContent = p.meta;
-      labsEl.innerHTML = p.labs.map(function (kv, idx) {
-        var flag = p.flags.indexOf(idx) !== -1 ? " is-flag" : "";
-        return '<div class="rcx-lab"><span class="rcx-lab-key">' + kv[0] + '</span><span class="rcx-lab-val' + flag + '">' + kv[1] + '</span></div>';
-      }).join("");
-      noteEl.classList.add("is-loading");
-      setTimeout(function () {
-        bodyEl.innerHTML = fmtNote(p.note);
-        bodyEl.classList.remove("rcx-fade"); void bodyEl.offsetWidth; bodyEl.classList.add("rcx-fade");
-        noteEl.classList.remove("is-loading");
-      }, 320);
-      chips.forEach(function (c, idx) { c.classList.toggle("is-active", idx === i); });
-      copyBtn.dataset.text = plainNote(p.note);
-    }
-
-    chips.forEach(function (c) {
-      c.addEventListener("click", function () { render(parseInt(c.dataset.rcx, 10)); });
-    });
-
-    copyBtn.addEventListener("click", function () {
-      var t = copyBtn.dataset.text || "";
-      if (navigator.clipboard) navigator.clipboard.writeText(t);
-      var orig = copyBtn.textContent;
-      copyBtn.textContent = "Copied";
-      setTimeout(function () { copyBtn.textContent = orig; }, 1400);
-    });
-
-    render(0);
-  })();
-</script>
-
-
-<section class="pad why-now" id="why-now" aria-labelledby="why-h2">
-  <div class="why-now-inner">
-    <div>
-      <span class="section-label">Why this matters now</span>
-      <h2 id="why-h2">Surface the risk signals buried in the chart.</h2>
-      <p class="section-sub">ApoB, Lp(a), a missing UACR, eGFR, CAC score, A1c, BP, medications — the most important cardiometabolic data points are spread across the record, or may not have been checked. Clinicians have had to process all that information quickly, while simultaneously handling all the other aspects of a visit...until now. RCCKM does that assembly for you.</p>
-      <p class="pull-quote">From fragmented chart data to structured CKM interpretation.</p>
-    </div>
-    <div class="problem-cards">
-      <div class="problem-card">
-        <div class="problem-card-title">Find the patterns hiding in plain sight.</div>
-        <p class="problem-card-body">Labs, imaging, medications, and risk markers from across the record go in. The cardiometabolic story they tell together comes out — surfaced, structured, and ready to review.</p>
-      </div>
-      <div class="problem-card">
-        <div class="problem-card-title">Turn fragmented data into a clear clinical report.</div>
-        <p class="problem-card-body">CKM stage, kidney risk, ASCVD risk, drivers, treatment considerations, and a copy-ready EMR report — all derived from the data you already have.</p>
-      </div>
-      <div class="problem-card">
-        <div class="problem-card-title">A second read, instantly.</div>
-        <p class="problem-card-body">Expert Commentary delivers an independent <em>Agree / Disagree</em> verdict citing this patient's actual numbers. Not to replace your judgment. To pressure-test it.</p>
-      </div>
-      <p class="pull-quote" style="font-size:.95rem; margin-top: 1rem;">Less chart assembly. More clinical time.</p>
-    </div>
-  </div>
-</section>
-
-<!-- SECTION BREAK -->
-<div class="section-break" aria-hidden="true">
-  <span class="section-break-line">The story starts before the event.</span>
-</div>
-
-<!-- POSITIONING -->
-<section class="positioning" aria-labelledby="pos-h2">
-  <div class="positioning-inner">
-    <span class="section-label">What this is</span>
-    <div class="positioning-trio">
-      <p>Surface the cardiovascular, kidney, and metabolic risk signals buried in the chart.</p>
-      <p class="positioning-trio-hl">From fragmented data to structured interpretation.</p>
-    </div>
-    <h2 id="pos-h2">Physician-built clinical decision support.</h2>
-    <p class="positioning-body">Turn siloed labs, imaging, medications, and risk markers into structured CKM interpretation. Expert Commentary included. The visit stays about the patient.</p>
-    <div class="attr-chips" role="list">
-      <span class="attr-chip">Deterministic</span>
-      <span class="attr-chip">Guideline-aligned</span>
-      <span class="attr-chip">PREVENT-era</span>
-      <span class="attr-chip">ApoB-forward</span>
-      <span class="attr-chip">CKM-integrated</span>
-      <span class="attr-chip">EMR-agnostic</span>
-      <span class="attr-chip">Missingness-aware</span>
-      <span class="attr-chip">ICD-aware</span>
-    </div>
-  </div>
-</section>
-
-<!-- FEATURES -->
-<section class="pad features" id="features" aria-labelledby="feat-h2">
-  <div class="features-header">
-    <span class="section-label">Features</span>
-    <h2 id="feat-h2">Cardiometabolic risk, surfaced and structured.</h2>
-    <p class="section-sub">Built for the pace of a real clinical day.</p>
-  </div>
-  <div class="ftabs" role="tablist">
-    <button class="ftab active" role="tab" aria-selected="true" onclick="showTab('continuum',this)">Risk continuum</button>
-    <button class="ftab" role="tab" aria-selected="false" onclick="showTab('prevent',this)">PREVENT output</button>
-    <button class="ftab" role="tab" aria-selected="false" onclick="showTab('roadmap',this)">Patient roadmap</button>
-    <button class="ftab" role="tab" aria-selected="false" onclick="showTab('targets',this)">Targets + action</button>
-    <button class="ftab" role="tab" aria-selected="false" onclick="showTab('signal',this)">Signal Score</button>
-  </div>
-
-  <div class="fpane active" id="fpane-continuum">
-    <div class="fpane-text">
-      <h3>Five levels. One clear position.</h3>
-      <p>Every patient is placed on a continuum from minimal signal to very high risk. Direction and urgency emerge from the data already in the chart.</p>
-    </div>
-    <div class="rcce">
-      <div class="rcce-head">
-        <span class="rcce-title">Risk Continuum</span>
-        <span class="rcce-current">Current: Level 3B</span>
-      </div>
-      <div class="rcce-bar">
-        <div class="rcce-level"><strong>Level 1</strong>Minimal risk signal</div>
-        <div class="rcce-level"><strong>Level 2</strong>Emerging risk signals</div>
-        <div class="rcce-level"><strong>Level 3B</strong>Actionable early CKM<br>/ atherogenic risk<br><small>Plaque unmeasured</small></div>
-        <div class="rcce-level"><strong>Level 4</strong>Subclinical<br>atherosclerosis<br>present</div>
-        <div class="rcce-level"><strong>Level 5</strong>Very high risk</div>
-      </div>
-      <div class="rcce-arrow">▼</div>
-      <div class="rcce-detail">
-        <ul>
-          <li>UACR 45 mg/g</li>
-          <li>eGFR 55</li>
-          <li>Diabetes (A1c 7.1%)</li>
-          <li>BP 132/82</li>
-          <li>ApoB 110 mg/dL</li>
+    <div class="plan-foot">
+      <div class="reveal">
+        <span class="eyebrow">The real screen</span>
+        <h3>Every lever ranked, every number sourced.</h3>
+        <p class="lede">In the app, levers are ranked by how much they lower 30-year risk. Drag any value, or stack levers to see what they do together.</p>
+        <ul class="ticks">
+          <li><span>🔬</span>LDL-C and systolic BP effects use CTT Collaboration and Ettehad 2016 trial data, cited on screen.</li>
+          <li><span>🔁</span>Other changes rerun the PREVENT equations with the new value.</li>
+          <li><span>🧭</span>Level, Risk Signal Score and actions update for the patient with those values.</li>
         </ul>
+        <p class="fineprint">Modeled estimates for clinician review. A lower modeled value does not establish an individual treatment benefit.</p>
       </div>
-      <div class="rcce-footer">
-        <span>Lower signal / lower urgency</span>
-        <span>Higher signal / higher urgency</span>
+      <div class="window reveal">
+        <div class="window-bar"><i></i><i></i><i></i><span>Risk and plan</span></div>
+        <img src="assets/landing/app-tryplan.jpg" alt="The app's Risk and plan card: statin and systolic BP 120 selected, timeline showing 30-year ASCVD 11.8% today and 7.7% with the plan, ranked levers with trial sources" width="2336" height="3700" loading="lazy" />
       </div>
     </div>
-  </div>
 
-  <div class="fpane" id="fpane-prevent" hidden>
-    <div class="fpane-text">
-      <h3>10-year and 30-year risk, together.</h3>
-      <p>A borderline 10-year number looks very different alongside a 21% 30-year trajectory. Both are shown. The conversation changes.</p>
-      <ul>
-        <li>PREVENT equations, not Pooled Cohort</li>
-        <li>Atherosclerotic and cardiovascular event risk displayed separately</li>
-        <li>Plain-language interpretation included</li>
-        <li>RCCKM level shown in context</li>
-      </ul>
-    </div>
-    <div class="ss-wrap">
-      <img src="assets/landing-prevent-output.jpg" alt="PREVENT 10-year and 30-year cardiovascular risk output" class="ss-img" />
-    </div>
-  </div>
-
-  <div class="fpane" id="fpane-roadmap" hidden>
-    <div class="fpane-text">
-      <h3>A handout the patient can actually read.</h3>
-      <p>The patient roadmap is plain-language output your patient takes home. Risk in plain numbers, why it is elevated, what the goals are, what happens next.</p>
-      <ul>
-        <li>Risk explained as "5 out of 100 patients," not just percentages</li>
-        <li>Drivers named plainly. ApoB, blood sugar, kidney. Not jargon.</li>
-        <li>Current goals shown alongside current values</li>
-        <li>Numbered next steps the patient can follow</li>
-      </ul>
-    </div>
-    <div class="ss-wrap">
-      <img src="assets/landing-patient-roadmap.jpg" alt="Patient-facing prevention roadmap handout" class="ss-img" />
-    </div>
-  </div>
-
-  <div class="fpane" id="fpane-targets" hidden>
-    <div class="fpane-text">
-      <h3>Targets and next steps. No ambiguity.</h3>
-      <p>LDL-C, non-HDL-C, and ApoB targets sit alongside numbered actions in plain clinical language. The clinician walks out knowing exactly what to do.</p>
-      <ul>
-        <li>ApoB as a first-class target, built in</li>
-        <li>Aspirin guidance included</li>
-        <li>CAC recommendation surfaced when treatment decision is uncertain</li>
-        <li>Tied directly to the patient's PREVENT risk level</li>
-      </ul>
-    </div>
-    <div class="ss-wrap">
-      <img src="assets/targets-action.png" alt="Copy-ready clinical report with assessment, risk drivers, and recommendations" class="ss-img" />
-    </div>
-  </div>
-
-  <div class="fpane" id="fpane-signal" hidden>
-    <div class="fpane-text">
-      <h3>Weighted drivers in. One defensible number out.</h3>
-      <p>Risk Signal Score is evidence-informed and clinically calibrated. Markers that directly show disease burden or strongly change management — CAC/plaque, ASCVD, CKD with albuminuria, diabetes, ApoB, LDL-C, and Lp(a) — receive higher weights. Broader risk enhancers such as OSA, obesity, and family history receive lower weights because they add context but are less specific.</p>
-    </div>
-    <div class="ss-wrap">
-      <img src="assets/landing-risk-signal-score.jpg" alt="Risk Signal Score showing weighted contributors and total score of 38 out of 100" class="ss-img" />
+    <div class="note-row">
+      <div class="reveal">
+        <span class="eyebrow">Documented</span>
+        <h3>The conversation goes in the note.</h3>
+        <p class="lede">One click adds the plan you discussed under "Risk Reduction Discussed", with the modeled numbers, worded as an estimate rather than an order.</p>
+      </div>
+      <div class="window reveal">
+        <div class="window-bar"><i></i><i></i><i></i><span>Clinical report &middot; EMR plain text</span></div>
+        <img src="assets/landing/app-note.jpg" alt="EMR plain-text note ending with Risk Reduction Discussed: statin therapy and systolic BP 120 mmHg, modeled PREVENT ASCVD 10-year 1.9% to 1.2%, 30-year 11.8% to 7.7%" width="2336" height="1468" loading="lazy" />
+      </div>
     </div>
   </div>
 </section>
 
-<!-- SHARED DECISION MAKING -->
-<section class="sdm-section" aria-labelledby="sdm-h2">
-  <div class="sdm-inner">
-    <div class="sdm-text">
-      <span class="section-label">Shared decision making</span>
-      <h2 id="sdm-h2">Clarity, on both sides of the conversation.</h2>
-      <p class="section-sub">Your structured report, ready to paste. A plain-language summary your patient takes home. One analysis covers both.</p>
-      <p class="pull-quote" style="color: var(--garnet); margin-top: 1.25rem;">Better clarity, better decisions.</p>
+<!-- SHARED DECISIONS -->
+<section class="sdm" id="decide" aria-labelledby="sdm-h2">
+  <div class="wrap">
+    <div class="sdm-top reveal">
+      <div>
+        <span class="eyebrow">Shared decision making</span>
+        <h2 class="h2" id="sdm-h2">Make the decision together, with the numbers on the screen.</h2>
+      </div>
+      <p class="lede">Patients decide better when they can see their own risk and what each option would change. RCCKM gives you something to point at, a way to try options together, and a record of what you talked about.</p>
     </div>
     <div class="sdm-cards">
-      <div class="sdm-card">
-        <div class="sdm-card-icon">🩺</div>
-        <div class="sdm-card-title">For the clinician</div>
-        <p class="sdm-card-body">Risk level, staging, targets, ICD codes, and numbered actions. Structured, ready, and waiting. Walk in knowing. Walk out documented.</p>
-      </div>
-      <div class="sdm-card">
-        <div class="sdm-card-icon">🧑‍⚕️</div>
-        <div class="sdm-card-title">For the patient</div>
-        <p class="sdm-card-body">A plain-language prevention roadmap they take home. Drivers named clearly. Goals shown alongside current values. Next steps numbered and actionable.</p>
-      </div>
-      <div class="sdm-card sdm-card-wide">
-        <div class="sdm-card-icon">💬</div>
-        <div class="sdm-card-title">The conversation that follows</div>
-        <p class="sdm-card-body">When patients understand their own risk story, the conversation changes. Shared decision making becomes real, not just a checkbox.</p>
-      </div>
+      <div class="sdm-card reveal"><div class="em">👥</div><h3>Risk they can picture</h3><p>"About 2 in 100 similar patients," with a 100-person array at 10 and 30 years.</p></div>
+      <div class="sdm-card reveal"><div class="em">📉</div><h3>A curve they can watch bend</h3><p>Today and the plan on one timeline, out to age 82 for this patient.</p></div>
+      <div class="sdm-card reveal"><div class="em">📝</div><h3>The conversation, documented</h3><p>"Risk Reduction Discussed" goes in the note with the numbers you shared.</p></div>
+      <div class="sdm-card reveal"><div class="em">🗺️</div><h3>A roadmap to take home</h3><p>Where you stand, why, your goals and your next steps, in plain language.</p></div>
     </div>
-  </div>
-</section>
-
-<!-- ORIGIN STORY / BUILT BY -->
-<section class="testimonial-section">
-  <div class="testimonial-card">
-    <p class="testimonial-text">"I wanted a way to figure out patients' cardiovascular risk quickly: and catch the signals to alter course well before events, using the routine data we already have or can easily get."</p>
-    <p class="testimonial-author">Shereef El-Ibiary MD &nbsp;·&nbsp; Internal Medicine &nbsp;·&nbsp; Practicing clinician and RCCKM founder</p>
-  </div>
-</section>
-
-<!-- WHO -->
-<section class="for-section" aria-labelledby="for-h2">
-  <div class="for-header">
-    <span class="section-label">Who it is for</span>
-    <h2 id="for-h2">Built for every clinician in the CKM space.</h2>
-    <p class="section-sub">Cardiometabolic risk touches every specialty. RCCKM works wherever you do.</p>
-  </div>
-  <div class="spec-grid">
-    <div class="spec-card"><div class="spec-icon">🩺</div><div class="spec-name">Internal Medicine</div><p class="spec-body">Structured CKM interpretation for complex multi-morbidity patients. Know which intervention to prioritize and why.</p></div>
-    <div class="spec-card"><div class="spec-icon">🏥</div><div class="spec-name">Family Medicine</div><p class="spec-body">Manage CKM risk longitudinally across your panel. Stay ahead of every patient's trajectory at every visit.</p></div>
-    <div class="spec-card"><div class="spec-icon">❤️</div><div class="spec-name">Cardiology</div><p class="spec-body">Quantify upstream metabolic, renal, lipid, and plaque contributors driving downstream cardiovascular outcomes.</p></div>
-    <div class="spec-card"><div class="spec-icon">🫘</div><div class="spec-name">Nephrology</div><p class="spec-body">Kidney function, albuminuria, cardiovascular risk, and treatment implications in one CKM-aware frame.</p></div>
-    <div class="spec-card"><div class="spec-icon">🩸</div><div class="spec-name">Endocrinology</div><p class="spec-body">Diabetes and metabolic disease managed with cardiovascular and kidney trajectory visible in real time.</p></div>
-    <div class="spec-card spec-dark"><div class="spec-dark-hl">Trajectory redirected.</div><p class="spec-dark-sub">Built for clinicians with the greatest power to change what happens next, before disease is established.</p></div>
-  </div>
-</section>
-
-<!-- HOW -->
-<section class="how-section" id="how" aria-labelledby="how-h2">
-  <div class="how-header">
-    <span class="section-label">How it works</span>
-    <h2 id="how-h2">From patient data to documented insight in under 60 seconds.</h2>
-    <p class="section-sub">Basic data in, consistent, guideline-aligned recommendations out, with just a few clicks.</p>
-  </div>
-  <div class="steps">
-    <div class="step"><div class="step-num">01</div><div class="step-title">Paste de-identified data</div><p class="step-body">Copy and paste de-identified data from your note into the provided template, or key it in directly. The hardwired parser catches most common formats — no AI, no PHI leaves your browser.</p></div>
-    <div class="step"><div class="step-num">02</div><div class="step-title">Engine runs</div><p class="step-body">Risk level, PREVENT score, CKM staging, treatment targets, ICD codes, and numbered recommendations — all in seconds.</p></div>
-    <div class="step"><div class="step-num">03</div><div class="step-title">AI Insight</div><p class="step-body">AI Insight with Expert Commentary adds context and perspective to every case, right when you need it most.</p></div>
-    <div class="step"><div class="step-num">04</div><div class="step-title">Ready to use</div><p class="step-body">Your report is ready to paste. Your patient has a plain-language summary to take home. Both done before they leave the room.</p></div>
-  </div>
-</section>
-
-<!-- TUESDAY 11AM — concrete clinical walkthrough -->
-<section aria-labelledby="tue-h2" style="padding: 7rem 4rem; background: var(--paper-warm); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);">
-  <div style="max-width: 1200px; margin: 0 auto;">
-    <div style="text-align:center; max-width: 720px; margin: 0 auto 4rem;">
-      <span class="section-label">A Tuesday, 11:00 AM</span>
-      <h2 id="tue-h2" style="font-family:'Playfair Display',serif; font-size: clamp(2rem, 3.2vw, 2.8rem); line-height:1.15; letter-spacing:-.02em; margin: 1rem 0 1rem;">Your next patient is <em style="color:var(--garnet-light); font-style:italic;">already on your screen.</em></h2>
-      <p style="font-size:1rem; color:var(--text-secondary); line-height:1.7; font-weight:300;">Routine visit. You hunt for the relevant labs — albuminuria, Lp(a), eGFR trends — check what might have been missed, recheck family history, calculate risk scores and kidney stage, remember which cutoffs apply to this patient, then try to assemble it all into something you can explain. RCCKM curates that work for you: every signal surfaced, visualized, and ready to discuss.</p>
-    </div>
-
-    <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; align-items: stretch;">
-
-      <!-- Panel 1: who walks in -->
-      <div style="background:var(--paper); border:1px solid var(--card-border); border-radius: var(--radius-md); padding: 1.8rem; display:flex; flex-direction:column;">
-        <div style="font-family:'JetBrains Mono',monospace; font-size:.62rem; letter-spacing:.16em; text-transform:uppercase; color:var(--garnet-mid); margin-bottom:1rem;">01 · Walks in</div>
-        <div style="font-family:'Playfair Display',serif; font-size:1.35rem; color:var(--text-primary); margin-bottom:.4rem; line-height:1.3;">58 y/o, routine follow up.</div>
-        <div style="font-size:.85rem; color:var(--text-muted); margin-bottom:1.25rem; line-height:1.6;">"No complaints, feeling well"</div>
-        <div style="border-top:1px dashed var(--rule); padding-top:1rem; font-family:'JetBrains Mono',monospace; font-size:.72rem; line-height:1.9; color:var(--text-secondary);">
-          BP&nbsp;&nbsp;142/88<br>
-          A1c&nbsp;6.0<br>
-          LDL-C&nbsp;138 · ApoB&nbsp;110<br>
-          Lp(a)&nbsp;160&nbsp;nmol/L<br>
-          eGFR&nbsp;82 · UACR&nbsp;18<br>
-          Father MI&nbsp;56
-        </div>
-        <div style="margin-top:auto; padding-top:1.25rem; font-size:.78rem; color:var(--text-muted); font-style:italic;">The chart you'd normally spend the visit reading.</div>
-      </div>
-
-      <!-- Panel 2: what you do -->
-      <div style="background:var(--ink); color:var(--paper); border-radius: var(--radius-md); padding: 1.8rem; display:flex; flex-direction:column; position:relative; overflow:hidden;">
-        <div style="position:absolute; inset:0; background:radial-gradient(ellipse at 70% 0%, rgba(176,58,82,.18) 0%, transparent 60%); pointer-events:none;"></div>
-        <div style="position:relative;">
-          <div style="font-family:'JetBrains Mono',monospace; font-size:.62rem; letter-spacing:.16em; text-transform:uppercase; color:var(--garnet-mid); margin-bottom:1rem;">02 · You do this</div>
-          <div style="font-family:'Playfair Display',serif; font-size:1.35rem; margin-bottom:.4rem; line-height:1.3;">Paste structured data from the chart.</div>
-          <div style="font-size:.85rem; color:rgba(248,244,242,.55); margin-bottom:1.25rem; line-height:1.6;">The parser maps labs, vitals, and history into the worksheet fields automatically. Review, then click Interpret.</div>
-          <div style="background:rgba(255,255,255,.05); border:1px solid rgba(248,244,242,.1); border-radius: var(--radius-sm); padding:.9rem 1rem; font-family:'JetBrains Mono',monospace; font-size:.72rem; line-height:1.7; color:rgba(248,244,242,.75);">
-            <span style="color:var(--garnet-mid);">&gt;</span> paste from chart<br>
-            <span style="color:var(--garnet-mid);">&gt;</span> auto-fill worksheet<br>
-            <span style="color:var(--garnet-mid);">&gt;</span> review fields<br>
-            <span style="color:var(--garnet-mid);">&gt;</span> <span style="color:#9b9; font-weight:500;">interpret ✓</span>
-          </div>
-          <div style="margin-top:1rem; font-family:'JetBrains Mono',monospace; font-size:.7rem; color:rgba(248,244,242,.4);">elapsed&nbsp;·&nbsp;<span style="color:#c8a;">~ 45 sec</span></div>
-        </div>
-        <div style="margin-top:auto; padding-top:1.25rem; position:relative; font-size:.78rem; color:rgba(248,244,242,.45); font-style:italic;">Less time than refilling the screen.</div>
-      </div>
-
-      <!-- Panel 3: what comes out -->
-      <div style="background:var(--paper); border:1px solid var(--card-border); border-radius: var(--radius-md); padding: 1.8rem; display:flex; flex-direction:column;">
-        <div style="font-family:'JetBrains Mono',monospace; font-size:.62rem; letter-spacing:.16em; text-transform:uppercase; color:var(--garnet-mid); margin-bottom:1rem;">03 · You walk in with</div>
-        <div style="font-family:'Playfair Display',serif; font-size:1.35rem; color:var(--text-primary); margin-bottom:.4rem; line-height:1.3;">A conversation, not a chart hunt.</div>
-        <div style="font-size:.85rem; color:var(--text-muted); margin-bottom:1.25rem; line-height:1.6;">Risk level, the drivers, the targets, the ICD codes — and a note ready to paste.</div>
-        <div style="display:flex; flex-direction:column; gap:.5rem;">
-          <div style="display:flex; align-items:center; justify-content:space-between; padding:.5rem .75rem; background:rgba(123,26,46,.06); border-left:2px solid var(--garnet); border-radius:2px;">
-            <span style="font-size:.78rem; color:var(--text-secondary);">Risk level</span>
-            <span style="font-family:'Playfair Display',serif; font-size:.92rem; color:var(--garnet);">Level 3 · actionable</span>
-          </div>
-          <div style="display:flex; align-items:center; justify-content:space-between; padding:.5rem .75rem; background:var(--paper-warm); border-radius:2px;">
-            <span style="font-size:.78rem; color:var(--text-secondary);">Top driver</span>
-            <span style="font-family:'JetBrains Mono',monospace; font-size:.74rem; color:var(--text-primary);">Lp(a) 160 + family hx</span>
-          </div>
-          <div style="display:flex; align-items:center; justify-content:space-between; padding:.5rem .75rem; background:var(--paper-warm); border-radius:2px;">
-            <span style="font-size:.78rem; color:var(--text-secondary);">Target</span>
-            <span style="font-family:'JetBrains Mono',monospace; font-size:.74rem; color:var(--text-primary);">ApoB &lt;80, BP &lt;130/80</span>
-          </div>
-          <div style="display:flex; align-items:center; justify-content:space-between; padding:.5rem .75rem; background:var(--paper-warm); border-radius:2px;">
-            <span style="font-size:.78rem; color:var(--text-secondary);">ICD</span>
-            <span style="font-family:'JetBrains Mono',monospace; font-size:.74rem; color:var(--text-primary);">E78.41 · Z82.49 · R03.0</span>
-          </div>
-          <div style="display:flex; align-items:center; justify-content:space-between; padding:.5rem .75rem; background:var(--paper-warm); border-radius:2px;">
-            <span style="font-size:.78rem; color:var(--text-secondary);">Next step</span>
-            <span style="font-family:'JetBrains Mono',monospace; font-size:.74rem; color:var(--text-primary);">High-intensity statin · CAC</span>
-          </div>
-        </div>
-        <div style="margin-top:auto; padding-top:1.25rem; font-size:.78rem; color:var(--text-muted); font-style:italic;">Ready before they're done getting comfortable.</div>
-      </div>
-
-    </div>
-
-    <p style="text-align:center; margin-top: 2.5rem; font-size:.78rem; color:var(--text-muted); letter-spacing:.04em;">
-      Synthetic patient · representative example · no PHI ever enters RCCKM.
-    </p>
-  </div>
-</section>
-
-<style>
-  @media (max-width: 880px) {
-    section[aria-labelledby="tue-h2"] { padding: 4rem 1.5rem !important; }
-    section[aria-labelledby="tue-h2"] > div > div:nth-of-type(2) { grid-template-columns: 1fr !important; }
-  }
-</style>
-
-<!-- MISSION -->
-<section class="mission-section" aria-labelledby="mission-h2">
-  <div class="mission-inner">
-    <span class="mission-eyebrow">Mission</span>
-    <h2 id="mission-h2">Why Risk Continuum Was Built</h2>
-
-    <div class="mission-opening">
-      <p>Every patient carries a risk story.</p>
-      <p>Risk Continuum helps them tell it.</p>
-    </div>
-
-    <p class="mission-body">RCCKM was created by a practicing physician after years of caring for patients across primary care, hospital medicine, and population health.</p>
-
-    <p class="mission-body">RCCKM was designed to bring the data points together into a clear, actionable picture of risk and opportunity, helping clinicians quickly identify what matters most and where intervention may have the greatest impact.</p>
-
-    <div class="mission-emotional">
-      <p>Because behind every risk score is a person, a family, and moments that still lie ahead.</p>
-    </div>
-
-    <div class="mission-goal">
-      <p class="mission-goal-label">Our goal is simple:</p>
-      <p>Better prevention.</p>
-      <p>Clearer decisions.</p>
-      <p>More time for the moments that matter.</p>
-    </div>
-
-    <p class="mission-moments">More birthdays. More weddings. More graduations.</p>
-  </div>
-</section>
-
-<!-- MEET THE FOUNDER -->
-<section class="founder-section" id="founder" aria-labelledby="founder-heading">
-  <div class="founder-inner">
-    <figure class="founder-figure">
-      <div class="founder-image-wrap">
-        <img class="founder-image" src="/assets/founder-shereef-approved.png" width="1122" height="1402"
-             alt="Shereef El-Ibiary, MD, founder of Risk Continuum CKM, smiling in a black polo"
-             loading="lazy" decoding="async" />
-      </div>
-      <figcaption class="founder-caption">Shereef El-Ibiary, MD · Founder, Risk Continuum CKM</figcaption>
+    <figure class="sdm-wide reveal">
+      <div class="paper-frame"><img src="assets/landing/app-prevent-room.jpg" alt="PREVENT card: 1.92% 10-year ASCVD risk, about 2 in 100 similar patients, shown as 2 highlighted people out of 100" width="2336" height="1020" loading="lazy" /></div>
+      <figcaption class="shot-cap"><b>In the room.</b> Risk represented visually.</figcaption>
     </figure>
-    <div class="founder-content">
-      <span class="founder-kicker">Meet the founder</span>
-      <h2 class="founder-title" id="founder-heading">Built by a physician. Grounded in clinical practice.</h2>
-      <p class="founder-name">Shereef El-Ibiary, MD</p>
-      <p class="founder-credentials">Internal Medicine · Primary Care · Hospital Medicine · Population Health</p>
-      <div class="founder-bio">
+    <div class="sdm-shots">
+      <div class="sdm-out reveal">
+        <span class="eyebrow">On the way out</span>
+        <h3>A roadmap in the patient's language.</h3>
+        <p class="lede">Where they stand, why their risk is higher, their goals next to their current numbers, and numbered next steps. Copy it into the after-visit summary or print it.</p>
+      </div>
+      <figure class="reveal">
+        <div class="paper-frame"><img src="assets/landing/app-roadmap-light.jpg" alt="Patient Prevention Roadmap: where you stand, why your risk is higher, your goals, your next steps" width="2336" height="2738" loading="lazy" /></div>
+        <figcaption class="shot-cap"><b>On the way out.</b> A printable roadmap in the patient's language.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- THE REPORT -->
+<section class="report" id="report" aria-labelledby="report-h2">
+  <div class="wrap">
+    <div class="report-head reveal">
+      <div>
+        <span class="eyebrow">The report</span>
+        <h2 class="h2" id="report-h2">One assessment. The whole picture.</h2>
+      </div>
+      <p class="lede">Paste de-identified chart text or enter values in the worksheet, then press Start Assessment. Everything below comes back in seconds from a deterministic engine you can audit.</p>
+    </div>
+    <div class="sections">
+      <div class="sec reveal"><div class="em">📍</div><h3>Position</h3><p>Level 1 to 5 on the continuum, with the pattern named.</p></div>
+      <div class="sec reveal"><div class="em">❤️</div><h3>Risk and plan</h3><p>PREVENT at 10 and 30 years, the timeline, and Try a plan.</p></div>
+      <div class="sec reveal"><div class="em">📈</div><h3>Trajectory</h3><p>How A1c, LDL-C, eGFR, BP and weight have moved.</p></div>
+      <div class="sec reveal"><div class="em">🫘</div><h3>Staging</h3><p>CKM and KDIGO stage, plus diagnoses you confirm.</p></div>
+      <div class="sec reveal"><div class="em">🎯</div><h3>Actions</h3><p>LDL-C and ApoB targets with numbered next steps.</p></div>
+      <div class="sec reveal"><div class="em">🧱</div><h3>Signal score</h3><p>Every contributor to risk burden, counted.</p></div>
+      <div class="sec reveal"><div class="em">📝</div><h3>Note</h3><p>Plain text for the EMR, or a visual PDF report.</p></div>
+      <div class="sec reveal"><div class="em">🗺️</div><h3>Roadmap</h3><p>A plain-language handout for the patient.</p></div>
+    </div>
+
+    <div class="rssx reveal">
+      <div class="card rss-card" id="rss">
+        <div class="rss-head">
+          <div><div class="card-eyebrow">Signal burden</div><div class="card-title">Risk Signal Score</div></div>
+          <div class="rss-score"><button class="btn btn-ghost btn-sm" id="rss-replay" type="button">↻ Replay</button><span class="rss-num" id="rss-num" aria-live="polite">0</span><span class="rss-pill" id="rss-pill"></span></div>
+        </div>
+        <div class="rss-body">
+          <div class="tower" id="tower" role="img" aria-label=""></div>
+          <div>
+            <div class="rss-sub">Signal contributors</div>
+            <div id="contribs"></div>
+            <p class="rss-note">Ordinal burden score, not an event probability. Displayed RSS equals the sum of the contributors shown.</p>
+          </div>
+        </div>
+      </div>
+      <div class="rssx-copy">
+        <span class="eyebrow">Risk Signal Score</span>
+        <h3>Watch the burden stack up.</h3>
+        <p class="lede">Each contributing signal drops onto the stack and the score counts up by its points. Every patient is drawn on the same unlabeled canvas, so equal points look equal across patients.</p>
+        <div class="chips" role="tablist" aria-label="Patients" id="rss-chips"></div>
+        <p class="fineprint">Synthetic demo patients; contributors and points are RCCKM engine output.</p>
+      </div>
+    </div>
+
+    <div class="bento">
+      <figure class="bt reveal">
+        <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>Trajectory</span></div><img src="assets/landing/app-trajectory.jpg" alt="Trajectory in the app: A1c, eGFR, UACR, LDL-C, triglycerides, systolic BP and weight with sparklines over 31 months, and an A1c detail chart" width="2336" height="1602" loading="lazy" /></div>
+        <figcaption><b>📈 The direction, not just the snapshot.</b><span>Dated results from the chart text with sparklines and the change over time, the same view you get in the app.</span></figcaption>
+      </figure>
+      <figure class="bt reveal">
+        <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>Data-derived diagnoses</span></div><img src="assets/landing/app-diagnoses.jpg" alt="Data-derived diagnoses with the supporting value and ICD-10 code for each" width="2336" height="540" loading="lazy" /></div>
+        <figcaption><b>🫘 Diagnoses with the evidence attached.</b><span>Each one shows the value behind it and its ICD-10 code. You confirm before it goes in the note.</span></figcaption>
+      </figure>
+      <figure class="bt reveal">
+        <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>Targets and actions</span></div><img src="assets/landing/app-actions.jpg" alt="Targets for LDL-C and ApoB next to a numbered action list for lipids, plaque, kidney, blood pressure, glycemia and aspirin" width="2336" height="1012" loading="lazy" /></div>
+        <figcaption><b>🎯 Walk out knowing what to do.</b><span>Targets beside numbered actions. Hover any underlined line for the reasoning.</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE DEMO -->
+<section class="demo" aria-labelledby="demo-h2">
+  <div class="wrap">
+    <div class="demo-head reveal">
+      <span class="eyebrow">Try it here</span>
+      <h2 class="h2" id="demo-h2">Pick a patient. Read the note RCCKM wrote.</h2>
+      <p class="lede">Four synthetic demo patients, from a clean prevention visit to very high plaque burden on a statin. Each note is the engine's own output.</p>
+    </div>
+    <div class="chips" role="tablist" aria-label="Demo patients">
+      <button class="pchip is-on" data-p="0" role="tab" type="button">🌱 34F &middot; clean visit</button>
+      <button class="pchip" data-p="1" role="tab" type="button">📈 52F &middot; labs rising</button>
+      <button class="pchip" data-p="2" role="tab" type="button">🫀 62F &middot; CAC 38</button>
+      <button class="pchip" data-p="3" role="tab" type="button">🚨 67M &middot; on statin, CAC 420</button>
+    </div>
+    <div class="track" aria-hidden="true"><div class="marker" id="marker"><span class="marker-label" id="marker-label">Level 1</span></div></div>
+    <div class="zones" aria-hidden="true">
+      <div>Level 1<span>Minimal risk signal</span></div>
+      <div>Level 2<span>Emerging risk signals</span></div>
+      <div>Level 3<span>Emerging risk trajectory</span></div>
+      <div>Level 4<span>Subclinical atherosclerosis</span></div>
+      <div>Level 5<span>Very high risk</span></div>
+    </div>
+    <div class="demo-panel">
+      <aside class="pt">
+        <h3 id="pt-name">Patient</h3>
+        <p class="pt-meta" id="pt-meta"></p>
+        <div class="labs" id="pt-labs"></div>
+      </aside>
+      <div class="note" id="note">
+        <div class="note-top"><span>Clinical report &middot; ready to paste</span><button class="copy" id="copy" type="button">Copy</button></div>
+        <pre id="note-body"></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how" aria-labelledby="how-h2">
+  <div class="wrap">
+    <span class="eyebrow">How it works</span>
+    <h2 class="h2" id="how-h2">From chart text to a plan in about a minute.</h2>
+    <div class="how-grid">
+      <div class="how-card reveal"><div class="n">01 &middot; 📋</div><h3>Paste or enter</h3><p>Paste de-identified chart text or your SmartPhrase, or type values straight into the worksheet. When you paste, a rule-based parser fills the worksheet and shows what it found for you to confirm.</p></div>
+      <div class="how-card reveal"><div class="n">02 &middot; ⚡</div><h3>Start Assessment</h3><p>Position, PREVENT, signal score, trajectory, staging, diagnoses and actions in seconds, from a deterministic engine. The optional AI Clinical Pearl is labeled and kept separate.</p></div>
+      <div class="how-card reveal"><div class="n">03 &middot; 🎚️</div><h3>Try a plan</h3><p>Tap interventions with your patient and watch the curve move. Add the plan you agree on to the note.</p></div>
+      <div class="how-card reveal"><div class="n">04 &middot; ✅</div><h3>Copy and hand off</h3><p>Paste the note into the EMR and print the roadmap before the patient leaves.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="who" aria-labelledby="who-h2">
+  <div class="wrap">
+    <span class="eyebrow">Who it's for</span>
+    <h2 class="h2" id="who-h2">Built for every clinician in the CKM space.</h2>
+    <div class="who-grid">
+      <div class="who-card reveal"><div class="em">🩺</div><h3>Internal Medicine</h3><p>Sort out which intervention to prioritize in complex patients.</p></div>
+      <div class="who-card reveal"><div class="em">🏥</div><h3>Family Medicine</h3><p>Follow each patient's trajectory visit after visit.</p></div>
+      <div class="who-card reveal"><div class="em">❤️</div><h3>Cardiology</h3><p>See the metabolic, kidney, lipid and plaque drivers upstream.</p></div>
+      <div class="who-card reveal"><div class="em">🫘</div><h3>Nephrology</h3><p>Kidney function, albuminuria and CV risk in one frame.</p></div>
+      <div class="who-card reveal"><div class="em">🩸</div><h3>Endocrinology</h3><p>Diabetes care with heart and kidney risk in view.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section class="founder" id="founder" aria-labelledby="founder-h2">
+  <div class="wrap">
+    <div class="founder-grid">
+      <figure class="founder-fig reveal">
+        <div class="founder-photo"><img src="assets/founder-shereef-approved.png" width="1122" height="1402" alt="Shereef El-Ibiary, MD, founder of Risk Continuum CKM, smiling in a black polo" loading="lazy" decoding="async" /></div>
+        <figcaption>Shereef El-Ibiary, MD &middot; Founder, Risk Continuum CKM</figcaption>
+      </figure>
+      <div class="founder-copy reveal">
+        <span class="eyebrow">Meet the founder</span>
+        <h2 class="h2" id="founder-h2">Built by a physician. Grounded in clinical practice.</h2>
+        <p class="founder-name">Shereef El-Ibiary, MD</p>
+        <p class="founder-cred">Internal Medicine &middot; Primary Care &middot; Hospital Medicine &middot; Population Health</p>
+        <div class="founder-bio">
         <p>We are at a remarkable moment in medicine. Advances in technology, treatments, and clinical evidence are opening new possibilities for prevention. Our patients’ records hold valuable information about their health and how it is changing. The opportunity now is to bring it all together, efficiently and meaningfully, at the point of care and beyond.</p>
         <p>After nearly two decades caring for patients across primary care, hospital medicine, and population health, I built Risk Continuum CKM to help put that opportunity into practice. RCCKM connects a patient’s history, clinical findings, and trends with relevant evidence, helping clinicians see the whole picture and turn that understanding into an individualized approach to prevention.</p>
         <p>My goal is to make comprehensive prevention easier to deliver in everyday practice. By bringing the information and evidence together, we can support clinician judgment, strengthen conversations with patients, and extend our attention from today’s decisions to long-term health.</p>
+        </div>
+        <p class="founder-sign">Reconcile. Curate. Care.</p>
       </div>
-      <p class="founder-signoff">Reconcile. Curate. Care.</p>
+    </div>
+    <div class="founder-quote reveal">
+      <blockquote>"I wanted a way to figure out patients' cardiovascular risk quickly, and catch the signals to alter course well before events, using the routine data we already have or can easily get."</blockquote>
+      <p class="moments">More birthdays. More weddings. More graduations.</p>
     </div>
   </div>
 </section>
 
-<!-- CAPTURE -->
-<section class="capture" id="capture" aria-labelledby="capture-h2">
-
-  <div>
-    <h2 id="capture-h2">See For Yourself.</h2>
-    <p style="margin-top:1.5rem; color:rgba(248,244,242,.8); font-size:1.05rem; max-width:28ch; line-height:1.55;">
-      Structured risk interpretation for every visit.
-    </p>
-  </div>
-  <div>
-    <a href="https://app.riskcontinuum.health/sign-up" class="btn-capture" style="display:inline-block;text-align:center;text-decoration:none;">Get started</a>
+<!-- CTA -->
+<section class="cta" aria-labelledby="cta-h2">
+  <div class="wrap">
+    <svg class="logo cta-mark" viewBox="0 0 900 300" aria-hidden="true"><use href="#rc-logo"/></svg>
+    <h2 id="cta-h2">See it on your next patient.</h2>
+    <p class="lede">Paste de-identified chart text or enter values in the worksheet. Want a quick look first? Try one of the demo cases.</p>
+    <div class="hero-ctas">
+      <a href="https://app.riskcontinuum.health/" class="btn btn-primary">Start RCCKM Assessment</a>
+      <a href="https://app.riskcontinuum.health/sign-up" class="btn btn-ghost">Create a free account</a>
+    </div>
+    <div class="pilot">
+      <span class="pilot-em">🏥</span>
+      <p><b>Health systems and practices:</b> we're exploring pilot partnerships. If you'd like to evaluate RCCKM with your team, <a href="mailto:shereef@riskcontinuum.health?subject=RCCKM%20pilot">get in touch</a>.</p>
+    </div>
   </div>
 </section>
 
-<!-- FILMSTRIP -->
-<section class="filmstrip" aria-label="Output screenshots">
-  <span class="filmstrip-label">Output gallery</span>
-  <p class="filmstrip-note">Fake patient · real output · hover to inspect</p>
-  <div class="filmstrip-grid">
-    <!-- 1. Risk Continuum -->
-    <div class="filmstrip-item">
-      <div class="winframe">
-        <div class="winbar"><span class="windot r"></span><span class="windot y"></span><span class="windot g"></span><span class="wintitle">rcckm — risk_continuum</span></div>
-        <div class="mock">
-          <span class="lbl">Risk Continuum · RCCKM</span>
-          <h4>Level 5 · Very High Risk</h4>
-          <div class="mk-bar"><div class="l1">1</div><div class="l2">2</div><div class="l3">3</div><div class="l4">4</div><div class="l5">5</div></div>
-          <div class="mk-marker"></div>
-          <div style="font-size:9.5px;color:var(--rc-muted);margin-top:4px;">CKM 3 · KDIGO G2A1 · CAC 350 · ApoB 110 · Lp(a) 160 nmol/L</div>
-        </div>
-      </div>
-      <span class="filmstrip-caption">Risk Continuum staging</span>
-    </div>
-
-    <!-- 2. Risk Signal Score (RSS) tower -->
-    <div class="filmstrip-item">
-      <div class="winframe">
-        <div class="winbar"><span class="windot r"></span><span class="windot y"></span><span class="windot g"></span><span class="wintitle">rcckm — risk_signal_score</span></div>
-        <div class="mock">
-          <span class="lbl">Cumulative Risk Burden</span>
-          <h4>RSS · 14 active signals</h4>
-          <div class="mk-tower">
-            <div class="mk-seg"><span class="swatch" style="background:#73000A;"></span>CAC plaque burden<span class="pts">+18</span></div>
-            <div class="mk-seg"><span class="swatch" style="background:#D97706;"></span>ApoB elevation<span class="pts">+12</span></div>
-            <div class="mk-seg"><span class="swatch" style="background:#4F46E5;"></span>Elevated Lp(a)<span class="pts">+10</span></div>
-            <div class="mk-seg"><span class="swatch" style="background:#0F8B8D;"></span>Reduced eGFR<span class="pts">+6</span></div>
-            <div class="mk-seg"><span class="swatch" style="background:#7C3AED;"></span>Hypertriglyceridemia<span class="pts">+5</span></div>
-            <div class="mk-seg"><span class="swatch" style="background:#9333EA;"></span>Premature family history<span class="pts">+4</span></div>
-            <div class="mk-seg"><span class="swatch" style="background:#5D6B7A;"></span>A1c 6.0 · prediabetes<span class="pts">+3</span></div>
-          </div>
-        </div>
-      </div>
-      <span class="filmstrip-caption">Risk Signal Score</span>
-    </div>
-
-    <!-- 3. Where this patient falls -->
-    <div class="filmstrip-item">
-      <div class="winframe">
-        <div class="winbar"><span class="windot r"></span><span class="windot y"></span><span class="windot g"></span><span class="wintitle">rcckm — where_patient_falls</span></div>
-        <div class="mock">
-          <span class="lbl">Where This Patient Falls</span>
-          <h4>Drivers · Contributors · Context</h4>
-          <div class="mk-wp-row"><span class="mk-pill major">Major</span>CAC plaque burden<span class="mk-wp-val">350</span></div>
-          <div class="mk-wp-row"><span class="mk-pill major">Major</span>ApoB · LDL particles<span class="mk-wp-val">110</span></div>
-          <div class="mk-wp-row"><span class="mk-pill contrib">Contrib.</span>Lp(a)<span class="mk-wp-val">160 nmol/L</span></div>
-          <div class="mk-wp-row"><span class="mk-pill contrib">Contrib.</span>eGFR · UACR<span class="mk-wp-val">82 · 18</span></div>
-          <div class="mk-wp-row"><span class="mk-pill context">Context</span>Premature family hx<span class="mk-wp-val">Brother MI 50</span></div>
-          <div class="mk-wp-row"><span class="mk-pill missing">Needed</span>Repeat lipids · 6 wk<span class="mk-wp-val">pending</span></div>
-        </div>
-      </div>
-      <span class="filmstrip-caption">Where this patient falls</span>
-    </div>
-
-    <!-- 4. Data-derived diagnoses -->
-    <div class="filmstrip-item">
-      <div class="winframe">
-        <div class="winbar"><span class="windot r"></span><span class="windot y"></span><span class="windot g"></span><span class="wintitle">rcckm — diagnoses</span></div>
-        <div class="mock">
-          <span class="lbl">Data-derived Diagnoses</span>
-          <h4>Assessment · ICD · HCC</h4>
-          <div class="mk-dx">
-            <div class="mk-dx-row">Severe subclinical coronary atherosclerosis<span class="mk-icd">I25.10</span><span class="mk-hcc">HCC</span></div>
-            <div class="mk-dx-row">Hypertriglyceridemia<span class="mk-icd">E78.1</span></div>
-            <div class="mk-dx-row">Prediabetes<span class="mk-icd">R73.03</span></div>
-            <div class="mk-dx-row">Elevated lipoprotein(a)<span class="mk-icd">E78.41</span></div>
-            <div class="mk-dx-row">Mixed hyperlipidemia<span class="mk-icd">E78.2</span></div>
-          </div>
-        </div>
-      </div>
-      <span class="filmstrip-caption">Data-derived diagnoses</span>
-    </div>
-
-    <!-- 5. PREVENT card -->
-    <div class="filmstrip-item">
-      <div class="winframe">
-        <div class="winbar"><span class="windot r"></span><span class="windot y"></span><span class="windot g"></span><span class="wintitle">rcckm — prevent</span></div>
-        <div class="mock">
-          <span class="lbl">PREVENT · AHA 2023</span>
-          <h4>10-yr &amp; 30-yr Estimates</h4>
-          <div class="mk-prevent">
-            <div class="mk-card"><div class="lbl">10-yr ASCVD</div><div class="big">14<span style="font-size:12px;">%</span></div><div class="unit">heart attack · stroke · CHD</div></div>
-            <div class="mk-card"><div class="lbl">10-yr Total CVD</div><div class="big">18<span style="font-size:12px;">%</span></div><div class="unit">+ heart failure</div></div>
-            <div class="mk-card"><div class="lbl">30-yr ASCVD</div><div class="big">38<span style="font-size:12px;">%</span></div><div class="unit">long-trajectory</div></div>
-            <div class="mk-card"><div class="lbl">30-yr Total CVD</div><div class="big">46<span style="font-size:12px;">%</span></div><div class="unit">+ heart failure</div></div>
-          </div>
-          <div style="font-size:9px;color:var(--rc-muted);margin-top:6px;">About 14 in 100 similar patients may have an ASCVD event over 10 years.</div>
-        </div>
-      </div>
-      <span class="filmstrip-caption">PREVENT risk</span>
-    </div>
-
-    <!-- 6. Action plan -->
-    <div class="filmstrip-item">
-      <div class="winframe">
-        <div class="winbar"><span class="windot r"></span><span class="windot y"></span><span class="windot g"></span><span class="wintitle">rcckm — emr_note</span></div>
-        <div class="mock">
-          <span class="lbl">EMR-ready Action Plan</span>
-          <h4>Recommendations</h4>
-          <div class="mk-step"><span class="mk-num">1</span><span class="txt"><strong>Lipids.</strong> High-intensity statin; recheck ApoB/LDL-C in 6 wk. Goal LDL-C &lt;70, ApoB &lt;80.</span></div>
-          <div class="mk-step"><span class="mk-num">2</span><span class="txt"><strong>Plaque.</strong> CAC 350 documented; no repeat CAC for current decisions.</span></div>
-          <div class="mk-step"><span class="mk-num">3</span><span class="txt"><strong>Blood pressure.</strong> Treat to &lt;130/80; current 136/82.</span></div>
-          <div class="mk-step"><span class="mk-num">4</span><span class="txt"><strong>Glycemia.</strong> Prediabetes — lifestyle &amp; weight; reassess A1c in 6 mo.</span></div>
-          <div class="mk-step"><span class="mk-num">5</span><span class="txt"><strong>Aspirin.</strong> Only after shared decision if bleeding risk is low.</span></div>
-        </div>
-      </div>
-      <span class="filmstrip-caption">Action plan · EMR report</span>
-    </div>
-  </div>
-  <p class="filmstrip-disclaimer">Representative examples shown for demonstration. Synthetic patient · not real PHI.</p>
-</section>
-
-<!-- FOOTER -->
-<div style="background:var(--paper-warm);border-top:1px solid var(--rule);padding:.6rem 2rem;text-align:center;font-size:0.68rem;color:var(--text-muted);opacity:.6;line-height:1.5;">
-  Clinical decision support only &nbsp;·&nbsp; Not a substitute for clinical judgment &nbsp;·&nbsp; Do not enter patient-identifying information
-</div>
 <footer>
-  <div>
-    <div class="footer-brand">Risk Continuum &nbsp;·&nbsp; <span style="font-weight:300;font-size:.85em;">Structured risk interpretation</span></div>
-    <div class="footer-legal">Clinical decision support only. Not a substitute for clinical judgment. Do not enter patient-identifying information. RCCKM does not store, transmit, or process protected health information. All clinical decisions remain the sole responsibility of the treating clinician.</div>
+  <div class="wrap">
+    <div>
+      <svg class="logo foot-mark" viewBox="0 0 900 300" role="img" aria-label="Risk Continuum Health"><use href="#rc-logo"/></svg>
+      <p>Clinical decision support only. Not a substitute for clinical judgment. Do not enter patient-identifying information. De-identified chart text is processed on the server to run the assessment and is not saved; worksheet sessions are cleared after inactivity. All clinical decisions remain the responsibility of the treating clinician.</p>
+    </div>
+    <div class="foot-contact">
+      <span class="foot-h">Contact</span>
+      <p>Shereef El-Ibiary, MD<br />Internal Medicine &middot; Founder</p>
+      <p><a href="mailto:shereef@riskcontinuum.health">shereef@riskcontinuum.health</a></p>
+      <p class="foot-pilot">For health systems: <a href="mailto:shereef@riskcontinuum.health?subject=RCCKM%20pilot">ask about a pilot</a></p>
+    </div>
+    <div>
+      <nav aria-label="Footer"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="mailto:shereef@riskcontinuum.health">Contact</a></nav>
+      <p style="margin-top:14px">&copy; 2026 Risk Continuum CKM</p>
+    </div>
   </div>
-  <nav class="footer-links" aria-label="Footer">
-    <a href="#">Privacy</a>
-    <a href="#">Terms</a>
-    <a href="mailto:hello@rcckm.com">Contact</a>
-  </nav>
-  <div class="footer-copy">© 2026 Risk Continuum CKM</div>
 </footer>
 
 <script>
-  function showTab(id, btn) {
-    document.querySelectorAll(".fpane").forEach(p => { p.classList.remove("active"); p.hidden = true; });
-    document.querySelectorAll(".ftab").forEach(t => { t.classList.remove("active"); t.setAttribute("aria-selected","false"); });
-    const pane = document.getElementById("fpane-" + id);
-    pane.classList.add("active"); pane.hidden = false;
-    btn.classList.add("active"); btn.setAttribute("aria-selected","true");
-  }
-  document.querySelectorAll(".ftab").forEach((tab, i, tabs) => {
-    tab.addEventListener("keydown", e => {
-      if (e.key === "ArrowRight") { const n = tabs[(i+1)%tabs.length]; n.focus(); n.click(); }
-      if (e.key === "ArrowLeft")  { const n = tabs[(i-1+tabs.length)%tabs.length]; n.focus(); n.click(); }
+  (function () {
+    var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var NS = "http://www.w3.org/2000/svg";
+    var PERSON = '<circle cx="12" cy="5" r="4.2"/><path d="M7 11h10a3 3 0 0 1 3 3v8h-3v12h-4v-9h-2v9H7V22H4v-8a3 3 0 0 1 3-3z"/>';
+    function onView(el, cb, threshold) {
+      new IntersectionObserver(function (es) { es.forEach(function (e) { cb(e.isIntersecting); }); }, { threshold: threshold || 0.3 }).observe(el);
+    }
+    function tween(from, to, ms, step, done) {
+      if (reduced || !ms) { step(to); if (done) done(); return; }
+      var t0 = performance.now();
+      function f(t) {
+        var k = Math.min(1, (t - t0) / ms), e = 1 - Math.pow(1 - k, 3);
+        step(from + (to - from) * e);
+        if (k < 1) requestAnimationFrame(f); else if (done) done();
+      }
+      requestAnimationFrame(f);
+    }
+
+    // Show the nav logo only after the hero logo scrolls out of view
+    var navEl = document.querySelector(".nav"), heroLockup = document.querySelector(".hero-lockup");
+    new IntersectionObserver(function (es) { navEl.classList.toggle("show-logo", !es[0].isIntersecting); }, { rootMargin: "-80px 0px 0px 0px" }).observe(heroLockup);
+
+    // Reveal on scroll
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+
+    /* 1. Continuum: tiles rise, then the figure walks tile by tile to Level 3B (as in the app). */
+    var cont = document.getElementById("cont"), walker = document.getElementById("walker");
+    var tiles = cont.querySelectorAll(".tile"), TARGET = 2, contTimers = [];
+    function runContinuum() {
+      contTimers.forEach(clearTimeout); contTimers = [];
+      cont.classList.remove("shown", "done");
+      tiles.forEach(function (t) { t.classList.remove("here"); });
+      walker.style.left = "0%";
+      if (reduced) { cont.classList.add("shown", "done"); tiles[TARGET].classList.add("here"); walker.style.left = (TARGET * 20) + "%"; return; }
+      contTimers.push(setTimeout(function () { cont.classList.add("shown"); }, 60));
+      for (var i = 1; i <= TARGET; i++) {
+        (function (i) {
+          contTimers.push(setTimeout(function () {
+            walker.style.left = (i * 20) + "%";
+            walker.classList.remove("hop"); void walker.offsetWidth; walker.classList.add("hop");
+          }, 900 + i * 420));
+        })(i);
+      }
+      contTimers.push(setTimeout(function () { tiles[TARGET].classList.add("here"); cont.classList.add("done"); }, 900 + TARGET * 420 + 380));
+    }
+    document.getElementById("cont-replay").addEventListener("click", runContinuum);
+    var contStarted = false;
+    onView(cont, function (v) { if (v && !contStarted) { contStarted = true; runContinuum(); } }, 0.35);
+
+    /* 2. Trajectory: the engine's dated results for this demo patient (Feb 2024, Jun 2025, Sep 2026). */
+    var XS = [0, 483 / 946, 1];
+    var TRENDS = [
+      { label: "LDL-C", unit: "mg/dL", pts: [91, 105, 122], delta: "+31 mg/dL over 31 months", badge: "Worsening" },
+      { label: "Triglycerides", unit: "mg/dL", pts: [107, 135, 168], delta: "+61 mg/dL over 31 months", badge: "Worsening" },
+      { label: "Systolic BP", unit: "mmHg", pts: [112, 120, 128], delta: "+16 mmHg over 31 months", badge: "Worsening" },
+      { label: "Weight", unit: "lb", pts: [152, 169, 184], delta: "+32 lb over 31 months", badge: "Rising", neutral: true },
+      { label: "eGFR", unit: "mL/min/1.73m\u00b2", pts: [104, 96, 88], delta: "\u221216 over 31 months", badge: "Worsening" },
+      { label: "UACR", unit: "mg/g", pts: [4, 8, 12], delta: "+8 mg/g over 31 months", badge: "Worsening" }
+    ];
+    var sparks = document.getElementById("sparks"), sparkEls = [];
+    TRENDS.forEach(function (t, idx) {
+      var d = document.createElement("div");
+      d.className = "spark reveal" + (t.neutral ? " up-good" : "");
+      var lo = Math.min.apply(null, t.pts), hi = Math.max.apply(null, t.pts), pad = (hi - lo) * 0.18 || 1;
+      var pts = t.pts.map(function (v, i) { return [6 + XS[i] * 188, 50 - ((v - lo + pad) / (hi - lo + 2 * pad)) * 44]; });
+      var dPath = "M" + pts.map(function (p) { return p[0].toFixed(1) + "," + p[1].toFixed(1); }).join(" L");
+      var col = t.neutral ? "#9C8D90" : "#861327", gid = "sg" + idx;
+      d.innerHTML = '<div class="spark-top"><span>' + t.label + '</span><i class="badge' + (t.neutral ? " neutral" : "") + '">' + t.badge + '</i></div>' +
+        '<div class="spark-val"><span class="num">' + t.pts[0] + '</span><small>' + t.unit + '</small></div>' +
+        '<svg viewBox="0 0 200 56" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="' + gid + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + col + '" stop-opacity=".28"/><stop offset="1" stop-color="' + col + '" stop-opacity="0"/></linearGradient></defs>' +
+        '<path class="ar" fill="url(#' + gid + ')" d="' + dPath + ' L194,56 L6,56 Z" opacity="0"/>' +
+        '<path class="ln" d="' + dPath + '"/></svg>' +
+        '<div class="delta">' + t.delta + '</div>';
+      sparks.appendChild(d);
+      io.observe(d);
+      sparkEls.push({ el: d, t: t });
     });
-  });
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(el => {
-      if (el.isIntersecting) { el.target.style.opacity="1"; el.target.style.animation="fadeUp 0.6s ease both"; io.unobserve(el.target); }
+    function drawSpark(s, delay) {
+      var ln = s.el.querySelector("path.ln"), ar = s.el.querySelector("path.ar"), num = s.el.querySelector(".num");
+      var L = ln.getTotalLength();
+      ln.style.strokeDasharray = L; ln.style.strokeDashoffset = reduced ? 0 : L;
+      if (reduced) { ar.setAttribute("opacity", 1); num.textContent = s.t.pts[2]; return; }
+      setTimeout(function () {
+        ln.style.transition = "stroke-dashoffset 1.6s cubic-bezier(.4,0,.2,1)"; ln.style.strokeDashoffset = 0;
+        setTimeout(function () { ar.style.transition = "opacity .8s"; ar.setAttribute("opacity", 1); }, 900);
+        tween(s.t.pts[0], s.t.pts[2], 1600, function (v) { num.textContent = Math.round(v); });
+      }, delay);
+    }
+    var a1c = document.getElementById("a1c-chart");
+    function buildA1c() {
+      var W = Math.max(300, Math.round(a1c.getBoundingClientRect().width) || 520), H = W < 420 ? 230 : 250, L = 46, R = 12, T = 30, B = 40, lo = 5.0, hi = 6.7;
+      a1c.setAttribute("viewBox", "0 0 " + W + " " + H);
+      function x(f) { return L + f * (W - L - R); }
+      function y(v) { return H - B - ((v - lo) / (hi - lo)) * (H - T - B); }
+      var vals = [5.2, 5.7, 6.1], dates = ["Feb 2024", "Jun 2025", "Sep 2026"], h = "";
+      [[5.7, "Prediabetes 5.7%"], [6.5, "Diabetes 6.5%"]].forEach(function (r) {
+        h += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + y(r[0]) + '" y2="' + y(r[0]) + '" stroke="#861327" stroke-opacity=".45" stroke-dasharray="4 5"/>';
+        h += '<text x="' + (W - R) + '" y="' + (y(r[0]) - 7) + '" font-size="13" text-anchor="end" fill="#861327" fill-opacity=".85">' + r[1] + '</text>';
+      });
+      [5.2, 5.8, 6.4].forEach(function (v) { h += '<text x="' + (L - 10) + '" y="' + (y(v) + 4) + '" font-size="13" text-anchor="end" fill="#6F6064">' + v.toFixed(1) + '%</text>'; });
+      var p = vals.map(function (v, i) { return [x(XS[i]), y(v)]; });
+      var d = "M" + p.map(function (q) { return q[0].toFixed(1) + "," + q[1].toFixed(1); }).join(" L");
+      h += '<defs><linearGradient id="a1cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#861327" stop-opacity=".3"/><stop offset="1" stop-color="#861327" stop-opacity="0"/></linearGradient></defs>';
+      h += '<path class="ar" d="' + d + ' L' + p[2][0] + ',' + (H - B) + ' L' + p[0][0] + ',' + (H - B) + ' Z" fill="url(#a1cg)" opacity="0"/>';
+      h += '<path class="ln" d="' + d + '" fill="none" stroke="#861327" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>';
+      p.forEach(function (q, i) {
+        var anchor = i === 0 ? "start" : i === 2 ? "end" : "middle";
+        h += '<g class="pt" opacity="0"><circle cx="' + q[0] + '" cy="' + q[1] + '" r="' + (i === 2 ? 6 : 4.5) + '" fill="#861327"/>' +
+          '<text x="' + q[0] + '" y="' + (q[1] - 14) + '" font-size="16" font-weight="700" text-anchor="' + anchor + '" fill="#1D1416">' + vals[i].toFixed(1) + '%</text>' +
+          '<text x="' + q[0] + '" y="' + (H - 12) + '" font-size="13" text-anchor="' + anchor + '" fill="#6F6064">' + dates[i] + '</text></g>';
+      });
+      a1c.innerHTML = h;
+    }
+    buildA1c();
+    function drawA1c() {
+      var ln = a1c.querySelector("path.ln"), ar = a1c.querySelector("path.ar"), pts = a1c.querySelectorAll("g.pt");
+      var L = ln.getTotalLength();
+      ln.style.strokeDasharray = L; ln.style.strokeDashoffset = reduced ? 0 : L;
+      if (reduced) { ar.setAttribute("opacity", 1); pts.forEach(function (g) { g.setAttribute("opacity", 1); }); return; }
+      requestAnimationFrame(function () { requestAnimationFrame(function () {
+        ln.style.transition = "stroke-dashoffset 2s cubic-bezier(.4,0,.2,1)"; ln.style.strokeDashoffset = 0;
+        pts.forEach(function (g, i) { setTimeout(function () { g.style.transition = "opacity .4s"; g.setAttribute("opacity", 1); }, XS[i] * 1900); });
+        setTimeout(function () { ar.style.transition = "opacity 1s"; ar.setAttribute("opacity", 1); }, 1200);
+      }); });
+    }
+    var trajDone = false;
+    onView(sparks, function (v) {
+      if (v && !trajDone) { trajDone = true; drawA1c(); sparkEls.forEach(function (s, i) { drawSpark(s, 300 + i * 160); }); }
+    }, 0.2);
+
+    /* 2b. Risk Signal Score tower: engine contributors; each block falls in from the top and lands on the stack. */
+    var RSS = [{"name": "52F · Level 3B", "score": 12, "label": "Low", "items": [{"label": "A1c 6.1%", "sub": "", "tag": "A1c 6.1%", "pts": 2, "color": "#7C3AED"}, {"label": "Reproductive history", "sub": "", "tag": "Reproductive history", "pts": 2, "color": "#C2410C"}, {"label": "Triglycerides 168 mg/dL", "sub": "", "tag": "TG 168 mg/dL", "pts": 4, "color": "#2F5F8F"}, {"label": "ApoB 92 mg/dL", "sub": "", "tag": "ApoB 92 mg/dL", "pts": 4, "color": "#D97706"}]}, {"name": "67M · Level 5", "score": 55, "label": "High", "items": [{"label": "A1c 5.9%", "sub": "", "tag": "A1c 5.9%", "pts": 2, "color": "#7C3AED"}, {"label": "Triglycerides 190 mg/dL", "sub": "", "tag": "TG 190 mg/dL", "pts": 4, "color": "#2F5F8F"}, {"label": "Blood pressure, 126/74 mmHg; treated", "sub": "", "tag": "126/74 mmHg; treated", "pts": 3, "color": "#2563EB"}, {"label": "Lp(a) 210.0 nmol/L", "sub": "", "tag": "Lp(a) 210.0 nmol/L", "pts": 8, "color": "#4F46E5"}, {"label": "ApoB 102 mg/dL", "sub": "", "tag": "ApoB 102 mg/dL", "pts": 8, "color": "#D97706"}, {"label": "Coronary calcium 420", "sub": "", "tag": "CAC 420", "pts": 30, "color": "#7A1530"}]}];
+    var CANVAS = 100, FALL_MS = 380, LABEL_MIN_PX = 24;
+    var towerEl = document.getElementById("tower"), contribEl = document.getElementById("contribs");
+    var rssNum = document.getElementById("rss-num"), rssPill = document.getElementById("rss-pill"), rssChips = document.getElementById("rss-chips");
+    var rssTimers = [], rssCur = 0, rssScore = 0;
+    RSS.forEach(function (r, i) {
+      var c = document.createElement("button");
+      c.type = "button"; c.className = "pchip"; c.setAttribute("role", "tab"); c.textContent = r.name + " \u00b7 RSS " + r.score;
+      c.addEventListener("click", function () { stopRssAuto(); playRss(i); });
+      rssChips.appendChild(c);
     });
-  }, { threshold: 0.07 });
-  document.querySelectorAll(".stat-cell,.step,.spec-card,.problem-card,.filmstrip-item").forEach(el => { el.style.opacity="0"; io.observe(el); });
+    function playRss(i) {
+      rssTimers.forEach(clearTimeout); rssTimers = []; rssCur = i;
+      rssChips.querySelectorAll(".pchip").forEach(function (c, k) { c.classList.toggle("is-on", k === i); c.setAttribute("aria-selected", k === i ? "true" : "false"); });
+      var r = RSS[i], H = towerEl.clientHeight || 440, ppp = H / Math.max(CANVAS, r.score);
+      var bottomUp = r.items.slice().reverse(), acc = 0;
+      towerEl.innerHTML = ""; contribEl.innerHTML = "";
+      towerEl.setAttribute("aria-label", "Risk Signal Score " + r.score + ", " + r.items.length + " contributors");
+      rssPill.className = "rss-pill " + r.label; rssPill.textContent = r.label;
+      r.items.forEach(function (it) {
+        var row = document.createElement("div"); row.className = "contrib" + (reduced ? "" : " pending");
+        row.innerHTML = '<span class="sw" style="background:' + it.color + '"></span><span class="c-main"><span class="c-label">' + it.label + '</span>' + (it.sub ? '<span class="c-sub">' + it.sub + '</span>' : "") + '</span><span class="c-pts">+' + it.pts + '</span>';
+        contribEl.appendChild(row); it._row = row;
+      });
+      var segs = bottomUp.map(function (it) {
+        var bottom = acc * ppp, h = Math.max(4, it.pts * ppp); acc += it.pts;
+        var seg = document.createElement("div"); seg.className = "tblock";
+        seg.style.cssText = "bottom:" + bottom + "px;height:" + h + "px;background:" + it.color + ";transform:translateY(" + (reduced ? 0 : -(H - bottom + 10)) + "px)";
+        if (h >= LABEL_MIN_PX) seg.textContent = it.tag;
+        towerEl.appendChild(seg); return seg;
+      });
+      if (reduced) { rssNum.textContent = r.score; rssPill.classList.add("show"); return; }
+      rssPill.classList.remove("show");
+      tween(rssScore, 0, 200, function (v) { rssScore = v; rssNum.textContent = Math.round(v); });
+      var t = 500, landed = 0;
+      bottomUp.forEach(function (it, k) {
+        rssTimers.push(setTimeout(function () { segs[k].style.transform = "translateY(0)"; }, t));
+        rssTimers.push(setTimeout(function () {
+          landed += it.pts;
+          r.items.forEach(function (x) { x._row.classList.remove("hl"); });
+          it._row.classList.remove("pending"); it._row.classList.add("hl");
+          var from = rssScore; tween(from, landed, 240, function (v) { rssScore = v; rssNum.textContent = Math.round(v); });
+          if (k === bottomUp.length - 1) rssTimers.push(setTimeout(function () { it._row.classList.remove("hl"); rssPill.classList.add("show"); }, 500));
+        }, t + FALL_MS));
+        t += Math.max(180, 420 - k * 30);
+      });
+      return t + FALL_MS + 600;
+    }
+    var rssAuto = !reduced, rssAutoTimer = null, rssStarted = false;
+    function stopRssAuto() { rssAuto = false; if (rssAutoTimer) clearTimeout(rssAutoTimer); rssAutoTimer = null; }
+    function rssLoop(i) {
+      var dur = playRss(i) || 3000;
+      if (rssAuto) rssAutoTimer = setTimeout(function () { if (rssAuto) rssLoop((i + 1) % RSS.length); }, dur + 2600);
+    }
+    document.getElementById("rss-replay").addEventListener("click", function () { stopRssAuto(); playRss(rssCur); });
+    onView(document.getElementById("rss"), function (v) {
+      if (v && !rssStarted) { rssStarted = true; rssLoop(0); }
+      if (!v && rssAutoTimer) { clearTimeout(rssAutoTimer); rssAutoTimer = null; }
+      else if (v && rssStarted && rssAuto && !rssAutoTimer) rssAutoTimer = setTimeout(function () { rssLoop((rssCur + 1) % RSS.length); }, 1500);
+    }, 0.35);
+    if (reduced) playRss(0);
+
+    /* 3. Try a plan: the engine's simulate output for this patient, per lever combination. */
+    var AGE = 52;
+    var SCEN = {
+      none:   { r10: 1.92, r30: 11.81, rss: 12, lvl: "3B", rel: null },
+      statin: { r10: 1.46, r30: 9.10,  rss: 8,  lvl: "2B", rel: 25 },
+      bp:     { r10: 1.61, r30: 9.98,  rss: 12, lvl: "3B", rel: 15 },
+      both:   { r10: 1.22, r30: 7.67,  rss: 8,  lvl: "2B", rel: 35 }
+    };
+    var NOW = SCEN.none, NAMES = { statin: "Start a statin", bp: "Systolic BP to 120" };
+    var on = { statin: false, bp: false }, cur = { r10: NOW.r10, r30: NOW.r30 };
+    var levers = document.querySelectorAll(".lever[data-lever]");
+    var tl = document.getElementById("tl"), people = document.getElementById("people");
+    var W = 600, H = 270, L = 46, R = 76, T = 18, B = 40, TOP = 20;
+    var gap10, gap30, nowPath, planPath, n10, n30, p10, p30;
+    function x(yr) { return L + (yr / 30) * (W - L - R); }
+    function y(v) { return H - B - (v / TOP) * (H - T - B); }
+    function mk(tag, attrs, parent) { var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); (parent || tl).appendChild(e); return e; }
+    function dot(color) { var g = mk("g", {}); return { g: g, c: mk("circle", { r: 5.5, fill: color }, g), t: mk("text", { "font-size": 15, "font-weight": 700, fill: color }, g) }; }
+    function joined(a, b) { return "M" + x(0) + "," + y(0) + " L" + x(10) + "," + y(a) + " L" + x(30) + "," + y(b); }
+    function place(d, yr, v, above) {
+      d.c.setAttribute("cx", x(yr)); d.c.setAttribute("cy", y(v));
+      d.t.setAttribute("x", x(yr) + 10); d.t.setAttribute("y", y(v) + (above ? -9 : 19));
+      d.t.textContent = v.toFixed(1) + "%";
+    }
+    function buildTimeline() {
+      W = Math.max(320, Math.round(tl.getBoundingClientRect().width) || 600); H = W < 460 ? 250 : 270; R = W < 460 ? 54 : 76;
+      tl.setAttribute("viewBox", "0 0 " + W + " " + H);
+      while (tl.firstChild) tl.removeChild(tl.firstChild);
+      [0, 10, 20].forEach(function (t) {
+        mk("line", { x1: L, x2: W - R, y1: y(t), y2: y(t), stroke: "#ECE4E3", "stroke-dasharray": t ? "3 4" : "none" });
+        mk("text", { x: L - 8, y: y(t) + 4, "font-size": 13, "text-anchor": "end", fill: "#6F6064" }).textContent = t + "%";
+      });
+      [[0, W < 460 ? "Now" : AGE + " (now)", "start"], [10, "age " + (AGE + 10), "middle"], [30, "age " + (AGE + 30), "middle"]].forEach(function (a) {
+        mk("text", { x: x(a[0]), y: H - 12, "font-size": 13, "text-anchor": a[2], fill: "#6F6064" }).textContent = a[1];
+      });
+      gap10 = mk("line", { "stroke-width": 7, "stroke-linecap": "round", stroke: "#1E7148", opacity: 0 });
+      gap30 = mk("line", { "stroke-width": 7, "stroke-linecap": "round", stroke: "#1E7148", opacity: 0 });
+      nowPath = mk("path", { fill: "none", stroke: "#861327", "stroke-width": 2.4, "stroke-dasharray": "2 6", "stroke-linecap": "round" });
+      planPath = mk("path", { fill: "none", stroke: "#1E7148", "stroke-width": 2.6, "stroke-dasharray": "2 6", "stroke-linecap": "round", opacity: 0 });
+      n10 = dot("#861327"); n30 = dot("#861327"); p10 = dot("#1E7148"); p30 = dot("#1E7148");
+      nowPath.setAttribute("d", joined(NOW.r10, NOW.r30));
+    }
+    buildTimeline();
+    function drawPlan(a, b, moved) {
+      planPath.setAttribute("d", joined(a, b));
+      place(n10, 10, NOW.r10, true); place(n30, 30, NOW.r30, true);
+      place(p10, 10, a, false); place(p30, 30, b, false);
+      [[gap10, 10, NOW.r10, a], [gap30, 30, NOW.r30, b]].forEach(function (g) {
+        g[0].setAttribute("x1", x(g[1])); g[0].setAttribute("x2", x(g[1])); g[0].setAttribute("y1", y(g[2])); g[0].setAttribute("y2", y(g[3]));
+        g[0].setAttribute("opacity", moved ? .28 : 0);
+      });
+      [planPath, p10.g, p30.g].forEach(function (e) { e.setAttribute("opacity", moved ? 1 : 0); });
+      var c = moved ? "#9C8D90" : "#861327";
+      [n10, n30].forEach(function (d) { d.c.setAttribute("fill", c); d.t.setAttribute("fill", c); });
+      nowPath.setAttribute("stroke", c);
+    }
+    for (var i = 0; i < 100; i++) { var s = document.createElementNS(NS, "svg"); s.setAttribute("viewBox", "0 0 24 34"); s.innerHTML = PERSON; people.appendChild(s); }
+    var personEls = people.querySelectorAll("svg");
+    function setPeople(evToday, evPlan) {
+      personEls.forEach(function (p, i) {
+        var want = i < evPlan ? "ev" : i < evToday ? "pv" : "";
+        if ((p.getAttribute("class") || "") !== want) { if (want) p.setAttribute("class", want); else p.removeAttribute("class"); }
+      });
+      document.getElementById("pl-ev").textContent = evPlan;
+      document.getElementById("pl-pv").textContent = evToday - evPlan;
+      document.getElementById("pl-pv-row").style.visibility = evToday - evPlan > 0 ? "visible" : "hidden";
+    }
+    function key() { return on.statin && on.bp ? "both" : on.statin ? "statin" : on.bp ? "bp" : "none"; }
+    function render(animate) {
+      var k = key(), s = SCEN[k], moved = k !== "none";
+      levers.forEach(function (b) { var o = on[b.dataset.lever]; b.classList.toggle("on", o); b.setAttribute("aria-pressed", o ? "true" : "false"); });
+      var names = ["statin", "bp"].filter(function (n) { return on[n]; }).map(function (n) { return NAMES[n]; }).join(" + ");
+      document.getElementById("summary").innerHTML = moved
+        ? "<b>" + names + "</b>&nbsp;&nbsp;30-yr ASCVD " + NOW.r30.toFixed(2) + "% &rarr; <span class=\"g\">" + s.r30.toFixed(2) + "% (about " + s.rel + "% lower)</span> &middot; 10-yr ASCVD " + NOW.r10.toFixed(2) + "% &rarr; <span class=\"g\">" + s.r10.toFixed(2) + "%</span>"
+        : "Today: 30-yr ASCVD <b>" + NOW.r30.toFixed(2) + "%</b> &middot; 10-yr ASCVD <b>" + NOW.r10.toFixed(2) + "%</b>. Tap an intervention.";
+      document.getElementById("sentence").textContent = moved
+        ? "By age " + (AGE + 30) + ", about " + Math.round(s.r30) + " in 100 similar patients instead of " + Math.round(NOW.r30) + " (about " + s.rel + "% lower)."
+        : "Without changes, about " + Math.round(NOW.r30) + " in 100 similar patients may have a heart attack or stroke by age " + (AGE + 30) + ".";
+      document.getElementById("m-rss").innerHTML = moved && s.rss !== NOW.rss ? NOW.rss + " <em>&rarr; " + s.rss + "</em>" : String(NOW.rss);
+      document.getElementById("m-lvl").innerHTML = moved && s.lvl !== NOW.lvl ? NOW.lvl + " <em>&rarr; " + s.lvl + "</em>" : NOW.lvl;
+      tl.setAttribute("aria-label", "Cumulative ASCVD risk: today 1.9% by age 62 and 11.8% by age 82" + (moved ? "; with plan " + s.r10.toFixed(1) + "% and " + s.r30.toFixed(1) + "%" : ""));
+      setPeople(Math.round(NOW.r30), Math.round(s.r30));
+      if (!moved) { cur.r10 = NOW.r10; cur.r30 = NOW.r30; drawPlan(NOW.r10, NOW.r30, false); return; }
+      var f10 = cur.r10, f30 = cur.r30;
+      tween(0, 1, animate === false ? 0 : 750, function (e) {
+        cur.r10 = f10 + (s.r10 - f10) * e; cur.r30 = f30 + (s.r30 - f30) * e;
+        drawPlan(cur.r10, cur.r30, true);
+      });
+    }
+    var auto = !reduced, autoTimer = null, autoIdx = 0;
+    var SEQ = [{ statin: false, bp: false }, { statin: true, bp: false }, { statin: true, bp: true }, { statin: true, bp: true }];
+    var autoNote = document.getElementById("autoplay");
+    function stopAuto() { auto = false; if (autoTimer) clearInterval(autoTimer); autoTimer = null; autoNote.textContent = "Tap the levers to compare plans."; }
+    function tick() { autoIdx = (autoIdx + 1) % SEQ.length; on = { statin: SEQ[autoIdx].statin, bp: SEQ[autoIdx].bp }; render(); }
+    levers.forEach(function (b) {
+      b.addEventListener("click", function () { stopAuto(); on[b.dataset.lever] = !on[b.dataset.lever]; render(); });
+    });
+    onView(document.getElementById("rp"), function (v) {
+      if (!auto) return;
+      if (v && !autoTimer) autoTimer = setInterval(tick, 2600);
+      else if (!v && autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+    }, 0.4);
+    if (reduced) autoNote.textContent = "Tap the levers to compare plans.";
+    render(false);
+    var lastW = window.innerWidth, rsz = null;
+    window.addEventListener("resize", function () {
+      clearTimeout(rsz);
+      rsz = setTimeout(function () {
+        if (Math.abs(window.innerWidth - lastW) < 40) return;
+        lastW = window.innerWidth;
+        buildTimeline(); render(false);
+        buildA1c(); if (trajDone) { var ln = a1c.querySelector("path.ln"), ar = a1c.querySelector("path.ar"); ln.style.strokeDasharray = "none"; ar.setAttribute("opacity", 1); a1c.querySelectorAll("g.pt").forEach(function (g) { g.setAttribute("opacity", 1); }); }
+      }, 200);
+    });
+
+    /* 4. Live demo: synthetic demo cases; each note is RCCKM engine output. */
+    var patients = [{"name": "Patient A", "meta": "34F · non-smoker · clean prevention visit", "labs": [["A1c", "5.2 %"], ["LDL-C", "88 mg/dL"], ["ApoB", "70 mg/dL"], ["BP", "108/68"], ["eGFR · UACR", "105 · 4"], ["BMI", "22.0"]], "flags": [], "pos": 10, "label": "Level 1 · Minimal risk signal", "note": "[k]Risk Continuum CKM™[/k]\nLevel 1 | CKM 0\n[k]PREVENT ASCVD:[/k] 10y 0.2% (Low), 30y 1.2% (Low) | Total CVD: 10y 0.2%, 30y 1.9%\n\n[k]Management Considerations:[/k]\n- [k]Lipids:[/k] No lipid-lowering medication indicated. LDL-C 88.\n- [k]Plaque:[/k] CAC not indicated.\n- [k]Kidney:[/k] Stable.\n- [k]BP:[/k] Continue routine BP surveillance.\n- [k]Metabolic:[/k] No glycemic action. A1c 5.2%.\n- [k]Aspirin:[/k] Not indicated."}, {"name": "Patient B", "meta": "52F · gestational diabetes hx · labs rising since 2024", "labs": [["A1c", "6.1 % ↑"], ["LDL-C", "122 mg/dL ↑"], ["ApoB", "92 mg/dL"], ["TG", "168 mg/dL ↑"], ["BP", "128/78 ↑"], ["BMI", "31.6"]], "flags": [0, 1, 3, 5], "pos": 50, "label": "Level 3B · Emerging Risk Trajectory", "note": "[k]Risk Continuum CKM™[/k]\nLevel 3B | Emerging Risk Trajectory | CKM 2 | CAC Not Measured\n[k]PREVENT ASCVD:[/k] 10y 1.9% (Low), 30y 11.8% (Mildly elevated) | Total CVD: 10y 3.0%, 30y 19.6%\n\n[k]Assessment (ICD-10):[/k]\n- Hypertriglyceridemia (E78.1)\n- Prediabetes (R73.03)\n- Obesity, BMI 31.6 (E66.9, Z68.31)\n\n[k]Management Considerations:[/k]\n- [k]Lipids:[/k] Moderate-intensity statin reasonable. LDL-C 122. If treatment is selected: LDL-C goal <100.\n- [k]Plaque:[/k] Consider CAC.\n- [k]Kidney:[/k] Stable.\n- [k]BP:[/k] Continue routine BP surveillance.\n- [k]Metabolic:[/k] BMI >=30 — consider GLP-1 RA for weight/cardiometabolic risk. A1c 6.1%.\n- [k]Aspirin:[/k] Not indicated."}, {"name": "Patient C", "meta": "62F · treated hypertension · CAC 38 (82nd percentile)", "labs": [["A1c", "5.8 %"], ["LDL-C", "128 mg/dL"], ["ApoB", "95 mg/dL"], ["BP", "132/78 · treated"], ["Lp(a)", "82 nmol/L"], ["CAC", "38"]], "flags": [1, 4, 5], "pos": 70, "label": "Level 4 · Subclinical atherosclerosis", "note": "[k]Risk Continuum CKM™[/k]\nLevel 4 | CKM 3 (CAC/subclinical CVD; CKD not established) | CAC 38\n[k]PREVENT ASCVD:[/k] 10y 4.4% (Borderline) | Total CVD: 10y 7.7%\n\n[k]Assessment (ICD-10):[/k]\n- Subclinical coronary atherosclerosis (CAC 38)\n- Primary hypertension (I10)\n- Prediabetes (R73.03)\n\n[k]Risk Drivers:[/k]\nCAC 38\n\n[k]Context:[/k]\n- Lp(a) 82 nmol/L (intermediate)\n\n[k]Management Considerations:[/k]\n- [k]Lipids:[/k] Moderate-intensity statin recommended. LDL-C 128; target <70.\n- [k]Plaque:[/k] Known plaque.\n- [k]Kidney:[/k] Stable.\n- [k]BP:[/k] Confirm BP; treat if persistent. Current BP 132/78 mmHg.\n- [k]Metabolic:[/k] GLP-1 weight therapy: eligible. BMI 29.5 with hypertension; A1c 5.8%.\n- [k]Aspirin:[/k] Not indicated.\n\n[k]Further Risk Assessment:[/k]\n- hsCRP"}, {"name": "Patient D", "meta": "67M · on rosuvastatin 20 mg · CAC 420 · Lp(a) 210", "labs": [["LDL-C", "104 mg/dL on statin"], ["ApoB", "102 mg/dL"], ["Lp(a)", "210 nmol/L"], ["CAC", "420"], ["BP", "126/74 · treated"], ["A1c", "5.9 %"]], "flags": [0, 1, 2, 3], "pos": 90, "label": "Level 5 · Very high risk", "note": "[k]Risk Continuum CKM™[/k]\nLevel 5 | CKM 3 (CAC/subclinical CVD; CKD not established) | CAC 420\n[k]PREVENT:[/k] Not applicable (CAC >=300 indicates severe subclinical cardiovascular disease; PREVENT is not reported in this context)\n\n[k]Assessment (ICD-10):[/k]\n- Severe subclinical coronary atherosclerosis (CAC 420)\n- Primary hypertension (I10)\n- Elevated lipoprotein(a) (E78.41)\n- Hypertriglyceridemia (E78.1)\n- Prediabetes (R73.03)\n\n[k]Risk Drivers:[/k]\nCAC 420 | ApoB 102 mg/dL | Lp(a) 210 nmol/L\n\n[k]Management Considerations:[/k]\n- [k]Lipids:[/k] Currently receiving rosuvastatin 20 mg. LDL-C 104; target <70. Review current lipid-lowering regimen and residual target gap. Consider additional nonstatin LDL-lowering therapy.\n- [k]Plaque:[/k] Known plaque.\n- [k]Kidney:[/k] Stable.\n- [k]BP:[/k] Continue current BP regimen.\n- [k]Metabolic:[/k] GLP-1 weight therapy: eligible. BMI 29 with hypertension; A1c 5.9%.\n- [k]Aspirin:[/k] Low-dose aspirin is generally reasonable if bleeding risk is acceptable."}];
+    var marker = document.getElementById("marker"), label = document.getElementById("marker-label");
+    var pchips = document.querySelectorAll(".demo .pchip"), note = document.getElementById("note"), body = document.getElementById("note-body"), copy = document.getElementById("copy");
+    function esc(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+    function show(i) {
+      var p = patients[i];
+      marker.style.left = p.pos + "%";
+      label.textContent = p.label;
+      var end = p.pos < 30 ? "start" : p.pos >= 65 ? "end" : "mid";
+      label.style.left = end === "start" ? "0" : end === "end" ? "18px" : "50%";
+      label.style.transform = end === "start" ? "translateX(-12px)" : end === "end" ? "translateX(calc(-100% + 12px))" : "translateX(-50%)";
+      document.getElementById("pt-name").textContent = p.name;
+      document.getElementById("pt-meta").textContent = p.meta;
+      document.getElementById("pt-labs").innerHTML = p.labs.map(function (kv, j) {
+        return "<div><span>" + esc(kv[0]) + "</span><b" + (p.flags.indexOf(j) !== -1 ? ' class="flag"' : "") + ">" + esc(kv[1]) + "</b></div>";
+      }).join("");
+      note.classList.add("loading");
+      setTimeout(function () {
+        body.innerHTML = esc(p.note).replace(/\[k\]/g, '<span class="k">').replace(/\[\/k\]/g, "</span>");
+        note.classList.remove("loading");
+      }, reduced ? 0 : 260);
+      pchips.forEach(function (c, j) { c.classList.toggle("is-on", j === i); c.setAttribute("aria-selected", j === i ? "true" : "false"); });
+      copy.dataset.text = p.note.replace(/\[\/?k\]/g, "");
+    }
+    pchips.forEach(function (c) { c.addEventListener("click", function () { show(parseInt(c.dataset.p, 10)); }); });
+    copy.addEventListener("click", function () {
+      if (navigator.clipboard) navigator.clipboard.writeText(copy.dataset.text || "");
+      copy.textContent = "Copied";
+      setTimeout(function () { copy.textContent = "Copy"; }, 1400);
+    });
+    show(0);
+  })();
 </script>
 </body>
 </html>

@@ -43,10 +43,10 @@
   <p>If you create an account, we store the details you give us and basic account records: your name, email address, professional role and specialty, optional organization, country, sign-up and sign-in dates, account status, and when you accepted the clinical use notice. We use this to run your account, secure the service and contact you about it. Accounts never hold patient data or worksheet contents. Sign-in is handled by our authentication provider using secure cookies.</p>
 
   <h2>Usage analytics</h2>
-  <p>We collect limited, privacy-preserving usage events (for example, that an assessment was started or a feature was opened, and how long it took) to understand how RCCKM is used and to improve it. These events never include pasted text, clinical values, results, report contents or your email. They are linked to a random identifier stored in a cookie, not to your identity, and we do not use advertising trackers.</p>
+  <p>We use PostHog to understand visits to our website, pages and sections viewed, buttons used, time spent, account registration and sign-in, feature use, performance and technical errors. Before sign-in, these events use a random browser identifier stored in a cookie. After you sign in, we link activity to your account ID and profile details (name, email, professional role, specialty, organization and country), including visits before sign-in when the same browser identifier is available. We also collect referring website domains, recognized campaign sources, browser/device categories and approximate city, region and country derived from your IP address when location collection is enabled. Technical error records include predefined categories and app build information. Analytics never include passwords, verification tokens, pasted chart text, patient identifiers, clinical values, assessment results, report contents, or full URLs and query strings. We do not use advertising trackers or record clinical screens.</p>
 
   <h2>Cookies</h2>
-  <p>We use a small number of cookies that the service needs: to keep your worksheet session, to remember that you accepted the clinical use notice, to keep you signed in if you have an account, and the anonymous analytics identifier described above. You can clear or block cookies in your browser; some features may then stop working.</p>
+  <p>We use a small number of cookies that the service needs: to keep your worksheet session, to remember that you accepted the clinical use notice, to keep you signed in if you have an account, and the analytics identifiers described above. You can clear or block cookies in your browser; some features may then stop working.</p>
 
   <h2>Service providers</h2>
   <p>We use trusted providers to host the app, handle sign-in, measure usage and, when you choose AI features, generate AI responses. They process information only to provide those services to us.</p>
@@ -76,5 +76,6 @@
     <text x="450" y="291" text-anchor="middle" textLength="300" lengthAdjust="spacing" font-family="Jost, 'Instrument Sans', sans-serif" font-size="50" font-weight="500" fill="#861327">HEALTH</text>
   </symbol>
 </svg>
+<script src="rcckm-analytics.js" defer></script>
 </body>
 </html>

@@ -456,7 +456,7 @@
 </header>
 
 <!-- HERO -->
-<section class="hero" aria-labelledby="hero-h1">
+<section data-analytics-section="hero" class="hero" aria-labelledby="hero-h1">
   <div class="wrap">
     <div class="hero-copy">
       <div class="hero-lockup">
@@ -504,7 +504,7 @@
 </section>
 
 <!-- STATS -->
-<section class="stats" aria-label="Why this matters">
+<section data-analytics-section="stats" class="stats" aria-label="Why this matters">
   <div class="wrap">
     <div class="stats-grid reveal">
       <div class="stat">
@@ -527,7 +527,7 @@
 </section>
 
 <!-- TRAJECTORY -->
-<section class="traj" id="trajectory" aria-labelledby="traj-h2">
+<section data-analytics-section="trajectory" class="traj" id="trajectory" aria-labelledby="traj-h2">
   <div class="wrap">
     <div class="traj-head center reveal">
       <span class="eyebrow">Trajectory</span>
@@ -548,7 +548,7 @@
 </section>
 
 <!-- TRY A PLAN -->
-<section class="plan" id="plan" aria-labelledby="plan-h2">
+<section data-analytics-section="plan" class="plan" id="plan" aria-labelledby="plan-h2">
   <div class="wrap">
     <div class="plan-head center reveal">
       <span class="eyebrow">Try a plan</span>
@@ -623,7 +623,7 @@
 </section>
 
 <!-- SHARED DECISIONS -->
-<section class="sdm" id="decide" aria-labelledby="sdm-h2">
+<section data-analytics-section="decide" class="sdm" id="decide" aria-labelledby="sdm-h2">
   <div class="wrap">
     <div class="sdm-top reveal">
       <div>
@@ -657,7 +657,7 @@
 </section>
 
 <!-- THE REPORT -->
-<section class="report" id="report" aria-labelledby="report-h2">
+<section data-analytics-section="report" class="report" id="report" aria-labelledby="report-h2">
   <div class="wrap">
     <div class="report-head reveal">
       <div>
@@ -719,7 +719,7 @@
 </section>
 
 <!-- LIVE DEMO -->
-<section class="demo" aria-labelledby="demo-h2">
+<section data-analytics-section="demo" class="demo" aria-labelledby="demo-h2">
   <div class="wrap">
     <div class="demo-head reveal">
       <span class="eyebrow">Try it here</span>
@@ -758,7 +758,7 @@
 </section>
 
 <!-- HOW IT WORKS -->
-<section class="how" id="how" aria-labelledby="how-h2">
+<section data-analytics-section="how" class="how" id="how" aria-labelledby="how-h2">
   <div class="wrap">
     <span class="eyebrow">How it works</span>
     <h2 class="h2" id="how-h2">From chart text to a plan in about a minute.</h2>
@@ -771,7 +771,7 @@
   </div>
 </section>
 
-<section class="who" aria-labelledby="who-h2">
+<section data-analytics-section="who" class="who" aria-labelledby="who-h2">
   <div class="wrap">
     <span class="eyebrow">Who it's for</span>
     <h2 class="h2" id="who-h2">Built for every clinician in the CKM space.</h2>
@@ -786,7 +786,7 @@
 </section>
 
 <!-- FOUNDER -->
-<section class="founder" id="founder" aria-labelledby="founder-h2">
+<section data-analytics-section="founder" class="founder" id="founder" aria-labelledby="founder-h2">
   <div class="wrap">
     <div class="founder-grid">
       <figure class="founder-fig reveal">
@@ -814,7 +814,7 @@
 </section>
 
 <!-- CTA -->
-<section class="cta" aria-labelledby="cta-h2">
+<section data-analytics-section="cta" class="cta" aria-labelledby="cta-h2">
   <div class="wrap">
     <svg class="logo cta-mark" viewBox="0 0 900 300" aria-hidden="true"><use href="#rc-logo"/></svg>
     <h2 id="cta-h2">See it on your next patient.</h2>
@@ -830,7 +830,7 @@
   </div>
 </section>
 
-<footer>
+<footer data-analytics-section="footer">
   <div class="wrap">
     <div>
       <svg class="logo foot-mark" viewBox="0 0 900 300" role="img" aria-label="Risk Continuum Health"><use href="#rc-logo"/></svg>
@@ -1223,5 +1223,6 @@
     show(0);
   })();
 </script>
+<script src="rcckm-analytics.js" defer></script>
 </body>
 </html>

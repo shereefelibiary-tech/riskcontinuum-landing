@@ -346,6 +346,16 @@
     footer .wrap { display: grid; grid-template-columns: 1.6fr 1fr auto; gap: 48px; align-items: start; }
     .foot-mark { width: 150px; margin-bottom: 16px; }
     footer nav { display: flex; gap: 24px; }
+    footer nav { flex-wrap: wrap; }
+    .faq-preview { padding: 96px 0; border-top: 1px solid var(--line); }
+    .faq-preview .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .faq-preview h3 { font-size: 23px; margin-bottom: 8px; }
+    .faq-preview h3 a { text-decoration-color: var(--line-2); text-underline-offset: 4px; }
+    .faq-preview h3 a:hover { color: var(--accent); text-decoration-color: currentColor; }
+    .faq-preview .btn { margin-top: 24px; }
+    .faq-preview-list { display: grid; gap: 24px; }
+    .faq-preview-list p { font-size: 17px; }
+    @media (max-width: 900px) { .faq-preview .wrap { grid-template-columns: 1fr; gap: 32px; } }
     .foot-h { display: block; font-family: var(--display); font-size: 13px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
     .foot-contact p + p { margin-top: 6px; }
     .foot-contact a { color: var(--body); }
@@ -447,6 +457,7 @@
       <li><a href="#decide">Shared decisions</a></li>
       <li><a href="#report">The report</a></li>
       <li><a href="#founder">Founder</a></li>
+      <li><a href="faq.html">FAQs</a></li>
     </ul>
     <div class="nav-cta">
       <a href="https://app.riskcontinuum.health/" class="btn btn-ghost">Open app</a>
@@ -785,6 +796,22 @@
   </div>
 </section>
 
+<section class="faq-preview" id="faq" aria-labelledby="faq-heading">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Methods &amp; evidence</span>
+      <h2 class="h2" id="faq-heading">Questions behind the numbers.</h2>
+      <p class="lede">Explore the science, see how scenarios are built, and discover the next steps for clinical evaluation.</p>
+      <a class="btn btn-ghost" href="faq.html">Read the FAQs <span aria-hidden="true">&rarr;</span></a>
+    </div>
+    <div class="faq-preview-list">
+      <div><h3><a href="faq.html#levels-stages-and-risk">Where do the risk estimates come from?</a></h3><p>PREVENT supplies event probabilities for eligible patients. RCCKM levels and the Risk Signal Score organize clinical findings separately.</p></div>
+      <div><h3><a href="faq.html#simulator-method">What does the simulator bring to the conversation?</a></h3><p>Explore options together using trial-derived LDL-C and blood pressure effects and supported PREVENT recalculations, with the methods in view.</p></div>
+      <div><h3><a href="faq.html#validation-status">What supports the platform?</a></h3><p>Published equations and clinical frameworks underpin the assessment. Software checks and synthetic-case testing support development, with independent clinical evaluation as the next step.</p></div>
+    </div>
+  </div>
+</section>
+
 <!-- FOUNDER -->
 <section data-analytics-section="founder" class="founder" id="founder" aria-labelledby="founder-h2">
   <div class="wrap">
@@ -843,7 +870,7 @@
       <p class="foot-pilot">For health systems: <a href="mailto:shereef@riskcontinuum.health?subject=RCCKM%20pilot">ask about a pilot</a></p>
     </div>
     <div>
-      <nav aria-label="Footer"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="mailto:shereef@riskcontinuum.health">Contact</a></nav>
+      <nav aria-label="Footer"><a href="faq.html">FAQs</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="mailto:shereef@riskcontinuum.health">Contact</a></nav>
       <p style="margin-top:14px">&copy; 2026 Risk Continuum CKM</p>
     </div>
   </div>

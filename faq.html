@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQs: Methods, Evidence &amp; Clinical Use · Risk Continuum CKM</title>
+  <meta name="description" content="How RCCKM calculates risk, models prevention scenarios, handles missing information, and supports clinician review. Sources, assumptions and the current evaluation status." />
+  <meta name="theme-color" content="#F8F5F3" />
+  <link rel="icon" href="assets/brand/risk-continuum/risk-continuum-icon-64.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&amp;family=Instrument+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="legal.css" />
+  <link rel="stylesheet" href="faq.css" />
+  <script src="faq.js" defer></script>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a href="/" aria-label="Risk Continuum Health home"><svg class="logo" viewBox="0 0 900 300" aria-hidden="true"><use href="#rc-logo"/></svg></a>
+    <nav aria-label="Main navigation"><a class="back" href="/">Home</a><a class="open-app" href="https://app.riskcontinuum.health/">Open app</a></nav>
+  </div>
+</header>
+
+<main class="faq-main">
+  <div class="faq-intro">
+    <p class="eyebrow">Frequently asked questions</p>
+    <h1>The science behind<br />the conversation.</h1>
+    <p class="lede">RCCKM brings published science into a working prevention platform. Explore the evidence, calculations, and clinical thinking behind the assessment and simulator.</p>
+    <p class="faq-updated">Updated October 29, 2026 · Early access</p>
+  </div>
+  <div class="faq-map" aria-label="Three complementary views">
+    <div><b>Risk probabilities</b><p>PREVENT estimates for eligible patients.</p></div>
+    <div><b>Clinical interpretation</b><p>Findings, staging and RCCKM's organizing framework.</p></div>
+    <div><b>What-if scenarios</b><p>Options to explore together, with the method in view.</p></div>
+  </div>
+  <nav class="faq-jump" aria-label="FAQ topics"><a href="#assessment">Assessment &amp; evidence</a><a href="#simulator">The simulator</a><a href="#clinical-use">Evaluation &amp; use</a><a href="#sources">Sources</a></nav>
+
+  <section class="faq-group" id="assessment" aria-labelledby="assessment-heading">
+    <h2 id="assessment-heading">Assessment &amp; evidence</h2>
+    <div class="faq-list">
+      <details id="what-rcckm-adds" open>
+        <summary>What does RCCKM add to a risk calculator?</summary>
+        <div class="faq-answer"><p>RCCKM connects the pieces of a prevention visit: risk estimates, plaque findings, lipid markers, kidney and metabolic findings, and how those measurements have changed over time. A clinician summary and plain-language patient roadmap turn that information into something the clinician and patient can work through together.</p><p>The simulator brings the discussion onto the screen. Explore a plan, compare the modeled numbers, and add the scenario you discussed to the note. The platform is built around a practical opportunity: drawing more insight from the clinical information already available.</p></div>
+      </details>
+      <details id="deterministic-and-ai">
+        <summary>Which parts use fixed calculations, and which use AI?</summary>
+        <div class="faq-answer"><p>The core assessment runs on a rule-based parser, published risk equations, and explicit clinical rules. The same confirmed inputs and software version follow the same calculation and decision logic. That makes the assessment reproducible and gives reviewers a defined method to examine.</p><p>Optional AI-generated commentary, such as the Clinical Pearl, adds a separately labeled perspective. Clinicians review that commentary independently, confirm the worksheet, and approve the assessment before using it.</p></div>
+      </details>
+      <details id="levels-stages-and-risk">
+        <summary>How do RCCKM levels, CKM stages, PREVENT, and the signal score differ?</summary>
+        <div class="faq-answer"><p>RCCKM presents complementary views of the patient's prevention picture:</p><ul><li><strong>PREVENT</strong> supplies population-based event probabilities for eligible patients.</li><li><strong>AHA CKM staging</strong> describes the cardiovascular, kidney, and metabolic disease framework. KDIGO classification describes kidney disease using kidney function and albuminuria.</li><li><strong>RCCKM levels</strong> organize measured disease and actionable findings into the platform's clinical interpretation framework.</li><li><strong>Risk Signal Score (RSS)</strong> makes selected contributors to risk burden visible using prespecified ordinal points.</li></ul><p>The levels and RSS are RCCKM-specific frameworks to be evaluated in their own right. Read RSS as an ordinal burden summary and use PREVENT for event probabilities. See the <a href="#source-prevent">PREVENT</a>, <a href="#source-ckm">CKM</a>, and <a href="#source-kdigo">KDIGO</a> sources.</p></div>
+      </details>
+      <details id="prevent-eligibility">
+        <summary>When can PREVENT risk be reported?</summary>
+        <div class="faq-answer"><p>PREVENT supports primary prevention assessment in eligible adults. RCCKM supports 10-year estimates at ages 30–79 and 30-year estimates at ages 30–59, when the required inputs and clinical eligibility criteria are met.</p><p>For known cardiovascular disease, established heart failure, or CAC of at least 300, RCCKM's eligibility rules direct attention to the disease context and withhold PREVENT. Clinicians confirm eligibility against the <a href="#source-prevent">AHA's full guidance</a>, including exclusions beyond those represented in the software.</p><p>Measured disease remains central to the assessment. Plaque and other established disease findings retain their clinical importance alongside any reported risk estimate.</p></div>
+      </details>
+      <details id="missing-data">
+        <summary>How should missing, conflicting, or unconfirmed information be handled?</summary>
+        <div class="faq-answer"><p><strong>Unknown ≠ normal.</strong> The worksheet gives clinicians a place to reconcile the chart before assessment. Confirm dates, units, medication use, smoking status, diabetes history, and any displayed assumptions. Parser proposals need that review because chart text can be incomplete, conflicting, or misread.</p><p>Missing UACR, unmeasured CAC, and an unconfirmed diagnosis each carry their own meaning. The assessment may identify an information gap or leave an output incomplete. For kidney findings, the clinician also confirms chronicity and context before establishing CKD. Reconciliation is an active part of the clinical workflow.</p></div>
+      </details>
+      <details id="evidence-updates">
+        <summary>How are evidence changes and software versions handled?</summary>
+        <div class="faq-answer"><p>RCCKM's evidence is curated and its clinical rules are explicit. Evidence updates require review, implementation where appropriate, and checks for changes in calculations, interpretation, and output before adoption.</p><p>The report footer identifies the engine and evidence version, giving reviewers a concrete reference for discussing a result. We welcome questions about the source and reasoning behind a rule: <a href="mailto:shereef@riskcontinuum.health?subject=RCCKM%20evidence%20question">request a methods discussion</a>.</p></div>
+      </details>
+    </div>
+  </section>
+
+  <section class="faq-group" id="simulator" aria-labelledby="simulator-heading">
+    <h2 id="simulator-heading">The simulator</h2>
+    <div class="faq-list">
+      <details id="simulator-method">
+        <summary>How are the simulator's risk changes calculated?</summary>
+        <div class="faq-answer"><p>The simulator makes two evidence-based approaches visible on screen:</p><ul><li><strong>Trial-derived scenarios:</strong> LDL-C and systolic blood pressure changes apply published relative-effect estimates to baseline PREVENT ASCVD risk, using CTT 2010 and Ettehad 2016.</li><li><strong>Recalculated risk-factor scenarios:</strong> supported changes in smoking status, HbA1c, or UACR rerun the applicable PREVENT equation. These show the modeled risk profile with the selected value; the change is labeled as a recalculation rather than a treatment effect.</li></ul><p>Each scenario also reruns the clinical interpretation. Risk comparisons retain the baseline PREVENT model and diabetes status, with an explanation whenever a change falls outside the model's scope. Trial sources: <a href="#source-ctt">CTT</a> and <a href="#source-bp">Ettehad</a>.</p></div>
+      </details>
+      <details id="statin-assumptions">
+        <summary>What assumptions are made when “Start a statin” is selected?</summary>
+        <div class="faq-answer"><p>The default starting point is a moderate-intensity statin scenario: LDL-C and non-HDL-C decrease by 35%, and ApoB decreases by 30%. Those assumptions are displayed, and the clinician can explore other lipid values to reflect a different expected response.</p><p>The modeled ASCVD effect scales with the selected LDL-C reduction using CTT's published relative effect of 0.78 per 1 mmol/L, approximately 38.7 mg/dL. If LDL-C is unavailable, a change in non-HDL-C can serve as a labeled proxy. ApoB informs the clinical interpretation; the risk projection uses the lipid effect once, without adding a separate ApoB treatment effect. Actual treatment response is assessed through clinical follow-up. See <a href="#source-ctt">CTT 2010</a>.</p></div>
+      </details>
+      <details id="combined-effects">
+        <summary>How are blood pressure and combined intervention effects modeled?</summary>
+        <div class="faq-answer"><p>The blood pressure scenario uses a published relative-effect factor of 0.80 per 10 mmHg of systolic blood pressure reduction, scaled to the selected change. For combined lipid and blood pressure scenarios, RCCKM multiplies the factors and applies the result to baseline survival:</p><p><code>p_plan = 1 − (1 − p_baseline)^combined_factor</code></p><p>Probabilities here are proportions between 0 and 1. The method treats trial relative risks as proportional hazard factors. Applying those effects to a PREVENT baseline, combining them, and extending them across the selected horizon are explicit modeling assumptions. The trials studied different populations and endpoints; the combined projection is an RCCKM scenario for discussion. See <a href="#source-ctt">CTT</a> and <a href="#source-bp">Ettehad</a>.</p></div>
+      </details>
+      <details id="thirty-year-assumptions">
+        <summary>What can the 30-year view bring to a prevention conversation?</summary>
+        <div class="faq-answer"><p>The 30-year view gives eligible patients a longer horizon for discussing prevention. A modest short-term estimate can sit alongside a more substantial long-term risk, making both perspectives available during the visit.</p><p>A treatment scenario over 30 years assumes its modeled effect is sustained. CTT's source statin analyses had median follow-up of about five years, so extending those effects is a projection. Adherence, changing health, competing risks, and treatment changes affect how an individual's course unfolds.</p><p>The timeline links the displayed 10-year and 30-year estimates. Read those points as the estimates; the connecting lines are a visual guide, rather than annual predictions, event timing, or life expectancy. See <a href="#source-prevent">PREVENT</a> and <a href="#source-ctt">CTT</a>.</p></div>
+      </details>
+      <details id="benefits-and-limits">
+        <summary>How should the modeled change inform a treatment discussion?</summary>
+        <div class="faq-answer"><p>Use the modeled change to make options concrete, compare scenarios, and invite the patient's priorities into the conversation. The clinician brings the rest of the decision into view: indications, contraindications, adverse effects, tolerability, cost, treatment burden, and patient preferences.</p><p>The current simulator models ASCVD scenarios. Total CVD, including heart failure, stays at the baseline estimate. A change in HbA1c or UACR shows a recalculated risk profile, rather than the full cardiovascular or kidney effect of a particular drug. The scope also excludes estimating statin withdrawal and a complete benefit–harm balance. A lower modeled value is an estimate for discussion, not a guarantee of individual benefit.</p></div>
+      </details>
+    </div>
+  </section>
+
+  <section class="faq-group" id="clinical-use" aria-labelledby="clinical-use-heading">
+    <h2 id="clinical-use-heading">Evaluation &amp; clinical use</h2>
+    <div class="faq-list">
+      <details id="validation-status">
+        <summary>What supports RCCKM today, and what comes next?</summary>
+        <div class="faq-answer"><p>RCCKM brings published PREVENT equations, established clinical frameworks, and trial evidence into a working assessment, simulator, clinician note, and patient roadmap. Development includes automated calculation checks, synthetic-case regression tests, clinical rule and boundary tests, and review of report outputs. These checks support reproducibility and help identify unintended changes within the tested software version and scope.</p><p><strong>The next step is independent clinical evaluation.</strong> Planned questions include agreement with clinical reviewers, usability, decision time, and patient understanding. Evidence that RCCKM improves clinician decisions, workflow efficiency, shared decision making, or patient outcomes has not yet been established in independent prospective studies. PREVENT's published validation supports the source equations; RCCKM's interpretations and simulator assumptions require their own evaluation.</p><p class="faq-note">Current phase: early access, with a working platform and a clear path toward clinical evaluation. We welcome clinicians and research partners interested in helping build that evidence.</p></div>
+      </details>
+      <details id="clinician-role">
+        <summary>How does RCCKM support the clinician's role?</summary>
+        <div class="faq-answer"><p>RCCKM puts the inputs, interpretation, and discussion in a form the clinician can review and use. Confirm the values and dates, medication status, history, eligibility, staging, and reasoning behind the proposed actions, then bring that assessment into the full clinical picture.</p><p>The clinician approves the note and patient roadmap and makes the decisions about diagnoses, codes, prescriptions, targets, and follow-up. “Risk Reduction Discussed” captures the modeled scenario you explored. Clinical decisions and treatment orders stay with the treating clinician. The intended setting is prevention support and education.</p></div>
+      </details>
+      <details id="emr-workflow">
+        <summary>How does RCCKM fit into an EMR workflow?</summary>
+        <div class="faq-answer"><p>The current workflow begins with de-identified chart text or manual worksheet entry. A rule-based parser proposes values for confirmation. After reviewing the assessment, the clinician can copy the note into the EMR and print or copy the patient roadmap.</p><p>That makes the current workflow available across EMR systems through text entry and copy-and-paste. Direct EMR connectivity is a separate implementation and evaluation step; the public workflow currently uses this clinician-controlled transfer.</p></div>
+      </details>
+      <details id="privacy-and-ai">
+        <summary>What information may I enter, and where does it go?</summary>
+        <div class="faq-answer"><p>Use synthetic or de-identified data only. Exclude names, dates of birth, medical record numbers, contact details, and other patient identifiers. Under the current <a href="privacy.html">Privacy Policy</a>, chart text and worksheet values are processed on the server for the assessment, held temporarily in the session, and not saved to a patient database.</p><p>Optional AI features send the de-identified assessment details needed for the response to an outside AI provider. Account and usage analytics are described separately in the policy. RCCKM does not currently offer business associate agreements for identifiable clinical data. Review the current policy before use.</p></div>
+      </details>
+      <details id="independence-and-review">
+        <summary>Who built RCCKM, and how can my team get involved?</summary>
+        <div class="faq-answer"><p>RCCKM is independently developed by Risk Continuum Health LLC, led by Shereef El-Ibiary, MD, a practicing internist in Greenville, South Carolina. The platform grew from the everyday opportunity to connect cardiovascular, kidney, and metabolic information and turn it into a useful prevention conversation.</p><p>Clinicians, researchers, and health systems are invited to explore a synthetic-case demonstration or discuss a structured evaluation. Areas of interest include clinical concordance, input accuracy, usability, decision time, and patient understanding. <a href="mailto:shereef@riskcontinuum.health?subject=RCCKM%20clinical%20evaluation">Contact Shereef El-Ibiary, MD</a> to start the conversation.</p></div>
+      </details>
+    </div>
+  </section>
+
+  <section class="faq-sources" id="sources" aria-labelledby="sources-heading">
+    <p class="eyebrow">Read the underlying evidence</p>
+    <h2 id="sources-heading">Selected primary sources</h2>
+    <ol>
+      <li id="source-prevent"><a href="https://professional.heart.org/en/guidelines-and-statements/about-prevent-calculator">American Heart Association: PREVENT equations and clinical resources</a>, including the <a href="https://professional.heart.org/-/media/PHD-Files/Guidelines-and-Statements/PREVENT/PREVENT-FAQs-FINAL.pdf?sc_lang=en">clinician FAQ</a>. Risk prediction, supported use, and optional predictors.</li>
+      <li id="source-ckm"><a href="https://professional.heart.org/en/science-news/cardiovascular-kidney-metabolic-health-a-presidential-advisory">American Heart Association: Cardiovascular-Kidney-Metabolic Health Presidential Advisory</a>. The CKM framework.</li>
+      <li id="source-kdigo"><a href="https://kdigo.org/guidelines/ckd-evaluation-and-management/">KDIGO 2024 CKD evaluation and management guideline</a>. Kidney disease evaluation and classification.</li>
+      <li id="source-ctt"><a href="https://pubmed.ncbi.nlm.nih.gov/21067804/">CTT Collaboration. Lancet. 2010;376:1670–1681.</a> LDL-C lowering and major vascular events. DOI: 10.1016/S0140-6736(10)61350-5.</li>
+      <li id="source-bp"><a href="https://pubmed.ncbi.nlm.nih.gov/26724178/">Ettehad et al. Lancet. 2016;387:957–967.</a> Blood pressure lowering and cardiovascular outcomes. DOI: 10.1016/S0140-6736(15)01225-8.</li>
+    </ol>
+    <p class="faq-updated">These sources underpin the methods described above. RCCKM is independently developed; references acknowledge the scientific work and do not imply organizational endorsement.</p>
+  </section>
+  <aside class="faq-contact" aria-labelledby="contact-heading"><h2 id="contact-heading">Bring your questions. Explore a case together.</h2><p>For a synthetic-case demonstration, methods questions, or an evaluation discussion, <a href="mailto:shereef@riskcontinuum.health?subject=RCCKM%20methods%20and%20evaluation">contact Shereef El-Ibiary, MD</a>.</p></aside>
+</main>
+
+<footer class="wrap foot"><p>&copy; 2026 Risk Continuum CKM · <a href="/">Home</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="mailto:shereef@riskcontinuum.health">Contact</a></p></footer>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="rc-logo" viewBox="0 0 900 300">
+    <g fill="#861327" transform="translate(-44.2 -46) scale(.675)">
+      <circle cx="372.25" cy="190.75" r="18.75"/><circle cx="507" cy="186.5" r="35.5"/><circle cx="669.5" cy="180.5" r="51.25"/><circle cx="851.5" cy="172" r="64.75"/><circle cx="1050.5" cy="161.25" r="80"/>
+    </g>
+    <text x="450" y="218" text-anchor="middle" textLength="884" lengthAdjust="spacing" font-family="Jost, 'Instrument Sans', sans-serif" font-size="74" font-weight="500" fill="#1D1416">RISK CONTINUUM</text>
+    <line x1="64" x2="236" y1="272" y2="272" stroke="#861327" stroke-width="3"/>
+    <line x1="664" x2="836" y1="272" y2="272" stroke="#861327" stroke-width="3"/>
+    <text x="450" y="291" text-anchor="middle" textLength="300" lengthAdjust="spacing" font-family="Jost, 'Instrument Sans', sans-serif" font-size="50" font-weight="500" fill="#861327">HEALTH</text>
+  </symbol>
+</svg>
+<script src="rcckm-analytics.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+/* FAQ styles share the public site's fonts, colors and logo. */
+html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+.top { z-index: 10; }
+.top nav { display: flex; align-items: center; gap: 24px; }
+.top .open-app { color: #fff; background: var(--accent); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-size: 15px; font-weight: 600; }
+.faq-main { max-width: 1000px; margin: 0 auto; padding: 64px 32px 32px; }
+.faq-intro { max-width: 750px; }
+.faq-intro h1 { font-size: clamp(40px, 6vw, 64px); margin: 14px 0 20px; }
+.faq-intro .lede { font-size: 21px; line-height: 1.6; }
+.faq-updated { color: var(--muted); font-size: 14px; margin-top: 18px; }
+.faq-map { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 32px 0; }
+.faq-map div { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 20px; }
+.faq-map b { display: block; color: var(--ink); font-size: 16px; }
+.faq-map p { font-size: 15px; line-height: 1.5; color: var(--muted); margin-top: 5px; }
+.faq-jump { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 44px; }
+.faq-jump a { text-decoration: none; font-size: 15px; font-weight: 500; padding: 7px 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+.faq-jump a:hover { border-color: var(--accent); }
+.faq-group { margin: 44px 0; }
+.faq-group h2 { font-size: 30px; margin-bottom: 18px; }
+.faq-list { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; }
+.faq-list details + details { border-top: 1px solid var(--line); }
+.faq-list summary { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; cursor: pointer; padding: 21px 24px; color: var(--ink); font-size: 18px; font-weight: 600; line-height: 1.45; list-style: none; }
+.faq-list summary::-webkit-details-marker { display: none; }
+.faq-list summary::after { content: "+"; font-size: 24px; line-height: 1.1; font-weight: 400; color: var(--accent); flex: none; }
+.faq-list details[open] > summary::after { content: "−"; }
+.faq-list summary:hover { background: #fbf8f7; }
+.faq-answer { padding: 0 24px 24px; font-size: 17px; line-height: 1.7; max-width: 85ch; }
+.faq-answer ul { margin-top: 10px; }
+.faq-answer p + p, .faq-answer ul + p { margin-top: 12px; }
+.faq-answer strong { color: var(--ink); }
+.faq-answer code { font-family: ui-monospace, monospace; font-size: .88em; overflow-wrap: anywhere; }
+.faq-note { padding: 16px 20px; margin-top: 20px; background: #eaf3ed; border-left: 3px solid #1e7148; border-radius: 0 12px 12px 0; font-size: 15px; }
+.faq-sources { border-top: 1px solid var(--line); padding-top: 16px; margin-top: 48px; }
+.faq-sources ol { margin: 16px 0 0 24px; font-size: 15px; }
+.faq-sources li { padding-left: 5px; scroll-margin-top: 100px; }
+.faq-contact { margin: 44px 0 12px; border-radius: 20px; padding: 26px; background: var(--surface); border: 1px solid var(--line); }
+.faq-contact h2 { margin-top: 0; }
+a:focus-visible, summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; border-radius: 6px; }
+.faq-list details { scroll-margin-top: 100px; }
+@media (max-width: 640px) {
+  .faq-main { padding: 36px 16px 20px; }
+  .faq-intro .lede { font-size: 18px; }
+  .faq-map { grid-template-columns: 1fr; gap: 10px; }
+  .faq-map div { padding: 16px 18px; }
+  .faq-group h2 { font-size: 26px; }
+  .faq-list summary { padding: 18px; font-size: 17px; gap: 16px; }
+  .faq-answer { padding: 0 18px 20px; font-size: 16px; }
+  .top nav { gap: 12px; }
+  .top .back { font-size: 14px; }
+  .top .open-app { font-size: 13px; padding: 7px 12px; }
+  .faq-contact { padding: 22px; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+@media print {
+  .top, .faq-jump, .faq-contact, .foot { display: none; }
+  body { background: #fff; font-size: 11pt; }
+  .faq-main { max-width: none; padding: 0; }
+  .faq-list { border: 0; overflow: visible; }
+  .faq-list summary { padding: 16px 0 8px; }
+  .faq-list summary::after { display: none; }
+  .faq-list details > .faq-answer { display: block; padding: 0 0 12px; }
+  .faq-list details::details-content { content-visibility: visible; }
+  .faq-answer { font-size: 11pt; }
+  a { color: inherit; }
+}

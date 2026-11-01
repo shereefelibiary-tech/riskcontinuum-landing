@@ -44,7 +44,7 @@
     var h = document.documentElement.scrollHeight - innerHeight;
     depth = Math.max(depth, h <= 0 ? 100 : Math.floor(Math.min(100, Math.max(0, scrollY / h * 100)) / 25) * 25);
   }, { passive: true });
-  var sections = ["hero","stats","trajectory","plan","decide","report","demo","how","who","founder","cta","footer"];
+  var sections = ["hero","stats","walkthrough","trajectory","plan","decide","report","demo","how","who","founder","cta","footer"];
   if (typeof IntersectionObserver !== "undefined") {
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) { if (!entry.isIntersecting) return; var section = entry.target.getAttribute("data-analytics-section"); if (sections.indexOf(section) >= 0) { track("landing_section_viewed", { section: section }); observer.unobserve(entry.target); } });

@@ -366,7 +366,8 @@
     .sdm h2, .sdm h3 { color: var(--ink); }
     .sdm .lede { color: var(--body); }
     .sdm-top { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; margin-bottom: 60px; }
-    .sdm-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 72px; }
+    .sdm-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 72px; }
+    .sdm-handout { margin-top: 28px; text-align: center; font-size: 17px; color: var(--muted); }
     .sdm-card { background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px 24px; box-shadow: 0 1px 2px rgba(45,12,20,.04), 0 18px 40px -26px rgba(45,12,20,.22); }
     .sdm-card .em { font-size: 34px; }
     .sdm-card h3 { font-size: 22px; margin: 14px 0 8px; line-height: 1.2; }
@@ -524,7 +525,7 @@
     }
     @media (max-width: 1020px) {
       .plan-foot, .note-row, .sdm-top, .report-head, .sdm-shots, .rp-body, .founder-grid, .rssx { grid-template-columns: minmax(0, 1fr); gap: 36px; }
-      .sdm-cards, .sections { grid-template-columns: repeat(2, 1fr); }
+      .sdm-cards { grid-template-columns: 1fr; }
       .who-grid { grid-template-columns: repeat(2, 1fr); }
       .bt.seven, .bt.five { grid-column: span 12; }
       .spark-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -603,7 +604,7 @@
       <li><a href="#trajectory">Trajectory</a></li>
       <li><a href="#plan">Try a plan</a></li>
       <li><a href="#decide">Shared decisions</a></li>
-      <li><a href="#report">The report</a></li>
+      <li><a href="#signal">Signal score</a></li>
       <li><a href="#founder">Founder</a></li>
       <li><a href="faq.html">FAQs</a></li>
     </ul>
@@ -614,7 +615,7 @@
         <a href="#trajectory">Trajectory</a>
         <a href="#plan">Try a plan</a>
         <a href="#decide">Shared decisions</a>
-        <a href="#report">The report</a>
+        <a href="#signal">Signal score</a>
         <a href="#demo">Sample notes</a>
         <a href="#founder">Founder</a>
         <a href="faq.html">FAQs</a>
@@ -849,9 +850,9 @@ Management Considerations:
       </div>
       <p class="rp-sub">Tap an intervention and watch the picture change. Each scenario is a full engine run.</p>
       <div class="chips" role="group" aria-label="Interventions">
-        <button class="lever" type="button" data-lever="statin" aria-pressed="false"><span class="chk">✓</span>💊 Start a statin<sup class="mark" title="Trial-derived treatment effect (CTT Collaboration)">†</sup> <em>&minus;2.8 pts &rarr; 9.4% &middot; 30-yr ASCVD</em></button>
-        <button class="lever" type="button" data-lever="bp" aria-pressed="false"><span class="chk">✓</span>🩺 Systolic BP to 120<sup class="mark" title="Trial-derived treatment effect (Ettehad 2016)">†</sup> <em>&minus;1.9 pts &rarr; 10.3% &middot; 30-yr ASCVD</em></button>
-        <button class="lever" type="button" data-lever="a1c" aria-pressed="false"><span class="chk">✓</span>🩸 A1c 6.1% &rarr; 5.5%<sup class="mark" title="Recalculated risk factor: PREVENT full model rerun with the new value. A modeled scenario, not a proven treatment effect.">*</sup> <em>&minus;0.5 pts &rarr; 11.7% &middot; 30-yr ASCVD</em></button>
+        <button class="lever" type="button" data-lever="statin" aria-pressed="false"><span class="chk">✓</span>Start a statin<sup class="mark" title="Trial-derived treatment effect (CTT Collaboration)">†</sup> <em>&minus;2.8 pts &rarr; 9.4% &middot; 30-yr ASCVD</em></button>
+        <button class="lever" type="button" data-lever="bp" aria-pressed="false"><span class="chk">✓</span>Systolic BP to 120<sup class="mark" title="Trial-derived treatment effect (Ettehad 2016)">†</sup> <em>&minus;1.9 pts &rarr; 10.3% &middot; 30-yr ASCVD</em></button>
+        <button class="lever" type="button" data-lever="a1c" aria-pressed="false"><span class="chk">✓</span>A1c 6.1% &rarr; 5.5%<sup class="mark" title="Recalculated risk factor: PREVENT full model rerun with the new value. A modeled scenario, not a proven treatment effect.">*</sup> <em>&minus;0.5 pts &rarr; 11.7% &middot; 30-yr ASCVD</em></button>
       </div>
       <p class="marks"><span title="Today's PREVENT risk with the relative risk reduction seen in trials: CTT Collaboration for LDL-C, Ettehad 2016 for systolic BP."><sup>†</sup> Trial-derived treatment effect</span> &nbsp; <span title="PREVENT full model rerun with the new value. A modeled scenario, not a proven treatment effect."><sup>*</sup> Recalculated risk factor, not a treatment effect</span></p>
       <div class="summary" id="summary" aria-live="polite"></div>
@@ -885,6 +886,7 @@ Management Considerations:
           <li><span>🔬</span>LDL-C and systolic BP effects use CTT Collaboration and Ettehad 2016 trial data, cited on screen.</li>
           <li><span>🔁</span>Other changes rerun the PREVENT equations with the new value.</li>
           <li><span>🧭</span>Level and actions update for the patient with those values.</li>
+          <li><span>📝</span>One click adds the plan you agree on to the note under "Risk Reduction Discussed", worded as an estimate, not an order.</li>
         </ul>
         <p class="fineprint">Modeled estimates for clinician review. A lower modeled value does not establish an individual treatment benefit.</p>
       </div>
@@ -894,17 +896,6 @@ Management Considerations:
       </div>
     </div>
 
-    <div class="note-row">
-      <div class="reveal">
-        <span class="eyebrow">Documented</span>
-        <h3>The conversation goes in the note.</h3>
-        <p class="lede">One click adds the plan you discussed under "Risk Reduction Discussed", with the modeled numbers, worded as an estimate rather than an order.</p>
-      </div>
-      <div class="window reveal">
-        <div class="window-bar"><i></i><i></i><i></i><span>Clinical report &middot; EMR plain text</span></div>
-        <img src="assets/landing/app-note.jpg" alt="EMR plain-text note ending with Risk Reduction Discussed: statin therapy and systolic BP 120 mmHg, modeled PREVENT ASCVD 10-year 2.1% to 1.4%, 30-year 12.2% to 7.9%" width="2336" height="1528" loading="lazy" />
-      </div>
-    </div>
   </div>
 </section>
 
@@ -922,46 +913,18 @@ Management Considerations:
       <div class="sdm-card reveal"><div class="em">👥</div><h3>Risk they can picture</h3><p>"About 2 in 100 similar patients," with a 100-person array at 10 and 30 years.</p></div>
       <div class="sdm-card reveal"><div class="em">📉</div><h3>A curve they can watch bend</h3><p>Today and the plan on one timeline, out to age 82 for this patient.</p></div>
       <div class="sdm-card reveal"><div class="em">📝</div><h3>The conversation, documented</h3><p>"Risk Reduction Discussed" goes in the note with the numbers you shared.</p></div>
-      <div class="sdm-card reveal"><div class="em">🗺️</div><h3>A roadmap to take home</h3><p>Where you stand, why, your goals and your next steps, in plain language.</p></div>
     </div>
     <figure class="sdm-wide reveal">
       <div class="paper-frame"><img src="assets/landing/app-prevent-room.jpg" alt="PREVENT card: 2.12% 10-year ASCVD risk, about 2 in 100 similar patients, shown as 2 highlighted people out of 100" width="2336" height="1020" loading="lazy" /></div>
       <figcaption class="shot-cap"><b>In the room.</b> Risk represented visually.</figcaption>
     </figure>
-    <div class="sdm-shots">
-      <div class="sdm-out reveal">
-        <span class="eyebrow">On the way out</span>
-        <h3>A roadmap in the patient's language.</h3>
-        <p class="lede">Where they stand, why their risk is higher, their goals next to their current numbers, and numbered next steps. Copy it into the after-visit summary or print it.</p>
-      </div>
-      <figure class="reveal">
-        <div class="paper-frame"><img src="assets/landing/app-roadmap-light.jpg" alt="Patient Prevention Roadmap: where you stand, why your risk is higher, your goals, your next steps" width="2336" height="2732" loading="lazy" /></div>
-        <figcaption class="shot-cap"><b>On the way out.</b> A printable roadmap in the patient's language.</figcaption>
-      </figure>
-    </div>
+    <p class="sdm-handout"><span aria-hidden="true">🗺️</span> Need a handout? Print a plain-language roadmap with the patient&rsquo;s goals and next steps, or copy it into the after-visit summary.</p>
   </div>
 </section>
 
 <!-- THE REPORT -->
-<section data-analytics-section="report" class="report" id="report" aria-labelledby="report-h2">
+<section data-analytics-section="report" class="report" id="signal" aria-label="Risk Signal Score">
   <div class="wrap">
-    <div class="report-head reveal">
-      <div>
-        <span class="eyebrow">The report</span>
-        <h2 class="h2" id="report-h2">One assessment. The whole picture.</h2>
-      </div>
-      <p class="lede">Paste de-identified chart text or enter values in the worksheet, then press Start Assessment. Everything below comes back in seconds from a deterministic engine you can audit.</p>
-    </div>
-    <div class="sections">
-      <div class="sec reveal"><div class="em">📍</div><h3>Position</h3><p>Level 1 to 5 on the continuum, with the pattern named.</p></div>
-      <div class="sec reveal"><div class="em">❤️</div><h3>Risk and plan</h3><p>PREVENT at 10 and 30 years, the timeline, and Try a plan.</p></div>
-      <div class="sec reveal"><div class="em">📈</div><h3>Trajectory</h3><p>How A1c, LDL-C, eGFR, BP and weight have moved.</p></div>
-      <div class="sec reveal"><div class="em">🫘</div><h3>Staging</h3><p>CKM and KDIGO stage, plus diagnoses you confirm.</p></div>
-      <div class="sec reveal"><div class="em">🎯</div><h3>Actions</h3><p>LDL-C and ApoB targets with numbered next steps.</p></div>
-      <div class="sec reveal"><div class="em">🧱</div><h3>Signal score</h3><p>Every contributor to risk burden, counted.</p></div>
-      <div class="sec reveal"><div class="em">📝</div><h3>Note</h3><p>Plain text for the EMR, or a visual PDF report.</p></div>
-      <div class="sec reveal"><div class="em">🗺️</div><h3>Roadmap</h3><p>A plain-language handout for the patient.</p></div>
-    </div>
 
     <div class="rssx reveal">
       <div class="card rss-card" id="rss">
@@ -987,20 +950,6 @@ Management Considerations:
       </div>
     </div>
 
-    <div class="bento">
-      <figure class="bt reveal">
-        <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>Trajectory</span></div><img src="assets/landing/app-trajectory.jpg" alt="Trajectory in the app: A1c, eGFR, UACR, LDL-C, triglycerides, systolic BP and weight with sparklines over 31 months, and an A1c detail chart" width="2336" height="1602" loading="lazy" /></div>
-        <figcaption><b>📈 The direction, not just the snapshot.</b><span>Dated results from the chart text with sparklines and the change over time, the same view you get in the app.</span></figcaption>
-      </figure>
-      <figure class="bt reveal">
-        <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>Data-derived diagnoses</span></div><img src="assets/landing/app-diagnoses.jpg" alt="Data-derived diagnoses with the supporting value and ICD-10 code for each" width="2336" height="540" loading="lazy" /></div>
-        <figcaption><b>🫘 Diagnoses with the evidence attached.</b><span>Each one shows the value behind it and its ICD-10 code. You confirm before it goes in the note.</span></figcaption>
-      </figure>
-      <figure class="bt reveal">
-        <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>Targets and actions</span></div><img src="assets/landing/app-actions.jpg" alt="Targets for LDL-C and ApoB next to a numbered action list for lipids, plaque, kidney, blood pressure, glycemia and aspirin" width="2336" height="1012" loading="lazy" /></div>
-        <figcaption><b>🎯 Walk out knowing what to do.</b><span>Targets beside numbered actions. Hover any underlined line for the reasoning.</span></figcaption>
-      </figure>
-    </div>
   </div>
 </section>
 
@@ -1016,7 +965,7 @@ Management Considerations:
       <button class="pchip is-on" data-p="0" role="tab" type="button">🌱 34F &middot; clean visit</button>
       <button class="pchip" data-p="1" role="tab" type="button">📈 52F &middot; labs rising</button>
       <button class="pchip" data-p="2" role="tab" type="button">🫀 62F &middot; CAC 38</button>
-      <button class="pchip" data-p="3" role="tab" type="button">🚨 67M &middot; on statin, CAC 420</button>
+      <button class="pchip" data-p="3" role="tab" type="button">🔬 67M &middot; on statin, CAC 420</button>
     </div>
     <div class="demo-cont" id="demo-cont" aria-hidden="true">
       <div class="tiles">

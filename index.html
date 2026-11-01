@@ -87,7 +87,7 @@
     @keyframes wtIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
     .wt-paste { font-family: var(--mono); font-size: 12.5px; line-height: 1.55; color: var(--body); background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; height: 440px; overflow: hidden; white-space: pre-wrap; }
     .wt-paste code { display: block; }
-    .wt-panel.play .wt-paste code { animation: wtScroll 9s linear forwards; }
+    .wt-panel.play .wt-paste code { animation: wtScroll 4.2s linear forwards; }
     @keyframes wtScroll { from { transform: translateY(0); } to { transform: translateY(calc(-100% + 410px)); } }
     .wt-paste-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 16px; font-size: 14px; color: var(--muted); }
     .wt-btn { background: var(--accent); color: var(--accent-ink); font-weight: 600; font-size: 14px; border-radius: 999px; padding: 9px 18px; white-space: nowrap; border: 0; cursor: pointer; transition: transform .2s var(--ease), box-shadow .2s var(--ease); }
@@ -98,7 +98,7 @@
     .wt-chip > span { color: var(--good); font-weight: 700; }
     .wt-chip.miss { background: var(--t3); border-color: rgba(201,162,30,.35); }
     .wt-chip.miss > span { color: #8A6A00; }
-    .wt-panel.play .wt-chip { opacity: 0; animation: wtPop .35s var(--ease) forwards; animation-delay: calc(var(--i) * 260ms + 200ms); }
+    .wt-panel.play .wt-chip { opacity: 0; animation: wtPop .35s var(--ease) forwards; animation-delay: calc(var(--i) * 110ms + 150ms); }
     @keyframes wtPop { from { opacity: 0; transform: scale(.9); } to { opacity: 1; transform: none; } }
     .wt-tiles { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
     .wt-tile { border-radius: 12px; padding: 10px 11px; background: var(--surface-2); border: 1px solid var(--line); opacity: .55; }
@@ -116,17 +116,17 @@
     .wt-stats span { display: block; font-size: 13.5px; color: var(--muted); margin-top: 3px; }
     .wt-drivers li { font-size: 14.5px; }
     .wt-panel.play .wt-stats > div, .wt-panel.play .wt-drivers { animation: wtIn .5s var(--ease) backwards; }
-    .wt-panel.play .wt-stats > div:nth-child(1) { animation-delay: .9s; }
-    .wt-panel.play .wt-stats > div:nth-child(2) { animation-delay: 1.3s; }
-    .wt-panel.play .wt-stats > div:nth-child(3) { animation-delay: 1.7s; }
-    .wt-panel.play .wt-drivers { animation-delay: 2.2s; }
+    .wt-panel.play .wt-stats > div:nth-child(1) { animation-delay: .5s; }
+    .wt-panel.play .wt-stats > div:nth-child(2) { animation-delay: .75s; }
+    .wt-panel.play .wt-stats > div:nth-child(3) { animation-delay: 1s; }
+    .wt-panel.play .wt-drivers { animation-delay: 1.3s; }
     .wt-drivers { margin-top: 10px; }
     .wt-drivers ul { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 6px; font-size: 15px; color: var(--ink); }
     .wt-note-head { display: flex; justify-content: space-between; align-items: center; font-family: var(--display); font-weight: 600; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
     .wt-copy { font-size: 13px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--accent-ink); background: var(--accent); border: 0; border-radius: 999px; padding: 6px 14px; cursor: pointer; }
     .wt-note { font-family: var(--mono); font-size: 12.5px; line-height: 1.6; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; white-space: pre-wrap; }
     .wt-note .ln { display: block; }
-    .wt-panel.play .wt-note .ln { opacity: 0; animation: wtLn .2s linear forwards; animation-delay: calc(var(--i) * 210ms + 150ms); }
+    .wt-panel.play .wt-note .ln { opacity: 0; animation: wtLn .2s linear forwards; animation-delay: calc(var(--i) * 90ms + 100ms); }
     @keyframes wtLn { to { opacity: 1; } }
     .wt-pearl { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: center; border: 1px dashed var(--line-2); border-radius: 14px; padding: 12px 16px; margin-bottom: 16px; background: var(--surface-2); }
     .wt-pearl > div { display: flex; align-items: center; gap: 10px; }
@@ -154,14 +154,20 @@
     .wt-sim-out s { color: var(--faint); font-size: 18px; }
     .wt-plan-note { margin-top: 10px; background: var(--surface-2); }
     .wt-plan-note p { font-family: var(--mono); font-size: 12.5px; line-height: 1.55; color: var(--ink); margin-top: 6px; }
-    .wt-panel.play .wt-lever { animation: wtIn .45s var(--ease) backwards; animation-delay: calc(var(--i) * 300ms + 200ms); }
-    .wt-panel.play .wt-lever.pick { animation: wtIn .45s var(--ease) backwards, wtPick .4s var(--ease) backwards; animation-delay: calc(var(--i) * 300ms + 200ms), calc(var(--i) * 900ms + 2.4s); }
-    .wt-panel.play .wt-lever.pick .wt-box { animation: wtBox .3s var(--ease) backwards; animation-delay: calc(var(--i) * 900ms + 2.4s); }
+    .wt-panel.play .wt-lever { animation: wtIn .45s var(--ease) backwards; animation-delay: calc(var(--i) * 140ms + 150ms); }
+    .wt-panel.play .wt-lever.pick { animation: wtIn .45s var(--ease) backwards, wtPick .4s var(--ease) backwards; animation-delay: calc(var(--i) * 140ms + 150ms), calc(var(--i) * 500ms + 1.2s); }
+    .wt-panel.play .wt-lever.pick .wt-box { animation: wtBox .3s var(--ease) backwards; animation-delay: calc(var(--i) * 500ms + 1.2s); }
     @keyframes wtPick { from { border-color: var(--line); background: var(--surface); } }
     @keyframes wtBox { from { background: var(--surface); border-color: var(--line-2); } }
     .wt-panel.play .wt-sim-out, .wt-panel.play .wt-plan-note { animation: wtIn .5s var(--ease) backwards; }
-    .wt-panel.play .wt-sim-out { animation-delay: 4.4s; }
-    .wt-panel.play .wt-plan-note { animation-delay: 6s; }
+    .wt-panel.play .wt-sim-out { animation-delay: 2.4s; }
+    .wt-panel.play .wt-plan-note { animation-delay: 3.2s; }
+    .wt-hint { float: right; font-size: 12px; letter-spacing: .08em; color: var(--muted); }
+    button.wt-lever { font: inherit; text-align: left; background: var(--surface); cursor: pointer; width: 100%; }
+    button.wt-lever:hover { border-color: var(--accent); }
+    .wt-chip { position: relative; cursor: help; }
+    .wt-chip[data-tip=""] { cursor: default; }
+    .wt-chip:not([data-tip=""]):hover::after, .wt-chip:not([data-tip=""]):focus::after { content: "Found: " attr(data-tip); position: absolute; left: 0; bottom: calc(100% + 8px); z-index: 5; width: max-content; max-width: 260px; white-space: normal; background: var(--ink); color: #fff; font-size: 12.5px; font-weight: 500; line-height: 1.4; padding: 7px 10px; border-radius: 8px; box-shadow: var(--shadow); }
     .wt-src { font-size: 14px; color: var(--muted); text-align: center; margin-top: 22px; }
     @media (max-width: 980px) {
       .wt-body { grid-template-columns: 1fr; gap: 18px; }
@@ -215,7 +221,7 @@
     .nav-menu nav a:hover { background: var(--garnet-soft); color: var(--accent); }
 
     /* HERO */
-    .hero { padding: 90px 0 110px; overflow: hidden; }
+    .hero { padding: 90px 0 56px; overflow: hidden; }
     .hero::before { content: ""; position: absolute; inset: -20% -10% auto; height: 1000px; background: radial-gradient(620px 380px at 50% 16%, rgba(134, 19, 39, .09), transparent 70%), radial-gradient(520px 320px at 85% 70%, rgba(229, 133, 31, .07), transparent 70%); pointer-events: none; }
     .hero-copy { position: relative; text-align: center; max-width: 920px; margin: 0 auto; }
     .hero-lockup { display: inline-flex; align-items: center; gap: 28px; margin: 0 auto 40px; }
@@ -273,6 +279,8 @@
 
     /* STATS */
     .stats { padding: 0 0 120px; }
+    .levels { padding: 110px 0 40px; }
+    .levels .cont { margin-top: 56px; }
     .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
     .stat { background: var(--surface); padding: 34px 32px; }
     .cont-tag { margin-top: 10px; font-size: 16px; color: var(--muted); }
@@ -303,7 +311,7 @@
     .traj-note { margin-top: 18px; font-size: 15px; color: var(--muted); text-align: center; }
 
     /* TRY A PLAN */
-    .plan { padding: 120px 0; background: linear-gradient(180deg, var(--bg) 0%, #F1E8E4 50%, var(--bg) 100%); border-top: 1px solid var(--line); }
+    .plan { padding: 84px 0 120px; background: linear-gradient(180deg, var(--bg) 0%, #F1E8E4 50%, var(--bg) 100%); border-top: 1px solid var(--line); }
     .plan::before { content: ""; position: absolute; left: 50%; top: 300px; width: min(1000px, 100%); height: 700px; transform: translateX(-50%); background: radial-gradient(closest-side, rgba(30, 113, 72, .07), transparent); pointer-events: none; }
     .plan-head { max-width: 900px; margin: 0 auto 56px; }
     .plan-big { font-size: clamp(40px, 5.8vw, 76px); }
@@ -385,7 +393,8 @@
     .shot-cap b { color: var(--ink); font-weight: 600; }
 
     /* THE REPORT */
-    .report { padding: 130px 0 120px; }
+    .report { padding: 70px 0 100px; }
+    .inline-link { color: var(--accent); text-underline-offset: 3px; white-space: nowrap; }
     .report-head { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; margin-bottom: 56px; }
     .sections { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 80px; }
     .sec { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 22px; }
@@ -401,7 +410,7 @@
     .bt figcaption span { display: block; font-size: 17px; color: var(--muted); margin-top: 4px; }
 
     /* RSS tower */
-    .rssx { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 56px; align-items: center; margin-bottom: 80px; }
+    .rssx { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 56px; align-items: center; }
     .rssx-copy h3 { font-size: clamp(28px, 3vw, 40px); line-height: 1.12; margin: 16px 0 18px; }
     .rssx-copy .chips { margin-top: 24px; }
     .rss-card { padding: 28px 30px; }
@@ -604,8 +613,8 @@
   <div class="wrap">
     <a class="nav-logo" href="#" aria-label="Risk Continuum Health home"><svg class="logo" viewBox="0 0 900 300" aria-hidden="true"><use href="#rc-logo"/></svg></a>
     <ul class="nav-links" role="list">
-      <li><a href="#walkthrough">See it run</a></li>
       <li><a href="#plan">Try a plan</a></li>
+      <li><a href="#walkthrough">See it run</a></li>
       <li><a href="#decide">Shared decisions</a></li>
       <li><a href="#founder">Founder</a></li>
       <li><a href="#pilot">Health systems</a></li>
@@ -614,10 +623,11 @@
     <details class="nav-menu">
       <summary>Menu</summary>
       <nav aria-label="Page sections">
+        <a href="#plan">Try a plan</a>
         <a href="#walkthrough">See it run</a>
         <a href="#trajectory">Trajectory</a>
-        <a href="#plan">Try a plan</a>
         <a href="#decide">Shared decisions</a>
+        <a href="#levels">Reading the result</a>
         <a href="#signal">Signal score</a>
         <a href="#demo">Sample notes</a>
         <a href="#founder">Founder</a>
@@ -655,187 +665,6 @@
       <p class="hero-access">Free clinician account for the workspace &middot; <a href="#demo">Preview a sample note here</a></p>
     </div>
 
-    <div class="card cont" id="cont" aria-label="Risk Continuum: this patient is at Level 3B, Emerging Risk Trajectory, plaque unmeasured">
-      <div class="cont-head">
-        <div><div class="card-eyebrow">Position</div><div class="card-title">Risk Continuum</div></div>
-        <div style="display:flex; gap:10px; align-items:center;">
-          <span class="pill-now">Current: Level 3B</span>
-          <button class="btn btn-ghost btn-sm" id="cont-replay" type="button">↻ Replay</button>
-        </div>
-      </div>
-      <div class="tiles" aria-hidden="true">
-        <div class="walker" id="walker"><span class="here-lbl">YOU ARE HERE</span><svg width="28" height="40" viewBox="0 0 24 34"><circle cx="12" cy="5" r="4.2" fill="#861327"/><path d="M7 11h10a3 3 0 0 1 3 3v8h-3v12h-4v-9h-2v9H7V22H4v-8a3 3 0 0 1 3-3z" fill="#861327"/></svg></div>
-        <div class="tile" style="background:var(--t1); --acc:var(--a1); --d:8px; transition-delay:0s"><i class="dot"></i><div><b>Level 1</b><span>Minimal risk signal</span></div></div>
-        <div class="tile" style="background:var(--t2); --acc:var(--a2); --d:12px; transition-delay:.08s"><i class="dot"></i><div><b>Level 2</b><span>Emerging risk signals</span></div></div>
-        <div class="tile" style="background:var(--t3); --acc:var(--a3); --d:16px; transition-delay:.16s"><i class="dot"></i><div><b>Level 3B</b><span>Emerging Risk Trajectory</span></div><small>Plaque unmeasured</small></div>
-        <div class="tile future" style="background:var(--t4); --acc:var(--a4); --d:20px; transition-delay:.24s"><i class="dot"></i><div><b>Level 4</b><span>Subclinical atherosclerosis present</span></div></div>
-        <div class="tile future" style="background:var(--t5); --acc:var(--a5); --d:24px; transition-delay:.32s"><i class="dot"></i><div><b>Level 5</b><span>Very high risk</span></div></div>
-      </div>
-      <div class="cont-foot"><span>&larr; Lower signal / lower urgency</span><span>Higher signal / higher urgency &rarr;</span></div>
-      <p class="cont-line"><b>Level 3B | Emerging Risk Trajectory.</b> Elevated 30-year trajectory plus actionable biologic burden.</p>
-      <p class="cont-tag"><b>A Level describes the pattern. PREVENT supplies the probability.</b> Every patient gets a Level, including when a PREVENT estimate doesn't apply.</p>
-      <div class="levels-info">
-        <button class="levels-btn" type="button" aria-expanded="false" aria-controls="levels-pop"><span aria-hidden="true">ⓘ</span> How to read the levels</button>
-        <div class="levels-pop" id="levels-pop" role="tooltip">RCCKM brings the patient's findings together into a concise clinical summary. The levels organize the evidence and name the pattern driving the assessment. Formal CKM staging, KDIGO kidney classification and PREVENT risk estimates are reported separately, each using its own framework.<span class="levels-sub"><b>Level 3 has three patterns.</b> 3A, elevated long-term risk trajectory; 3B, Emerging Risk Trajectory; 3C, Converging Risk, when the 3B pattern meets a PREVENT 10-year ASCVD of 5% or more, diabetes, or a kidney finding.</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- STATS -->
-<section data-analytics-section="stats" class="stats" aria-label="Why this matters">
-  <div class="wrap">
-    <div class="stats-grid reveal">
-      <div class="stat">
-        <div class="stat-num">90%</div>
-        <p>of U.S. adults meet criteria for CKM syndrome. Nearly half are at stage 2, with metabolic risk factors or kidney disease, where prevention has the most room to work.</p>
-        <cite>Aggarwal et al., <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11079779/" target="_blank" rel="noopener">JAMA, 2024</a></cite>
-      </div>
-      <div class="stat">
-        <div class="stat-num">15 min</div>
-        <p>is the median primary care visit. The evidence is ready; bringing the whole cardiometabolic picture together in that time is the opportunity.</p>
-        <cite>Neprash et al., <a href="https://pubmed.ncbi.nlm.nih.gov/33301282/" target="_blank" rel="noopener">Medical Care, 2021</a></cite>
-      </div>
-      <div class="stat">
-        <div class="stat-num">47%</div>
-        <p>of U.S. adults 40&ndash;75 without heart disease are eligible for cholesterol-lowering therapy, and about 23% take it. A clear risk conversation at the point of care can help close that gap.</p>
-        <cite>Alexander et al., <a href="https://doi.org/10.1007/s11606-025-09625-0" target="_blank" rel="noopener">J Gen Intern Med, 2025</a></cite>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TRAJECTORY -->
-<section data-analytics-section="walkthrough" class="wt" id="walkthrough" aria-labelledby="wt-h2">
-  <div class="wrap">
-    <div class="wt-head center reveal">
-      <span class="eyebrow">See it run</span>
-      <h2 class="h2" id="wt-h2">From chart text to a plan in about a minute.</h2>
-      <p class="lede">One synthetic patient, the way a visit actually goes: paste, apply, assess, review, and try a plan when there&rsquo;s a decision to make.</p>
-    </div>
-    <div class="wt-body reveal">
-      <ol class="wt-rail"><li><button type="button" class="wt-step" data-i="0" aria-controls="wt-panel-0"><span class="wt-n">01</span><span class="wt-t"><b>Copy from the EMR</b><i class="wt-short">Paste</i><span>Paste de-identified chart text or your SmartPhrase.</span></span><span class="wt-bar"><i></i></span></button></li><li><button type="button" class="wt-step" data-i="1" aria-controls="wt-panel-1"><span class="wt-n">02</span><span class="wt-t"><b>Parse and apply</b><i class="wt-short">Apply</i><span>A rule-based parser fills the worksheet and shows each value it found, and what is missing.</span></span><span class="wt-bar"><i></i></span></button></li><li><button type="button" class="wt-step" data-i="2" aria-controls="wt-panel-2"><span class="wt-n">03</span><span class="wt-t"><b>Start Assessment</b><i class="wt-short">Assess</i><span>Level, PREVENT, staging and signal score, back in seconds from a deterministic engine.</span></span><span class="wt-bar"><i></i></span></button></li><li><button type="button" class="wt-step" data-i="3" aria-controls="wt-panel-3"><span class="wt-n">04</span><span class="wt-t"><b>Check it against your read</b><i class="wt-short">Review</i><span>The note is ready to paste. The optional Clinical Pearl is a quick AI check that nothing was missed.</span></span><span class="wt-bar"><i></i></span></button></li><li><button type="button" class="wt-step" data-i="4" aria-controls="wt-panel-4"><span class="wt-n">05</span><span class="wt-t"><b>Try a plan, if there&#x27;s a decision</b><i class="wt-short">Try a plan</i><span>Run the simulator with the patient and add the plan you agree on to the note.</span></span><span class="wt-bar"><i></i></span></button></li></ol>
-      <div class="wt-win">
-        <div class="wt-chrome"><span></span><span></span><span></span><b class="wt-crumb">RCCKM &middot; Paste</b><button type="button" class="wt-play" aria-label="Pause walkthrough">Pause</button></div>
-        <div class="wt-stage"><div class="wt-panel" id="wt-panel-0" data-i="0" role="tabpanel" aria-label="Paste"><pre class="wt-paste"><code>Synthetic Epic SmartPhrase example. Not real patient data.
-
-=== CARDIOVASCULAR RISK ASSESSMENT ===
-
-Age: 58 y.o.
-Sex: male
-Race/Ethnicity: White (non-Hispanic)
-
-Smoking status:   Tobacco Use
-    Smoking status: Never
-    Passive exposure: Never
-    Smokeless tobacco: Never
-
-
-Blood pressure (most recent):
-BP Readings from Last 3 Encounters:
-10/22/26	138/84
-07/23/26	(!) 142/86
-04/16/26	(!) 146/88
-
-BMI: @LAST_BMI@
-Body mass index is 35.59 kg/m².
-Estimated body mass index is 35.59 kg/m² as calculated from the following:
-  Height as of this encounter: 1.778 m (5&#x27; 10&quot;).
-  Weight as of this encounter: 112.5 kg (248 lb 0.3 oz).
-Wt Readings from Last 5 Encounters:
-10/22/26	112.5 kg (248 lb 0.3 oz)
-07/23/26	111.1 kg (244 lb 14.9 oz)
-04/16/26	109.8 kg (242 lb 1.1 oz)
-10/23/25	106.6 kg (235 lb 0.2 oz)
-10/24/24	104.3 kg (229 lb 15.1 oz)
-
-
-Clinical ASCVD: No
-No history of myocardial infarction, angina, coronary revascularization, ischemic stroke, TIA, or peripheral arterial disease.
-No history of heart failure or atrial fibrillation.
-
-Family History:
-Premature ASCVD in first-degree relative: Yes
-Relationship: Father
-Event type: Myocardial infarction (father)
-Age at event: 49
-
-Lab Results
-Component	Value	Date
-	NA	138	10/22/2026
-	K	4.6	10/22/2026
-	CL	103	10/22/2026
-	CO2	25	10/22/2026
-	BUN	24 (H)	10/22/2026
-	CREATININE	1.45 (H)	10/22/2026
-	GLUCOSE	151 (H)	10/22/2026
-	CALCIUM	9.4	10/22/2026
-	PROT	7.2	10/22/2026
-	LABALBU	4.2	10/22/2026
-	BILITOT	0.6	10/22/2026
-	ALKPHOS	74	10/22/2026
-	AST	28	10/22/2026</code></pre><div class="wt-paste-foot"><span>Synthetic Epic SmartPhrase</span><button type="button" class="wt-btn" data-go="1">Parse and apply</button></div></div><div class="wt-panel" id="wt-panel-1" data-i="1" role="tabpanel" aria-label="Apply" hidden><div class="wt-chips-head">Recognized &middot; 19 values, 1 missing</div><div class="wt-chips"><span class="wt-chip" style="--i:0"><span aria-hidden="true">&#10003;</span>Age 58</span><span class="wt-chip" style="--i:1"><span aria-hidden="true">&#10003;</span>Sex male</span><span class="wt-chip" style="--i:2"><span aria-hidden="true">&#10003;</span>BP 138/84</span><span class="wt-chip" style="--i:3"><span aria-hidden="true">&#10003;</span>LDL-C 126 mg/dL</span><span class="wt-chip" style="--i:4"><span aria-hidden="true">&#10003;</span>HDL-C 40 mg/dL</span><span class="wt-chip" style="--i:5"><span aria-hidden="true">&#10003;</span>TG 240 mg/dL</span><span class="wt-chip" style="--i:6"><span aria-hidden="true">&#10003;</span>A1c 7.5%</span><span class="wt-chip" style="--i:7"><span aria-hidden="true">&#10003;</span>eGFR 56</span><span class="wt-chip" style="--i:8"><span aria-hidden="true">&#10003;</span>BMI 35.59</span><span class="wt-chip" style="--i:9"><span aria-hidden="true">&#10003;</span>Diabetes detected</span><span class="wt-chip" style="--i:10"><span aria-hidden="true">&#10003;</span>Smoking Not current</span><span class="wt-chip" style="--i:11"><span aria-hidden="true">&#10003;</span>Meds detected</span><span class="wt-chip" style="--i:12"><span aria-hidden="true">&#10003;</span>ApoB 116 mg/dL</span><span class="wt-chip" style="--i:13"><span aria-hidden="true">&#10003;</span>Lp(a) 168 nmol/L</span><span class="wt-chip" style="--i:14"><span aria-hidden="true">&#10003;</span>UACR 126 mg/g</span><span class="wt-chip" style="--i:15"><span aria-hidden="true">&#10003;</span>Family history Father MI age 49</span><span class="wt-chip" style="--i:16"><span aria-hidden="true">&#10003;</span>hsCRP 2.8 mg/L</span><span class="wt-chip" style="--i:17"><span aria-hidden="true">&#10003;</span>OSA Yes</span><span class="wt-chip" style="--i:18"><span aria-hidden="true">&#10003;</span>MASLD Yes</span><span class="wt-chip miss" style="--i:19"><span aria-hidden="true">&#9675;</span>CAC not available</span></div><div class="wt-paste-foot"><span>Confirm or edit any value in the worksheet</span><button type="button" class="wt-btn" data-go="2">Confirm input data / Start Assessment</button></div></div><div class="wt-panel" id="wt-panel-2" data-i="2" role="tabpanel" aria-label="Assess" hidden>
-<div class="wt-tiles"><div class="wt-tile l1"><b>Level 1</b><span>Minimal risk signal</span></div><div class="wt-tile l2"><b>Level 2</b><span>Emerging risk signals</span></div><div class="wt-tile l3 on"><b>Level 3C</b><span>Converging Risk</span><em>Plaque unmeasured</em></div><div class="wt-tile l4"><b>Level 4</b><span>Subclinical atherosclerosis present</span></div><div class="wt-tile l5"><b>Level 5</b><span>Very high risk</span></div></div>
-<p class="wt-reason"><b>Level 3C | Converging Risk.</b> Albuminuria plus cardiometabolic burden is actionable early kidney risk.</p>
-<div class="wt-stats">
-  <div><small>PREVENT ASCVD</small><b>10y 14.5% (High)</b><b>30y 37.1% (High)</b><span>Total CVD: 10y 22.9%, 30y 53.7%</span></div>
-  <div><small>Staging</small><b>CKM 3 (total CVD ≥20%)</b><span>KDIGO G3aA2</span><span>CAC Not Measured</span></div>
-  <div><small>Risk Signal Score</small><b>52 &middot; High</b><span>Ordinal burden, not a probability</span></div>
-</div>
-<div class="wt-drivers"><small>Risk drivers</small><ul><li>ApoB 116 mg/dL</li><li>T2DM with CKD G3aA2</li><li>Lp(a) 168 nmol/L</li><li>hsCRP 2.8 mg/L (dated 2026-10-22; 10 days before assessment; single measurement; confirm persistence/context)</li></ul></div></div><div class="wt-panel" id="wt-panel-3" data-i="3" role="tabpanel" aria-label="Review" hidden><div class="wt-pearl"><div><b>Clinical Pearl</b><span class="wt-ai">AI &middot; optional</span></div><span class="wt-btn ghost">Generate Clinical Pearl</span><p>Persistent A2 albuminuria (UACR 126 mg/g) with eGFR 56 (G3a) plus diabetes shifts this patient from routine diabetes prevention to a cardiorenal phenotype: the kidney findings together with diabetes drive the high-intensity statin, SGLT2 inhibitor and GLP-1 recommendations, and UACR is already counted in the PREVENT full-model estimate.</p><small class="wt-pearl-foot">Clinical Pearl &middot; Not a substitute for clinical judgment &middot; Example output, lightly edited</small></div><div class="wt-note-head"><span>Clinical report &middot; EMR plain text</span><button type="button" class="wt-copy" data-copy="Risk Continuum CKM™
-Level 3C | Converging Risk | CKM 3 (total CVD ≥20%) | G3aA2 | CAC Not Measured
-PREVENT ASCVD: 10y 14.5% (High), 30y 37.1% (High) | Total CVD: 10y 22.9%, 30y 53.7%
-
-Assessment (ICD-10):
-- T2DM with CKD G3aA2 (E11.22, N18.31)
-- Primary hypertension (I10)
-- Elevated lipoprotein(a) (E78.41)
-- Hypertriglyceridemia (E78.1)
-- Obesity, BMI 35.6 (E66.9, Z68.35)
-- Metabolic dysfunction-associated steatotic liver disease (K76.0)
-- Obstructive sleep apnea (G47.33)
-
-Risk Drivers:
-ApoB 116 mg/dL | T2DM with CKD G3aA2 | Lp(a) 168 nmol/L | hsCRP 2.8 mg/L (dated 2026-10-22; 10 days before assessment; single measurement; confirm persistence/context)
-
-Management Considerations:
-- Lipids: Currently receiving atorvastatin 20 mg. Intensify to high-intensity or maximally tolerated statin therapy based on the independent risk indication. LDL-C 126; target &lt;70. If still above goal on maximally tolerated statin, consider add-on nonstatin therapy.
-- Plaque: Consider CAC.
-- Kidney: Optimize kidney protection. SGLT2i beneficial if no contraindication (T2D with CKD; eGFR 56; UACR 126). ACEi/ARB active. G3a/A2 kidney-risk pattern.
-- BP: Confirm BP; optimize RAAS if persistent. Current BP 138/84 mmHg.
-- Metabolic: Diabetes control worsening. A1c 7.5%, worsened from 6.4%; above goal; on current therapy; review regimen; Recommend GLP-1/GLP-1-GIP for glycemic, cardiovascular, cardiorenal, and weight benefits.
-- Aspirin: Not indicated.">Copy</button></div><pre class="wt-note"><span class="ln" style="--i:0">Risk Continuum CKM™</span><span class="ln" style="--i:1">Level 3C | Converging Risk | CKM 3 (total CVD ≥20%) | G3aA2 | CAC Not Measured</span><span class="ln" style="--i:2">PREVENT ASCVD: 10y 14.5% (High), 30y 37.1% (High) | Total CVD: 10y 22.9%, 30y 53.7%</span><span class="ln" style="--i:3">&nbsp;</span><span class="ln" style="--i:4">Assessment (ICD-10):</span><span class="ln" style="--i:5">- T2DM with CKD G3aA2 (E11.22, N18.31)</span><span class="ln" style="--i:6">- Primary hypertension (I10)</span><span class="ln" style="--i:7">- Elevated lipoprotein(a) (E78.41)</span><span class="ln" style="--i:8">- Hypertriglyceridemia (E78.1)</span><span class="ln" style="--i:9">- Obesity, BMI 35.6 (E66.9, Z68.35)</span><span class="ln" style="--i:10">- Metabolic dysfunction-associated steatotic liver disease (K76.0)</span><span class="ln" style="--i:11">- Obstructive sleep apnea (G47.33)</span><span class="ln" style="--i:12">&nbsp;</span><span class="ln" style="--i:13">Risk Drivers:</span><span class="ln" style="--i:14">ApoB 116 mg/dL | T2DM with CKD G3aA2 | Lp(a) 168 nmol/L | hsCRP 2.8 mg/L (dated 2026-10-22; 10 days before assessment; single measurement; confirm persistence/context)</span><span class="ln" style="--i:15">&nbsp;</span><span class="ln" style="--i:16">Management Considerations:</span><span class="ln" style="--i:17">- Lipids: Currently receiving atorvastatin 20 mg. Intensify to high-intensity or maximally tolerated statin therapy based on the independent risk indication. LDL-C 126; target &lt;70. If still above goal on maximally tolerated statin, consider add-on nonstatin therapy.</span><span class="ln" style="--i:18">- Plaque: Consider CAC.</span><span class="ln" style="--i:19">- Kidney: Optimize kidney protection. SGLT2i beneficial if no contraindication (T2D with CKD; eGFR 56; UACR 126). ACEi/ARB active. G3a/A2 kidney-risk pattern.</span><span class="ln" style="--i:20">- BP: Confirm BP; optimize RAAS if persistent. Current BP 138/84 mmHg.</span><span class="ln" style="--i:21">- Metabolic: Diabetes control worsening. A1c 7.5%, worsened from 6.4%; above goal; on current therapy; review regimen; Recommend GLP-1/GLP-1-GIP for glycemic, cardiovascular, cardiorenal, and weight benefits.</span><span class="ln" style="--i:22">- Aspirin: Not indicated.</span></pre></div><div class="wt-panel" id="wt-panel-4" data-i="4" role="tabpanel" aria-label="Try a plan" hidden>
-<div class="wt-sim-head">Levers ranked by how much they lower 30-yr ASCVD</div>
-<div class="wt-levers"><div class="wt-lever pick" style="--i:0"><span class="wt-box" aria-hidden="true"></span><span class="wt-lt"><b>Systolic BP to 120<sup>&dagger;</sup></b><span>&minus;10.4 pts &rarr; 26.6% &middot; 30-yr ASCVD</span></span></div><div class="wt-lever pick" style="--i:1"><span class="wt-box" aria-hidden="true"></span><span class="wt-lt"><b>High-intensity statin<sup>&dagger;</sup></b><span>&minus;5.2 pts &rarr; 31.9% &middot; 30-yr ASCVD</span></span></div><div class="wt-lever" style="--i:2"><span class="wt-box" aria-hidden="true"></span><span class="wt-lt"><b>UACR 126 → 20 mg/g<sup>*</sup></b><span>&minus;2.4 pts &rarr; 34.7% &middot; 30-yr ASCVD</span></span></div><div class="wt-lever" style="--i:3"><span class="wt-box" aria-hidden="true"></span><span class="wt-lt"><b>A1c 7.5% → 7.0%<sup>*</sup></b><span>&minus;0.8 pts &rarr; 36.2% &middot; 30-yr ASCVD</span></span></div></div>
-<p class="wt-key">&dagger; Trial-derived treatment effect &nbsp; * Recalculated risk factor, not a treatment effect</p>
-<div class="wt-sim-out">
-  <div><small>10-yr ASCVD</small><b><s>14.5%</s> &rarr; 8.3%</b></div>
-  <div><small>30-yr ASCVD</small><b><s>37.1%</s> &rarr; 22.7%</b></div>
-</div>
-<div class="wt-plan-note"><small>Added to the note &middot; Risk Reduction Discussed</small><p>High-intensity statin and systolic BP 120 mmHg: modeled PREVENT ASCVD 10y 14.5% → 8.3%, 30y 37.1% → 22.7% (trial-based estimate; not a treatment order).</p></div></div></div>
-      </div>
-    </div>
-    <p class="wt-src">Synthetic patient, 58M. Every value, level, code and sentence shown is RCCKM engine output for this chart text. Modeled plan estimates are for clinician review, not treatment orders.</p>
-  </div>
-</section>
-
-<section data-analytics-section="trajectory" class="traj" id="trajectory" aria-labelledby="traj-h2">
-  <div class="wrap">
-    <div class="traj-head center reveal">
-      <span class="eyebrow">Trajectory</span>
-      <h2 class="h2" id="traj-h2">Every number looked fine on its own.</h2>
-      <p class="lede">Paste chart text with dated results and RCCKM lines them up. For this 52-year-old, three years of labs tell a story no single visit showed.</p>
-    </div>
-    <div class="spark-grid" id="sparks">
-      <div class="spark big">
-        <div class="spark-top"><span>A1c &middot; 3 dated results, Feb 2024 to Sep 2026</span><i class="badge">Worsening</i></div>
-        <div class="big-chart">
-          <svg id="a1c-chart" viewBox="0 0 520 250" role="img" aria-label="A1c rose from 5.2% in February 2024 to 5.7% in June 2025 and 6.1% in September 2026, crossing the 5.7% prediabetes threshold"></svg>
-          <p class="cap">A1c increased from 5.2% to 6.1%.</p>
-        </div>
-      </div>
-    </div>
-    <p class="traj-note">Synthetic demo patient, dated results from the chart text. Trends add context; they never change the level, PREVENT or the actions on their own.</p>
   </div>
 </section>
 
@@ -904,6 +733,165 @@ Management Considerations:
   </div>
 </section>
 
+<!-- WALKTHROUGH -->
+<section data-analytics-section="walkthrough" class="wt" id="walkthrough" aria-labelledby="wt-h2">
+  <div class="wrap">
+    <div class="wt-head center reveal">
+      <span class="eyebrow">See it run</span>
+      <h2 class="h2" id="wt-h2">From chart text to a plan in about a minute.</h2>
+      <p class="lede">One synthetic patient, the way a visit actually goes: paste, apply, assess, review, and try a plan when there&rsquo;s a decision to make.</p>
+    </div>
+    <div class="wt-body reveal">
+      <ol class="wt-rail"><li><button type="button" class="wt-step" data-i="0" aria-controls="wt-panel-0"><span class="wt-n">01</span><span class="wt-t"><b>Copy from the EMR</b><i class="wt-short">Paste</i><span>Paste de-identified chart text or your SmartPhrase.</span></span><span class="wt-bar"><i></i></span></button></li><li><button type="button" class="wt-step" data-i="1" aria-controls="wt-panel-1"><span class="wt-n">02</span><span class="wt-t"><b>Parse and apply</b><i class="wt-short">Apply</i><span>A rule-based parser fills the worksheet and shows each value it found, and what is missing.</span></span><span class="wt-bar"><i></i></span></button></li><li><button type="button" class="wt-step" data-i="2" aria-controls="wt-panel-2"><span class="wt-n">03</span><span class="wt-t"><b>Start Assessment</b><i class="wt-short">Assess</i><span>Level, PREVENT, staging and signal score, back in seconds from a deterministic engine.</span></span><span class="wt-bar"><i></i></span></button></li><li><button type="button" class="wt-step" data-i="3" aria-controls="wt-panel-3"><span class="wt-n">04</span><span class="wt-t"><b>Check it against your read</b><i class="wt-short">Review</i><span>The note is ready to paste. The optional Clinical Pearl is a quick AI check that nothing was missed.</span></span><span class="wt-bar"><i></i></span></button></li><li><button type="button" class="wt-step" data-i="4" aria-controls="wt-panel-4"><span class="wt-n">05</span><span class="wt-t"><b>Try a plan, if there&#x27;s a decision</b><i class="wt-short">Try a plan</i><span>Run the simulator with the patient and add the plan you agree on to the note.</span></span><span class="wt-bar"><i></i></span></button></li></ol>
+      <div class="wt-win">
+        <div class="wt-chrome"><span></span><span></span><span></span><b class="wt-crumb">RCCKM &middot; Paste</b><button type="button" class="wt-play" aria-label="Pause walkthrough">Pause</button></div>
+        <div class="wt-stage"><div class="wt-panel" id="wt-panel-0" data-i="0" role="tabpanel" aria-label="Paste"><pre class="wt-paste"><code>Synthetic Epic SmartPhrase example. Not real patient data.
+
+=== CARDIOVASCULAR RISK ASSESSMENT ===
+
+Age: 58 y.o.
+Sex: male
+Race/Ethnicity: White (non-Hispanic)
+
+Smoking status:   Tobacco Use
+    Smoking status: Never
+    Passive exposure: Never
+    Smokeless tobacco: Never
+
+
+Blood pressure (most recent):
+BP Readings from Last 3 Encounters:
+10/22/26	138/84
+07/23/26	(!) 142/86
+04/16/26	(!) 146/88
+
+BMI: @LAST_BMI@
+Body mass index is 35.59 kg/m².
+Estimated body mass index is 35.59 kg/m² as calculated from the following:
+  Height as of this encounter: 1.778 m (5&#x27; 10&quot;).
+  Weight as of this encounter: 112.5 kg (248 lb 0.3 oz).
+Wt Readings from Last 5 Encounters:
+10/22/26	112.5 kg (248 lb 0.3 oz)
+07/23/26	111.1 kg (244 lb 14.9 oz)
+04/16/26	109.8 kg (242 lb 1.1 oz)
+10/23/25	106.6 kg (235 lb 0.2 oz)
+10/24/24	104.3 kg (229 lb 15.1 oz)
+
+
+Clinical ASCVD: No
+No history of myocardial infarction, angina, coronary revascularization, ischemic stroke, TIA, or peripheral arterial disease.
+No history of heart failure or atrial fibrillation.
+
+Family History:
+Premature ASCVD in first-degree relative: Yes
+Relationship: Father
+Event type: Myocardial infarction (father)
+Age at event: 49
+
+Lab Results
+Component	Value	Date
+	NA	138	10/22/2026
+	K	4.6	10/22/2026
+	CL	103	10/22/2026
+	CO2	25	10/22/2026
+	BUN	24 (H)	10/22/2026
+	CREATININE	1.45 (H)	10/22/2026
+	GLUCOSE	151 (H)	10/22/2026
+	CALCIUM	9.4	10/22/2026
+	PROT	7.2	10/22/2026
+	LABALBU	4.2	10/22/2026
+	BILITOT	0.6	10/22/2026
+	ALKPHOS	74	10/22/2026
+	AST	28	10/22/2026</code></pre><div class="wt-paste-foot"><span>Synthetic Epic SmartPhrase</span><button type="button" class="wt-btn" data-go="1">Parse and apply</button></div></div><div class="wt-panel" id="wt-panel-1" data-i="1" role="tabpanel" aria-label="Apply" hidden><div class="wt-chips-head">Recognized &middot; 19 values, 1 missing</div><div class="wt-chips"><span class="wt-chip" style="--i:0" tabindex="0" data-tip="explicit demographic age"><span aria-hidden="true">&#10003;</span>Age 58</span><span class="wt-chip" style="--i:1" tabindex="0" data-tip="explicit sex"><span aria-hidden="true">&#10003;</span>Sex male</span><span class="wt-chip" style="--i:2" tabindex="0" data-tip="latest dated BP reading"><span aria-hidden="true">&#10003;</span>BP 138/84</span><span class="wt-chip" style="--i:3" tabindex="0" data-tip="latest dated lipid result"><span aria-hidden="true">&#10003;</span>LDL-C 126 mg/dL</span><span class="wt-chip" style="--i:4" tabindex="0" data-tip="latest dated lipid result"><span aria-hidden="true">&#10003;</span>HDL-C 40 mg/dL</span><span class="wt-chip" style="--i:5" tabindex="0" data-tip="latest dated lipid result"><span aria-hidden="true">&#10003;</span>TG 240 mg/dL</span><span class="wt-chip" style="--i:6" tabindex="0" data-tip="10/22/2026 7.5 (H) 0 - 5.6 % Final"><span aria-hidden="true">&#10003;</span>A1c 7.5%</span><span class="wt-chip" style="--i:7" tabindex="0" data-tip="eGFR lab result"><span aria-hidden="true">&#10003;</span>eGFR 56</span><span class="wt-chip" style="--i:8" tabindex="0" data-tip="labeled value"><span aria-hidden="true">&#10003;</span>BMI 35.59</span><span class="wt-chip" style="--i:9" tabindex="0" data-tip="problem list diagnosis"><span aria-hidden="true">&#10003;</span>Diabetes detected</span><span class="wt-chip" style="--i:10" tabindex="0" data-tip="canonical smoking status reconciliation"><span aria-hidden="true">&#10003;</span>Smoking Not current</span><span class="wt-chip" style="--i:11" tabindex="0" data-tip="medication vocabulary"><span aria-hidden="true">&#10003;</span>Meds detected</span><span class="wt-chip" style="--i:12" tabindex="0" data-tip="ApoB"><span aria-hidden="true">&#10003;</span>ApoB 116 mg/dL</span><span class="wt-chip" style="--i:13" tabindex="0" data-tip="Lp(a)"><span aria-hidden="true">&#10003;</span>Lp(a) 168 nmol/L</span><span class="wt-chip" style="--i:14" tabindex="0" data-tip="ALBCREAT 126 (H) 10/22/2026"><span aria-hidden="true">&#10003;</span>UACR 126 mg/g</span><span class="wt-chip" style="--i:15" tabindex="0" data-tip="structured family history section"><span aria-hidden="true">&#10003;</span>Family history Father MI age 49</span><span class="wt-chip" style="--i:16" tabindex="0" data-tip="CRPHS 2.8 10/22/2026"><span aria-hidden="true">&#10003;</span>hsCRP 2.8 mg/L</span><span class="wt-chip" style="--i:17" tabindex="0" data-tip="problem list diagnosis"><span aria-hidden="true">&#10003;</span>OSA Yes</span><span class="wt-chip" style="--i:18" tabindex="0" data-tip="problem list diagnosis"><span aria-hidden="true">&#10003;</span>MASLD Yes</span><span class="wt-chip miss" style="--i:19" tabindex="0" data-tip="CAC unavailable or not done"><span aria-hidden="true">&#9675;</span>CAC not available</span></div><div class="wt-paste-foot"><span>Confirm or edit any value in the worksheet</span><button type="button" class="wt-btn" data-go="2">Confirm input data / Start Assessment</button></div></div><div class="wt-panel" id="wt-panel-2" data-i="2" role="tabpanel" aria-label="Assess" hidden>
+<div class="wt-tiles"><div class="wt-tile l1"><b>Level 1</b><span>Minimal risk signal</span></div><div class="wt-tile l2"><b>Level 2</b><span>Emerging risk signals</span></div><div class="wt-tile l3 on"><b>Level 3C</b><span>Converging Risk</span><em>Plaque unmeasured</em></div><div class="wt-tile l4"><b>Level 4</b><span>Subclinical atherosclerosis present</span></div><div class="wt-tile l5"><b>Level 5</b><span>Very high risk</span></div></div>
+<p class="wt-reason"><b>Level 3C | Converging Risk.</b> Albuminuria plus cardiometabolic burden is actionable early kidney risk.</p>
+<div class="wt-stats">
+  <div><small>PREVENT ASCVD</small><b>10y 14.5% (High)</b><b>30y 37.1% (High)</b><span>Total CVD: 10y 22.9%, 30y 53.7%</span></div>
+  <div><small>Staging</small><b>CKM 3 (total CVD ≥20%)</b><span>KDIGO G3aA2</span><span>CAC Not Measured</span></div>
+  <div><small>Risk Signal Score</small><b>52 &middot; High</b><span>Ordinal burden, not a probability</span></div>
+</div>
+<div class="wt-drivers"><small>Risk drivers</small><ul><li>ApoB 116 mg/dL</li><li>T2DM with CKD G3aA2</li><li>Lp(a) 168 nmol/L</li><li>hsCRP 2.8 mg/L (dated 2026-10-22; 10 days before assessment; single measurement; confirm persistence/context)</li></ul></div></div><div class="wt-panel" id="wt-panel-3" data-i="3" role="tabpanel" aria-label="Review" hidden><div class="wt-pearl"><div><b>Clinical Pearl</b><span class="wt-ai">AI &middot; optional</span></div><span class="wt-btn ghost">Generate Clinical Pearl</span><p>Persistent A2 albuminuria (UACR 126 mg/g) with eGFR 56 (G3a) plus diabetes shifts this patient from routine diabetes prevention to a cardiorenal phenotype: the kidney findings together with diabetes drive the high-intensity statin, SGLT2 inhibitor and GLP-1 recommendations, and UACR is already counted in the PREVENT full-model estimate.</p><small class="wt-pearl-foot">Clinical Pearl &middot; Not a substitute for clinical judgment &middot; Example output, lightly edited</small></div><div class="wt-note-head"><span>Clinical report &middot; EMR plain text</span><button type="button" class="wt-copy" data-copy="Risk Continuum CKM™
+Level 3C | Converging Risk | CKM 3 (total CVD ≥20%) | G3aA2 | CAC Not Measured
+PREVENT ASCVD: 10y 14.5% (High), 30y 37.1% (High) | Total CVD: 10y 22.9%, 30y 53.7%
+
+Assessment (ICD-10):
+- T2DM with CKD G3aA2 (E11.22, N18.31)
+- Primary hypertension (I10)
+- Elevated lipoprotein(a) (E78.41)
+- Hypertriglyceridemia (E78.1)
+- Obesity, BMI 35.6 (E66.9, Z68.35)
+- Metabolic dysfunction-associated steatotic liver disease (K76.0)
+- Obstructive sleep apnea (G47.33)
+
+Risk Drivers:
+ApoB 116 mg/dL | T2DM with CKD G3aA2 | Lp(a) 168 nmol/L | hsCRP 2.8 mg/L (dated 2026-10-22; 10 days before assessment; single measurement; confirm persistence/context)
+
+Management Considerations:
+- Lipids: Currently receiving atorvastatin 20 mg. Intensify to high-intensity or maximally tolerated statin therapy based on the independent risk indication. LDL-C 126; target &lt;70. If still above goal on maximally tolerated statin, consider add-on nonstatin therapy.
+- Plaque: Consider CAC.
+- Kidney: Optimize kidney protection. SGLT2i beneficial if no contraindication (T2D with CKD; eGFR 56; UACR 126). ACEi/ARB active. G3a/A2 kidney-risk pattern.
+- BP: Confirm BP; optimize RAAS if persistent. Current BP 138/84 mmHg.
+- Metabolic: Diabetes control worsening. A1c 7.5%, worsened from 6.4%; above goal; on current therapy; review regimen; Recommend GLP-1/GLP-1-GIP for glycemic, cardiovascular, cardiorenal, and weight benefits.
+- Aspirin: Not indicated.">Copy</button></div><pre class="wt-note"><span class="ln" style="--i:0">Risk Continuum CKM™</span><span class="ln" style="--i:1">Level 3C | Converging Risk | CKM 3 (total CVD ≥20%) | G3aA2 | CAC Not Measured</span><span class="ln" style="--i:2">PREVENT ASCVD: 10y 14.5% (High), 30y 37.1% (High) | Total CVD: 10y 22.9%, 30y 53.7%</span><span class="ln" style="--i:3">&nbsp;</span><span class="ln" style="--i:4">Assessment (ICD-10):</span><span class="ln" style="--i:5">- T2DM with CKD G3aA2 (E11.22, N18.31)</span><span class="ln" style="--i:6">- Primary hypertension (I10)</span><span class="ln" style="--i:7">- Elevated lipoprotein(a) (E78.41)</span><span class="ln" style="--i:8">- Hypertriglyceridemia (E78.1)</span><span class="ln" style="--i:9">- Obesity, BMI 35.6 (E66.9, Z68.35)</span><span class="ln" style="--i:10">- Metabolic dysfunction-associated steatotic liver disease (K76.0)</span><span class="ln" style="--i:11">- Obstructive sleep apnea (G47.33)</span><span class="ln" style="--i:12">&nbsp;</span><span class="ln" style="--i:13">Risk Drivers:</span><span class="ln" style="--i:14">ApoB 116 mg/dL | T2DM with CKD G3aA2 | Lp(a) 168 nmol/L | hsCRP 2.8 mg/L (dated 2026-10-22; 10 days before assessment; single measurement; confirm persistence/context)</span><span class="ln" style="--i:15">&nbsp;</span><span class="ln" style="--i:16">Management Considerations:</span><span class="ln" style="--i:17">- Lipids: Currently receiving atorvastatin 20 mg. Intensify to high-intensity or maximally tolerated statin therapy based on the independent risk indication. LDL-C 126; target &lt;70. If still above goal on maximally tolerated statin, consider add-on nonstatin therapy.</span><span class="ln" style="--i:18">- Plaque: Consider CAC.</span><span class="ln" style="--i:19">- Kidney: Optimize kidney protection. SGLT2i beneficial if no contraindication (T2D with CKD; eGFR 56; UACR 126). ACEi/ARB active. G3a/A2 kidney-risk pattern.</span><span class="ln" style="--i:20">- BP: Confirm BP; optimize RAAS if persistent. Current BP 138/84 mmHg.</span><span class="ln" style="--i:21">- Metabolic: Diabetes control worsening. A1c 7.5%, worsened from 6.4%; above goal; on current therapy; review regimen; Recommend GLP-1/GLP-1-GIP for glycemic, cardiovascular, cardiorenal, and weight benefits.</span><span class="ln" style="--i:22">- Aspirin: Not indicated.</span></pre></div><div class="wt-panel" id="wt-panel-4" data-i="4" role="tabpanel" aria-label="Try a plan" hidden>
+<div class="wt-sim-head">Levers ranked by how much they lower 30-yr ASCVD <span class="wt-hint">Tap to combine</span></div>
+<div class="wt-levers"><button type="button" class="wt-lever pick" style="--i:0" data-id="bp" aria-pressed="true"><span class="wt-box" aria-hidden="true"></span><span class="wt-lt"><b>Systolic BP to 120<sup>&dagger;</sup></b><span>&minus;10.4 pts &rarr; 26.6% &middot; 30-yr ASCVD</span></span></button><button type="button" class="wt-lever pick" style="--i:1" data-id="intensify" aria-pressed="true"><span class="wt-box" aria-hidden="true"></span><span class="wt-lt"><b>High-intensity statin<sup>&dagger;</sup></b><span>&minus;5.2 pts &rarr; 31.9% &middot; 30-yr ASCVD</span></span></button><button type="button" class="wt-lever" style="--i:2" data-id="uacr" aria-pressed="false"><span class="wt-box" aria-hidden="true"></span><span class="wt-lt"><b>UACR 126 → 20 mg/g<sup>*</sup></b><span>&minus;2.4 pts &rarr; 34.7% &middot; 30-yr ASCVD</span></span></button><button type="button" class="wt-lever" style="--i:3" data-id="a1c" aria-pressed="false"><span class="wt-box" aria-hidden="true"></span><span class="wt-lt"><b>A1c 7.5% → 7.0%<sup>*</sup></b><span>&minus;0.8 pts &rarr; 36.2% &middot; 30-yr ASCVD</span></span></button></div>
+<p class="wt-key">&dagger; Trial-derived treatment effect &nbsp; * Recalculated risk factor, not a treatment effect</p>
+<div class="wt-sim-out">
+  <div><small>10-yr ASCVD</small><b><s>14.5%</s> &rarr; <span class="wt-t10">8.3%</span></b></div>
+  <div><small>30-yr ASCVD</small><b><s>37.1%</s> &rarr; <span class="wt-t30">22.7%</span></b></div>
+</div>
+<div class="wt-plan-note"><small>Added to the note &middot; Risk Reduction Discussed</small><p class="wt-plan-line">High-intensity statin and systolic BP 120 mmHg: modeled PREVENT ASCVD 10y 14.5% → 8.3%, 30y 37.1% → 22.7% (trial-based estimate; not a treatment order).</p></div>
+<script type="application/json" id="wt-combos">{"order": ["bp", "intensify", "uacr", "a1c"], "combos": {"bp": {"t10": "9.9%", "t30": "26.6%", "note": "Systolic BP 120 mmHg: modeled PREVENT ASCVD 10y 14.5% → 9.9%, 30y 37.1% → 26.6% (trial-based estimate; not a treatment order)."}, "intensify": {"t10": "12.2%", "t30": "31.9%", "note": "High-intensity statin: modeled PREVENT ASCVD 10y 14.5% → 12.2%, 30y 37.1% → 31.9% (trial-based estimate; not a treatment order)."}, "uacr": {"t10": "11.6%", "t30": "34.7%", "note": "UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 11.6%, 30y 37.1% → 34.7% (model-based estimate; not a treatment order)."}, "a1c": {"t10": "13.8%", "t30": "36.2%", "note": "A1c 7.0%: modeled PREVENT ASCVD 10y 14.5% → 13.8%, 30y 37.1% → 36.2% (model-based estimate; not a treatment order)."}, "bp,intensify": {"t10": "8.3%", "t30": "22.7%", "note": "High-intensity statin and systolic BP 120 mmHg: modeled PREVENT ASCVD 10y 14.5% → 8.3%, 30y 37.1% → 22.7% (trial-based estimate; not a treatment order)."}, "bp,uacr": {"t10": "7.9%", "t30": "24.8%", "note": "Systolic BP 120 mmHg and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 7.9%, 30y 37.1% → 24.8% (trial- and model-based estimate; not a treatment order)."}, "bp,a1c": {"t10": "9.5%", "t30": "26.0%", "note": "Systolic BP 120 mmHg and A1c 7.0%: modeled PREVENT ASCVD 10y 14.5% → 9.5%, 30y 37.1% → 26.0% (trial- and model-based estimate; not a treatment order)."}, "intensify,uacr": {"t10": "9.7%", "t30": "29.8%", "note": "High-intensity statin and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 9.7%, 30y 37.1% → 29.8% (trial- and model-based estimate; not a treatment order)."}, "intensify,a1c": {"t10": "11.6%", "t30": "31.2%", "note": "High-intensity statin and A1c 7.0%: modeled PREVENT ASCVD 10y 14.5% → 11.6%, 30y 37.1% → 31.2% (trial- and model-based estimate; not a treatment order)."}, "uacr,a1c": {"t10": "11.1%", "t30": "33.9%", "note": "A1c 7.0% and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 11.1%, 30y 37.1% → 33.9% (model-based estimate; not a treatment order)."}, "bp,intensify,uacr": {"t10": "6.6%", "t30": "21.1%", "note": "High-intensity statin, systolic BP 120 mmHg and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 6.6%, 30y 37.1% → 21.1% (trial- and model-based estimate; not a treatment order)."}, "bp,intensify,a1c": {"t10": "7.9%", "t30": "22.1%", "note": "High-intensity statin, systolic BP 120 mmHg and A1c 7.0%: modeled PREVENT ASCVD 10y 14.5% → 7.9%, 30y 37.1% → 22.1% (trial- and model-based estimate; not a treatment order)."}, "bp,uacr,a1c": {"t10": "7.5%", "t30": "24.2%", "note": "Systolic BP 120 mmHg, A1c 7.0% and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 7.5%, 30y 37.1% → 24.2% (trial- and model-based estimate; not a treatment order)."}, "intensify,uacr,a1c": {"t10": "9.3%", "t30": "29.1%", "note": "High-intensity statin, A1c 7.0% and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 9.3%, 30y 37.1% → 29.1% (trial- and model-based estimate; not a treatment order)."}, "bp,intensify,uacr,a1c": {"t10": "6.3%", "t30": "20.5%", "note": "High-intensity statin, systolic BP 120 mmHg, A1c 7.0% and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 6.3%, 30y 37.1% → 20.5% (trial- and model-based estimate; not a treatment order)."}}}</script></div></div>
+      </div>
+    </div>
+    <p class="wt-src">Synthetic patient, 58M. Every value, level, code and sentence shown is RCCKM engine output for this chart text. Modeled plan estimates are for clinician review, not treatment orders.</p>
+  </div>
+</section>
+
+<!-- STATS -->
+<section data-analytics-section="stats" class="stats" aria-label="Why this matters">
+  <div class="wrap">
+    <div class="stats-grid reveal">
+      <div class="stat">
+        <div class="stat-num">90%</div>
+        <p>of U.S. adults meet criteria for CKM syndrome. Nearly half are at stage 2, with metabolic risk factors or kidney disease, where prevention has the most room to work.</p>
+        <cite>Aggarwal et al., <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11079779/" target="_blank" rel="noopener">JAMA, 2024</a></cite>
+      </div>
+      <div class="stat">
+        <div class="stat-num">15 min</div>
+        <p>is the median primary care visit. The evidence is ready; bringing the whole cardiometabolic picture together in that time is the opportunity.</p>
+        <cite>Neprash et al., <a href="https://pubmed.ncbi.nlm.nih.gov/33301282/" target="_blank" rel="noopener">Medical Care, 2021</a></cite>
+      </div>
+      <div class="stat">
+        <div class="stat-num">47%</div>
+        <p>of U.S. adults 40&ndash;75 without heart disease are eligible for cholesterol-lowering therapy, and about 23% take it. A clear risk conversation at the point of care can help close that gap.</p>
+        <cite>Alexander et al., <a href="https://doi.org/10.1007/s11606-025-09625-0" target="_blank" rel="noopener">J Gen Intern Med, 2025</a></cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRAJECTORY -->
+<section data-analytics-section="trajectory" class="traj" id="trajectory" aria-labelledby="traj-h2">
+  <div class="wrap">
+    <div class="traj-head center reveal">
+      <span class="eyebrow">Trajectory</span>
+      <h2 class="h2" id="traj-h2">Every number looked fine on its own.</h2>
+      <p class="lede">Paste chart text with dated results and RCCKM lines them up. For this 52-year-old, three years of labs tell a story no single visit showed.</p>
+    </div>
+    <div class="spark-grid" id="sparks">
+      <div class="spark big">
+        <div class="spark-top"><span>A1c &middot; 3 dated results, Feb 2024 to Sep 2026</span><i class="badge">Worsening</i></div>
+        <div class="big-chart">
+          <svg id="a1c-chart" viewBox="0 0 520 250" role="img" aria-label="A1c rose from 5.2% in February 2024 to 5.7% in June 2025 and 6.1% in September 2026, crossing the 5.7% prediabetes threshold"></svg>
+          <p class="cap">A1c increased from 5.2% to 6.1%.</p>
+        </div>
+      </div>
+    </div>
+    <p class="traj-note">Synthetic demo patient, dated results from the chart text. Trends add context; they never change the level, PREVENT or the actions on their own.</p>
+  </div>
+</section>
+
 <!-- SHARED DECISIONS -->
 <section data-analytics-section="decide" class="sdm" id="decide" aria-labelledby="sdm-h2">
   <div class="wrap">
@@ -927,7 +915,42 @@ Management Considerations:
   </div>
 </section>
 
-<!-- THE REPORT -->
+<!-- READING THE RESULT -->
+<section data-analytics-section="levels" class="levels" id="levels" aria-labelledby="levels-h2">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow">Reading the result</span>
+      <h2 class="h2" id="levels-h2">A Level names the pattern.</h2>
+      <p class="lede">Every patient lands somewhere on the continuum, with the pattern driving it named. PREVENT supplies the probability; CKM stage, KDIGO and the Risk Signal Score sit alongside it in the report.</p>
+    </div>
+    <div class="card cont" id="cont" aria-label="Risk Continuum: this patient is at Level 3B, Emerging Risk Trajectory, plaque unmeasured">
+      <div class="cont-head">
+        <div><div class="card-eyebrow">Position</div><div class="card-title">Risk Continuum</div></div>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <span class="pill-now">Current: Level 3B</span>
+          <button class="btn btn-ghost btn-sm" id="cont-replay" type="button">↻ Replay</button>
+        </div>
+      </div>
+      <div class="tiles" aria-hidden="true">
+        <div class="walker" id="walker"><span class="here-lbl">YOU ARE HERE</span><svg width="28" height="40" viewBox="0 0 24 34"><circle cx="12" cy="5" r="4.2" fill="#861327"/><path d="M7 11h10a3 3 0 0 1 3 3v8h-3v12h-4v-9h-2v9H7V22H4v-8a3 3 0 0 1 3-3z" fill="#861327"/></svg></div>
+        <div class="tile" style="background:var(--t1); --acc:var(--a1); --d:8px; transition-delay:0s"><i class="dot"></i><div><b>Level 1</b><span>Minimal risk signal</span></div></div>
+        <div class="tile" style="background:var(--t2); --acc:var(--a2); --d:12px; transition-delay:.08s"><i class="dot"></i><div><b>Level 2</b><span>Emerging risk signals</span></div></div>
+        <div class="tile" style="background:var(--t3); --acc:var(--a3); --d:16px; transition-delay:.16s"><i class="dot"></i><div><b>Level 3B</b><span>Emerging Risk Trajectory</span></div><small>Plaque unmeasured</small></div>
+        <div class="tile future" style="background:var(--t4); --acc:var(--a4); --d:20px; transition-delay:.24s"><i class="dot"></i><div><b>Level 4</b><span>Subclinical atherosclerosis present</span></div></div>
+        <div class="tile future" style="background:var(--t5); --acc:var(--a5); --d:24px; transition-delay:.32s"><i class="dot"></i><div><b>Level 5</b><span>Very high risk</span></div></div>
+      </div>
+      <div class="cont-foot"><span>&larr; Lower signal / lower urgency</span><span>Higher signal / higher urgency &rarr;</span></div>
+      <p class="cont-line"><b>Level 3B | Emerging Risk Trajectory.</b> Elevated 30-year trajectory plus actionable biologic burden.</p>
+      <p class="cont-tag"><b>A Level describes the pattern. PREVENT supplies the probability.</b> Every patient gets a Level, including when a PREVENT estimate doesn't apply.</p>
+      <div class="levels-info">
+        <button class="levels-btn" type="button" aria-expanded="false" aria-controls="levels-pop"><span aria-hidden="true">ⓘ</span> How to read the levels</button>
+        <div class="levels-pop" id="levels-pop" role="tooltip">RCCKM brings the patient's findings together into a concise clinical summary. The levels organize the evidence and name the pattern driving the assessment. Formal CKM staging, KDIGO kidney classification and PREVENT risk estimates are reported separately, each using its own framework.<span class="levels-sub"><b>Level 3 has three patterns.</b> 3A, elevated long-term risk trajectory; 3B, Emerging Risk Trajectory; 3C, Converging Risk, when the 3B pattern meets a PREVENT 10-year ASCVD of 5% or more, diabetes, or a kidney finding.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIGNAL SCORE -->
 <section data-analytics-section="report" class="report" id="signal" aria-label="Risk Signal Score">
   <div class="wrap">
 
@@ -948,8 +971,8 @@ Management Considerations:
       </div>
       <div class="rssx-copy">
         <span class="eyebrow">Risk Signal Score</span>
-        <h3>Watch the burden stack up.</h3>
-        <p class="lede">Each contributing signal drops onto the stack and the score counts up by its points. Every patient is drawn on the same unlabeled canvas, so equal points look equal across patients.</p>
+        <h3>Every contributor, counted.</h3>
+        <p class="lede">An ordinal burden score, not a probability: each signal adds its points, so what is driving risk is visible at a glance. <a class="inline-link" href="faq.html#levels-stages-and-risk">How it differs from PREVENT and the Levels &rarr;</a></p>
         <div class="chips" role="tablist" aria-label="Patients" id="rss-chips"></div>
         <p class="fineprint">Synthetic demo patients; contributors and points are RCCKM engine output.</p>
       </div>
@@ -1511,7 +1534,7 @@ Management Considerations:
     var root = document.getElementById("walkthrough");
     if (!root) return;
     var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var STEP_MS = 12000;
+    var STEP_MS = [5000, 6500, 6500, 9000, 10000];
     var steps = root.querySelectorAll(".wt-step"), panels = root.querySelectorAll(".wt-panel");
     var crumb = root.querySelector(".wt-crumb"), playBtn = root.querySelector(".wt-play");
     var names = ["Paste", "Apply", "Assess", "Review", "Try a plan"];
@@ -1527,13 +1550,13 @@ Management Considerations:
     function tick(t) {
       raf = 0;
       if (!playing || !visible) return;
-      var k = Math.min(1, (t - t0) / STEP_MS);
+      var k = Math.min(1, (t - t0) / STEP_MS[cur]);
       steps[cur].querySelector(".wt-bar i").style.width = (k * 100) + "%";
       if (cur === 3) { var p = panels[cur], f = Math.max(0, Math.min(1, (k - 0.3) / 0.6)); p.scrollTop = f * (p.scrollHeight - p.clientHeight); }
       if (k >= 1) show((cur + 1) % steps.length, true);
       raf = requestAnimationFrame(tick);
     }
-    function run() { if (!raf && playing && visible) { t0 = performance.now() - (parseFloat(steps[cur].querySelector(".wt-bar i").style.width) || 0) / 100 * STEP_MS; raf = requestAnimationFrame(tick); } }
+    function run() { if (!raf && playing && visible) { t0 = performance.now() - (parseFloat(steps[cur].querySelector(".wt-bar i").style.width) || 0) / 100 * STEP_MS[cur]; raf = requestAnimationFrame(tick); } }
     function setPlaying(p) {
       playing = p;
       playBtn.textContent = p ? "Pause" : "Play";
@@ -1543,6 +1566,22 @@ Management Considerations:
     steps.forEach(function (s, k) { s.addEventListener("click", function () { started = true; show(k, true); setPlaying(false); }); });
     playBtn.addEventListener("click", function () { setPlaying(!playing); });
     root.querySelectorAll("[data-go]").forEach(function (b) { b.addEventListener("click", function () { started = true; show(+b.getAttribute("data-go"), true); }); });
+    var comboEl = document.getElementById("wt-combos"), combo = comboEl ? JSON.parse(comboEl.textContent) : null;
+    var simPanel = panels[panels.length - 1];
+    function renderCombo() {
+      var on = combo.order.filter(function (id) { return simPanel.querySelector('.wt-lever[data-id="' + id + '"]').classList.contains("pick"); });
+      var r = combo.combos[on.join(",")];
+      simPanel.querySelector(".wt-t10").textContent = r ? r.t10 : "—";
+      simPanel.querySelector(".wt-t30").textContent = r ? r.t30 : "—";
+      simPanel.querySelector(".wt-plan-line").textContent = r ? r.note : "Tap a lever to model a plan.";
+    }
+    if (combo) simPanel.querySelectorAll(".wt-lever").forEach(function (b) {
+      b.addEventListener("click", function () {
+        simPanel.classList.remove("play"); setPlaying(false);
+        b.classList.toggle("pick"); b.setAttribute("aria-pressed", b.classList.contains("pick"));
+        renderCombo();
+      });
+    });
     root.querySelector(".wt-copy").addEventListener("click", function (e) {
       var b = e.currentTarget;
       if (navigator.clipboard) navigator.clipboard.writeText(b.getAttribute("data-copy")).then(function () { b.textContent = "Copied"; setTimeout(function () { b.textContent = "Copy"; }, 1600); });

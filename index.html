@@ -129,8 +129,9 @@
     .wt-pearl > div { display: flex; align-items: center; gap: 10px; }
     .wt-pearl b { font-family: var(--display); font-weight: 500; font-size: 17px; color: var(--ink); }
     .wt-ai { font-size: 11.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line-2); border-radius: 999px; padding: 1px 8px; }
-    .wt-pearl p { grid-column: 1; font-size: 14.5px; color: var(--muted); line-height: 1.5; }
-    .wt-pearl .wt-btn { grid-column: 2; grid-row: 1 / span 2; }
+    .wt-pearl p { grid-column: 1 / -1; font-size: 15px; color: var(--ink); line-height: 1.55; margin-top: 6px; }
+    .wt-pearl-foot { grid-column: 1 / -1; font-size: 12.5px; color: var(--muted); }
+    .wt-pearl .wt-btn { grid-column: 2; grid-row: 1; }
     .wt-btn.ghost { background: var(--surface); color: var(--accent); border: 1px solid var(--accent); }
     .wt-sim-head { font-family: var(--display); font-weight: 600; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
     .wt-levers { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
@@ -774,7 +775,7 @@ Component	Value	Date
   <div><small>Staging</small><b>CKM 3 (total CVD ≥20%)</b><span>KDIGO G3aA2</span><span>CAC Not Measured</span></div>
   <div><small>Risk Signal Score</small><b>52 &middot; High</b><span>Ordinal burden, not a probability</span></div>
 </div>
-<div class="wt-drivers"><small>Risk drivers</small><ul><li>ApoB 116 mg/dL</li><li>T2DM with CKD G3aA2</li><li>Lp(a) 168 nmol/L</li><li>hsCRP 2.8 mg/L (dated 2026-10-22; 10 days before assessment; single measurement; confirm persistence/context)</li></ul></div></div><div class="wt-panel" id="wt-panel-3" data-i="3" role="tabpanel" aria-label="Review" hidden><div class="wt-pearl"><div><b>Clinical Pearl</b><span class="wt-ai">AI &middot; optional</span></div><p>A short AI summary on request, to check nothing was missed. Labeled, and kept separate from the engine&rsquo;s results.</p><span class="wt-btn ghost">Generate Clinical Pearl</span></div><div class="wt-note-head"><span>Clinical report &middot; EMR plain text</span><button type="button" class="wt-copy" data-copy="Risk Continuum CKM™
+<div class="wt-drivers"><small>Risk drivers</small><ul><li>ApoB 116 mg/dL</li><li>T2DM with CKD G3aA2</li><li>Lp(a) 168 nmol/L</li><li>hsCRP 2.8 mg/L (dated 2026-10-22; 10 days before assessment; single measurement; confirm persistence/context)</li></ul></div></div><div class="wt-panel" id="wt-panel-3" data-i="3" role="tabpanel" aria-label="Review" hidden><div class="wt-pearl"><div><b>Clinical Pearl</b><span class="wt-ai">AI &middot; optional</span></div><span class="wt-btn ghost">Generate Clinical Pearl</span><p>Persistent A2 albuminuria (UACR 126 mg/g) with eGFR 56 (G3a) plus diabetes shifts this patient from routine diabetes prevention to a cardiorenal phenotype: the kidney findings together with diabetes drive the high-intensity statin, SGLT2 inhibitor and GLP-1 recommendations, and UACR is already counted in the PREVENT full-model estimate.</p><small class="wt-pearl-foot">Clinical Pearl &middot; Not a substitute for clinical judgment &middot; Example output, lightly edited</small></div><div class="wt-note-head"><span>Clinical report &middot; EMR plain text</span><button type="button" class="wt-copy" data-copy="Risk Continuum CKM™
 Level 3C | Converging Risk | CKM 3 (total CVD ≥20%) | G3aA2 | CAC Not Measured
 PREVENT ASCVD: 10y 14.5% (High), 30y 37.1% (High) | Total CVD: 10y 22.9%, 30y 53.7%
 

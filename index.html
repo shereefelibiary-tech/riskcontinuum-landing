@@ -229,6 +229,8 @@
     .hero-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 36px; }
     .hero-meta { margin-top: 20px; font-size: 15px; color: var(--muted); }
     .hero-access { margin-top: 10px; font-size: 15px; color: var(--muted); }
+    .levels-sub { display: block; margin-top: 10px; }
+    .privacy-note { margin-top: 10px; font-size: 15px; color: var(--muted); }
     .hero-access a { color: var(--accent); text-underline-offset: 3px; }
     .copy-status { min-height: 1.5em; padding: 0 28px 16px; font-size: 14px; color: var(--muted); }
 
@@ -601,11 +603,10 @@
     <a class="nav-logo" href="#" aria-label="Risk Continuum Health home"><svg class="logo" viewBox="0 0 900 300" aria-hidden="true"><use href="#rc-logo"/></svg></a>
     <ul class="nav-links" role="list">
       <li><a href="#walkthrough">See it run</a></li>
-      <li><a href="#trajectory">Trajectory</a></li>
       <li><a href="#plan">Try a plan</a></li>
       <li><a href="#decide">Shared decisions</a></li>
-      <li><a href="#signal">Signal score</a></li>
       <li><a href="#founder">Founder</a></li>
+      <li><a href="#pilot">Health systems</a></li>
       <li><a href="faq.html">FAQs</a></li>
     </ul>
     <details class="nav-menu">
@@ -618,6 +619,7 @@
         <a href="#signal">Signal score</a>
         <a href="#demo">Sample notes</a>
         <a href="#founder">Founder</a>
+        <a href="#pilot">Health systems</a>
         <a href="faq.html">FAQs</a>
       </nav>
     </details>
@@ -647,6 +649,7 @@
         <a href="#plan" class="btn btn-ghost">Watch a plan bend the curve &darr;</a>
       </div>
       <p class="hero-meta">38 synthetic demo cases to try &middot; SmartPhrase template &middot; Paste from any EMR</p>
+      <p class="privacy-note"><span aria-hidden="true">🔒</span> De-identified chart text only. It&rsquo;s processed to run the assessment and not saved.</p>
       <p class="hero-access">Free clinician account for the workspace &middot; <a href="#demo">Preview a sample note here</a></p>
     </div>
 
@@ -671,7 +674,7 @@
       <p class="cont-tag"><b>A Level describes the pattern. PREVENT supplies the probability.</b> Every patient gets a Level, including when a PREVENT estimate doesn't apply.</p>
       <div class="levels-info">
         <button class="levels-btn" type="button" aria-expanded="false" aria-controls="levels-pop"><span aria-hidden="true">ⓘ</span> How to read the levels</button>
-        <div class="levels-pop" id="levels-pop" role="tooltip">RCCKM brings the patient's findings together into a concise clinical summary. The levels organize the evidence and name the pattern driving the assessment. Formal CKM staging, KDIGO kidney classification and PREVENT risk estimates are reported separately, each using its own framework.</div>
+        <div class="levels-pop" id="levels-pop" role="tooltip">RCCKM brings the patient's findings together into a concise clinical summary. The levels organize the evidence and name the pattern driving the assessment. Formal CKM staging, KDIGO kidney classification and PREVENT risk estimates are reported separately, each using its own framework.<span class="levels-sub"><b>Level 3 has three patterns.</b> 3A, elevated long-term risk trajectory; 3B, Emerging Risk Trajectory; 3C, Converging Risk, when the 3B pattern meets a PREVENT 10-year ASCVD of 5% or more, diabetes, or a kidney finding.</span></div>
       </div>
     </div>
   </div>
@@ -1062,7 +1065,8 @@ Management Considerations:
       <a href="https://app.riskcontinuum.health/" class="btn btn-primary">Start RCCKM Assessment</a>
       <a href="https://app.riskcontinuum.health/sign-up" class="btn btn-ghost">Create a free account</a>
     </div>
-    <div class="pilot">
+    <p class="privacy-note"><span aria-hidden="true">🔒</span> De-identified chart text only. It&rsquo;s processed to run the assessment and not saved.</p>
+    <div class="pilot" id="pilot">
       <span class="pilot-em">🏥</span>
       <p><b>Health systems and practices:</b> we're exploring pilot partnerships. If you'd like to evaluate RCCKM with your team, <a href="mailto:shereef@riskcontinuum.health?subject=RCCKM%20pilot">get in touch</a>.</p>
     </div>

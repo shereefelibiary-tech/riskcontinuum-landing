@@ -57,6 +57,107 @@
     .card-eyebrow::before { content: ""; width: 22px; height: 1.5px; background: currentColor; }
     .card-title { font-family: var(--display); font-size: 28px; color: var(--ink); margin-top: 4px; }
 
+    /* WALKTHROUGH */
+    .wt { padding: 120px 0 90px; }
+    .wt-body { display: grid; grid-template-columns: 330px 1fr; gap: 34px; margin-top: 52px; align-items: start; }
+    .wt-rail { list-style: none; display: grid; gap: 8px; }
+    .wt-step { width: 100%; text-align: left; display: grid; grid-template-columns: 38px 1fr; gap: 4px 12px; padding: 16px 18px 14px; border-radius: 16px; border: 1px solid transparent; background: none; cursor: pointer; transition: background .25s, border-color .25s; }
+    .wt-step:hover { background: var(--surface); }
+    .wt-step.on { background: var(--surface); border-color: var(--line); box-shadow: var(--shadow); }
+    .wt-n { font-family: var(--display); font-weight: 600; font-size: 15px; letter-spacing: .12em; color: var(--faint); padding-top: 2px; }
+    .wt-step.on .wt-n, .wt-step.done .wt-n { color: var(--accent); }
+    .wt-t b { display: block; font-family: var(--display); font-weight: 500; font-size: 20px; color: var(--ink); line-height: 1.25; }
+    .wt-t span { display: none; font-size: 15px; line-height: 1.5; color: var(--muted); margin-top: 4px; }
+    .wt-step.on .wt-t span { display: block; }
+    .wt-bar { grid-column: 2; height: 2px; background: var(--line); border-radius: 2px; overflow: hidden; margin-top: 10px; }
+    .wt-step:not(.on) .wt-bar { visibility: hidden; }
+    .wt-bar i { display: block; height: 100%; width: 0; background: var(--accent); }
+    .wt-win { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; box-shadow: var(--shadow-lift); overflow: hidden; min-width: 0; }
+    .wt-chrome { display: flex; align-items: center; gap: 7px; padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--surface-2); }
+    .wt-chrome > span { width: 10px; height: 10px; border-radius: 50%; background: var(--line-2); }
+    .wt-crumb { margin-left: 10px; font-family: var(--display); font-weight: 500; font-size: 14px; letter-spacing: .06em; color: var(--muted); }
+    .wt-play { margin-left: auto; font-size: 13px; font-weight: 600; color: var(--muted); background: var(--surface); border: 1px solid var(--line-2); border-radius: 999px; padding: 4px 12px; cursor: pointer; }
+    .wt-play:hover { border-color: var(--accent); color: var(--accent); }
+    .wt-stage { height: 560px; position: relative; }
+    .wt-panel { position: absolute; inset: 0; padding: 24px 26px; overflow: auto; animation: wtIn .45s var(--ease); }
+    .wt-panel[hidden] { display: none; }
+    @keyframes wtIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    .wt-paste { font-family: var(--mono); font-size: 12.5px; line-height: 1.55; color: var(--body); background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; height: 440px; overflow: hidden; white-space: pre-wrap; }
+    .wt-paste code { display: block; }
+    .wt-panel.play .wt-paste code { animation: wtScroll 9s linear forwards; }
+    @keyframes wtScroll { from { transform: translateY(0); } to { transform: translateY(calc(-100% + 410px)); } }
+    .wt-paste-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 16px; font-size: 14px; color: var(--muted); }
+    .wt-btn { background: var(--accent); color: var(--accent-ink); font-weight: 600; font-size: 14px; border-radius: 999px; padding: 9px 18px; white-space: nowrap; }
+    .wt-chips-head { font-family: var(--display); font-weight: 600; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+    .wt-chips { display: flex; flex-wrap: wrap; gap: 9px; min-height: 360px; align-content: flex-start; }
+    .wt-chip { display: inline-flex; align-items: center; gap: 7px; font-size: 15px; font-weight: 500; color: var(--ink); background: var(--good-soft); border: 1px solid rgba(30,113,72,.18); border-radius: 999px; padding: 6px 13px; }
+    .wt-chip > span { color: var(--good); font-weight: 700; }
+    .wt-chip.miss { background: var(--t3); border-color: rgba(201,162,30,.35); }
+    .wt-chip.miss > span { color: #8A6A00; }
+    .wt-panel.play .wt-chip { opacity: 0; animation: wtPop .35s var(--ease) forwards; animation-delay: calc(var(--i) * 260ms + 200ms); }
+    @keyframes wtPop { from { opacity: 0; transform: scale(.9); } to { opacity: 1; transform: none; } }
+    .wt-tiles { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+    .wt-tile { border-radius: 12px; padding: 10px 11px; background: var(--surface-2); border: 1px solid var(--line); opacity: .55; }
+    .wt-tile b { display: block; font-family: var(--display); font-weight: 600; font-size: 14px; color: var(--ink); }
+    .wt-tile span { display: block; font-size: 12.5px; line-height: 1.35; color: var(--muted); margin-top: 2px; }
+    .wt-tile em { display: block; font-style: normal; font-size: 12px; color: var(--muted); margin-top: 6px; }
+    .wt-tile.on { opacity: 1; background: var(--t3); border-color: var(--a3); box-shadow: 0 0 0 3px rgba(229,133,31,.14); }
+    .wt-panel.play .wt-tile.on { animation: wtPop .5s var(--ease) .3s backwards; }
+    .wt-reason { font-size: 16px; color: var(--body); margin: 16px 0 18px; }
+    .wt-reason b { color: var(--ink); }
+    .wt-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .wt-stats > div, .wt-drivers { border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+    .wt-stats small, .wt-drivers small, .wt-rm small { display: block; font-family: var(--display); font-weight: 600; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+    .wt-stats b { display: block; font-family: var(--display); font-weight: 500; font-size: 17px; color: var(--ink); line-height: 1.3; margin-top: 4px; }
+    .wt-stats span { display: block; font-size: 13.5px; color: var(--muted); margin-top: 3px; }
+    .wt-drivers li { font-size: 14.5px; }
+    .wt-panel.play .wt-stats > div, .wt-panel.play .wt-drivers { animation: wtIn .5s var(--ease) backwards; }
+    .wt-panel.play .wt-stats > div:nth-child(1) { animation-delay: .9s; }
+    .wt-panel.play .wt-stats > div:nth-child(2) { animation-delay: 1.3s; }
+    .wt-panel.play .wt-stats > div:nth-child(3) { animation-delay: 1.7s; }
+    .wt-panel.play .wt-drivers { animation-delay: 2.2s; }
+    .wt-drivers { margin-top: 10px; }
+    .wt-drivers ul { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 6px; font-size: 15px; color: var(--ink); }
+    .wt-note-head, .wt-rm-head { display: flex; justify-content: space-between; align-items: center; font-family: var(--display); font-weight: 600; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+    .wt-copy { font-size: 13px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--accent-ink); background: var(--accent); border: 0; border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+    .wt-note { font-family: var(--mono); font-size: 12.5px; line-height: 1.6; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; white-space: pre-wrap; }
+    .wt-note .ln { display: block; }
+    .wt-panel.play .wt-note .ln { opacity: 0; animation: wtLn .2s linear forwards; animation-delay: calc(var(--i) * 210ms + 150ms); }
+    @keyframes wtLn { to { opacity: 1; } }
+    .wt-rms { display: grid; gap: 12px; }
+    .wt-rm { border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 12px; padding: 12px 16px; }
+    .wt-rm h4 { font-family: var(--display); font-weight: 500; font-size: 18px; color: var(--ink); margin: 2px 0 6px; }
+    .wt-rm ul, .wt-rm ol { padding-left: 20px; font-size: 15px; line-height: 1.55; color: var(--body); }
+    .wt-rm li + li { margin-top: 3px; }
+    .wt-panel.play .wt-rm { animation: wtIn .5s var(--ease) backwards; animation-delay: calc(var(--i) * 1.1s + .2s); }
+    .wt-src { font-size: 14px; color: var(--muted); text-align: center; margin-top: 22px; }
+    @media (max-width: 980px) {
+      .wt-body { grid-template-columns: 1fr; gap: 18px; }
+      .wt-rail { grid-template-columns: repeat(5, 1fr); gap: 4px; }
+      .wt-step { grid-template-columns: 1fr; padding: 10px 8px; text-align: center; }
+      .wt-t span, .wt-step.on .wt-t span { display: none; }
+      .wt-t b { font-size: 14px; }
+      .wt-bar { grid-column: 1; }
+      .wt-stage { height: 560px; }
+    }
+    @media (max-width: 640px) {
+      .wt { padding: 84px 0; }
+      .wt-n { display: none; }
+      .wt-t b { font-size: 12.5px; }
+      .wt-panel { padding: 16px; }
+      .wt-tiles { grid-template-columns: 1fr; gap: 5px; }
+      .wt-tile { padding: 6px 10px; display: flex; gap: 8px; align-items: baseline; }
+      .wt-tile span, .wt-tile em { margin: 0; }
+      .wt-stats { grid-template-columns: 1fr; }
+      .wt-paste { height: 440px; }
+      .wt-stage { height: 600px; }
+      .wt-paste-foot { flex-direction: column; align-items: flex-start; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .wt-panel, .wt-panel.play * { animation: none !important; opacity: 1 !important; }
+      .wt-paste { overflow: auto; }
+    }
+
     /* NAV */
     .nav { position: sticky; top: 0; z-index: 50; background: rgba(248, 245, 243, .86); backdrop-filter: saturate(1.4) blur(14px); -webkit-backdrop-filter: saturate(1.4) blur(14px); border-bottom: 1px solid var(--line); }
     .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 76px; gap: 24px; }
@@ -319,12 +420,6 @@
     .note.loading pre { opacity: .25; }
 
     /* HOW / WHO */
-    .how { padding: 130px 0 90px; }
-    .how-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 52px; }
-    .how-card { border-top: 2px solid var(--line-2); padding-top: 22px; }
-    .how-card .n { font-family: var(--display); font-size: 15px; font-weight: 600; letter-spacing: .14em; color: var(--accent); }
-    .how-card h3 { font-size: 24px; margin: 10px 0; }
-    .how-card p { font-size: 17px; color: var(--body); }
     .who { padding: 60px 0 130px; }
     .who-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-top: 44px; }
     .who-card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 24px 22px; }
@@ -397,7 +492,6 @@
     @media (max-width: 1020px) {
       .plan-foot, .note-row, .sdm-top, .report-head, .sdm-shots, .rp-body, .founder-grid, .rssx { grid-template-columns: minmax(0, 1fr); gap: 36px; }
       .sdm-cards, .sections { grid-template-columns: repeat(2, 1fr); }
-      .how-grid { grid-template-columns: repeat(2, 1fr); gap: 34px; }
       .who-grid { grid-template-columns: repeat(2, 1fr); }
       .bt.seven, .bt.five { grid-column: span 12; }
       .spark-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -428,7 +522,7 @@
       .cont.shown .tile.here, .demo-cont .tile.here { transform: none; }
       .walker, .cont-foot { display: none; }
       .stats-grid { grid-template-columns: 1fr; }
-      .traj, .plan, .sdm, .report, .demo, .how, .founder, .cta { padding: 84px 0; }
+      .traj, .plan, .sdm, .report, .demo, .founder, .cta { padding: 84px 0; }
       .who { padding: 20px 0 84px; }
       .founder-photo { max-width: 420px; margin: 0 auto; }
       .founder-quote { margin-top: 64px; padding-top: 48px; }
@@ -443,7 +537,7 @@
       .lever { width: 100%; max-width: 100%; flex-wrap: wrap; row-gap: 4px; text-align: left; }
       .lever em { flex-basis: 100%; white-space: normal; }
       .cta-mark { max-width: 100%; }
-      .sdm-cards, .sections, .who-grid, .how-grid { grid-template-columns: 1fr; }
+      .sdm-cards, .sections, .who-grid { grid-template-columns: 1fr; }
       .demo-panel { grid-template-columns: 1fr; }
       .pt { border-right: none; border-bottom: 1px solid var(--line); }
       footer .wrap { grid-template-columns: 1fr; gap: 24px; }
@@ -472,6 +566,7 @@
   <div class="wrap">
     <a class="nav-logo" href="#" aria-label="Risk Continuum Health home"><svg class="logo" viewBox="0 0 900 300" aria-hidden="true"><use href="#rc-logo"/></svg></a>
     <ul class="nav-links" role="list">
+      <li><a href="#walkthrough">See it run</a></li>
       <li><a href="#trajectory">Trajectory</a></li>
       <li><a href="#plan">Try a plan</a></li>
       <li><a href="#decide">Shared decisions</a></li>
@@ -482,6 +577,7 @@
     <details class="nav-menu">
       <summary>Menu</summary>
       <nav aria-label="Page sections">
+        <a href="#walkthrough">See it run</a>
         <a href="#trajectory">Trajectory</a>
         <a href="#plan">Try a plan</a>
         <a href="#decide">Shared decisions</a>
@@ -571,6 +667,111 @@
 </section>
 
 <!-- TRAJECTORY -->
+<section data-analytics-section="walkthrough" class="wt" id="walkthrough" aria-labelledby="wt-h2">
+  <div class="wrap">
+    <div class="wt-head center reveal">
+      <span class="eyebrow">See it run</span>
+      <h2 class="h2" id="wt-h2">From chart text to a plan in about a minute.</h2>
+      <p class="lede">One synthetic patient, start to finish: the same five steps you take in the app.</p>
+    </div>
+    <div class="wt-body reveal">
+      <ol class="wt-rail"><li><button type="button" class="wt-step" data-i="0" aria-controls="wt-panel-0"><span class="wt-n">01</span><span class="wt-t"><b>Paste chart text</b><span>De-identified chart text or your SmartPhrase, straight from the EMR.</span></span><span class="wt-bar"><i></i></span></button></li><li><button type="button" class="wt-step" data-i="1" aria-controls="wt-panel-1"><span class="wt-n">02</span><span class="wt-t"><b>Confirm what it found</b><span>A rule-based parser fills the worksheet and shows each value it recognized, and what is missing.</span></span><span class="wt-bar"><i></i></span></button></li><li><button type="button" class="wt-step" data-i="2" aria-controls="wt-panel-2"><span class="wt-n">03</span><span class="wt-t"><b>Start Assessment</b><span>Level, PREVENT, staging and signal score, back in seconds from a deterministic engine.</span></span><span class="wt-bar"><i></i></span></button></li><li><button type="button" class="wt-step" data-i="3" aria-controls="wt-panel-3"><span class="wt-n">04</span><span class="wt-t"><b>Copy the note</b><span>Plain text for the EMR, with ICD-10 codes and management considerations.</span></span><span class="wt-bar"><i></i></span></button></li><li><button type="button" class="wt-step" data-i="4" aria-controls="wt-panel-4"><span class="wt-n">05</span><span class="wt-t"><b>Hand off the roadmap</b><span>Where they stand, their goals and numbered next steps, in the patient&#x27;s language.</span></span><span class="wt-bar"><i></i></span></button></li></ol>
+      <div class="wt-win">
+        <div class="wt-chrome"><span></span><span></span><span></span><b class="wt-crumb">RCCKM &middot; Paste</b><button type="button" class="wt-play" aria-label="Pause walkthrough">Pause</button></div>
+        <div class="wt-stage"><div class="wt-panel" id="wt-panel-0" data-i="0" role="tabpanel" aria-label="Paste"><pre class="wt-paste"><code>Synthetic Epic SmartPhrase example. Not real patient data.
+
+=== CARDIOVASCULAR RISK ASSESSMENT ===
+
+Age: 58 y.o.
+Sex: male
+Race/Ethnicity: White (non-Hispanic)
+
+Smoking status:   Tobacco Use
+    Smoking status: Never
+    Passive exposure: Never
+    Smokeless tobacco: Never
+
+
+Blood pressure (most recent):
+BP Readings from Last 3 Encounters:
+10/22/26	138/84
+07/23/26	(!) 142/86
+04/16/26	(!) 146/88
+
+BMI: @LAST_BMI@
+Body mass index is 35.59 kg/m².
+Estimated body mass index is 35.59 kg/m² as calculated from the following:
+  Height as of this encounter: 1.778 m (5&#x27; 10&quot;).
+  Weight as of this encounter: 112.5 kg (248 lb 0.3 oz).
+Wt Readings from Last 5 Encounters:
+10/22/26	112.5 kg (248 lb 0.3 oz)
+07/23/26	111.1 kg (244 lb 14.9 oz)
+04/16/26	109.8 kg (242 lb 1.1 oz)
+10/23/25	106.6 kg (235 lb 0.2 oz)
+10/24/24	104.3 kg (229 lb 15.1 oz)
+
+
+Clinical ASCVD: No
+No history of myocardial infarction, angina, coronary revascularization, ischemic stroke, TIA, or peripheral arterial disease.
+No history of heart failure or atrial fibrillation.
+
+Family History:
+Premature ASCVD in first-degree relative: Yes
+Relationship: Father
+Event type: Myocardial infarction (father)
+Age at event: 49
+
+Lab Results
+Component	Value	Date
+	NA	138	10/22/2026
+	K	4.6	10/22/2026
+	CL	103	10/22/2026
+	CO2	25	10/22/2026
+	BUN	24 (H)	10/22/2026
+	CREATININE	1.45 (H)	10/22/2026
+	GLUCOSE	151 (H)	10/22/2026
+	CALCIUM	9.4	10/22/2026
+	PROT	7.2	10/22/2026
+	LABALBU	4.2	10/22/2026
+	BILITOT	0.6	10/22/2026
+	ALKPHOS	74	10/22/2026
+	AST	28	10/22/2026</code></pre><div class="wt-paste-foot"><span>Synthetic Epic SmartPhrase</span><span class="wt-btn">Parse chart text</span></div></div><div class="wt-panel" id="wt-panel-1" data-i="1" role="tabpanel" aria-label="Confirm" hidden><div class="wt-chips-head">Recognized &middot; 19 values, 1 missing</div><div class="wt-chips"><span class="wt-chip" style="--i:0"><span aria-hidden="true">&#10003;</span>Age 58</span><span class="wt-chip" style="--i:1"><span aria-hidden="true">&#10003;</span>Sex male</span><span class="wt-chip" style="--i:2"><span aria-hidden="true">&#10003;</span>BP 138/84</span><span class="wt-chip" style="--i:3"><span aria-hidden="true">&#10003;</span>LDL-C 126 mg/dL</span><span class="wt-chip" style="--i:4"><span aria-hidden="true">&#10003;</span>HDL-C 40 mg/dL</span><span class="wt-chip" style="--i:5"><span aria-hidden="true">&#10003;</span>TG 240 mg/dL</span><span class="wt-chip" style="--i:6"><span aria-hidden="true">&#10003;</span>A1c 7.5%</span><span class="wt-chip" style="--i:7"><span aria-hidden="true">&#10003;</span>eGFR 56</span><span class="wt-chip" style="--i:8"><span aria-hidden="true">&#10003;</span>BMI 35.59</span><span class="wt-chip" style="--i:9"><span aria-hidden="true">&#10003;</span>Diabetes detected</span><span class="wt-chip" style="--i:10"><span aria-hidden="true">&#10003;</span>Smoking Not current</span><span class="wt-chip" style="--i:11"><span aria-hidden="true">&#10003;</span>Meds detected</span><span class="wt-chip" style="--i:12"><span aria-hidden="true">&#10003;</span>ApoB 116 mg/dL</span><span class="wt-chip" style="--i:13"><span aria-hidden="true">&#10003;</span>Lp(a) 168 nmol/L</span><span class="wt-chip" style="--i:14"><span aria-hidden="true">&#10003;</span>UACR 126 mg/g</span><span class="wt-chip" style="--i:15"><span aria-hidden="true">&#10003;</span>Family history Father MI age 49</span><span class="wt-chip" style="--i:16"><span aria-hidden="true">&#10003;</span>hsCRP 2.8 mg/L</span><span class="wt-chip" style="--i:17"><span aria-hidden="true">&#10003;</span>OSA Yes</span><span class="wt-chip" style="--i:18"><span aria-hidden="true">&#10003;</span>MASLD Yes</span><span class="wt-chip miss" style="--i:19"><span aria-hidden="true">&#9675;</span>CAC not available</span></div><div class="wt-paste-foot"><span>You confirm or edit any value before assessing</span><span class="wt-btn">Start Assessment</span></div></div><div class="wt-panel" id="wt-panel-2" data-i="2" role="tabpanel" aria-label="Assess" hidden>
+<div class="wt-tiles"><div class="wt-tile l1"><b>Level 1</b><span>Minimal risk signal</span></div><div class="wt-tile l2"><b>Level 2</b><span>Emerging risk signals</span></div><div class="wt-tile l3 on"><b>Level 3C</b><span>Converging Risk</span><em>Plaque unmeasured</em></div><div class="wt-tile l4"><b>Level 4</b><span>Subclinical atherosclerosis present</span></div><div class="wt-tile l5"><b>Level 5</b><span>Very high risk</span></div></div>
+<p class="wt-reason"><b>Level 3C | Converging Risk.</b> Albuminuria plus cardiometabolic burden is actionable early kidney risk.</p>
+<div class="wt-stats">
+  <div><small>PREVENT ASCVD</small><b>10y 14.5% (High)</b><b>30y 37.1% (High)</b><span>Total CVD: 10y 22.9%, 30y 53.7%</span></div>
+  <div><small>Staging</small><b>CKM 3 (total CVD ≥20%)</b><span>KDIGO G3aA2</span><span>CAC Not Measured</span></div>
+  <div><small>Risk Signal Score</small><b>52 &middot; High</b><span>Ordinal burden, not a probability</span></div>
+</div>
+<div class="wt-drivers"><small>Risk drivers</small><ul><li>ApoB 116 mg/dL</li><li>T2DM with CKD G3aA2</li><li>Lp(a) 168 nmol/L</li><li>hsCRP 2.8 mg/L (dated 2026-10-22; 10 days before assessment; single measurement; confirm persistence/context)</li></ul></div></div><div class="wt-panel" id="wt-panel-3" data-i="3" role="tabpanel" aria-label="Note" hidden><div class="wt-note-head"><span>Clinical report &middot; EMR plain text</span><button type="button" class="wt-copy" data-copy="Risk Continuum CKM™
+Level 3C | Converging Risk | CKM 3 (total CVD ≥20%) | G3aA2 | CAC Not Measured
+PREVENT ASCVD: 10y 14.5% (High), 30y 37.1% (High) | Total CVD: 10y 22.9%, 30y 53.7%
+
+Assessment (ICD-10):
+- T2DM with CKD G3aA2 (E11.22, N18.31)
+- Primary hypertension (I10)
+- Elevated lipoprotein(a) (E78.41)
+- Hypertriglyceridemia (E78.1)
+- Obesity, BMI 35.6 (E66.9, Z68.35)
+- Metabolic dysfunction-associated steatotic liver disease (K76.0)
+- Obstructive sleep apnea (G47.33)
+
+Risk Drivers:
+ApoB 116 mg/dL | T2DM with CKD G3aA2 | Lp(a) 168 nmol/L | hsCRP 2.8 mg/L (dated 2026-10-22; 10 days before assessment; single measurement; confirm persistence/context)
+
+Management Considerations:
+- Lipids: Currently receiving atorvastatin 20 mg. Intensify to high-intensity or maximally tolerated statin therapy based on the independent risk indication. LDL-C 126; target &lt;70. If still above goal on maximally tolerated statin, consider add-on nonstatin therapy.
+- Plaque: Consider CAC.
+- Kidney: Optimize kidney protection. SGLT2i beneficial if no contraindication (T2D with CKD; eGFR 56; UACR 126). ACEi/ARB active. G3a/A2 kidney-risk pattern.
+- BP: Confirm BP; optimize RAAS if persistent. Current BP 138/84 mmHg.
+- Metabolic: Diabetes control worsening. A1c 7.5%, worsened from 6.4%; above goal; on current therapy; review regimen; Recommend GLP-1/GLP-1-GIP for glycemic, cardiovascular, cardiorenal, and weight benefits.
+- Aspirin: Not indicated.">Copy</button></div><pre class="wt-note"><span class="ln" style="--i:0">Risk Continuum CKM™</span><span class="ln" style="--i:1">Level 3C | Converging Risk | CKM 3 (total CVD ≥20%) | G3aA2 | CAC Not Measured</span><span class="ln" style="--i:2">PREVENT ASCVD: 10y 14.5% (High), 30y 37.1% (High) | Total CVD: 10y 22.9%, 30y 53.7%</span><span class="ln" style="--i:3">&nbsp;</span><span class="ln" style="--i:4">Assessment (ICD-10):</span><span class="ln" style="--i:5">- T2DM with CKD G3aA2 (E11.22, N18.31)</span><span class="ln" style="--i:6">- Primary hypertension (I10)</span><span class="ln" style="--i:7">- Elevated lipoprotein(a) (E78.41)</span><span class="ln" style="--i:8">- Hypertriglyceridemia (E78.1)</span><span class="ln" style="--i:9">- Obesity, BMI 35.6 (E66.9, Z68.35)</span><span class="ln" style="--i:10">- Metabolic dysfunction-associated steatotic liver disease (K76.0)</span><span class="ln" style="--i:11">- Obstructive sleep apnea (G47.33)</span><span class="ln" style="--i:12">&nbsp;</span><span class="ln" style="--i:13">Risk Drivers:</span><span class="ln" style="--i:14">ApoB 116 mg/dL | T2DM with CKD G3aA2 | Lp(a) 168 nmol/L | hsCRP 2.8 mg/L (dated 2026-10-22; 10 days before assessment; single measurement; confirm persistence/context)</span><span class="ln" style="--i:15">&nbsp;</span><span class="ln" style="--i:16">Management Considerations:</span><span class="ln" style="--i:17">- Lipids: Currently receiving atorvastatin 20 mg. Intensify to high-intensity or maximally tolerated statin therapy based on the independent risk indication. LDL-C 126; target &lt;70. If still above goal on maximally tolerated statin, consider add-on nonstatin therapy.</span><span class="ln" style="--i:18">- Plaque: Consider CAC.</span><span class="ln" style="--i:19">- Kidney: Optimize kidney protection. SGLT2i beneficial if no contraindication (T2D with CKD; eGFR 56; UACR 126). ACEi/ARB active. G3a/A2 kidney-risk pattern.</span><span class="ln" style="--i:20">- BP: Confirm BP; optimize RAAS if persistent. Current BP 138/84 mmHg.</span><span class="ln" style="--i:21">- Metabolic: Diabetes control worsening. A1c 7.5%, worsened from 6.4%; above goal; on current therapy; review regimen; Recommend GLP-1/GLP-1-GIP for glycemic, cardiovascular, cardiorenal, and weight benefits.</span><span class="ln" style="--i:22">- Aspirin: Not indicated.</span></pre></div><div class="wt-panel" id="wt-panel-4" data-i="4" role="tabpanel" aria-label="Roadmap" hidden><div class="wt-rm-head">Your Prevention Roadmap</div><div class="wt-rms"><div class="wt-rm" style="--i:0"><small>Step 1</small><h4>Where you stand</h4><ul><li>About 14 in 100 similar patients may have a heart attack, stroke, or related artery disease event over 10 years.</li><li>About 37 in 100 similar patients may have a heart attack, stroke, or related artery disease event over 30 years.</li><li>Care focus: Level 3C - Converging Risk</li></ul></div><div class="wt-rm" style="--i:1"><small>Step 2</small><h4>Why your risk is higher</h4><ul><li>Cholesterol particles: ApoB 116 mg/dL. ApoB is a cholesterol-particle marker.</li><li>Risk driver: T2DM with CKD G3aA2.</li><li>Risk driver: Lp(a) 168 nmol/L.</li><li>Risk driver: hsCRP 2.8 mg/L (dated 2026-10-22; 10 days before assessment; single measurement; confirm persistence/context).</li><li>Other factors: Father MI age 49; OSA; Metabolic fatty liver disease. These details can shape the prevention plan with your clinician.</li></ul></div><div class="wt-rm" style="--i:2"><small>Step 3</small><h4>Your goals</h4><ul><li>LDL-C: Current 126 mg/dL; goal below 70 mg/dL.</li><li>non-HDL-C: Current 174 mg/dL calculated; goal below 100 mg/dL.</li><li>ApoB: Current 116 mg/dL; goal below 80 mg/dL.</li><li>A1c: Current 7.5%; goal below 7.0%. Improve glycemic control.</li><li>BP: Current 138/84 mmHg; treated; goal below 130/80.</li></ul></div><div class="wt-rm" style="--i:3"><small>Step 4</small><h4>Your next steps</h4><ol><li>Cholesterol: Discuss adjusting your cholesterol medicine if levels remain above goal. If still high after tolerated statin, discuss an add-on.</li><li>Kidneys: Discuss starting an SGLT2 inhibitor for heart and kidney protection. Continue your current ACE inhibitor or ARB plan if it remains tolerated and appropriate.</li><li>Blood sugar and weight: A1c 7.5%, worsened from 6.4%; above the usual blood sugar goal with current noninsulin therapy; reassess the current diabetes regimen. Discuss starting GLP-1 or GLP-1/GIP treatment for heart, kidney, weight, and blood sugar benefits with your clinician.</li><li>Coronary plaque: Discuss a coronary calcium scan (CAC) to check for plaque.</li></ol></div></div></div></div>
+      </div>
+    </div>
+    <p class="wt-src">Synthetic patient, 58M. Every value, level, code and sentence shown is RCCKM engine output for this chart text.</p>
+  </div>
+</section>
+
 <section data-analytics-section="trajectory" class="traj" id="trajectory" aria-labelledby="traj-h2">
   <div class="wrap">
     <div class="traj-head center reveal">
@@ -803,19 +1004,6 @@
 </section>
 
 <!-- HOW IT WORKS -->
-<section data-analytics-section="how" class="how" id="how" aria-labelledby="how-h2">
-  <div class="wrap">
-    <span class="eyebrow">How it works</span>
-    <h2 class="h2" id="how-h2">From chart text to a plan in about a minute.</h2>
-    <div class="how-grid">
-      <div class="how-card reveal"><div class="n">01 &middot; 📋</div><h3>Paste or enter</h3><p>Paste de-identified chart text or your SmartPhrase, or type values straight into the worksheet. When you paste, a rule-based parser fills the worksheet and shows what it found for you to confirm.</p></div>
-      <div class="how-card reveal"><div class="n">02 &middot; ⚡</div><h3>Start Assessment</h3><p>Position, PREVENT, signal score, trajectory, staging, diagnoses and actions in seconds, from a deterministic engine. The optional AI Clinical Pearl is labeled and kept separate.</p></div>
-      <div class="how-card reveal"><div class="n">03 &middot; 🎚️</div><h3>Try a plan</h3><p>Tap interventions with your patient and watch the curve move. Add the plan you agree on to the note.</p></div>
-      <div class="how-card reveal"><div class="n">04 &middot; ✅</div><h3>Copy and hand off</h3><p>Paste the note into the EMR and print the roadmap before the patient leaves.</p></div>
-    </div>
-  </div>
-</section>
-
 <section data-analytics-section="who" class="who" aria-labelledby="who-h2">
   <div class="wrap">
     <span class="eyebrow">Who it's for</span>
@@ -1320,6 +1508,54 @@
       }
     });
     show(0);
+  })();
+</script>
+<script>
+  (function () {
+    var root = document.getElementById("walkthrough");
+    if (!root) return;
+    var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var STEP_MS = 12000;
+    var steps = root.querySelectorAll(".wt-step"), panels = root.querySelectorAll(".wt-panel");
+    var crumb = root.querySelector(".wt-crumb"), playBtn = root.querySelector(".wt-play");
+    var names = ["Paste", "Confirm", "Assess", "Note", "Roadmap"];
+    var cur = 0, playing = !reduced, visible = false, started = false, t0 = 0, raf = 0;
+    function show(i, animate) {
+      cur = i;
+      steps.forEach(function (s, k) { s.classList.toggle("on", k === i); s.classList.toggle("done", k < i); s.setAttribute("aria-selected", k === i); s.querySelector(".wt-bar i").style.width = "0"; });
+      panels.forEach(function (p, k) { p.hidden = k !== i; p.classList.remove("play"); p.scrollTop = 0; });
+      if (animate && !reduced) { void panels[i].offsetWidth; panels[i].classList.add("play"); }
+      crumb.textContent = "RCCKM \u00b7 " + names[i];
+      t0 = performance.now();
+    }
+    function tick(t) {
+      raf = 0;
+      if (!playing || !visible) return;
+      var k = Math.min(1, (t - t0) / STEP_MS);
+      steps[cur].querySelector(".wt-bar i").style.width = (k * 100) + "%";
+      if (cur >= 3) { var p = panels[cur], f = Math.max(0, Math.min(1, (k - 0.3) / 0.6)); p.scrollTop = f * (p.scrollHeight - p.clientHeight); }
+      if (k >= 1) show((cur + 1) % steps.length, true);
+      raf = requestAnimationFrame(tick);
+    }
+    function run() { if (!raf && playing && visible) { t0 = performance.now() - (parseFloat(steps[cur].querySelector(".wt-bar i").style.width) || 0) / 100 * STEP_MS; raf = requestAnimationFrame(tick); } }
+    function setPlaying(p) {
+      playing = p;
+      playBtn.textContent = p ? "Pause" : "Play";
+      playBtn.setAttribute("aria-label", (p ? "Pause" : "Play") + " walkthrough");
+      run();
+    }
+    steps.forEach(function (s, k) { s.addEventListener("click", function () { started = true; show(k, true); setPlaying(false); }); });
+    playBtn.addEventListener("click", function () { setPlaying(!playing); });
+    root.querySelector(".wt-copy").addEventListener("click", function (e) {
+      var b = e.currentTarget;
+      if (navigator.clipboard) navigator.clipboard.writeText(b.getAttribute("data-copy")).then(function () { b.textContent = "Copied"; setTimeout(function () { b.textContent = "Copy"; }, 1600); });
+    });
+    new IntersectionObserver(function (es) {
+      visible = es[0].isIntersecting;
+      if (visible && !started) { started = true; show(0, true); }
+      run();
+    }, { threshold: 0.35 }).observe(root.querySelector(".wt-win"));
+    if (reduced) setPlaying(false);
   })();
 </script>
 <script src="rcckm-analytics.js" defer></script>

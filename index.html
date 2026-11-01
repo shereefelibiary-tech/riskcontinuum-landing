@@ -215,7 +215,7 @@
     .nav-menu nav a:hover { background: var(--garnet-soft); color: var(--accent); }
 
     /* HERO */
-    .hero { padding: 90px 0 110px; overflow: hidden; }
+    .hero { padding: 90px 0 56px; overflow: hidden; }
     .hero::before { content: ""; position: absolute; inset: -20% -10% auto; height: 1000px; background: radial-gradient(620px 380px at 50% 16%, rgba(134, 19, 39, .09), transparent 70%), radial-gradient(520px 320px at 85% 70%, rgba(229, 133, 31, .07), transparent 70%); pointer-events: none; }
     .hero-copy { position: relative; text-align: center; max-width: 920px; margin: 0 auto; }
     .hero-lockup { display: inline-flex; align-items: center; gap: 28px; margin: 0 auto 40px; }
@@ -273,6 +273,8 @@
 
     /* STATS */
     .stats { padding: 0 0 120px; }
+    .levels { padding: 110px 0 40px; }
+    .levels .cont { margin-top: 56px; }
     .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
     .stat { background: var(--surface); padding: 34px 32px; }
     .cont-tag { margin-top: 10px; font-size: 16px; color: var(--muted); }
@@ -303,7 +305,7 @@
     .traj-note { margin-top: 18px; font-size: 15px; color: var(--muted); text-align: center; }
 
     /* TRY A PLAN */
-    .plan { padding: 120px 0; background: linear-gradient(180deg, var(--bg) 0%, #F1E8E4 50%, var(--bg) 100%); border-top: 1px solid var(--line); }
+    .plan { padding: 84px 0 120px; background: linear-gradient(180deg, var(--bg) 0%, #F1E8E4 50%, var(--bg) 100%); border-top: 1px solid var(--line); }
     .plan::before { content: ""; position: absolute; left: 50%; top: 300px; width: min(1000px, 100%); height: 700px; transform: translateX(-50%); background: radial-gradient(closest-side, rgba(30, 113, 72, .07), transparent); pointer-events: none; }
     .plan-head { max-width: 900px; margin: 0 auto 56px; }
     .plan-big { font-size: clamp(40px, 5.8vw, 76px); }
@@ -385,7 +387,8 @@
     .shot-cap b { color: var(--ink); font-weight: 600; }
 
     /* THE REPORT */
-    .report { padding: 130px 0 120px; }
+    .report { padding: 70px 0 100px; }
+    .inline-link { color: var(--accent); text-underline-offset: 3px; white-space: nowrap; }
     .report-head { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; margin-bottom: 56px; }
     .sections { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 80px; }
     .sec { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 22px; }
@@ -401,7 +404,7 @@
     .bt figcaption span { display: block; font-size: 17px; color: var(--muted); margin-top: 4px; }
 
     /* RSS tower */
-    .rssx { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 56px; align-items: center; margin-bottom: 80px; }
+    .rssx { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 56px; align-items: center; }
     .rssx-copy h3 { font-size: clamp(28px, 3vw, 40px); line-height: 1.12; margin: 16px 0 18px; }
     .rssx-copy .chips { margin-top: 24px; }
     .rss-card { padding: 28px 30px; }
@@ -604,8 +607,8 @@
   <div class="wrap">
     <a class="nav-logo" href="#" aria-label="Risk Continuum Health home"><svg class="logo" viewBox="0 0 900 300" aria-hidden="true"><use href="#rc-logo"/></svg></a>
     <ul class="nav-links" role="list">
-      <li><a href="#walkthrough">See it run</a></li>
       <li><a href="#plan">Try a plan</a></li>
+      <li><a href="#walkthrough">See it run</a></li>
       <li><a href="#decide">Shared decisions</a></li>
       <li><a href="#founder">Founder</a></li>
       <li><a href="#pilot">Health systems</a></li>
@@ -614,10 +617,11 @@
     <details class="nav-menu">
       <summary>Menu</summary>
       <nav aria-label="Page sections">
+        <a href="#plan">Try a plan</a>
         <a href="#walkthrough">See it run</a>
         <a href="#trajectory">Trajectory</a>
-        <a href="#plan">Try a plan</a>
         <a href="#decide">Shared decisions</a>
+        <a href="#levels">Reading the result</a>
         <a href="#signal">Signal score</a>
         <a href="#demo">Sample notes</a>
         <a href="#founder">Founder</a>
@@ -655,57 +659,75 @@
       <p class="hero-access">Free clinician account for the workspace &middot; <a href="#demo">Preview a sample note here</a></p>
     </div>
 
-    <div class="card cont" id="cont" aria-label="Risk Continuum: this patient is at Level 3B, Emerging Risk Trajectory, plaque unmeasured">
-      <div class="cont-head">
-        <div><div class="card-eyebrow">Position</div><div class="card-title">Risk Continuum</div></div>
-        <div style="display:flex; gap:10px; align-items:center;">
-          <span class="pill-now">Current: Level 3B</span>
-          <button class="btn btn-ghost btn-sm" id="cont-replay" type="button">↻ Replay</button>
+  </div>
+</section>
+
+<!-- TRY A PLAN -->
+<section data-analytics-section="plan" class="plan" id="plan" aria-labelledby="plan-h2">
+  <div class="wrap">
+    <div class="plan-head center reveal">
+      <span class="eyebrow">Try a plan</span>
+      <h2 class="h2 plan-big" id="plan-h2">What happens if&hellip;</h2>
+      <p class="lede">Start a statin? Bring her blood pressure down? Answer it in the room. Tap an intervention and RCCKM reruns the whole assessment for that scenario.</p>
+    </div>
+
+    <div class="card rp" id="rp">
+      <div class="rp-top">
+        <div><div class="card-eyebrow">PREVENT population model</div><div class="card-title">Risk and plan</div></div>
+        <div class="seg" aria-hidden="true"><span>Today's risk</span><span class="on">Try a plan</span></div>
+      </div>
+      <p class="rp-sub">Tap an intervention and watch the picture change. Each scenario is a full engine run.</p>
+      <div class="chips" role="group" aria-label="Interventions">
+        <button class="lever" type="button" data-lever="statin" aria-pressed="false"><span class="chk">✓</span>Start a statin<sup class="mark" title="Trial-derived treatment effect (CTT Collaboration)">†</sup> <em>&minus;2.8 pts &rarr; 9.4% &middot; 30-yr ASCVD</em></button>
+        <button class="lever" type="button" data-lever="bp" aria-pressed="false"><span class="chk">✓</span>Systolic BP to 120<sup class="mark" title="Trial-derived treatment effect (Ettehad 2016)">†</sup> <em>&minus;1.9 pts &rarr; 10.3% &middot; 30-yr ASCVD</em></button>
+        <button class="lever" type="button" data-lever="a1c" aria-pressed="false"><span class="chk">✓</span>A1c 6.1% &rarr; 5.5%<sup class="mark" title="Recalculated risk factor: PREVENT full model rerun with the new value. A modeled scenario, not a proven treatment effect.">*</sup> <em>&minus;0.5 pts &rarr; 11.7% &middot; 30-yr ASCVD</em></button>
+      </div>
+      <p class="marks"><span title="Today's PREVENT risk with the relative risk reduction seen in trials: CTT Collaboration for LDL-C, Ettehad 2016 for systolic BP."><sup>†</sup> Trial-derived treatment effect</span> &nbsp; <span title="PREVENT full model rerun with the new value. A modeled scenario, not a proven treatment effect."><sup>*</sup> Recalculated risk factor, not a treatment effect</span></p>
+      <div class="summary" id="summary" aria-live="polite"></div>
+      <div class="rp-body">
+        <div>
+          <p class="sentence" id="sentence"></p>
+          <svg class="chart" id="tl" viewBox="0 0 600 270" role="img" aria-label="Cumulative ASCVD risk timeline: 2.1% by age 62 and 12.2% by age 82 today"></svg>
+          <div class="legend"><span><i style="background:var(--muted)"></i>Today</span><span><i style="background:var(--good)"></i>With plan</span></div>
+        </div>
+        <div>
+          <div class="people-box">
+            <h4>100 similar patients over 30 years <small class="people-src">PREVENT model</small></h4>
+            <div class="people" id="people" aria-hidden="true"></div>
+            <div class="people-leg">
+              <span><i style="background:var(--accent)"></i><b id="pl-ev">12</b> may have a heart attack or stroke</span>
+              <span id="pl-pv-row"><i style="background:var(--good)"></i><b id="pl-pv">0</b> fewer with this plan</span>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="tiles" aria-hidden="true">
-        <div class="walker" id="walker"><span class="here-lbl">YOU ARE HERE</span><svg width="28" height="40" viewBox="0 0 24 34"><circle cx="12" cy="5" r="4.2" fill="#861327"/><path d="M7 11h10a3 3 0 0 1 3 3v8h-3v12h-4v-9h-2v9H7V22H4v-8a3 3 0 0 1 3-3z" fill="#861327"/></svg></div>
-        <div class="tile" style="background:var(--t1); --acc:var(--a1); --d:8px; transition-delay:0s"><i class="dot"></i><div><b>Level 1</b><span>Minimal risk signal</span></div></div>
-        <div class="tile" style="background:var(--t2); --acc:var(--a2); --d:12px; transition-delay:.08s"><i class="dot"></i><div><b>Level 2</b><span>Emerging risk signals</span></div></div>
-        <div class="tile" style="background:var(--t3); --acc:var(--a3); --d:16px; transition-delay:.16s"><i class="dot"></i><div><b>Level 3B</b><span>Emerging Risk Trajectory</span></div><small>Plaque unmeasured</small></div>
-        <div class="tile future" style="background:var(--t4); --acc:var(--a4); --d:20px; transition-delay:.24s"><i class="dot"></i><div><b>Level 4</b><span>Subclinical atherosclerosis present</span></div></div>
-        <div class="tile future" style="background:var(--t5); --acc:var(--a5); --d:24px; transition-delay:.32s"><i class="dot"></i><div><b>Level 5</b><span>Very high risk</span></div></div>
+      <p class="rp-note">Points are PREVENT's 10-year and 30-year estimates; the dotted lines only connect them. The 30-year plan value assumes the treatment effect is sustained. Synthetic demo patient; every value is RCCKM engine output.</p>
+    </div>
+    <span class="autoplay" id="autoplay">Playing a demo. Tap a lever to take over.</span>
+
+    <div class="plan-foot">
+      <div class="reveal">
+        <span class="eyebrow">The real screen</span>
+        <h3>Every lever ranked, every number sourced.</h3>
+        <p class="lede">In the app, levers are ranked by how much they lower 30-year risk. Drag any value, or stack levers to see what they do together.</p>
+        <ul class="ticks">
+          <li><span>🔬</span>LDL-C and systolic BP effects use CTT Collaboration and Ettehad 2016 trial data, cited on screen.</li>
+          <li><span>🔁</span>Other changes rerun the PREVENT equations with the new value.</li>
+          <li><span>🧭</span>Level and actions update for the patient with those values.</li>
+          <li><span>📝</span>One click adds the plan you agree on to the note under "Risk Reduction Discussed", worded as an estimate, not an order.</li>
+        </ul>
+        <p class="fineprint">Modeled estimates for clinician review. A lower modeled value does not establish an individual treatment benefit.</p>
       </div>
-      <div class="cont-foot"><span>&larr; Lower signal / lower urgency</span><span>Higher signal / higher urgency &rarr;</span></div>
-      <p class="cont-line"><b>Level 3B | Emerging Risk Trajectory.</b> Elevated 30-year trajectory plus actionable biologic burden.</p>
-      <p class="cont-tag"><b>A Level describes the pattern. PREVENT supplies the probability.</b> Every patient gets a Level, including when a PREVENT estimate doesn't apply.</p>
-      <div class="levels-info">
-        <button class="levels-btn" type="button" aria-expanded="false" aria-controls="levels-pop"><span aria-hidden="true">ⓘ</span> How to read the levels</button>
-        <div class="levels-pop" id="levels-pop" role="tooltip">RCCKM brings the patient's findings together into a concise clinical summary. The levels organize the evidence and name the pattern driving the assessment. Formal CKM staging, KDIGO kidney classification and PREVENT risk estimates are reported separately, each using its own framework.<span class="levels-sub"><b>Level 3 has three patterns.</b> 3A, elevated long-term risk trajectory; 3B, Emerging Risk Trajectory; 3C, Converging Risk, when the 3B pattern meets a PREVENT 10-year ASCVD of 5% or more, diabetes, or a kidney finding.</span></div>
+      <div class="window reveal">
+        <div class="window-bar"><i></i><i></i><i></i><span>Risk and plan</span></div>
+        <img src="assets/landing/app-tryplan.jpg" alt="The app's Risk and plan card: statin and systolic BP 120 selected, each button showing its PREVENT change, timeline showing 30-year ASCVD 12.2% today and 7.9% with the plan, ranked levers with trial sources" width="2336" height="3394" loading="lazy" />
       </div>
     </div>
+
   </div>
 </section>
 
-<!-- STATS -->
-<section data-analytics-section="stats" class="stats" aria-label="Why this matters">
-  <div class="wrap">
-    <div class="stats-grid reveal">
-      <div class="stat">
-        <div class="stat-num">90%</div>
-        <p>of U.S. adults meet criteria for CKM syndrome. Nearly half are at stage 2, with metabolic risk factors or kidney disease, where prevention has the most room to work.</p>
-        <cite>Aggarwal et al., <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11079779/" target="_blank" rel="noopener">JAMA, 2024</a></cite>
-      </div>
-      <div class="stat">
-        <div class="stat-num">15 min</div>
-        <p>is the median primary care visit. The evidence is ready; bringing the whole cardiometabolic picture together in that time is the opportunity.</p>
-        <cite>Neprash et al., <a href="https://pubmed.ncbi.nlm.nih.gov/33301282/" target="_blank" rel="noopener">Medical Care, 2021</a></cite>
-      </div>
-      <div class="stat">
-        <div class="stat-num">47%</div>
-        <p>of U.S. adults 40&ndash;75 without heart disease are eligible for cholesterol-lowering therapy, and about 23% take it. A clear risk conversation at the point of care can help close that gap.</p>
-        <cite>Alexander et al., <a href="https://doi.org/10.1007/s11606-025-09625-0" target="_blank" rel="noopener">J Gen Intern Med, 2025</a></cite>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TRAJECTORY -->
+<!-- WALKTHROUGH -->
 <section data-analytics-section="walkthrough" class="wt" id="walkthrough" aria-labelledby="wt-h2">
   <div class="wrap">
     <div class="wt-head center reveal">
@@ -819,6 +841,30 @@ Management Considerations:
   </div>
 </section>
 
+<!-- STATS -->
+<section data-analytics-section="stats" class="stats" aria-label="Why this matters">
+  <div class="wrap">
+    <div class="stats-grid reveal">
+      <div class="stat">
+        <div class="stat-num">90%</div>
+        <p>of U.S. adults meet criteria for CKM syndrome. Nearly half are at stage 2, with metabolic risk factors or kidney disease, where prevention has the most room to work.</p>
+        <cite>Aggarwal et al., <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11079779/" target="_blank" rel="noopener">JAMA, 2024</a></cite>
+      </div>
+      <div class="stat">
+        <div class="stat-num">15 min</div>
+        <p>is the median primary care visit. The evidence is ready; bringing the whole cardiometabolic picture together in that time is the opportunity.</p>
+        <cite>Neprash et al., <a href="https://pubmed.ncbi.nlm.nih.gov/33301282/" target="_blank" rel="noopener">Medical Care, 2021</a></cite>
+      </div>
+      <div class="stat">
+        <div class="stat-num">47%</div>
+        <p>of U.S. adults 40&ndash;75 without heart disease are eligible for cholesterol-lowering therapy, and about 23% take it. A clear risk conversation at the point of care can help close that gap.</p>
+        <cite>Alexander et al., <a href="https://doi.org/10.1007/s11606-025-09625-0" target="_blank" rel="noopener">J Gen Intern Med, 2025</a></cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRAJECTORY -->
 <section data-analytics-section="trajectory" class="traj" id="trajectory" aria-labelledby="traj-h2">
   <div class="wrap">
     <div class="traj-head center reveal">
@@ -836,71 +882,6 @@ Management Considerations:
       </div>
     </div>
     <p class="traj-note">Synthetic demo patient, dated results from the chart text. Trends add context; they never change the level, PREVENT or the actions on their own.</p>
-  </div>
-</section>
-
-<!-- TRY A PLAN -->
-<section data-analytics-section="plan" class="plan" id="plan" aria-labelledby="plan-h2">
-  <div class="wrap">
-    <div class="plan-head center reveal">
-      <span class="eyebrow">Try a plan</span>
-      <h2 class="h2 plan-big" id="plan-h2">What happens if&hellip;</h2>
-      <p class="lede">Start a statin? Bring her blood pressure down? Answer it in the room. Tap an intervention and RCCKM reruns the whole assessment for that scenario.</p>
-    </div>
-
-    <div class="card rp" id="rp">
-      <div class="rp-top">
-        <div><div class="card-eyebrow">PREVENT population model</div><div class="card-title">Risk and plan</div></div>
-        <div class="seg" aria-hidden="true"><span>Today's risk</span><span class="on">Try a plan</span></div>
-      </div>
-      <p class="rp-sub">Tap an intervention and watch the picture change. Each scenario is a full engine run.</p>
-      <div class="chips" role="group" aria-label="Interventions">
-        <button class="lever" type="button" data-lever="statin" aria-pressed="false"><span class="chk">✓</span>Start a statin<sup class="mark" title="Trial-derived treatment effect (CTT Collaboration)">†</sup> <em>&minus;2.8 pts &rarr; 9.4% &middot; 30-yr ASCVD</em></button>
-        <button class="lever" type="button" data-lever="bp" aria-pressed="false"><span class="chk">✓</span>Systolic BP to 120<sup class="mark" title="Trial-derived treatment effect (Ettehad 2016)">†</sup> <em>&minus;1.9 pts &rarr; 10.3% &middot; 30-yr ASCVD</em></button>
-        <button class="lever" type="button" data-lever="a1c" aria-pressed="false"><span class="chk">✓</span>A1c 6.1% &rarr; 5.5%<sup class="mark" title="Recalculated risk factor: PREVENT full model rerun with the new value. A modeled scenario, not a proven treatment effect.">*</sup> <em>&minus;0.5 pts &rarr; 11.7% &middot; 30-yr ASCVD</em></button>
-      </div>
-      <p class="marks"><span title="Today's PREVENT risk with the relative risk reduction seen in trials: CTT Collaboration for LDL-C, Ettehad 2016 for systolic BP."><sup>†</sup> Trial-derived treatment effect</span> &nbsp; <span title="PREVENT full model rerun with the new value. A modeled scenario, not a proven treatment effect."><sup>*</sup> Recalculated risk factor, not a treatment effect</span></p>
-      <div class="summary" id="summary" aria-live="polite"></div>
-      <div class="rp-body">
-        <div>
-          <p class="sentence" id="sentence"></p>
-          <svg class="chart" id="tl" viewBox="0 0 600 270" role="img" aria-label="Cumulative ASCVD risk timeline: 2.1% by age 62 and 12.2% by age 82 today"></svg>
-          <div class="legend"><span><i style="background:var(--muted)"></i>Today</span><span><i style="background:var(--good)"></i>With plan</span></div>
-        </div>
-        <div>
-          <div class="people-box">
-            <h4>100 similar patients over 30 years <small class="people-src">PREVENT model</small></h4>
-            <div class="people" id="people" aria-hidden="true"></div>
-            <div class="people-leg">
-              <span><i style="background:var(--accent)"></i><b id="pl-ev">12</b> may have a heart attack or stroke</span>
-              <span id="pl-pv-row"><i style="background:var(--good)"></i><b id="pl-pv">0</b> fewer with this plan</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <p class="rp-note">Points are PREVENT's 10-year and 30-year estimates; the dotted lines only connect them. The 30-year plan value assumes the treatment effect is sustained. Synthetic demo patient; every value is RCCKM engine output.</p>
-    </div>
-    <span class="autoplay" id="autoplay">Playing a demo. Tap a lever to take over.</span>
-
-    <div class="plan-foot">
-      <div class="reveal">
-        <span class="eyebrow">The real screen</span>
-        <h3>Every lever ranked, every number sourced.</h3>
-        <p class="lede">In the app, levers are ranked by how much they lower 30-year risk. Drag any value, or stack levers to see what they do together.</p>
-        <ul class="ticks">
-          <li><span>🔬</span>LDL-C and systolic BP effects use CTT Collaboration and Ettehad 2016 trial data, cited on screen.</li>
-          <li><span>🔁</span>Other changes rerun the PREVENT equations with the new value.</li>
-          <li><span>🧭</span>Level and actions update for the patient with those values.</li>
-          <li><span>📝</span>One click adds the plan you agree on to the note under "Risk Reduction Discussed", worded as an estimate, not an order.</li>
-        </ul>
-        <p class="fineprint">Modeled estimates for clinician review. A lower modeled value does not establish an individual treatment benefit.</p>
-      </div>
-      <div class="window reveal">
-        <div class="window-bar"><i></i><i></i><i></i><span>Risk and plan</span></div>
-        <img src="assets/landing/app-tryplan.jpg" alt="The app's Risk and plan card: statin and systolic BP 120 selected, each button showing its PREVENT change, timeline showing 30-year ASCVD 12.2% today and 7.9% with the plan, ranked levers with trial sources" width="2336" height="3394" loading="lazy" />
-      </div>
-    </div>
-
   </div>
 </section>
 
@@ -927,7 +908,42 @@ Management Considerations:
   </div>
 </section>
 
-<!-- THE REPORT -->
+<!-- READING THE RESULT -->
+<section data-analytics-section="levels" class="levels" id="levels" aria-labelledby="levels-h2">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow">Reading the result</span>
+      <h2 class="h2" id="levels-h2">A Level names the pattern.</h2>
+      <p class="lede">Every patient lands somewhere on the continuum, with the pattern driving it named. PREVENT supplies the probability; CKM stage, KDIGO and the Risk Signal Score sit alongside it in the report.</p>
+    </div>
+    <div class="card cont" id="cont" aria-label="Risk Continuum: this patient is at Level 3B, Emerging Risk Trajectory, plaque unmeasured">
+      <div class="cont-head">
+        <div><div class="card-eyebrow">Position</div><div class="card-title">Risk Continuum</div></div>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <span class="pill-now">Current: Level 3B</span>
+          <button class="btn btn-ghost btn-sm" id="cont-replay" type="button">↻ Replay</button>
+        </div>
+      </div>
+      <div class="tiles" aria-hidden="true">
+        <div class="walker" id="walker"><span class="here-lbl">YOU ARE HERE</span><svg width="28" height="40" viewBox="0 0 24 34"><circle cx="12" cy="5" r="4.2" fill="#861327"/><path d="M7 11h10a3 3 0 0 1 3 3v8h-3v12h-4v-9h-2v9H7V22H4v-8a3 3 0 0 1 3-3z" fill="#861327"/></svg></div>
+        <div class="tile" style="background:var(--t1); --acc:var(--a1); --d:8px; transition-delay:0s"><i class="dot"></i><div><b>Level 1</b><span>Minimal risk signal</span></div></div>
+        <div class="tile" style="background:var(--t2); --acc:var(--a2); --d:12px; transition-delay:.08s"><i class="dot"></i><div><b>Level 2</b><span>Emerging risk signals</span></div></div>
+        <div class="tile" style="background:var(--t3); --acc:var(--a3); --d:16px; transition-delay:.16s"><i class="dot"></i><div><b>Level 3B</b><span>Emerging Risk Trajectory</span></div><small>Plaque unmeasured</small></div>
+        <div class="tile future" style="background:var(--t4); --acc:var(--a4); --d:20px; transition-delay:.24s"><i class="dot"></i><div><b>Level 4</b><span>Subclinical atherosclerosis present</span></div></div>
+        <div class="tile future" style="background:var(--t5); --acc:var(--a5); --d:24px; transition-delay:.32s"><i class="dot"></i><div><b>Level 5</b><span>Very high risk</span></div></div>
+      </div>
+      <div class="cont-foot"><span>&larr; Lower signal / lower urgency</span><span>Higher signal / higher urgency &rarr;</span></div>
+      <p class="cont-line"><b>Level 3B | Emerging Risk Trajectory.</b> Elevated 30-year trajectory plus actionable biologic burden.</p>
+      <p class="cont-tag"><b>A Level describes the pattern. PREVENT supplies the probability.</b> Every patient gets a Level, including when a PREVENT estimate doesn't apply.</p>
+      <div class="levels-info">
+        <button class="levels-btn" type="button" aria-expanded="false" aria-controls="levels-pop"><span aria-hidden="true">ⓘ</span> How to read the levels</button>
+        <div class="levels-pop" id="levels-pop" role="tooltip">RCCKM brings the patient's findings together into a concise clinical summary. The levels organize the evidence and name the pattern driving the assessment. Formal CKM staging, KDIGO kidney classification and PREVENT risk estimates are reported separately, each using its own framework.<span class="levels-sub"><b>Level 3 has three patterns.</b> 3A, elevated long-term risk trajectory; 3B, Emerging Risk Trajectory; 3C, Converging Risk, when the 3B pattern meets a PREVENT 10-year ASCVD of 5% or more, diabetes, or a kidney finding.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIGNAL SCORE -->
 <section data-analytics-section="report" class="report" id="signal" aria-label="Risk Signal Score">
   <div class="wrap">
 
@@ -948,8 +964,8 @@ Management Considerations:
       </div>
       <div class="rssx-copy">
         <span class="eyebrow">Risk Signal Score</span>
-        <h3>Watch the burden stack up.</h3>
-        <p class="lede">Each contributing signal drops onto the stack and the score counts up by its points. Every patient is drawn on the same unlabeled canvas, so equal points look equal across patients.</p>
+        <h3>Every contributor, counted.</h3>
+        <p class="lede">An ordinal burden score, not a probability: each signal adds its points, so what is driving risk is visible at a glance. <a class="inline-link" href="faq.html#levels-stages-and-risk">How it differs from PREVENT and the Levels &rarr;</a></p>
         <div class="chips" role="tablist" aria-label="Patients" id="rss-chips"></div>
         <p class="fineprint">Synthetic demo patients; contributors and points are RCCKM engine output.</p>
       </div>

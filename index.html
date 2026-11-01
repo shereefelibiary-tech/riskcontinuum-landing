@@ -69,7 +69,14 @@
     .nav-links a { text-decoration: none; font-size: 16px; font-weight: 500; color: var(--muted); white-space: nowrap; transition: color .2s; }
     .nav-links a:hover { color: var(--ink); }
     .nav-cta { display: flex; gap: 10px; }
-    .nav .btn { padding: 11px 20px; font-size: 15px; }
+    .nav .btn { padding: 11px 20px; font-size: 15px; white-space: nowrap; }
+    .nav-menu { display: none; margin-left: auto; }
+    .nav-menu > summary { min-height: 44px; padding: 9px 16px; border: 1px solid var(--line-2); border-radius: 999px; background: var(--surface); color: var(--ink); font-size: 15px; font-weight: 600; list-style: none; cursor: pointer; }
+    .nav-menu > summary::-webkit-details-marker { display: none; }
+    .nav-menu > summary:focus-visible, .nav-menu a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+    .nav-menu nav { position: absolute; top: calc(100% + 8px); right: 32px; width: min(280px, calc(100vw - 32px)); padding: 8px; border: 1px solid var(--line-2); border-radius: 16px; background: var(--surface); box-shadow: var(--shadow-lift); }
+    .nav-menu nav a { display: flex; align-items: center; min-height: 44px; padding: 10px 14px; border-radius: 10px; text-decoration: none; font-size: 16px; color: var(--body); }
+    .nav-menu nav a:hover { background: var(--garnet-soft); color: var(--accent); }
 
     /* HERO */
     .hero { padding: 90px 0 110px; overflow: hidden; }
@@ -87,6 +94,9 @@
     .hero .lede { margin: 24px auto 0; text-align: center; max-width: 56ch; }
     .hero-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 36px; }
     .hero-meta { margin-top: 20px; font-size: 15px; color: var(--muted); }
+    .hero-access { margin-top: 10px; font-size: 15px; color: var(--muted); }
+    .hero-access a { color: var(--accent); text-underline-offset: 3px; }
+    .copy-status { min-height: 1.5em; padding: 0 28px 16px; font-size: 14px; color: var(--muted); }
 
     /* Continuum (recreates the app's Position card) */
     .cont { position: relative; max-width: 1136px; margin: 70px auto 0; padding: 30px 34px; }
@@ -379,9 +389,10 @@
       .walker.hop svg, .people svg.pv { animation: none; }
     }
 
-    /* Five links plus two buttons need about 1180px; hide the links below that instead of wrapping. */
+    /* Keep all section links available through a compact menu on smaller screens. */
     @media (max-width: 1180px) {
       .nav-links { display: none; }
+      .nav-menu { display: block; }
     }
     @media (max-width: 1020px) {
       .plan-foot, .note-row, .sdm-top, .report-head, .sdm-shots, .rp-body, .founder-grid, .rssx { grid-template-columns: minmax(0, 1fr); gap: 36px; }
@@ -396,10 +407,11 @@
     @media (max-width: 720px) {
       body { font-size: 17px; }
       .wrap { padding: 0 16px; }
-      .nav .wrap { height: 64px; }
+      .nav .wrap { height: 64px; gap: 10px; }
       .nav-logo .logo { width: 132px; }
       .nav .btn { padding: 9px 14px; font-size: 14px; }
       .nav-cta .btn-ghost { display: none; }
+      .nav-menu nav { right: 16px; }
       .hero { padding: 56px 0 84px; }
       .hero-lockup { flex-direction: column; gap: 16px; }
       .hero-mark { width: 220px; }
@@ -428,10 +440,18 @@
       .spark-grid { grid-template-columns: minmax(0, 1fr); }
       .spark.big { grid-column: auto; grid-row: auto; }
       .rp { padding: 22px 16px; }
+      .lever { width: 100%; max-width: 100%; flex-wrap: wrap; row-gap: 4px; text-align: left; }
+      .lever em { flex-basis: 100%; white-space: normal; }
+      .cta-mark { max-width: 100%; }
       .sdm-cards, .sections, .who-grid, .how-grid { grid-template-columns: 1fr; }
       .demo-panel { grid-template-columns: 1fr; }
       .pt { border-right: none; border-bottom: 1px solid var(--line); }
       footer .wrap { grid-template-columns: 1fr; gap: 24px; }
+    }
+    @media (max-width: 400px) {
+      .nav-logo .logo { width: clamp(88px, 25vw, 100px); }
+      .nav .wrap { gap: 8px; }
+      .nav .btn, .nav-menu > summary { padding-left: 12px; padding-right: 12px; }
     }
   </style>
 </head>
@@ -459,6 +479,18 @@
       <li><a href="#founder">Founder</a></li>
       <li><a href="faq.html">FAQs</a></li>
     </ul>
+    <details class="nav-menu">
+      <summary>Menu</summary>
+      <nav aria-label="Page sections">
+        <a href="#trajectory">Trajectory</a>
+        <a href="#plan">Try a plan</a>
+        <a href="#decide">Shared decisions</a>
+        <a href="#report">The report</a>
+        <a href="#demo">Sample notes</a>
+        <a href="#founder">Founder</a>
+        <a href="faq.html">FAQs</a>
+      </nav>
+    </details>
     <div class="nav-cta">
       <a href="https://app.riskcontinuum.health/" class="btn btn-ghost">Open app</a>
       <a href="https://app.riskcontinuum.health/sign-up" class="btn btn-primary">Get started</a>
@@ -485,6 +517,7 @@
         <a href="#plan" class="btn btn-ghost">Watch a plan bend the curve &darr;</a>
       </div>
       <p class="hero-meta">38 synthetic demo cases to try &middot; SmartPhrase template &middot; Paste from any EMR</p>
+      <p class="hero-access">Free clinician account for the workspace &middot; <a href="#demo">Preview a sample note here</a></p>
     </div>
 
     <div class="card cont" id="cont" aria-label="Risk Continuum: this patient is at Level 3B, Emerging Risk Trajectory, plaque unmeasured">
@@ -521,12 +554,12 @@
       <div class="stat">
         <div class="stat-num">90%</div>
         <p>of U.S. adults meet criteria for CKM syndrome. Nearly half are at stage 2, with metabolic risk factors or kidney disease, where prevention has the most room to work.</p>
-        <cite>Aggarwal et al., <a href="https://doi.org/10.1001/jama.2024.6892" target="_blank" rel="noopener">JAMA, 2024</a></cite>
+        <cite>Aggarwal et al., <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11079779/" target="_blank" rel="noopener">JAMA, 2024</a></cite>
       </div>
       <div class="stat">
         <div class="stat-num">15 min</div>
         <p>is the median primary care visit. The evidence is ready; bringing the whole cardiometabolic picture together in that time is the opportunity.</p>
-        <cite>Neprash et al., <a href="https://doi.org/10.1097/MLR.0000000000001450" target="_blank" rel="noopener">Medical Care, 2021</a></cite>
+        <cite>Neprash et al., <a href="https://pubmed.ncbi.nlm.nih.gov/33301282/" target="_blank" rel="noopener">Medical Care, 2021</a></cite>
       </div>
       <div class="stat">
         <div class="stat-num">47%</div>
@@ -730,7 +763,7 @@
 </section>
 
 <!-- LIVE DEMO -->
-<section data-analytics-section="demo" class="demo" aria-labelledby="demo-h2">
+<section data-analytics-section="demo" class="demo" id="demo" aria-labelledby="demo-h2">
   <div class="wrap">
     <div class="demo-head reveal">
       <span class="eyebrow">Try it here</span>
@@ -762,7 +795,8 @@
       </aside>
       <div class="note" id="note">
         <div class="note-top"><span>Clinical report &middot; ready to paste</span><button class="copy" id="copy" type="button">Copy</button></div>
-        <pre id="note-body"></pre>
+        <pre id="note-body" tabindex="0" aria-label="Synthetic sample clinical note"></pre>
+        <p class="copy-status" id="copy-status" role="status" aria-live="polite"></p>
       </div>
     </div>
   </div>
@@ -898,6 +932,17 @@
     // Show the nav logo only after the hero logo scrolls out of view
     var navEl = document.querySelector(".nav"), heroLockup = document.querySelector(".hero-lockup");
     new IntersectionObserver(function (es) { navEl.classList.toggle("show-logo", !es[0].isIntersecting); }, { rootMargin: "-80px 0px 0px 0px" }).observe(heroLockup);
+
+    var navMenu = document.querySelector(".nav-menu"), navSummary = navMenu.querySelector("summary");
+    navMenu.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", function () { navMenu.open = false; });
+    });
+    document.addEventListener("click", function (event) {
+      if (!navMenu.contains(event.target)) navMenu.open = false;
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && navMenu.open) { navMenu.open = false; navSummary.focus(); }
+    });
 
     // Reveal on scroll
     var io = new IntersectionObserver(function (entries) {
@@ -1212,9 +1257,16 @@
     var dTiles = document.querySelectorAll("#demo-cont .tile"), dWalker = document.getElementById("demo-walker");
     var dDefaults = Array.prototype.map.call(dTiles, function (t) { return [t.querySelector("b").textContent, t.querySelector("span").textContent]; });
     var pchips = document.querySelectorAll(".demo .pchip"), note = document.getElementById("note"), body = document.getElementById("note-body"), copy = document.getElementById("copy");
+    var copyStatus = document.getElementById("copy-status"), copyTimer, noteTimer, copyEpoch = 0;
     function esc(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
     function show(i) {
       var p = patients[i];
+      clearTimeout(copyTimer);
+      clearTimeout(noteTimer);
+      copyEpoch++;
+      copy.disabled = true;
+      copy.textContent = "Copy";
+      copyStatus.textContent = "";
       // As in the app's continuum: a sublevel (e.g. 3B) brings its own name; otherwise the level keeps its standard name.
       var m = p.label.match(/Level (\d)([A-C]?)/), lvl = parseInt(m[1], 10) - 1, parts = p.label.split(" · ");
       dTiles.forEach(function (t, j) {
@@ -1234,18 +1286,38 @@
         return "<div><span>" + esc(kv[0]) + "</span><b" + (p.flags.indexOf(j) !== -1 ? ' class="flag"' : "") + ">" + esc(kv[1]) + "</b></div>";
       }).join("");
       note.classList.add("loading");
-      setTimeout(function () {
+      noteTimer = setTimeout(function () {
         body.innerHTML = esc(p.note).replace(/\[k\]/g, '<span class="k">').replace(/\[\/k\]/g, "</span>");
         note.classList.remove("loading");
+        copy.disabled = false;
       }, reduced ? 0 : 260);
       pchips.forEach(function (c, j) { c.classList.toggle("is-on", j === i); c.setAttribute("aria-selected", j === i ? "true" : "false"); });
       copy.dataset.text = p.note.replace(/\[\/?k\]/g, "");
     }
     pchips.forEach(function (c) { c.addEventListener("click", function () { show(parseInt(c.dataset.p, 10)); }); });
-    copy.addEventListener("click", function () {
-      if (navigator.clipboard) navigator.clipboard.writeText(copy.dataset.text || "");
-      copy.textContent = "Copied";
-      setTimeout(function () { copy.textContent = "Copy"; }, 1400);
+    copy.addEventListener("click", async function () {
+      clearTimeout(copyTimer);
+      var epoch = copyEpoch;
+      copy.disabled = true;
+      copyStatus.textContent = "";
+      try {
+        if (!navigator.clipboard || typeof navigator.clipboard.writeText !== "function") throw new Error("Clipboard unavailable");
+        await navigator.clipboard.writeText(copy.dataset.text || "");
+        if (epoch !== copyEpoch) return;
+        copy.textContent = "Copied";
+        copyStatus.textContent = "Sample note copied.";
+        copyTimer = setTimeout(function () { copy.textContent = "Copy"; copyStatus.textContent = ""; }, 3000);
+      } catch (_) {
+        if (epoch !== copyEpoch) return;
+        copy.textContent = "Copy";
+        copyStatus.textContent = "Automatic copy is unavailable. The note is selected; use your browser's Copy command.";
+        body.focus({ preventScroll: true });
+        var selection = window.getSelection(), range = document.createRange();
+        range.selectNodeContents(body);
+        if (selection) { selection.removeAllRanges(); selection.addRange(range); }
+      } finally {
+        if (epoch === copyEpoch) copy.disabled = false;
+      }
     });
     show(0);
   })();

@@ -517,6 +517,8 @@
     .pilot p { font-size: 17px; color: var(--body); }
     .pilot b { color: var(--ink); }
     .pilot a { color: var(--accent); font-weight: 600; }
+    .pilot:has(form) { align-items: flex-start; width: min(640px, 100%); }
+    .pilot-body { flex: 1; min-width: 0; }
     footer nav a { text-decoration: none; color: var(--body); }
     footer nav a:hover { color: var(--accent); }
 
@@ -1091,7 +1093,20 @@ Management Considerations:
     <p class="privacy-note"><span aria-hidden="true">🔒</span> De-identified chart text only. It&rsquo;s processed to run the assessment and not saved.</p>
     <div class="pilot" id="pilot">
       <span class="pilot-em">🏥</span>
-      <p><b>Health systems and practices:</b> we're exploring pilot partnerships. If you'd like to evaluate RCCKM with your team, get in touch at <a href="mailto:shereef@riskcontinuum.health?subject=RCCKM%20pilot">shereef@riskcontinuum.health</a>.</p>
+      <div class="pilot-body">
+        <p><b>Health systems and practices:</b> we're exploring pilot partnerships. If you'd like to evaluate RCCKM with your team, send us a note, or email <a href="mailto:shereef@riskcontinuum.health?subject=RCCKM%20pilot">shereef@riskcontinuum.health</a>.</p>
+        <form class="msg-form" data-kind="contact" novalidate>
+          <div class="msg-row">
+            <label><span>Name</span><input name="name" autocomplete="name" maxlength="120"></label>
+            <label><span>Work email</span><input name="email" type="email" autocomplete="email" maxlength="254" required></label>
+          </div>
+          <label><span>Organization <em>(optional)</em></span><input name="organization" autocomplete="organization" maxlength="160"></label>
+          <label><span>Message</span><textarea name="message" rows="4" maxlength="4000" required></textarea></label>
+          <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <p class="msg-note">Please don&rsquo;t include patient information.</p>
+          <div class="msg-foot"><p class="msg-status" role="status" aria-live="polite"></p><button type="submit">Send</button></div>
+        </form>
+      </div>
     </div>
   </div>
 </section>
@@ -1109,7 +1124,7 @@ Management Considerations:
       <p class="foot-pilot">For health systems: <a href="mailto:shereef@riskcontinuum.health?subject=RCCKM%20pilot">ask about a pilot</a></p>
     </div>
     <div>
-      <nav aria-label="Footer"><a href="faq.html">FAQs</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="mailto:shereef@riskcontinuum.health">Contact</a></nav>
+      <nav aria-label="Footer"><a href="faq.html">FAQs</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="mailto:shereef@riskcontinuum.health">Contact</a><a href="#feedback" data-feedback>Feedback</a></nav>
       <p style="margin-top:14px">&copy; 2026 Risk Continuum CKM</p>
     </div>
   </div>
@@ -1593,6 +1608,7 @@ Management Considerations:
   })();
 </script>
 <script src="contact.js" defer></script>
+<script src="forms.js" defer></script>
 <script src="rcckm-analytics.js" defer></script>
 </body>
 </html>

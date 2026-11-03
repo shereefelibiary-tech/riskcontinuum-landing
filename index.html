@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Risk Continuum CKM</title>
-  <meta name="description" content="See where your patient stands on the cardiometabolic risk continuum, see where their numbers are heading, try a plan together and watch the risk curve bend. Then leave with an EMR-ready note and a patient roadmap. Built by a practicing internist." />
+  <meta name="description" content="A clinical decision-support engine for primary care. Explore modeled prevention benefit, review the clinical note, and discuss a pilot or platform evaluation with Risk Continuum CKM." />
   <meta name="theme-color" content="#F8F5F3" />
   <link rel="icon" href="assets/brand/risk-continuum/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="assets/brand/risk-continuum/favicon-32.png" sizes="32x32" type="image/png" />
@@ -218,6 +218,18 @@
     .nav-menu nav { position: absolute; top: calc(100% + 8px); right: 32px; width: min(280px, calc(100vw - 32px)); padding: 8px; border: 1px solid var(--line-2); border-radius: 16px; background: var(--surface); box-shadow: var(--shadow-lift); }
     .nav-menu nav a { display: flex; align-items: center; min-height: 44px; padding: 10px 14px; border-radius: 10px; text-decoration: none; font-size: 16px; color: var(--body); }
     .nav-menu nav a:hover { background: var(--garnet-soft); color: var(--accent); }
+
+    /* Pilot evaluation */
+    .pilot-section { padding: 24px 0 72px; scroll-margin-top: 100px; }
+    .pilot-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 44px; align-items: start; }
+    .pilot-copy { padding-top: 16px; }
+    .pilot-copy > p + p { margin-top: 18px; }
+    .pilot-section .pilot { margin-top: 0; width: 100%; max-width: none; }
+    .pilot-section h3 { font-size: 24px; margin-bottom: 8px; }
+    @media (max-width: 900px) {
+      .pilot-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+      .pilot-section { padding-bottom: 48px; }
+    }
 
     /* HERO */
     .hero { padding: 90px 0 56px; overflow: hidden; }
@@ -467,7 +479,7 @@
 
     /* HOW / WHO */
     .who { padding: 60px 0 130px; }
-    .who-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-top: 44px; }
+    .who-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 44px; }
     .who-card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 24px 22px; }
     .who-card .em { font-size: 30px; }
     .who-card h3 { font-size: 20px; margin: 12px 0 6px; }
@@ -628,8 +640,8 @@
         <a href="#walkthrough">See it run</a>
         <a href="#trajectory">Trajectory</a>
         <a href="#decide">Shared decisions</a>
-        <a href="#levels">Reading the result</a>
-        <a href="#signal">Signal score</a>
+        <a href="faq.html#rcckm-categories">Category patterns</a>
+        <a href="faq.html#risk-signal-score">Signal score</a>
         <a href="#demo">Sample notes</a>
         <a href="#founder">Founder</a>
         <a href="#pilot">Health systems</a>
@@ -637,8 +649,8 @@
       </nav>
     </details>
     <div class="nav-cta">
-      <a href="https://app.riskcontinuum.health/" class="btn btn-ghost">Open app</a>
-      <a href="https://app.riskcontinuum.health/sign-up" class="btn btn-primary">Get started</a>
+      <a href="https://app.riskcontinuum.health/" class="btn btn-ghost">Development access</a>
+      <a href="#pilot" class="btn btn-primary">Discuss a pilot</a>
     </div>
   </div>
 </header>
@@ -650,20 +662,20 @@
       <div class="hero-lockup">
         <svg class="logo hero-mark" viewBox="0 0 900 300" role="img" aria-label="Risk Continuum Health"><use href="#rc-logo"/></svg>
         <p class="lockup-text">
-          <span class="lockup-name">CKM prevention interpretation</span>
+          <span class="lockup-name">Primary care prevention</span>
           <span class="lockup-ckm"><b>C</b>ardiovascular &middot; <b>K</b>idney &middot; <b>M</b>etabolic</span>
         </p>
       </div>
-      <h1 id="hero-h1">Every patient carries a <span class="soft">risk story.</span></h1>
-      <p class="sub">Risk Continuum helps them tell it.</p>
-      <p class="lede">See where your patient stands, where their numbers are heading, and what a plan would change.</p>
+      <h1 id="hero-h1">Make prevention <span class="soft">visible.</span></h1>
+      <p class="sub">A clinical decision-support engine built for primary care.</p>
+      <p class="lede">Explore what a prevention plan could change, share the modeled benefit with your patient, and carry the conversation into the note.</p>
       <div class="hero-ctas">
-        <a href="https://app.riskcontinuum.health/" class="btn btn-primary">Start RCCKM Assessment</a>
-        <a href="#plan" class="btn btn-ghost">Watch a plan bend the curve &darr;</a>
+        <a href="#pilot" class="btn btn-primary">Discuss a pilot</a>
+        <a href="#plan" class="btn btn-ghost">Try the simulator &darr;</a>
       </div>
-      <p class="hero-meta">38 synthetic demo cases to try &middot; SmartPhrase template &middot; Paste from any EMR</p>
-      <p class="privacy-note"><span aria-hidden="true">🔒</span> De-identified chart text only. It&rsquo;s processed to run the assessment and not saved.</p>
-      <p class="hero-access">Free clinician account for the workspace &middot; <a href="#demo">Preview a sample note here</a></p>
+      <p class="hero-meta">Synthetic case demos &middot; Auditable calculations &middot; Clinician-reviewed output</p>
+      <p class="privacy-note"><span aria-hidden="true">🔒</span> Explore with synthetic cases. Do not enter names, dates of birth, MRNs or other patient identifiers.</p>
+      <p class="hero-access"><a href="#demo">Preview a sample clinical note</a> &middot; <a href="faq.html#emr-workflow">Explore the workflow</a></p>
     </div>
 
   </div>
@@ -844,7 +856,38 @@ Management Considerations:
 <script type="application/json" id="wt-combos">{"order": ["bp", "intensify", "uacr", "a1c"], "combos": {"bp": {"t10": "9.9%", "t30": "26.6%", "note": "Systolic BP 120 mmHg: modeled PREVENT ASCVD 10y 14.5% → 9.9%, 30y 37.1% → 26.6% (trial-based estimate; not a treatment order)."}, "intensify": {"t10": "12.2%", "t30": "31.9%", "note": "High-intensity statin: modeled PREVENT ASCVD 10y 14.5% → 12.2%, 30y 37.1% → 31.9% (trial-based estimate; not a treatment order)."}, "uacr": {"t10": "11.6%", "t30": "34.7%", "note": "UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 11.6%, 30y 37.1% → 34.7% (model-based estimate; not a treatment order)."}, "a1c": {"t10": "13.8%", "t30": "36.2%", "note": "A1c 7.0%: modeled PREVENT ASCVD 10y 14.5% → 13.8%, 30y 37.1% → 36.2% (model-based estimate; not a treatment order)."}, "bp,intensify": {"t10": "8.3%", "t30": "22.7%", "note": "High-intensity statin and systolic BP 120 mmHg: modeled PREVENT ASCVD 10y 14.5% → 8.3%, 30y 37.1% → 22.7% (trial-based estimate; not a treatment order)."}, "bp,uacr": {"t10": "7.9%", "t30": "24.8%", "note": "Systolic BP 120 mmHg and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 7.9%, 30y 37.1% → 24.8% (trial- and model-based estimate; not a treatment order)."}, "bp,a1c": {"t10": "9.5%", "t30": "26.0%", "note": "Systolic BP 120 mmHg and A1c 7.0%: modeled PREVENT ASCVD 10y 14.5% → 9.5%, 30y 37.1% → 26.0% (trial- and model-based estimate; not a treatment order)."}, "intensify,uacr": {"t10": "9.7%", "t30": "29.8%", "note": "High-intensity statin and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 9.7%, 30y 37.1% → 29.8% (trial- and model-based estimate; not a treatment order)."}, "intensify,a1c": {"t10": "11.6%", "t30": "31.2%", "note": "High-intensity statin and A1c 7.0%: modeled PREVENT ASCVD 10y 14.5% → 11.6%, 30y 37.1% → 31.2% (trial- and model-based estimate; not a treatment order)."}, "uacr,a1c": {"t10": "11.1%", "t30": "33.9%", "note": "A1c 7.0% and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 11.1%, 30y 37.1% → 33.9% (model-based estimate; not a treatment order)."}, "bp,intensify,uacr": {"t10": "6.6%", "t30": "21.1%", "note": "High-intensity statin, systolic BP 120 mmHg and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 6.6%, 30y 37.1% → 21.1% (trial- and model-based estimate; not a treatment order)."}, "bp,intensify,a1c": {"t10": "7.9%", "t30": "22.1%", "note": "High-intensity statin, systolic BP 120 mmHg and A1c 7.0%: modeled PREVENT ASCVD 10y 14.5% → 7.9%, 30y 37.1% → 22.1% (trial- and model-based estimate; not a treatment order)."}, "bp,uacr,a1c": {"t10": "7.5%", "t30": "24.2%", "note": "Systolic BP 120 mmHg, A1c 7.0% and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 7.5%, 30y 37.1% → 24.2% (trial- and model-based estimate; not a treatment order)."}, "intensify,uacr,a1c": {"t10": "9.3%", "t30": "29.1%", "note": "High-intensity statin, A1c 7.0% and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 9.3%, 30y 37.1% → 29.1% (trial- and model-based estimate; not a treatment order)."}, "bp,intensify,uacr,a1c": {"t10": "6.3%", "t30": "20.5%", "note": "High-intensity statin, systolic BP 120 mmHg, A1c 7.0% and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 6.3%, 30y 37.1% → 20.5% (trial- and model-based estimate; not a treatment order)."}}}</script></div></div>
       </div>
     </div>
-    <p class="wt-src">Synthetic patient, 58M. Every value, level, code and sentence shown is RCCKM engine output for this chart text. Modeled plan estimates are for clinician review, not treatment orders.</p>
+    <p class="wt-src">Synthetic patient, 58M, category 3C (Converging Risk). The simulator above uses a different patient, 52F, category 3B (Emerging Risk Trajectory). Each sample retains its engine-assigned Level label. Modeled plan estimates are for clinician review, not treatment orders.</p>
+  </div>
+</section>
+
+<!-- PILOT EVALUATION -->
+<section data-analytics-section="cta" class="pilot-section" id="pilot" aria-labelledby="pilot-h2">
+  <div class="wrap pilot-grid">
+    <div class="pilot-copy">
+      <span class="eyebrow">Primary care pilots</span>
+      <h2 class="h2" id="pilot-h2">Help evaluate prevention in the visit.</h2>
+      <p class="lede">We're seeking primary care practices and health systems to evaluate RCCKM's simulator, clinical note and patient handout.</p>
+      <p>For platform teams, let's explore how the engine could support your existing workflow.</p>
+      <p class="fineprint">Start with a 15-minute synthetic-case demonstration. Clinical pilots and integrations require separate institutional approvals and agreements.</p>
+    </div>
+    <div class="pilot">
+      <span class="pilot-em">🏥</span>
+      <div class="pilot-body">
+        <h3>Tell us about your team.</h3>
+        <p>Send a note, or email <a href="mailto:shereef@riskcontinuum.health?subject=RCCKM%20pilot">shereef@riskcontinuum.health</a>.</p>
+        <form class="msg-form" data-kind="contact" novalidate>
+          <div class="msg-row">
+            <label><span>Name</span><input name="name" autocomplete="name" maxlength="120"></label>
+            <label><span>Work email</span><input name="email" type="email" autocomplete="email" maxlength="254" required></label>
+          </div>
+          <label><span>Organization <em>(optional)</em></span><input name="organization" autocomplete="organization" maxlength="160"></label>
+          <label><span>Message</span><textarea name="message" rows="4" maxlength="4000" required></textarea></label>
+          <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <p class="msg-note">Please don&rsquo;t include patient information.</p>
+          <div class="msg-foot"><p class="msg-status" role="status" aria-live="polite"></p><button type="submit">Send</button></div>
+        </form>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -915,79 +958,13 @@ Management Considerations:
   </div>
 </section>
 
-<!-- READING THE RESULT -->
-<section data-analytics-section="levels" class="levels" id="levels" aria-labelledby="levels-h2">
-  <div class="wrap">
-    <div class="center reveal">
-      <span class="eyebrow">Reading the result</span>
-      <h2 class="h2" id="levels-h2">A Level names the pattern.</h2>
-      <p class="lede">Every patient lands somewhere on the continuum, with the pattern driving it named. PREVENT supplies the probability; CKM stage, KDIGO and the Risk Signal Score sit alongside it in the report.</p>
-    </div>
-    <div class="card cont" id="cont" aria-label="Risk Continuum: this patient is at Level 3B, Emerging Risk Trajectory, plaque unmeasured">
-      <div class="cont-head">
-        <div><div class="card-eyebrow">Position</div><div class="card-title">Risk Continuum</div></div>
-        <div style="display:flex; gap:10px; align-items:center;">
-          <span class="pill-now">Current: Level 3B</span>
-          <button class="btn btn-ghost btn-sm" id="cont-replay" type="button">↻ Replay</button>
-        </div>
-      </div>
-      <div class="tiles" aria-hidden="true">
-        <div class="walker" id="walker"><span class="here-lbl">YOU ARE HERE</span><svg width="28" height="40" viewBox="0 0 24 34"><circle cx="12" cy="5" r="4.2" fill="#861327"/><path d="M7 11h10a3 3 0 0 1 3 3v8h-3v12h-4v-9h-2v9H7V22H4v-8a3 3 0 0 1 3-3z" fill="#861327"/></svg></div>
-        <div class="tile" style="background:var(--t1); --acc:var(--a1); --d:8px; transition-delay:0s"><i class="dot"></i><div><b>Level 1</b><span>Minimal risk signal</span></div></div>
-        <div class="tile" style="background:var(--t2); --acc:var(--a2); --d:12px; transition-delay:.08s"><i class="dot"></i><div><b>Level 2</b><span>Emerging risk signals</span></div></div>
-        <div class="tile" style="background:var(--t3); --acc:var(--a3); --d:16px; transition-delay:.16s"><i class="dot"></i><div><b>Level 3B</b><span>Emerging Risk Trajectory</span></div><small>Plaque unmeasured</small></div>
-        <div class="tile future" style="background:var(--t4); --acc:var(--a4); --d:20px; transition-delay:.24s"><i class="dot"></i><div><b>Level 4</b><span>Subclinical atherosclerosis present</span></div></div>
-        <div class="tile future" style="background:var(--t5); --acc:var(--a5); --d:24px; transition-delay:.32s"><i class="dot"></i><div><b>Level 5</b><span>Very high risk</span></div></div>
-      </div>
-      <div class="cont-foot"><span>&larr; Lower signal / lower urgency</span><span>Higher signal / higher urgency &rarr;</span></div>
-      <p class="cont-line"><b>Level 3B | Emerging Risk Trajectory.</b> Elevated 30-year trajectory plus actionable biologic burden.</p>
-      <p class="cont-tag"><b>A Level describes the pattern. PREVENT supplies the probability.</b> Every patient gets a Level, including when a PREVENT estimate doesn't apply.</p>
-      <div class="levels-info">
-        <button class="levels-btn" type="button" aria-expanded="false" aria-controls="levels-pop"><span aria-hidden="true">ⓘ</span> How to read the levels</button>
-        <div class="levels-pop" id="levels-pop" role="tooltip">RCCKM brings the patient's findings together into a concise clinical summary. The levels organize the evidence and name the pattern driving the assessment. Formal CKM staging, KDIGO kidney classification and PREVENT risk estimates are reported separately, each using its own framework.<span class="levels-sub"><b>Level 3 has three patterns.</b> 3A, elevated long-term risk trajectory; 3B, Emerging Risk Trajectory; 3C, Converging Risk, when the 3B pattern meets a PREVENT 10-year ASCVD of 5% or more, diabetes, or a kidney finding.</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SIGNAL SCORE -->
-<section data-analytics-section="report" class="report" id="signal" aria-label="Risk Signal Score">
-  <div class="wrap">
-
-    <div class="rssx reveal">
-      <div class="card rss-card" id="rss">
-        <div class="rss-head">
-          <div><div class="card-eyebrow">Signal burden</div><div class="card-title">Risk Signal Score</div></div>
-          <div class="rss-score"><button class="btn btn-ghost btn-sm" id="rss-replay" type="button">↻ Replay</button><span class="rss-num" id="rss-num" aria-live="polite">0</span><span class="rss-pill" id="rss-pill"></span></div>
-        </div>
-        <div class="rss-body">
-          <div class="tower" id="tower" role="img" aria-label=""></div>
-          <div>
-            <div class="rss-sub">Signal contributors</div>
-            <div id="contribs"></div>
-            <p class="rss-note">Ordinal burden score, not an event probability. Displayed RSS equals the sum of the contributors shown.</p>
-          </div>
-        </div>
-      </div>
-      <div class="rssx-copy">
-        <span class="eyebrow">Risk Signal Score</span>
-        <h3>Every contributor, counted.</h3>
-        <p class="lede">An ordinal burden score, not a probability: each signal adds its points, so what is driving risk is visible at a glance. <a class="inline-link" href="faq.html#levels-stages-and-risk">How it differs from PREVENT and the Levels &rarr;</a></p>
-        <div class="chips" role="tablist" aria-label="Patients" id="rss-chips"></div>
-        <p class="fineprint">Synthetic demo patients; contributors and points are RCCKM engine output.</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
 <!-- LIVE DEMO -->
 <section data-analytics-section="demo" class="demo" id="demo" aria-labelledby="demo-h2">
   <div class="wrap">
     <div class="demo-head reveal">
       <span class="eyebrow">Try it here</span>
       <h2 class="h2" id="demo-h2">Pick a patient. Read the note RCCKM wrote.</h2>
-      <p class="lede">Four synthetic demo patients, from a clean prevention visit to very high plaque burden on a statin. Each note is the engine's own output.</p>
+      <p class="lede">Four synthetic demo patients, each with its own engine-generated note. RCCKM categories describe the clinical pattern; PREVENT supplies the probability. <a href="faq.html#rcckm-categories">Read the category guide</a>.</p>
     </div>
     <div class="chips" role="tablist" aria-label="Demo patients">
       <button class="pchip is-on" data-p="0" role="tab" type="button">🌱 34F &middot; clean visit</button>
@@ -1000,7 +977,7 @@ Management Considerations:
         <div class="walker" id="demo-walker"><span class="here-lbl">YOU ARE HERE</span><svg width="28" height="40" viewBox="0 0 24 34"><circle cx="12" cy="5" r="4.2" fill="#861327"/><path d="M7 11h10a3 3 0 0 1 3 3v8h-3v12h-4v-9h-2v9H7V22H4v-8a3 3 0 0 1 3-3z" fill="#861327"/></svg></div>
         <div class="tile" style="background:var(--t1); --acc:var(--a1); --d:8px"><i class="dot"></i><div><b>Level 1</b><span>Minimal risk signal</span></div></div>
         <div class="tile" style="background:var(--t2); --acc:var(--a2); --d:12px"><i class="dot"></i><div><b>Level 2</b><span>Emerging risk signals</span></div></div>
-        <div class="tile" style="background:var(--t3); --acc:var(--a3); --d:16px"><i class="dot"></i><div><b>Level 3</b><span>Actionable biologic risk</span></div></div>
+        <div class="tile" style="background:var(--t3); --acc:var(--a3); --d:16px"><i class="dot"></i><div><b>Levels 3A&ndash;3C</b><span>Three category patterns</span></div></div>
         <div class="tile" style="background:var(--t4); --acc:var(--a4); --d:20px"><i class="dot"></i><div><b>Level 4</b><span>Subclinical atherosclerosis present</span></div></div>
         <div class="tile" style="background:var(--t5); --acc:var(--a5); --d:24px"><i class="dot"></i><div><b>Level 5</b><span>Very high risk</span></div></div>
       </div>
@@ -1025,13 +1002,11 @@ Management Considerations:
 <section data-analytics-section="who" class="who" aria-labelledby="who-h2">
   <div class="wrap">
     <span class="eyebrow">Who it's for</span>
-    <h2 class="h2" id="who-h2">Built for every clinician in the CKM space.</h2>
+    <h2 class="h2" id="who-h2">Built for primary care prevention.</h2>
     <div class="who-grid">
       <div class="who-card reveal"><div class="em">🩺</div><h3>Internal Medicine</h3><p>Sort out which intervention to prioritize in complex patients.</p></div>
       <div class="who-card reveal"><div class="em">🏥</div><h3>Family Medicine</h3><p>Follow each patient's trajectory visit after visit.</p></div>
-      <div class="who-card reveal"><div class="em">❤️</div><h3>Cardiology</h3><p>See the metabolic, kidney, lipid and plaque drivers upstream.</p></div>
-      <div class="who-card reveal"><div class="em">🫘</div><h3>Nephrology</h3><p>Kidney function, albuminuria and CV risk in one frame.</p></div>
-      <div class="who-card reveal"><div class="em">🩸</div><h3>Endocrinology</h3><p>Diabetes care with heart and kidney risk in view.</p></div>
+      <div class="who-card reveal"><div class="em">🤝</div><h3>Primary care teams</h3><p>Share the modeled benefit, review the note, and leave with a patient handout.</p></div>
     </div>
   </div>
 </section>
@@ -1045,7 +1020,8 @@ Management Considerations:
       <a class="btn btn-ghost" href="faq.html">Read the FAQs <span aria-hidden="true">&rarr;</span></a>
     </div>
     <div class="faq-preview-list">
-      <div><h3><a href="faq.html#levels-stages-and-risk">Where do the risk estimates come from?</a></h3><p>PREVENT supplies event probabilities for eligible patients. RCCKM levels and the Risk Signal Score organize clinical findings separately.</p></div>
+      <div id="levels"><h3><a href="faq.html#rcckm-categories">What do the RCCKM categories mean?</a></h3><p>Each category names a clinical pattern. The guide explains 3A, 3B and 3C alongside the other categories and the separate CKM, KDIGO and PREVENT frameworks.</p></div>
+      <div id="signal"><h3><a href="faq.html#risk-signal-score">What does the Risk Signal Score add?</a></h3><p>Read how the ordinal score makes its contributors visible and how to interpret it alongside PREVENT.</p></div>
       <div><h3><a href="faq.html#simulator-method">What does the simulator bring to the conversation?</a></h3><p>Explore options together using trial-derived LDL-C and blood pressure effects and supported PREVENT recalculations, with the methods in view.</p></div>
       <div><h3><a href="faq.html#validation-status">What supports the platform?</a></h3><p>Published equations and clinical frameworks underpin the assessment. Software checks and synthetic-case testing support development, with independent clinical evaluation as the next step.</p></div>
     </div>
@@ -1081,33 +1057,17 @@ Management Considerations:
 </section>
 
 <!-- CTA -->
-<section data-analytics-section="cta" class="cta" aria-labelledby="cta-h2">
+<section class="cta" aria-labelledby="cta-h2">
   <div class="wrap">
     <svg class="logo cta-mark" viewBox="0 0 900 300" aria-hidden="true"><use href="#rc-logo"/></svg>
-    <h2 id="cta-h2">See it on your next patient.</h2>
-    <p class="lede">Paste de-identified chart text or enter values in the worksheet. Want a quick look first? Try one of the demo cases.</p>
+    <h2 id="cta-h2">Explore a case with your team.</h2>
+    <p class="lede">See the modeled risk conversation and the note it produces, then talk with us about evaluation.</p>
     <div class="hero-ctas">
-      <a href="https://app.riskcontinuum.health/" class="btn btn-primary">Start RCCKM Assessment</a>
-      <a href="https://app.riskcontinuum.health/sign-up" class="btn btn-ghost">Create a free account</a>
+      <a href="#pilot" class="btn btn-primary">Discuss a pilot</a>
+      <a href="#demo" class="btn btn-ghost">Read a sample note</a>
     </div>
-    <p class="privacy-note"><span aria-hidden="true">🔒</span> De-identified chart text only. It&rsquo;s processed to run the assessment and not saved.</p>
-    <div class="pilot" id="pilot">
-      <span class="pilot-em">🏥</span>
-      <div class="pilot-body">
-        <p><b>Health systems and practices:</b> we're exploring pilot partnerships. If you'd like to evaluate RCCKM with your team, send us a note, or email <a href="mailto:shereef@riskcontinuum.health?subject=RCCKM%20pilot">shereef@riskcontinuum.health</a>.</p>
-        <form class="msg-form" data-kind="contact" novalidate>
-          <div class="msg-row">
-            <label><span>Name</span><input name="name" autocomplete="name" maxlength="120"></label>
-            <label><span>Work email</span><input name="email" type="email" autocomplete="email" maxlength="254" required></label>
-          </div>
-          <label><span>Organization <em>(optional)</em></span><input name="organization" autocomplete="organization" maxlength="160"></label>
-          <label><span>Message</span><textarea name="message" rows="4" maxlength="4000" required></textarea></label>
-          <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <p class="msg-note">Please don&rsquo;t include patient information.</p>
-          <div class="msg-foot"><p class="msg-status" role="status" aria-live="polite"></p><button type="submit">Send</button></div>
-        </form>
-      </div>
-    </div>
+    <p class="privacy-note"><span aria-hidden="true">🔒</span> Explore with synthetic cases. Do not enter names, dates of birth, MRNs or other patient identifiers.</p>
+
   </div>
 </section>
 
@@ -1169,43 +1129,6 @@ Management Considerations:
       entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
     }, { threshold: 0.12 });
     document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
-
-    /* 1. Continuum: tiles rise, then the figure walks tile by tile to Level 3B (as in the app). */
-    var cont = document.getElementById("cont"), walker = document.getElementById("walker");
-    var tiles = cont.querySelectorAll(".tile"), TARGET = 2, contTimers = [];
-    function runContinuum() {
-      contTimers.forEach(clearTimeout); contTimers = [];
-      cont.classList.remove("shown", "done");
-      tiles.forEach(function (t) { t.classList.remove("here"); });
-      walker.style.left = "0%";
-      if (reduced) { cont.classList.add("shown", "done"); tiles[TARGET].classList.add("here"); walker.style.left = (TARGET * 20) + "%"; return; }
-      contTimers.push(setTimeout(function () { cont.classList.add("shown"); }, 60));
-      for (var i = 1; i <= TARGET; i++) {
-        (function (i) {
-          contTimers.push(setTimeout(function () {
-            walker.style.left = (i * 20) + "%";
-            walker.classList.remove("hop"); void walker.offsetWidth; walker.classList.add("hop");
-          }, 900 + i * 420));
-        })(i);
-      }
-      contTimers.push(setTimeout(function () { tiles[TARGET].classList.add("here"); cont.classList.add("done"); }, 900 + TARGET * 420 + 380));
-    }
-    document.getElementById("cont-replay").addEventListener("click", runContinuum);
-    // "How to read the levels": opens on hover (CSS), or on tap/click for touch and keyboard users
-    var levelsInfo = document.querySelector(".levels-info"), levelsBtn = levelsInfo.querySelector(".levels-btn");
-    levelsBtn.addEventListener("click", function (e) {
-      e.stopPropagation();
-      var open = levelsInfo.classList.toggle("open");
-      levelsBtn.setAttribute("aria-expanded", open ? "true" : "false");
-    });
-    document.addEventListener("click", function (e) {
-      if (!levelsInfo.contains(e.target)) { levelsInfo.classList.remove("open"); levelsBtn.setAttribute("aria-expanded", "false"); }
-    });
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") { levelsInfo.classList.remove("open"); levelsBtn.setAttribute("aria-expanded", "false"); }
-    });
-    var contStarted = false;
-    onView(cont, function (v) { if (v && !contStarted) { contStarted = true; runContinuum(); } }, 0.35);
 
     /* 2. Trajectory: the engine's dated results for this demo patient (Feb 2024, Jun 2025, Sep 2026). */
     var XS = [0, 483 / 946, 1];
@@ -1287,69 +1210,6 @@ Management Considerations:
     onView(sparks, function (v) {
       if (v && !trajDone) { trajDone = true; drawA1c(); sparkEls.forEach(function (s, i) { drawSpark(s, 300 + i * 160); }); }
     }, 0.2);
-
-    /* 2b. Risk Signal Score tower: engine contributors; each block falls in from the top and lands on the stack. */
-    var RSS = [{"name": "52F · Level 3B", "score": 12, "label": "Low", "items": [{"label": "A1c 6.1%", "sub": "", "tag": "A1c 6.1%", "pts": 2, "color": "#7C3AED"}, {"label": "Reproductive history", "sub": "", "tag": "Reproductive history", "pts": 2, "color": "#C2410C"}, {"label": "Triglycerides 168 mg/dL", "sub": "", "tag": "TG 168 mg/dL", "pts": 4, "color": "#2F5F8F"}, {"label": "ApoB 92 mg/dL", "sub": "", "tag": "ApoB 92 mg/dL", "pts": 4, "color": "#D97706"}]}, {"name": "67M · Level 5", "score": 55, "label": "High", "items": [{"label": "A1c 5.9%", "sub": "", "tag": "A1c 5.9%", "pts": 2, "color": "#7C3AED"}, {"label": "Triglycerides 190 mg/dL", "sub": "", "tag": "TG 190 mg/dL", "pts": 4, "color": "#2F5F8F"}, {"label": "Blood pressure, 126/74 mmHg; treated", "sub": "", "tag": "126/74 mmHg; treated", "pts": 3, "color": "#2563EB"}, {"label": "Lp(a) 210.0 nmol/L", "sub": "", "tag": "Lp(a) 210.0 nmol/L", "pts": 8, "color": "#4F46E5"}, {"label": "ApoB 102 mg/dL", "sub": "", "tag": "ApoB 102 mg/dL", "pts": 8, "color": "#D97706"}, {"label": "Coronary calcium 420", "sub": "", "tag": "CAC 420", "pts": 30, "color": "#7A1530"}]}];
-    var CANVAS = 100, FALL_MS = 380, LABEL_MIN_PX = 24;
-    var towerEl = document.getElementById("tower"), contribEl = document.getElementById("contribs");
-    var rssNum = document.getElementById("rss-num"), rssPill = document.getElementById("rss-pill"), rssChips = document.getElementById("rss-chips");
-    var rssTimers = [], rssCur = 0, rssScore = 0;
-    RSS.forEach(function (r, i) {
-      var c = document.createElement("button");
-      c.type = "button"; c.className = "pchip"; c.setAttribute("role", "tab"); c.textContent = r.name + " \u00b7 RSS " + r.score;
-      c.addEventListener("click", function () { stopRssAuto(); playRss(i); });
-      rssChips.appendChild(c);
-    });
-    function playRss(i) {
-      rssTimers.forEach(clearTimeout); rssTimers = []; rssCur = i;
-      rssChips.querySelectorAll(".pchip").forEach(function (c, k) { c.classList.toggle("is-on", k === i); c.setAttribute("aria-selected", k === i ? "true" : "false"); });
-      var r = RSS[i], H = towerEl.clientHeight || 440, ppp = H / Math.max(CANVAS, r.score);
-      var bottomUp = r.items.slice().reverse(), acc = 0;
-      towerEl.innerHTML = ""; contribEl.innerHTML = "";
-      towerEl.setAttribute("aria-label", "Risk Signal Score " + r.score + ", " + r.items.length + " contributors");
-      rssPill.className = "rss-pill " + r.label; rssPill.textContent = r.label;
-      r.items.forEach(function (it) {
-        var row = document.createElement("div"); row.className = "contrib" + (reduced ? "" : " pending");
-        row.innerHTML = '<span class="sw" style="background:' + it.color + '"></span><span class="c-main"><span class="c-label">' + it.label + '</span>' + (it.sub ? '<span class="c-sub">' + it.sub + '</span>' : "") + '</span><span class="c-pts">+' + it.pts + '</span>';
-        contribEl.appendChild(row); it._row = row;
-      });
-      var segs = bottomUp.map(function (it) {
-        var bottom = acc * ppp, h = Math.max(4, it.pts * ppp); acc += it.pts;
-        var seg = document.createElement("div"); seg.className = "tblock";
-        seg.style.cssText = "bottom:" + bottom + "px;height:" + h + "px;background:" + it.color + ";transform:translateY(" + (reduced ? 0 : -(H - bottom + 10)) + "px)";
-        if (h >= LABEL_MIN_PX) seg.textContent = it.tag;
-        towerEl.appendChild(seg); return seg;
-      });
-      if (reduced) { rssNum.textContent = r.score; rssPill.classList.add("show"); return; }
-      rssPill.classList.remove("show");
-      tween(rssScore, 0, 200, function (v) { rssScore = v; rssNum.textContent = Math.round(v); });
-      var t = 500, landed = 0;
-      bottomUp.forEach(function (it, k) {
-        rssTimers.push(setTimeout(function () { segs[k].style.transform = "translateY(0)"; }, t));
-        rssTimers.push(setTimeout(function () {
-          landed += it.pts;
-          r.items.forEach(function (x) { x._row.classList.remove("hl"); });
-          it._row.classList.remove("pending"); it._row.classList.add("hl");
-          var from = rssScore; tween(from, landed, 240, function (v) { rssScore = v; rssNum.textContent = Math.round(v); });
-          if (k === bottomUp.length - 1) rssTimers.push(setTimeout(function () { it._row.classList.remove("hl"); rssPill.classList.add("show"); }, 500));
-        }, t + FALL_MS));
-        t += Math.max(180, 420 - k * 30);
-      });
-      return t + FALL_MS + 600;
-    }
-    var rssAuto = !reduced, rssAutoTimer = null, rssStarted = false;
-    function stopRssAuto() { rssAuto = false; if (rssAutoTimer) clearTimeout(rssAutoTimer); rssAutoTimer = null; }
-    function rssLoop(i) {
-      var dur = playRss(i) || 3000;
-      if (rssAuto) rssAutoTimer = setTimeout(function () { if (rssAuto) rssLoop((i + 1) % RSS.length); }, dur + 2600);
-    }
-    document.getElementById("rss-replay").addEventListener("click", function () { stopRssAuto(); playRss(rssCur); });
-    onView(document.getElementById("rss"), function (v) {
-      if (v && !rssStarted) { rssStarted = true; rssLoop(0); }
-      if (!v && rssAutoTimer) { clearTimeout(rssAutoTimer); rssAutoTimer = null; }
-      else if (v && rssStarted && rssAuto && !rssAutoTimer) rssAutoTimer = setTimeout(function () { rssLoop((rssCur + 1) % RSS.length); }, 1500);
-    }, 0.35);
-    if (reduced) playRss(0);
 
     /* 3. Try a plan: the engine's simulate output for this patient, per lever combination. */
     var AGE = 52;

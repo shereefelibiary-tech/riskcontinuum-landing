@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Risk Continuum CKM</title>
-  <meta name="description" content="A clinical decision-support engine for primary care. Explore modeled prevention benefit, review the clinical note, and discuss a pilot or platform evaluation with Risk Continuum CKM." />
+  <meta name="description" content="A clinical decision-support engine for cardiovascular, kidney and metabolic prevention. Explore modeled prevention benefit, review the clinical note, and discuss a pilot or platform evaluation with Risk Continuum CKM." />
   <meta name="theme-color" content="#F8F5F3" />
   <link rel="icon" href="assets/brand/risk-continuum/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="assets/brand/risk-continuum/favicon-32.png" sizes="32x32" type="image/png" />
@@ -303,6 +303,7 @@
     /* TRAJECTORY */
     .traj { padding: 120px 0; border-top: 1px solid var(--line); }
     .traj-head { max-width: 860px; margin: 0 auto 56px; }
+    .traj-head .sub { font-family: var(--display); font-size: clamp(22px, 2.4vw, 28px); color: var(--muted); margin: 14px 0 0; }
     .spark-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
     .spark { background: var(--surface); box-shadow: var(--shadow); border: 1px solid var(--line); border-radius: 18px; padding: 18px 18px 16px; min-width: 0; }
     .spark.big { grid-column: span 2; grid-row: span 2; display: flex; flex-direction: column; }
@@ -640,17 +641,19 @@
         <a href="#walkthrough">See it run</a>
         <a href="#trajectory">Trajectory</a>
         <a href="#decide">Shared decisions</a>
-        <a href="faq.html#rcckm-categories">Category patterns</a>
+        <a href="faq.html#rcckm-categories">Reading the result</a>
         <a href="faq.html#risk-signal-score">Signal score</a>
         <a href="#demo">Sample notes</a>
         <a href="#founder">Founder</a>
         <a href="#pilot">Health systems</a>
         <a href="faq.html">FAQs</a>
+        <a href="https://app.riskcontinuum.health/sign-up">Create a free account</a>
+        <a href="https://app.riskcontinuum.health/">Sign in</a>
       </nav>
     </details>
     <div class="nav-cta">
-      <a href="https://app.riskcontinuum.health/" class="btn btn-ghost">Development access</a>
-      <a href="#pilot" class="btn btn-primary">Discuss a pilot</a>
+      <a href="https://app.riskcontinuum.health/" class="btn btn-ghost">Sign in</a>
+      <a href="https://app.riskcontinuum.health/sign-up" class="btn btn-primary">Try it free</a>
     </div>
   </div>
 </header>
@@ -662,20 +665,20 @@
       <div class="hero-lockup">
         <svg class="logo hero-mark" viewBox="0 0 900 300" role="img" aria-label="Risk Continuum Health"><use href="#rc-logo"/></svg>
         <p class="lockup-text">
-          <span class="lockup-name">Primary care prevention</span>
+          <span class="lockup-name">CKM prevention</span>
           <span class="lockup-ckm"><b>C</b>ardiovascular &middot; <b>K</b>idney &middot; <b>M</b>etabolic</span>
         </p>
       </div>
       <h1 id="hero-h1">Make prevention <span class="soft">visible.</span></h1>
-      <p class="sub">A clinical decision-support engine built for primary care.</p>
+      <p class="sub">A clinical decision-support engine for every clinician in CKM care.</p>
       <p class="lede">Explore your patient's risk continuum over time, compare modeled prevention scenarios together, and carry the conversation into the note.</p>
       <div class="hero-ctas">
-        <a href="#pilot" class="btn btn-primary">Discuss a pilot</a>
-        <a href="#plan" class="btn btn-ghost">Try the simulator &darr;</a>
+        <a href="https://app.riskcontinuum.health/sign-up" class="btn btn-primary">Create a free account</a>
+        <a href="#pilot" class="btn btn-ghost">Discuss a pilot</a>
       </div>
       <p class="hero-meta">Synthetic case demos &middot; Auditable calculations &middot; Clinician-reviewed output</p>
       <p class="privacy-note"><span aria-hidden="true">🔒</span> Explore with synthetic cases. Do not enter names, dates of birth, MRNs or other patient identifiers.</p>
-      <p class="hero-access"><a href="#demo">Preview a sample clinical note</a> &middot; <a href="faq.html#emr-workflow">Explore the workflow</a></p>
+      <p class="hero-access"><a href="#plan">Try the simulator &darr;</a> &middot; <a href="https://app.riskcontinuum.health/">Sign in</a></p>
     </div>
 
   </div>
@@ -856,7 +859,7 @@ Management Considerations:
 <script type="application/json" id="wt-combos">{"order": ["bp", "intensify", "uacr", "a1c"], "combos": {"bp": {"t10": "9.9%", "t30": "26.6%", "note": "Systolic BP 120 mmHg: modeled PREVENT ASCVD 10y 14.5% → 9.9%, 30y 37.1% → 26.6% (trial-based estimate; not a treatment order)."}, "intensify": {"t10": "12.2%", "t30": "31.9%", "note": "High-intensity statin: modeled PREVENT ASCVD 10y 14.5% → 12.2%, 30y 37.1% → 31.9% (trial-based estimate; not a treatment order)."}, "uacr": {"t10": "11.6%", "t30": "34.7%", "note": "UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 11.6%, 30y 37.1% → 34.7% (model-based estimate; not a treatment order)."}, "a1c": {"t10": "13.8%", "t30": "36.2%", "note": "A1c 7.0%: modeled PREVENT ASCVD 10y 14.5% → 13.8%, 30y 37.1% → 36.2% (model-based estimate; not a treatment order)."}, "bp,intensify": {"t10": "8.3%", "t30": "22.7%", "note": "High-intensity statin and systolic BP 120 mmHg: modeled PREVENT ASCVD 10y 14.5% → 8.3%, 30y 37.1% → 22.7% (trial-based estimate; not a treatment order)."}, "bp,uacr": {"t10": "7.9%", "t30": "24.8%", "note": "Systolic BP 120 mmHg and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 7.9%, 30y 37.1% → 24.8% (trial- and model-based estimate; not a treatment order)."}, "bp,a1c": {"t10": "9.5%", "t30": "26.0%", "note": "Systolic BP 120 mmHg and A1c 7.0%: modeled PREVENT ASCVD 10y 14.5% → 9.5%, 30y 37.1% → 26.0% (trial- and model-based estimate; not a treatment order)."}, "intensify,uacr": {"t10": "9.7%", "t30": "29.8%", "note": "High-intensity statin and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 9.7%, 30y 37.1% → 29.8% (trial- and model-based estimate; not a treatment order)."}, "intensify,a1c": {"t10": "11.6%", "t30": "31.2%", "note": "High-intensity statin and A1c 7.0%: modeled PREVENT ASCVD 10y 14.5% → 11.6%, 30y 37.1% → 31.2% (trial- and model-based estimate; not a treatment order)."}, "uacr,a1c": {"t10": "11.1%", "t30": "33.9%", "note": "A1c 7.0% and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 11.1%, 30y 37.1% → 33.9% (model-based estimate; not a treatment order)."}, "bp,intensify,uacr": {"t10": "6.6%", "t30": "21.1%", "note": "High-intensity statin, systolic BP 120 mmHg and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 6.6%, 30y 37.1% → 21.1% (trial- and model-based estimate; not a treatment order)."}, "bp,intensify,a1c": {"t10": "7.9%", "t30": "22.1%", "note": "High-intensity statin, systolic BP 120 mmHg and A1c 7.0%: modeled PREVENT ASCVD 10y 14.5% → 7.9%, 30y 37.1% → 22.1% (trial- and model-based estimate; not a treatment order)."}, "bp,uacr,a1c": {"t10": "7.5%", "t30": "24.2%", "note": "Systolic BP 120 mmHg, A1c 7.0% and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 7.5%, 30y 37.1% → 24.2% (trial- and model-based estimate; not a treatment order)."}, "intensify,uacr,a1c": {"t10": "9.3%", "t30": "29.1%", "note": "High-intensity statin, A1c 7.0% and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 9.3%, 30y 37.1% → 29.1% (trial- and model-based estimate; not a treatment order)."}, "bp,intensify,uacr,a1c": {"t10": "6.3%", "t30": "20.5%", "note": "High-intensity statin, systolic BP 120 mmHg, A1c 7.0% and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 6.3%, 30y 37.1% → 20.5% (trial- and model-based estimate; not a treatment order)."}}}</script></div></div>
       </div>
     </div>
-    <p class="wt-src">Synthetic patient, 58M, category 3C (Converging Risk). The simulator above uses a different patient, 52F, category 3B (Emerging Risk Trajectory). Each sample retains its engine-assigned Level label. Modeled plan estimates are for clinician review, not treatment orders.</p>
+    <p class="wt-src">Synthetic patient, 58M, Level 3C (Converging Risk). The simulator above uses a different patient, 52F, Level 3B (Emerging Risk Trajectory). Each sample keeps its own engine-assigned Level. Modeled plan estimates are for clinician review, not treatment orders.</p>
   </div>
 </section>
 
@@ -864,9 +867,9 @@ Management Considerations:
 <section data-analytics-section="cta" class="pilot-section" id="pilot" aria-labelledby="pilot-h2">
   <div class="wrap pilot-grid">
     <div class="pilot-copy">
-      <span class="eyebrow">Primary care pilots</span>
+      <span class="eyebrow">Pilots</span>
       <h2 class="h2" id="pilot-h2">Help evaluate prevention in the visit.</h2>
-      <p class="lede">We're seeking primary care practices and health systems to evaluate RCCKM's simulator, clinical note and patient handout.</p>
+      <p class="lede">We're seeking practices, specialty groups and health systems to evaluate RCCKM's simulator, clinical note and patient handout.</p>
       <p>For platform teams, let's explore how the engine could support your existing workflow.</p>
       <p class="fineprint">Start with a 15-minute synthetic-case demonstration. Clinical pilots and integrations require separate institutional approvals and agreements.</p>
     </div>
@@ -919,8 +922,8 @@ Management Considerations:
   <div class="wrap">
     <div class="traj-head center reveal">
       <span class="eyebrow">Trajectory</span>
-      <h2 class="h2" id="traj-h2">Every number looked fine on its own.</h2>
-      <p class="lede">Paste chart text with dated results and RCCKM lines them up. For this 52-year-old, three years of labs tell a story no single visit showed.</p>
+      <h2 class="h2" id="traj-h2">Every patient carries a risk story.</h2>
+      <p class="sub">Risk Continuum helps you tell it.</p>
     </div>
     <div class="spark-grid" id="sparks">
       <div class="spark big">
@@ -964,7 +967,7 @@ Management Considerations:
     <div class="demo-head reveal">
       <span class="eyebrow">Try it here</span>
       <h2 class="h2" id="demo-h2">Pick a patient. Read the note RCCKM wrote.</h2>
-      <p class="lede">Four synthetic demo patients, each with its own engine-generated note. RCCKM categories describe the clinical pattern; PREVENT supplies the probability. <a href="faq.html#rcckm-categories">Read the category guide</a>.</p>
+      <p class="lede">Four synthetic demo patients, each with its own engine-generated note. RCCKM Levels describe the clinical pattern; PREVENT supplies the probability. <a href="faq.html#rcckm-categories">Read the Level guide</a>.</p>
     </div>
     <div class="chips" role="tablist" aria-label="Demo patients">
       <button class="pchip is-on" data-p="0" role="tab" type="button">🌱 34F &middot; clean visit</button>
@@ -977,7 +980,7 @@ Management Considerations:
         <div class="walker" id="demo-walker"><span class="here-lbl">YOU ARE HERE</span><svg width="28" height="40" viewBox="0 0 24 34"><circle cx="12" cy="5" r="4.2" fill="#861327"/><path d="M7 11h10a3 3 0 0 1 3 3v8h-3v12h-4v-9h-2v9H7V22H4v-8a3 3 0 0 1 3-3z" fill="#861327"/></svg></div>
         <div class="tile" style="background:var(--t1); --acc:var(--a1); --d:8px"><i class="dot"></i><div><b>Level 1</b><span>Minimal risk signal</span></div></div>
         <div class="tile" style="background:var(--t2); --acc:var(--a2); --d:12px"><i class="dot"></i><div><b>Level 2</b><span>Emerging risk signals</span></div></div>
-        <div class="tile" style="background:var(--t3); --acc:var(--a3); --d:16px"><i class="dot"></i><div><b>Levels 3A&ndash;3C</b><span>Three category patterns</span></div></div>
+        <div class="tile" style="background:var(--t3); --acc:var(--a3); --d:16px"><i class="dot"></i><div><b>Levels 3A&ndash;3C</b><span>Three Level 3 patterns</span></div></div>
         <div class="tile" style="background:var(--t4); --acc:var(--a4); --d:20px"><i class="dot"></i><div><b>Level 4</b><span>Subclinical atherosclerosis present</span></div></div>
         <div class="tile" style="background:var(--t5); --acc:var(--a5); --d:24px"><i class="dot"></i><div><b>Level 5</b><span>Very high risk</span></div></div>
       </div>
@@ -1002,11 +1005,14 @@ Management Considerations:
 <section data-analytics-section="who" class="who" aria-labelledby="who-h2">
   <div class="wrap">
     <span class="eyebrow">Who it's for</span>
-    <h2 class="h2" id="who-h2">Built for primary care prevention.</h2>
+    <h2 class="h2" id="who-h2">Built for every clinician in the CKM space.</h2>
     <div class="who-grid">
       <div class="who-card reveal"><div class="em">🩺</div><h3>Internal Medicine</h3><p>Sort out which intervention to prioritize in complex patients.</p></div>
       <div class="who-card reveal"><div class="em">🏥</div><h3>Family Medicine</h3><p>Follow each patient's trajectory visit after visit.</p></div>
-      <div class="who-card reveal"><div class="em">🤝</div><h3>Primary care teams</h3><p>Share the modeled benefit, review the note, and leave with a patient handout.</p></div>
+      <div class="who-card reveal"><div class="em">❤️</div><h3>Cardiology</h3><p>See the metabolic, kidney, lipid and plaque drivers upstream.</p></div>
+      <div class="who-card reveal"><div class="em">🫘</div><h3>Nephrology</h3><p>Kidney function, albuminuria and CV risk in one frame.</p></div>
+      <div class="who-card reveal"><div class="em">🩸</div><h3>Endocrinology</h3><p>Diabetes care with heart and kidney risk in view.</p></div>
+      <div class="who-card reveal"><div class="em">🤝</div><h3>Care teams</h3><p>Share the modeled benefit, review the note, and leave with a patient handout.</p></div>
     </div>
   </div>
 </section>
@@ -1020,7 +1026,7 @@ Management Considerations:
       <a class="btn btn-ghost" href="faq.html">Read the FAQs <span aria-hidden="true">&rarr;</span></a>
     </div>
     <div class="faq-preview-list">
-      <div id="levels"><h3><a href="faq.html#rcckm-categories">What do the RCCKM categories mean?</a></h3><p>Each category names a clinical pattern. The guide explains 3A, 3B and 3C alongside the other categories and the separate CKM, KDIGO and PREVENT frameworks.</p></div>
+      <div id="levels"><h3><a href="faq.html#rcckm-categories">What do the RCCKM Levels mean?</a></h3><p>Each Level names a clinical pattern. The guide explains 3A, 3B and 3C alongside the other Levels and the separate CKM, KDIGO and PREVENT frameworks.</p></div>
       <div id="signal"><h3><a href="faq.html#risk-signal-score">What does the Risk Signal Score add?</a></h3><p>Read how the ordinal score makes its contributors visible and how to interpret it alongside PREVENT.</p></div>
       <div><h3><a href="faq.html#simulator-method">What does the simulator bring to the conversation?</a></h3><p>Explore options together using trial-derived LDL-C and blood pressure effects and supported PREVENT recalculations, with the methods in view.</p></div>
       <div><h3><a href="faq.html#validation-status">What supports the platform?</a></h3><p>Published equations and clinical frameworks underpin the assessment. Software checks and synthetic-case testing support development, with independent clinical evaluation as the next step.</p></div>
@@ -1060,11 +1066,11 @@ Management Considerations:
 <section class="cta" aria-labelledby="cta-h2">
   <div class="wrap">
     <svg class="logo cta-mark" viewBox="0 0 900 300" aria-hidden="true"><use href="#rc-logo"/></svg>
-    <h2 id="cta-h2">Explore a case with your team.</h2>
-    <p class="lede">See the modeled risk conversation and the note it produces, then talk with us about evaluation.</p>
+    <h2 id="cta-h2">Try it yourself, or bring it to your team.</h2>
+    <p class="lede">Create a free account and run a synthetic case in minutes, or talk with us about a pilot for your practice.</p>
     <div class="hero-ctas">
-      <a href="#pilot" class="btn btn-primary">Discuss a pilot</a>
-      <a href="#demo" class="btn btn-ghost">Read a sample note</a>
+      <a href="https://app.riskcontinuum.health/sign-up" class="btn btn-primary">Create a free account</a>
+      <a href="#pilot" class="btn btn-ghost">Discuss a pilot</a>
     </div>
     <p class="privacy-note"><span aria-hidden="true">🔒</span> Explore with synthetic cases. Do not enter names, dates of birth, MRNs or other patient identifiers.</p>
 

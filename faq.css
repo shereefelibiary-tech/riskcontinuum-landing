@@ -63,3 +63,11 @@ a:focus-visible, summary:focus-visible { outline: 3px solid var(--accent); outli
   .faq-answer { font-size: 11pt; }
   a { color: inherit; }
 }
+
+/* Category patterns remain readable in the expanded FAQ on narrow screens. */
+.category-table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 16px; }
+.category-table caption { text-align: left; font-size: 14px; color: var(--muted); margin-bottom: 8px; }
+.category-table th, .category-table td { text-align: left; vertical-align: top; padding: 9px 10px; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+.category-table thead th { color: var(--ink); background: #f8f3f2; }
+.category-table th:first-child { width: 8ch; white-space: nowrap; }
+.category-table tbody th { color: var(--accent); }

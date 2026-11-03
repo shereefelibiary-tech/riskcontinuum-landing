@@ -50,16 +50,16 @@
         <div class="faq-answer"><p>The core assessment runs on a rule-based parser, published risk equations, and explicit clinical rules. The same confirmed inputs and software version follow the same calculation and decision logic. That makes the assessment reproducible and gives reviewers a defined method to examine.</p><p>Optional AI-generated commentary, such as the Clinical Pearl, adds a separately labeled perspective. Clinicians review that commentary independently, confirm the worksheet, and approve the assessment before using it.</p></div>
       </details>
       <details id="levels-stages-and-risk">
-        <summary>How do RCCKM categories, CKM stages, PREVENT, and the signal score differ?</summary>
-        <div class="faq-answer"><p>RCCKM presents complementary views of the patient's prevention picture:</p><ul><li><strong>PREVENT</strong> supplies population-based event probabilities for eligible patients.</li><li><strong>AHA CKM staging</strong> describes the cardiovascular, kidney, and metabolic disease framework.</li><li><strong>KDIGO classification</strong> describes kidney disease using kidney function and albuminuria.</li><li><strong>RCCKM categories</strong> organize measured disease and actionable findings into the platform's clinical interpretation framework.</li><li><strong>Risk Signal Score (RSS)</strong> makes selected contributors to risk burden visible using prespecified ordinal points.</li></ul><p>The categories and RSS are RCCKM-specific frameworks to be evaluated in their own right. Read RSS as an ordinal burden summary and use PREVENT for event probabilities. See the <a href="#source-prevent">PREVENT</a>, <a href="#source-ckm">CKM</a>, and <a href="#source-kdigo">KDIGO</a> sources.</p></div>
+        <summary>How do RCCKM Levels, CKM stages, PREVENT, and the signal score differ?</summary>
+        <div class="faq-answer"><p>RCCKM presents complementary views of the patient's prevention picture:</p><ul><li><strong>PREVENT</strong> supplies population-based event probabilities for eligible patients.</li><li><strong>AHA CKM staging</strong> describes the cardiovascular, kidney, and metabolic disease framework.</li><li><strong>KDIGO classification</strong> describes kidney disease using kidney function and albuminuria.</li><li><strong>RCCKM Levels</strong> organize measured disease and actionable findings into the platform's clinical interpretation framework.</li><li><strong>Risk Signal Score (RSS)</strong> makes selected contributors to risk burden visible using prespecified ordinal points.</li></ul><p>The Levels and RSS are RCCKM-specific frameworks to be evaluated in their own right. Read RSS as an ordinal burden summary and use PREVENT for event probabilities. See the <a href="#source-prevent">PREVENT</a>, <a href="#source-ckm">CKM</a>, and <a href="#source-kdigo">KDIGO</a> sources.</p></div>
       </details>
       <details id="rcckm-categories">
-        <summary>What do the RCCKM categories mean, including 3A, 3B and 3C?</summary>
+        <summary>What do the RCCKM Levels mean, including 3A, 3B and 3C?</summary>
         <div class="faq-answer">
-          <p>A category names the clinical pattern identified by the engine. Engine output uses Level identifiers, such as <strong>Level 3B | Emerging Risk Trajectory</strong>. These identifiers refer to the RCCKM categories below.</p>
+          <p>A Level names the clinical pattern identified by the engine, as in <strong>Level 3B | Emerging Risk Trajectory</strong>.</p>
           <table class="category-table">
-            <caption>RCCKM categories and their engine-defined pattern names</caption>
-            <thead><tr><th scope="col">Category</th><th scope="col">Pattern</th></tr></thead>
+            <caption>RCCKM Levels and their engine-defined pattern names</caption>
+            <thead><tr><th scope="col">Level</th><th scope="col">Pattern</th></tr></thead>
             <tbody>
               <tr><th scope="row">1</th><td>Minimal risk signal</td></tr>
               <tr><th scope="row">2A</th><td>Early isolated risk signal</td></tr>
@@ -71,13 +71,13 @@
               <tr><th scope="row">5</th><td>Very high risk / established disease intensity</td></tr>
             </tbody>
           </table>
-          <p>The landing page uses different synthetic patients. The 52-year-old woman in the simulator is category 3B, Emerging Risk Trajectory. The 58-year-old man in the walkthrough is category 3C, Converging Risk. Each sample keeps its own engine-assigned category.</p>
-          <p>PREVENT supplies event probabilities for eligible patients. CKM staging and KDIGO classification use their own frameworks. A category may remain incomplete when required information is missing; unmeasured plaque remains unmeasured.</p>
+          <p>The landing page uses different synthetic patients. The 52-year-old woman in the simulator is Level 3B, Emerging Risk Trajectory. The 58-year-old man in the walkthrough is Level 3C, Converging Risk. Each sample keeps its own engine-assigned Level.</p>
+          <p>PREVENT supplies event probabilities for eligible patients. CKM staging and KDIGO classification use their own frameworks. A Level may remain incomplete when required information is missing; unmeasured plaque remains unmeasured.</p>
         </div>
       </details>
       <details id="risk-signal-score">
         <summary>What does the Risk Signal Score add?</summary>
-        <div class="faq-answer"><p>Risk Signal Score (RSS) summarizes selected contributors using prespecified ordinal points. The displayed score equals the sum of the contributors shown, so the clinician can see which findings contribute to the burden summary.</p><p>Use PREVENT for event probabilities. RSS is an RCCKM-specific framework that requires independent evaluation; a score of 12 does not mean a 12% event risk. Review the individual findings, category, staging and any missing information alongside the score.</p></div>
+        <div class="faq-answer"><p>Risk Signal Score (RSS) summarizes selected contributors using prespecified ordinal points. The displayed score equals the sum of the contributors shown, so the clinician can see which findings contribute to the burden summary.</p><p>Use PREVENT for event probabilities. RSS is an RCCKM-specific framework that requires independent evaluation; a score of 12 does not mean a 12% event risk. Review the individual findings, Level, staging and any missing information alongside the score.</p></div>
       </details>
       <details id="prevent-eligibility">
         <summary>When can PREVENT risk be reported?</summary>

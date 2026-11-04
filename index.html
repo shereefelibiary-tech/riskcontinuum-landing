@@ -406,7 +406,7 @@
 
     /* THE REPORT */
     .report { padding: 70px 0 100px; }
-    .inline-link { color: var(--accent); text-underline-offset: 3px; white-space: nowrap; }
+    .inline-link { color: var(--accent); text-underline-offset: 3px; }
     .report-head { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; margin-bottom: 56px; }
     .sections { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 80px; }
     .sec { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 22px; }
@@ -631,8 +631,8 @@
       <li><a href="#walkthrough">See it run</a></li>
       <li><a href="#decide">Shared decisions</a></li>
       <li><a href="#founder">Founder</a></li>
-      <li><a href="#pilot">Health systems</a></li>
       <li><a href="faq.html">FAQs</a></li>
+      <li><a href="#pilot">Health systems</a></li>
     </ul>
     <details class="nav-menu">
       <summary>Menu</summary>
@@ -642,11 +642,11 @@
         <a href="#trajectory">Trajectory</a>
         <a href="#decide">Shared decisions</a>
         <a href="faq.html#rcckm-categories">Reading the result</a>
-        <a href="faq.html#risk-signal-score">Signal score</a>
+        <a href="#signal-score">Signal score</a>
         <a href="#demo">Sample notes</a>
         <a href="#founder">Founder</a>
-        <a href="#pilot">Health systems</a>
         <a href="faq.html">FAQs</a>
+        <a href="#pilot">Health systems</a>
         <a href="https://app.riskcontinuum.health/sign-up">Create a free account</a>
         <a href="https://app.riskcontinuum.health/">Sign in</a>
       </nav>
@@ -863,37 +863,6 @@ Management Considerations:
   </div>
 </section>
 
-<!-- PILOT EVALUATION -->
-<section data-analytics-section="cta" class="pilot-section" id="pilot" aria-labelledby="pilot-h2">
-  <div class="wrap pilot-grid">
-    <div class="pilot-copy">
-      <span class="eyebrow">Pilots</span>
-      <h2 class="h2" id="pilot-h2">Help evaluate prevention in the visit.</h2>
-      <p class="lede">We're seeking practices, specialty groups and health systems to evaluate RCCKM's simulator, clinical note and patient handout.</p>
-      <p>For platform teams, let's explore how the engine could support your existing workflow.</p>
-      <p class="fineprint">Start with a 15-minute synthetic-case demonstration. Clinical pilots and integrations require separate institutional approvals and agreements.</p>
-    </div>
-    <div class="pilot">
-      <span class="pilot-em">🏥</span>
-      <div class="pilot-body">
-        <h3>Tell us about your team.</h3>
-        <p>Send a note, or email <a href="mailto:shereef@riskcontinuum.health?subject=RCCKM%20pilot">shereef@riskcontinuum.health</a>.</p>
-        <form class="msg-form" data-kind="contact" novalidate>
-          <div class="msg-row">
-            <label><span>Name</span><input name="name" autocomplete="name" maxlength="120"></label>
-            <label><span>Work email</span><input name="email" type="email" autocomplete="email" maxlength="254" required></label>
-          </div>
-          <label><span>Organization <em>(optional)</em></span><input name="organization" autocomplete="organization" maxlength="160"></label>
-          <label><span>Message</span><textarea name="message" rows="4" maxlength="4000" required></textarea></label>
-          <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <p class="msg-note">Please don&rsquo;t include patient information.</p>
-          <div class="msg-foot"><p class="msg-status" role="status" aria-live="polite"></p><button type="submit">Send</button></div>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- STATS -->
 <section data-analytics-section="stats" class="stats" aria-label="Why this matters">
   <div class="wrap">
@@ -961,6 +930,37 @@ Management Considerations:
   </div>
 </section>
 
+<!-- SIGNAL SCORE -->
+<section data-analytics-section="report" class="report" id="signal-score" aria-label="Risk Signal Score">
+  <div class="wrap">
+
+    <div class="rssx reveal">
+      <div class="card rss-card" id="rss">
+        <div class="rss-head">
+          <div><div class="card-eyebrow">Signal burden</div><div class="card-title">Risk Signal Score</div></div>
+          <div class="rss-score"><button class="btn btn-ghost btn-sm" id="rss-replay" type="button">↻ Replay</button><span class="rss-num" id="rss-num" aria-live="polite">0</span><span class="rss-pill" id="rss-pill"></span></div>
+        </div>
+        <div class="rss-body">
+          <div class="tower" id="tower" role="img" aria-label=""></div>
+          <div>
+            <div class="rss-sub">Signal contributors</div>
+            <div id="contribs"></div>
+            <p class="rss-note">Ordinal burden score, not an event probability. Displayed RSS equals the sum of the contributors shown.</p>
+          </div>
+        </div>
+      </div>
+      <div class="rssx-copy">
+        <span class="eyebrow">Risk Signal Score</span>
+        <h3>Every contributor, counted.</h3>
+        <p class="lede">An ordinal burden score, not a probability: each signal adds its points, so what is driving risk is visible at a glance. <a class="inline-link" href="faq.html#levels-stages-and-risk">How it differs from PREVENT and the Levels &rarr;</a></p>
+        <div class="chips" role="tablist" aria-label="Patients" id="rss-chips"></div>
+        <p class="fineprint">Synthetic demo patients; contributors and points are RCCKM engine output.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- LIVE DEMO -->
 <section data-analytics-section="demo" class="demo" id="demo" aria-labelledby="demo-h2">
   <div class="wrap">
@@ -1017,23 +1017,6 @@ Management Considerations:
   </div>
 </section>
 
-<section class="faq-preview" id="faq" aria-labelledby="faq-heading">
-  <div class="wrap">
-    <div>
-      <span class="eyebrow">Methods &amp; evidence</span>
-      <h2 class="h2" id="faq-heading">Questions behind the numbers.</h2>
-      <p class="lede">Explore the science, see how scenarios are built, and discover the next steps for clinical evaluation.</p>
-      <a class="btn btn-ghost" href="faq.html">Read the FAQs <span aria-hidden="true">&rarr;</span></a>
-    </div>
-    <div class="faq-preview-list">
-      <div id="levels"><h3><a href="faq.html#rcckm-categories">What do the RCCKM Levels mean?</a></h3><p>Each Level names a clinical pattern. The guide explains 3A, 3B and 3C alongside the other Levels and the separate CKM, KDIGO and PREVENT frameworks.</p></div>
-      <div id="signal"><h3><a href="faq.html#risk-signal-score">What does the Risk Signal Score add?</a></h3><p>Read how the ordinal score makes its contributors visible and how to interpret it alongside PREVENT.</p></div>
-      <div><h3><a href="faq.html#simulator-method">What does the simulator bring to the conversation?</a></h3><p>Explore options together using trial-derived LDL-C and blood pressure effects and supported PREVENT recalculations, with the methods in view.</p></div>
-      <div><h3><a href="faq.html#validation-status">What supports the platform?</a></h3><p>Published equations and clinical frameworks underpin the assessment. Software checks and synthetic-case testing support development, with independent clinical evaluation as the next step.</p></div>
-    </div>
-  </div>
-</section>
-
 <!-- FOUNDER -->
 <section data-analytics-section="founder" class="founder" id="founder" aria-labelledby="founder-h2">
   <div class="wrap">
@@ -1062,6 +1045,23 @@ Management Considerations:
   </div>
 </section>
 
+<section class="faq-preview" id="faq" aria-labelledby="faq-heading">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Methods &amp; evidence</span>
+      <h2 class="h2" id="faq-heading">Questions behind the numbers.</h2>
+      <p class="lede">Explore the science, see how scenarios are built, and discover the next steps for clinical evaluation.</p>
+      <a class="btn btn-ghost" href="faq.html">Read the FAQs <span aria-hidden="true">&rarr;</span></a>
+    </div>
+    <div class="faq-preview-list">
+      <div id="levels"><h3><a href="faq.html#rcckm-categories">What do the RCCKM Levels mean?</a></h3><p>Each Level names a clinical pattern. The guide explains 3A, 3B and 3C alongside the other Levels and the separate CKM, KDIGO and PREVENT frameworks.</p></div>
+      <div id="signal"><h3><a href="faq.html#risk-signal-score">What does the Risk Signal Score add?</a></h3><p>Read how the ordinal score makes its contributors visible and how to interpret it alongside PREVENT.</p></div>
+      <div><h3><a href="faq.html#simulator-method">What does the simulator bring to the conversation?</a></h3><p>Explore options together using trial-derived LDL-C and blood pressure effects and supported PREVENT recalculations, with the methods in view.</p></div>
+      <div><h3><a href="faq.html#validation-status">What supports the platform?</a></h3><p>Published equations and clinical frameworks underpin the assessment. Software checks and synthetic-case testing support development, with independent clinical evaluation as the next step.</p></div>
+    </div>
+  </div>
+</section>
+
 <!-- CTA -->
 <section class="cta" aria-labelledby="cta-h2">
   <div class="wrap">
@@ -1074,6 +1074,37 @@ Management Considerations:
     </div>
     <p class="privacy-note"><span aria-hidden="true">🔒</span> Explore with synthetic cases. Do not enter names, dates of birth, MRNs or other patient identifiers.</p>
 
+  </div>
+</section>
+
+<!-- PILOT EVALUATION -->
+<section data-analytics-section="cta" class="pilot-section" id="pilot" aria-labelledby="pilot-h2">
+  <div class="wrap pilot-grid">
+    <div class="pilot-copy">
+      <span class="eyebrow">Pilots</span>
+      <h2 class="h2" id="pilot-h2">Help evaluate prevention in the visit.</h2>
+      <p class="lede">We're seeking practices, specialty groups and health systems to evaluate RCCKM's simulator, clinical note and patient handout.</p>
+      <p>For platform teams, let's explore how the engine could support your existing workflow.</p>
+      <p class="fineprint">Start with a 15-minute synthetic-case demonstration. Clinical pilots and integrations require separate institutional approvals and agreements.</p>
+    </div>
+    <div class="pilot">
+      <span class="pilot-em">🏥</span>
+      <div class="pilot-body">
+        <h3>Tell us about your team.</h3>
+        <p>Send a note, or email <a href="mailto:shereef@riskcontinuum.health?subject=RCCKM%20pilot">shereef@riskcontinuum.health</a>.</p>
+        <form class="msg-form" data-kind="contact" novalidate>
+          <div class="msg-row">
+            <label><span>Name</span><input name="name" autocomplete="name" maxlength="120"></label>
+            <label><span>Work email</span><input name="email" type="email" autocomplete="email" maxlength="254" required></label>
+          </div>
+          <label><span>Organization <em>(optional)</em></span><input name="organization" autocomplete="organization" maxlength="160"></label>
+          <label><span>Message</span><textarea name="message" rows="4" maxlength="4000" required></textarea></label>
+          <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <p class="msg-note">Please don&rsquo;t include patient information.</p>
+          <div class="msg-foot"><p class="msg-status" role="status" aria-live="polite"></p><button type="submit">Send</button></div>
+        </form>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1216,6 +1247,69 @@ Management Considerations:
     onView(sparks, function (v) {
       if (v && !trajDone) { trajDone = true; drawA1c(); sparkEls.forEach(function (s, i) { drawSpark(s, 300 + i * 160); }); }
     }, 0.2);
+
+    /* 2b. Risk Signal Score tower: engine contributors; each block falls in from the top and lands on the stack. */
+    var RSS = [{"name": "52F · Level 3B", "score": 12, "label": "Low", "items": [{"label": "A1c 6.1%", "sub": "", "tag": "A1c 6.1%", "pts": 2, "color": "#7C3AED"}, {"label": "Reproductive history", "sub": "", "tag": "Reproductive history", "pts": 2, "color": "#C2410C"}, {"label": "Triglycerides 168 mg/dL", "sub": "", "tag": "TG 168 mg/dL", "pts": 4, "color": "#2F5F8F"}, {"label": "ApoB 92 mg/dL", "sub": "", "tag": "ApoB 92 mg/dL", "pts": 4, "color": "#D97706"}]}, {"name": "67M · Level 5", "score": 55, "label": "High", "items": [{"label": "A1c 5.9%", "sub": "", "tag": "A1c 5.9%", "pts": 2, "color": "#7C3AED"}, {"label": "Triglycerides 190 mg/dL", "sub": "", "tag": "TG 190 mg/dL", "pts": 4, "color": "#2F5F8F"}, {"label": "Blood pressure, 126/74 mmHg; treated", "sub": "", "tag": "126/74 mmHg; treated", "pts": 3, "color": "#2563EB"}, {"label": "Lp(a) 210.0 nmol/L", "sub": "", "tag": "Lp(a) 210.0 nmol/L", "pts": 8, "color": "#4F46E5"}, {"label": "ApoB 102 mg/dL", "sub": "", "tag": "ApoB 102 mg/dL", "pts": 8, "color": "#D97706"}, {"label": "Coronary calcium 420", "sub": "", "tag": "CAC 420", "pts": 30, "color": "#7A1530"}]}];
+    var CANVAS = 100, FALL_MS = 380, LABEL_MIN_PX = 24;
+    var towerEl = document.getElementById("tower"), contribEl = document.getElementById("contribs");
+    var rssNum = document.getElementById("rss-num"), rssPill = document.getElementById("rss-pill"), rssChips = document.getElementById("rss-chips");
+    var rssTimers = [], rssCur = 0, rssScore = 0;
+    RSS.forEach(function (r, i) {
+      var c = document.createElement("button");
+      c.type = "button"; c.className = "pchip"; c.setAttribute("role", "tab"); c.textContent = r.name + " \u00b7 RSS " + r.score;
+      c.addEventListener("click", function () { stopRssAuto(); playRss(i); });
+      rssChips.appendChild(c);
+    });
+    function playRss(i) {
+      rssTimers.forEach(clearTimeout); rssTimers = []; rssCur = i;
+      rssChips.querySelectorAll(".pchip").forEach(function (c, k) { c.classList.toggle("is-on", k === i); c.setAttribute("aria-selected", k === i ? "true" : "false"); });
+      var r = RSS[i], H = towerEl.clientHeight || 440, ppp = H / Math.max(CANVAS, r.score);
+      var bottomUp = r.items.slice().reverse(), acc = 0;
+      towerEl.innerHTML = ""; contribEl.innerHTML = "";
+      towerEl.setAttribute("aria-label", "Risk Signal Score " + r.score + ", " + r.items.length + " contributors");
+      rssPill.className = "rss-pill " + r.label; rssPill.textContent = r.label;
+      r.items.forEach(function (it) {
+        var row = document.createElement("div"); row.className = "contrib" + (reduced ? "" : " pending");
+        row.innerHTML = '<span class="sw" style="background:' + it.color + '"></span><span class="c-main"><span class="c-label">' + it.label + '</span>' + (it.sub ? '<span class="c-sub">' + it.sub + '</span>' : "") + '</span><span class="c-pts">+' + it.pts + '</span>';
+        contribEl.appendChild(row); it._row = row;
+      });
+      var segs = bottomUp.map(function (it) {
+        var bottom = acc * ppp, h = Math.max(4, it.pts * ppp); acc += it.pts;
+        var seg = document.createElement("div"); seg.className = "tblock";
+        seg.style.cssText = "bottom:" + bottom + "px;height:" + h + "px;background:" + it.color + ";transform:translateY(" + (reduced ? 0 : -(H - bottom + 10)) + "px)";
+        if (h >= LABEL_MIN_PX) seg.textContent = it.tag;
+        towerEl.appendChild(seg); return seg;
+      });
+      if (reduced) { rssNum.textContent = r.score; rssPill.classList.add("show"); return; }
+      rssPill.classList.remove("show");
+      tween(rssScore, 0, 200, function (v) { rssScore = v; rssNum.textContent = Math.round(v); });
+      var t = 500, landed = 0;
+      bottomUp.forEach(function (it, k) {
+        rssTimers.push(setTimeout(function () { segs[k].style.transform = "translateY(0)"; }, t));
+        rssTimers.push(setTimeout(function () {
+          landed += it.pts;
+          r.items.forEach(function (x) { x._row.classList.remove("hl"); });
+          it._row.classList.remove("pending"); it._row.classList.add("hl");
+          var from = rssScore; tween(from, landed, 240, function (v) { rssScore = v; rssNum.textContent = Math.round(v); });
+          if (k === bottomUp.length - 1) rssTimers.push(setTimeout(function () { it._row.classList.remove("hl"); rssPill.classList.add("show"); }, 500));
+        }, t + FALL_MS));
+        t += Math.max(180, 420 - k * 30);
+      });
+      return t + FALL_MS + 600;
+    }
+    var rssAuto = !reduced, rssAutoTimer = null, rssStarted = false;
+    function stopRssAuto() { rssAuto = false; if (rssAutoTimer) clearTimeout(rssAutoTimer); rssAutoTimer = null; }
+    function rssLoop(i) {
+      var dur = playRss(i) || 3000;
+      if (rssAuto) rssAutoTimer = setTimeout(function () { if (rssAuto) rssLoop((i + 1) % RSS.length); }, dur + 2600);
+    }
+    document.getElementById("rss-replay").addEventListener("click", function () { stopRssAuto(); playRss(rssCur); });
+    onView(document.getElementById("rss"), function (v) {
+      if (v && !rssStarted) { rssStarted = true; rssLoop(0); }
+      if (!v && rssAutoTimer) { clearTimeout(rssAutoTimer); rssAutoTimer = null; }
+      else if (v && rssStarted && rssAuto && !rssAutoTimer) rssAutoTimer = setTimeout(function () { rssLoop((rssCur + 1) % RSS.length); }, 1500);
+    }, 0.35);
+    if (reduced) playRss(0);
 
     /* 3. Try a plan: the engine's simulate output for this patient, per lever combination. */
     var AGE = 52;

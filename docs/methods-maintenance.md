@@ -6,7 +6,7 @@ The first methods version describes engine revision
 `18baf7a8651b10cb4f047072590a5c8699e293c5` from `rcckm-nextjs-preview`.
 
 Version 1.1 is a review draft. It separately identifies application PR #79
-(`0f8a098a0c804cc840cb982befded50776eb004b`) for probability-first clinical
+(`7eddb21db6c7f77c6af1534c377a5b1a87e80937`) for probability-first clinical
 profile presentation and PR #80 (`f13dd16d82cd5104014ec76d811f6684829964dd`)
 for provenance-checked unrounded classification at 10%. Neither proposal changes
 the released-engine reference or the RSS export fingerprints. Confirm their

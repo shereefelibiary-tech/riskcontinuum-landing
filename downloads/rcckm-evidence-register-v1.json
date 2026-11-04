@@ -1,0 +1,58 @@
+{
+  "verified_on": "2026-11-04",
+  "engine_repository": "rcckm-nextjs-preview",
+  "engine_revision": "18baf7a8651b10cb4f047072590a5c8699e293c5",
+  "routine_validation": {
+    "run_id": 41769906552,
+    "revision": "18baf7a8651b10cb4f047072590a5c8699e293c5",
+    "date_et": "2026-11-03",
+    "workflow_conclusion": "success",
+    "suite": "Full pytest suite, Ubuntu",
+    "passed": 7240,
+    "skipped": 160,
+    "warnings": 2,
+    "log_receipt": [
+      "2026-11-04T04:01:36.7459204Z ========== 7240 passed, 160 skipped, 2 warnings in 386.30s (0:06:26) ==========="
+    ]
+  },
+  "deterministic_replay": {
+    "run_id": 41769906552,
+    "revision": "18baf7a8651b10cb4f047072590a5c8699e293c5",
+    "date_et": "2026-11-03",
+    "primary_patients": 500,
+    "format_variants": 100,
+    "status": "PASS",
+    "verification": "Replay, baseline comparison, and exact-source identity assertions completed successfully in the critic500 CI job."
+  },
+  "semantic_browser_review": {
+    "run_id": 41257395318,
+    "revision": "933e1f6e6c1dbbbd5fd1af5ed84566c6ea3cbb45",
+    "date_et": "2026-10-31",
+    "candidate_source_sha256": "ae6c5c7fffdfb6a2d4741ba57a5e68233a9c7a20ae884e3d7a584eebd1bd6af6",
+    "primary_completed": 500,
+    "paired_completed": 100,
+    "deterministic_failures": 0,
+    "critic_completed": 600,
+    "status": "PASS",
+    "severity_counts": {},
+    "blockers": [],
+    "log_receipt": [
+      "2026-11-01T02:07:56.5517643Z   \"status\": \"PASS\",",
+      "2026-11-01T02:07:56.5517987Z   \"primary_completed\": 500,",
+      "2026-11-01T02:07:56.5518289Z   \"paired_completed\": 100,",
+      "2026-11-01T02:07:56.5518574Z   \"deterministic_failures\": 0,",
+      "2026-11-01T02:07:56.5518857Z   \"critic_completed\": 600,",
+      "2026-11-01T02:07:56.5519120Z   \"severity_counts\": {},",
+      "2026-11-01T02:07:56.5519376Z   \"blockers\": []",
+      "2026-11-01T02:07:56.5519612Z }"
+    ],
+    "review_type": "AI semantic review of synthetic browser journeys; not independent human clinical validation."
+  },
+  "limitations": [
+    "Developer-maintained evidence summary, verified against repository CI records.",
+    "Counts describe software tests or synthetic journeys, not clinical study participants.",
+    "Semantic results apply to the recorded frozen source; no semantic PASS is asserted for later revisions.",
+    "The source repository and full CI artifacts are access-controlled; evaluation evidence can be requested from the developer.",
+    "Independent prospective clinical effectiveness and external prognostic validation of RCCKM-specific frameworks have not been established."
+  ]
+}

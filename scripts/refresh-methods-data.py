@@ -60,7 +60,7 @@ def export(source: Path) -> dict:
     level_source = (source / "modules/levels/level_classifier.py").read_text()
     rule_ids = list(dict.fromkeys(re.findall(r'"(LEVEL_(?:[1-5][A-C]?|INCOMPLETE)_[A-Z0-9_]+)"', level_source)))
     return {
-        "document_version": "1.0", "reviewed_on": "2026-11-04",
+        "document_version": "1.1-draft", "reviewed_on": "2026-11-04",
         "engine_revision": ENGINE_REVISION,
         "source_sha256": {name: hashlib.sha256((source / name).read_bytes()).hexdigest() for name in SOURCE_FILES},
         "rss": method, "rss_exact_numeric_intervals": bands,
@@ -88,6 +88,12 @@ def main() -> None:
             raise ValueError("Reference files differ from the retained fingerprints; use a clean checkout at the documented revision.")
     else:
         raise ValueError("First export requires a clean git checkout at the documented revision.")
+    # Review proposals are document metadata, not part of the released engine's
+    # canonical RSS/Level export. Preserve their explicit unreleased status.
+    if destination.is_file():
+        previous = json.loads(destination.read_text())
+        if previous.get("pending_changes"):
+            data["pending_changes"] = previous["pending_changes"]
     destination.parent.mkdir(exist_ok=True)
     destination.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
     blocks = []

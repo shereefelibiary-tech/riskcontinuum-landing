@@ -54,5 +54,21 @@
     "Semantic results apply to the recorded frozen source; no semantic PASS is asserted for later revisions.",
     "The source repository and full CI artifacts are access-controlled; evaluation evidence can be requested from the developer.",
     "Independent prospective clinical effectiveness and external prognostic validation of RCCKM-specific frameworks have not been established."
+  ],
+  "pending_changes": [
+    {
+      "pr": 79,
+      "url": "https://github.com/shereefelibiary-tech/rcckm-nextjs-preview/pull/79",
+      "revision": "0f8a098a0c804cc840cb982befded50776eb004b",
+      "status": "DRAFT_NOT_RELEASED",
+      "scope": "Probability-first Next.js assessment; separate disease/plaque, prioritized drivers and input availability; legacy codes in technical details; one-decimal probability display. Existing exported reports retain their codes."
+    },
+    {
+      "pr": 80,
+      "url": "https://github.com/shereefelibiary-tech/rcckm-nextjs-preview/pull/80",
+      "revision": "f13dd16d82cd5104014ec76d811f6684829964dd",
+      "status": "DRAFT_NOT_RELEASED",
+      "scope": "Extend provenance-checked unrounded 10-year PREVENT ASCVD classification from 3%/5% to 10%. Independent reference execution, exact clinical-difference review and release validation remain required."
+    }
   ]
 }

@@ -174,7 +174,7 @@ def decoration(canvas, doc) -> None:
     canvas.line(54, 47, 558, 47)
     canvas.setFont("Methods", 7)
     canvas.setFillColor(MUTED)
-    canvas.drawString(54, 34, "Methods & evidence v1.0  |  Engine reference 18baf7a  |  November 4, 2026")
+    canvas.drawString(54, 34, "Methods & evidence v1.1 review draft  |  Released reference 18baf7a  |  November 4, 2026")
     canvas.drawRightString(558, 34, str(doc.page))
     canvas.restoreState()
 
@@ -186,7 +186,7 @@ def main() -> None:
              Paragraph("Risk Continuum CKM", styles["MethodsH3"]),
              Paragraph("Clinical logic, Level rules, RSS weights, simulator methods, engineering and dated evaluation evidence.", styles["MethodsBody"]),
              Spacer(1, 18),
-             Paragraph("Document version 1.0 · November 4, 2026<br/>Engine reference: 18baf7a8651b10cb4f047072590a5c8699e293c5<br/>RSS methodology: rss-methodology-v2", styles["MethodsSmall"]),
+             Paragraph("Document version 1.1 review draft · November 4, 2026<br/>Released-engine reference: 18baf7a8651b10cb4f047072590a5c8699e293c5<br/>RSS methodology: rss-methodology-v2<br/>Application PRs #79 and #80 are separately identified proposals, not released behavior.", styles["MethodsSmall"]),
              Spacer(1, 18), HRFlowable(width="100%", thickness=.5, color=LINE), Spacer(1, 18),
              Paragraph("This appendix includes the full technical sections available on the methods page, including the ordered Level rules and every RSS band. It describes implementation and software verification. Independent prospective clinical effectiveness and external prognostic validation of RCCKM-specific frameworks have not been established.", styles["MethodsBody"]),
              Paragraph('<link href="https://riskcontinuum.health/methods.html" color="#861327">riskcontinuum.health/methods.html</link>', styles["MethodsBody"]),
@@ -201,7 +201,7 @@ def main() -> None:
         story.extend(walk(section))
     target = ROOT / "downloads/RCCKM_Methods_and_Evidence_v1.pdf"
     doc = SimpleDocTemplate(str(target), pagesize=letter, rightMargin=54, leftMargin=54,
-                            topMargin=66, bottomMargin=62, title="Risk Continuum CKM: Methods & Evidence v1.0",
+                            topMargin=66, bottomMargin=62, title="Risk Continuum CKM: Methods & Evidence v1.1 review draft",
                             author="Shereef El-Ibiary, MD | Risk Continuum Health LLC")
     doc.build(story, onFirstPage=decoration, onLaterPages=decoration)
     print(f"Built {target.name} ({target.stat().st_size:,} bytes).")

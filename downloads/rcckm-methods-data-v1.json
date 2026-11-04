@@ -1,20 +1,20 @@
 {
-  "document_version": "1.0",
+  "document_version": "1.1-draft",
   "reviewed_on": "2026-11-04",
   "engine_revision": "18baf7a8651b10cb4f047072590a5c8699e293c5",
   "source_sha256": {
-    "modules/levels/level_classifier.py": "a92c024ffdb254d3b6f4d4fa6acc609eaf876b744e5e0bf6dadf54b8430f9e47",
-    "modules/levels/definitions.py": "6a771c193559f9164153f9cd2a69ec469337b4806d058afb5cd6d5de9b00fc47",
-    "modules/levels/descriptors.py": "c67ef81beecead4b1709505020d10d193736b7637805c0e1798c07a2eedf3509",
-    "modules/rss/engine.py": "bfff6f0df4f214b23cad66853b25b986abf88bde639b35afb267c9223cb3a2d3",
-    "core/kidney_categories.py": "aa52659b8023460b3ba910e2110a824a8b6b627b976ecb79f0557bace658b3b2",
-    "core/hypertension.py": "bc51831a84f51b4d8f5cb473076b69743caebbb4b54a9fd6cdbf85185dfa97db",
-    "core/version.py": "ef8787707147e724910c177281fe8be3b4ce16a222d71fb330b3d4d636977ad5",
-    "modules/lipids/severe_hypercholesterolemia.py": "8d9d65883b4fdb6aa419756217bd2b4881888e7b7a9ad4aba64458bfb8a7c4b2",
-    "modules/prevent/eligibility.py": "92766bbe8233a5863530660a5b9a01d9ca88a0f139a6df7b486c0eb34b70a5fe",
-    "modules/prevent/precision.py": "88d313a292bbf3703ef79fd384ba1f15dc0a6323436fadce57bac2f54954e90f",
-    "modules/prevent/treatment_effects.py": "cd3bf2d4b2b5f926d0f793cc6163813ce81066ad389d7ee4f9211a865515bf5a",
-    "api/simulate.py": "cc5a9997a64949f6d7e2112fc0775d99925d56f58d891cdb6888d089d0675ca0"
+    "modules/levels/level_classifier.py": "9094a351538bea488781c59e4b92618216cdf149b78f0aecfa3bfcf5fe108ec8",
+    "modules/levels/definitions.py": "95fbc4832757366e98c424ee9eb4aaec46933f61ec10a64293627894183679ac",
+    "modules/levels/descriptors.py": "31072313cd013526618d3a2e2325e241b567efab10caeada8dfef882d4a4123b",
+    "modules/rss/engine.py": "00fd3d770934a5c06b0bf44ff782876bfc506c1e09ff4c0889a438920c5da935",
+    "core/kidney_categories.py": "6b2865a76db8ab062cbe67551c8f352de433f1a56d9eca542a02ad2620a8b086",
+    "core/hypertension.py": "cdd628e1b443e2602e0c6ab6bcddf7a5a1678180ab2bf58105eb62709ef29fe0",
+    "core/version.py": "474e1cf7c1d71ad030be6e44109faad52d469fcb4b8f4db3c968cfe149e62026",
+    "modules/lipids/severe_hypercholesterolemia.py": "ab3eecb3ba1a542295a730121db6904e85f6b02c3c09112c9f56a66b79ee1308",
+    "modules/prevent/eligibility.py": "fa21e90c748c85acc4a9c7737fcb25efe50014f6e79a9fccf999c4e93f0dd917",
+    "modules/prevent/precision.py": "60f1674c718b0027ce6f59a94b95568ce024058c4d46422c8981555da0ef8081",
+    "modules/prevent/treatment_effects.py": "05794511a344ad044647ec954351357b1f58bb298a674059bb50fc716825edca",
+    "api/simulate.py": "bfd9643c915524110e0576c3d923d035ffba8557d8579309e37eca7831c2e3b3"
   },
   "rss": {
     "version": "rss-methodology-v2",
@@ -597,5 +597,21 @@
     "LEVEL_INCOMPLETE_MISSING_PREVENT_INPUTS",
     "LEVEL_1_MINIMAL_RISK"
   ],
-  "interpretation": "RCCKM-specific rules and weights are prespecified design choices. Published source evidence does not independently validate this synthesis."
+  "interpretation": "RCCKM-specific rules and weights are prespecified design choices. Published source evidence does not independently validate this synthesis.",
+  "pending_changes": [
+    {
+      "pr": 79,
+      "url": "https://github.com/shereefelibiary-tech/rcckm-nextjs-preview/pull/79",
+      "revision": "0f8a098a0c804cc840cb982befded50776eb004b",
+      "status": "DRAFT_NOT_RELEASED",
+      "scope": "Probability-first Next.js assessment; separate disease/plaque, prioritized drivers and input availability; legacy codes in technical details; one-decimal probability display. Existing exported reports retain their codes."
+    },
+    {
+      "pr": 80,
+      "url": "https://github.com/shereefelibiary-tech/rcckm-nextjs-preview/pull/80",
+      "revision": "f13dd16d82cd5104014ec76d811f6684829964dd",
+      "status": "DRAFT_NOT_RELEASED",
+      "scope": "Extend provenance-checked unrounded 10-year PREVENT ASCVD classification from 3%/5% to 10%. Independent reference execution, exact clinical-difference review and release validation remain required."
+    }
+  ]
 }

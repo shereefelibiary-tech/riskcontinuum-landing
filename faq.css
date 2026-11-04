@@ -71,3 +71,4 @@ a:focus-visible, summary:focus-visible { outline: 3px solid var(--accent); outli
 .category-table thead th { color: var(--ink); background: #f8f3f2; }
 .category-table th:first-child { width: 8ch; white-space: nowrap; }
 .category-table tbody th { color: var(--accent); }
+.category-table td .plain { display: block; margin-top: 3px; font-size: 14px; line-height: 1.45; color: var(--muted); }

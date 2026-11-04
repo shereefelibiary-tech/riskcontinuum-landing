@@ -391,6 +391,59 @@
     .sdm .lede { color: var(--body); }
     .sdm-top { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; margin-bottom: 60px; }
     .sdm-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 72px; }
+    /* Action plan: next steps that show their work */
+    .ap-card { padding: 26px 28px; }
+    .ap-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+    .ap-list { list-style: none; margin: 0; padding: 0; }
+    .ap-row { position: relative; display: grid; grid-template-columns: 30px minmax(0, .8fr) minmax(0, 1.4fr); gap: 12px; align-items: start; padding: 13px 0; border-top: 1px solid var(--line); opacity: 0; transform: translateY(10px); transition: opacity .45s var(--ease), transform .45s var(--ease), background .3s; }
+    .ap-row.in { opacity: 1; transform: none; }
+    .ap-row.focus { background: var(--garnet-soft); border-radius: 12px; padding-left: 8px; padding-right: 8px; }
+    .ap-n { width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid var(--line-2); display: grid; place-items: center; font-size: 13px; font-weight: 600; color: var(--accent); }
+    .ap-dom { font-family: var(--display); font-size: 17px; color: var(--muted); padding-top: 2px; }
+    .ap-act b { display: block; font-size: 16px; font-weight: 600; color: var(--ink); line-height: 1.35; }
+    .ap-act span { display: block; font-size: 14px; color: var(--muted); margin-top: 3px; line-height: 1.45; }
+    .ap-gap { display: inline-block; margin-top: 6px; font-size: 12px; font-weight: 600; letter-spacing: .02em; color: #85590A; background: #F8EED3; border-radius: 999px; padding: 3px 10px; }
+    .ap-pop { grid-column: 2 / -1; max-height: 0; overflow: hidden; margin-top: 0; background: var(--surface); border: 1px solid transparent; border-radius: 14px; padding: 0 14px; font-size: 14px; color: var(--body); opacity: 0; transition: max-height .45s var(--ease), opacity .35s var(--ease), margin-top .45s var(--ease), padding .45s var(--ease), border-color .3s; }
+    .ap-pop.show { opacity: 1; max-height: 160px; margin-top: 10px; padding: 12px 14px; border-color: var(--line-2); }
+    .ap-act .ap-gap { display: inline-block; }
+    .ap-pop small { display: block; font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+    .ap-pop .src { display: flex; justify-content: space-between; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+    /* Patient roadmap: the handout builds itself */
+    .rm-card { padding: 26px 28px; max-width: 920px; margin: 0 auto; }
+    .rm-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .rm-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .rm-tag { font-size: 13px; font-weight: 600; border: 1px solid var(--line-2); border-radius: 999px; padding: 6px 12px; color: var(--ink); background: var(--surface); }
+    .rm-tag.dark { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .rm-step { border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; margin-top: 12px; background: var(--surface-2); opacity: 0; transform: translateY(14px); transition: opacity .5s var(--ease), transform .5s var(--ease); }
+    .rm-step.in { opacity: 1; transform: none; }
+    .rm-k { font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+    .rm-step h4 { font-family: var(--display); font-size: 21px; color: var(--ink); margin: 2px 0 10px; }
+    .rm-two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .rm-num { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+    .rm-num b { display: block; font-family: var(--display); font-size: 34px; line-height: 1.05; color: var(--ink); }
+    .rm-num span { font-size: 14px; color: var(--muted); }
+    .rm-num em { display: block; font-style: normal; font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+    .rm-plaque { margin-top: 10px; font-size: 14px; font-weight: 600; color: var(--body); background: var(--bg-2); border-radius: 10px; padding: 8px 12px; }
+    .rm-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .rm-chips span { font-size: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; color: var(--body); }
+    .rm-chips span::before { content: "●"; color: var(--a3); font-size: 10px; margin-right: 7px; vertical-align: 2px; }
+    .rm-goals { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    .rm-goals div { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; font-size: 14px; color: var(--muted); }
+    .rm-goals b { display: block; font-size: 15px; color: var(--ink); }
+    .rm-next { list-style: none; margin: 0; padding: 0; counter-reset: rm; }
+    .rm-next li { counter-increment: rm; position: relative; padding: 8px 0 8px 34px; border-top: 1px solid var(--line); font-size: 15px; color: var(--body); }
+    .rm-next li:first-child { border-top: 0; }
+    .rm-next li::before { content: counter(rm); position: absolute; left: 0; top: 8px; width: 22px; height: 22px; border-radius: 50%; background: var(--surface); border: 1px solid var(--line-2); font-size: 12px; font-weight: 600; display: grid; place-items: center; color: var(--accent); }
+    .rm-next b { color: var(--ink); }
+    @media (max-width: 640px) {
+      .ap-card, .rm-card { padding: 18px 14px; }
+      .ap-row { grid-template-columns: 28px minmax(0, 1fr); }
+      .ap-act { grid-column: 2; }
+      .ap-dom { font-size: 15px; }
+      .rm-two { grid-template-columns: 1fr; }
+      .rm-goals { grid-template-columns: 1fr; }
+      .rm-num b { font-size: 30px; }
+    }
     .sdm-handout { margin-top: 28px; text-align: center; font-size: 17px; color: var(--muted); }
     .sdm-card { background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px 24px; box-shadow: 0 1px 2px rgba(45,12,20,.04), 0 18px 40px -26px rgba(45,12,20,.22); }
     .sdm-card .em { font-size: 34px; }
@@ -731,20 +784,25 @@
 
     <div class="plan-foot">
       <div class="reveal">
-        <span class="eyebrow">The real screen</span>
-        <h3>Every lever ranked, every number sourced.</h3>
-        <p class="lede">In the app, levers are ranked by how much they lower 30-year risk. Drag any value, or stack levers to see what they do together.</p>
-        <ul class="ticks">
-          <li><span>🔬</span>LDL-C and systolic BP effects use CTT Collaboration and Ettehad 2016 trial data, cited on screen.</li>
-          <li><span>🔁</span>Other changes rerun the PREVENT equations with the new value.</li>
-          <li><span>🧭</span>Level and actions update for the patient with those values.</li>
-          <li><span>📝</span>One click adds the plan you agree on to the note under "Risk Reduction Discussed", worded as an estimate, not an order.</li>
-        </ul>
-        <p class="fineprint">Modeled estimates for clinician review. A lower modeled value does not establish an individual treatment benefit.</p>
+        <span class="eyebrow">Next steps</span>
+        <h3>Every recommendation shows its work.</h3>
+        <p class="lede">Each step traces back to the patient&rsquo;s values and the guideline behind it, including the test that was never ordered.</p>
+        <p class="fineprint">Same synthetic 52-year-old as the simulator. Every line is RCCKM engine output.</p>
       </div>
-      <div class="window reveal">
-        <div class="window-bar"><i></i><i></i><i></i><span>Risk and plan</span></div>
-        <img src="assets/landing/app-tryplan.jpg" alt="The app's Risk and plan card: statin and systolic BP 120 selected, each button showing its PREVENT change, timeline showing 30-year ASCVD 12.2% today and 7.9% with the plan, ranked levers with trial sources" width="2336" height="3394" loading="lazy" />
+      <div class="card ap-card reveal" id="ap">
+        <div class="ap-head">
+          <div><div class="card-eyebrow">Next steps</div><div class="card-title">Action</div></div>
+          <button class="btn btn-ghost btn-sm" id="ap-replay" type="button">&#8635; Replay</button>
+        </div>
+        <ol class="ap-list">
+          <li class="ap-row"><span class="ap-n">1</span><span class="ap-dom">Lipid lowering</span><span class="ap-act"><b>Moderate-intensity statin reasonable</b><span>LDL-C 122. If treatment is selected: LDL-C goal &lt;100.</span></span></li>
+          <li class="ap-row" id="ap-plaque"><span class="ap-n">2</span><span class="ap-dom">Plaque</span><span class="ap-act"><b>Consider CAC</b><span class="ap-gap">Plaque not measured</span></span>
+            <div class="ap-pop" id="ap-pop" role="note"><small>Why this step</small>Age 52 &middot; 10-yr PREVENT 2.12% &middot; 30-yr PREVENT 12.17%<div class="src"><span>ACC/AHA 2026</span><span>Audit trail</span></div></div></li>
+          <li class="ap-row"><span class="ap-n">3</span><span class="ap-dom">Kidney protection</span><span class="ap-act"><b>Stable</b></span></li>
+          <li class="ap-row"><span class="ap-n">4</span><span class="ap-dom">Blood pressure</span><span class="ap-act"><b>Continue routine BP surveillance</b></span></li>
+          <li class="ap-row"><span class="ap-n">5</span><span class="ap-dom">Glycemia / metabolic</span><span class="ap-act"><b>BMI &ge;30: consider GLP-1 RA for weight and cardiometabolic risk</b><span>A1c 6.1%.</span></span></li>
+          <li class="ap-row"><span class="ap-n">6</span><span class="ap-dom">Aspirin</span><span class="ap-act"><b>Not indicated</b></span></li>
+        </ol>
       </div>
     </div>
 
@@ -924,11 +982,31 @@ Management Considerations:
       <div class="sdm-card reveal"><div class="em">📉</div><h3>A curve they can watch bend</h3><p>Today and the plan on one timeline, out to age 82 for this patient.</p></div>
       <div class="sdm-card reveal"><div class="em">📝</div><h3>The conversation, documented</h3><p>"Risk Reduction Discussed" goes in the note with the numbers you shared.</p></div>
     </div>
-    <figure class="sdm-wide reveal">
-      <div class="paper-frame"><img src="assets/landing/app-prevent-room.jpg" alt="PREVENT card: 2.12% 10-year ASCVD risk, about 2 in 100 similar patients, shown as 2 highlighted people out of 100" width="2336" height="1020" loading="lazy" /></div>
-      <figcaption class="shot-cap"><b>In the room.</b> Risk represented visually.</figcaption>
+    <figure class="sdm-wide">
+      <div class="card rm-card" id="rm">
+        <div class="rm-head">
+          <div><div class="card-eyebrow">For the patient</div><div class="card-title">Your Prevention Roadmap</div></div>
+          <div class="rm-tags" aria-label="Handout options"><span class="rm-tag">Copy to after-visit summary</span><span class="rm-tag dark">Print</span></div>
+        </div>
+        <div class="rm-step"><div class="rm-k">Step 1</div><h4>Where you stand</h4>
+          <div class="rm-two">
+            <div class="rm-num"><em>10-year risk</em><b data-to="2.12">0.00%</b><span>About 2 in 100 similar patients</span></div>
+            <div class="rm-num"><em>30-year risk</em><b data-to="12.17">0.00%</b><span>About 12 in 100 similar patients</span></div>
+          </div>
+          <div class="rm-plaque">Coronary plaque: not measured.</div>
+        </div>
+        <div class="rm-step"><div class="rm-k">Step 2</div><h4>Why your risk is higher</h4>
+          <div class="rm-chips"><span>Long-term risk</span><span>Triglycerides</span><span>Kidney and metabolic health</span><span>Cholesterol particles</span></div>
+        </div>
+        <div class="rm-step"><div class="rm-k">Step 3</div><h4>Your goals</h4>
+          <div class="rm-goals"><div><b>LDL-C below 100</b>if treatment is selected &middot; now 122</div><div><b>ApoB below 90</b>if treatment is selected &middot; now 92</div><div><b>A1c below 5.7%</b>now 6.1%</div></div>
+        </div>
+        <div class="rm-step"><div class="rm-k">Step 4</div><h4>Your next steps</h4>
+          <ol class="rm-next"><li><b>Cholesterol:</b> Discuss cholesterol-lowering medicine with your clinician.</li><li><b>Weight:</b> Discuss GLP-1 or GLP-1/GIP treatment as an option for weight benefit.</li><li><b>Coronary plaque:</b> Discuss a coronary calcium scan (CAC) to check for plaque.</li></ol>
+        </div>
+      </div>
+      <figcaption class="shot-cap" style="text-align:center"><b>A handout in plain language.</b> Print it, or paste it into the after-visit summary.</figcaption>
     </figure>
-    <p class="sdm-handout"><span aria-hidden="true">🗺️</span> Need a handout? Print a plain-language roadmap with the patient&rsquo;s goals and next steps, or copy it into the after-visit summary.</p>
   </div>
 </section>
 
@@ -954,7 +1032,7 @@ Management Considerations:
       <div class="rssx-copy">
         <span class="eyebrow">Risk Signal Score</span>
         <h3>The stack you already keep in your head.</h3>
-        <p class="lede">With every patient, clinicians mentally pile up the risk factors: the Lp(a), the creeping A1c, the calcium score. RSS draws that stack, one block per signal, so you can see what&rsquo;s driving risk at a glance. It&rsquo;s a points tally, not a probability. <a class="inline-link" href="faq.html#levels-stages-and-risk">How it differs from PREVENT and the Levels &rarr;</a></p>
+        <p class="lede">One block per risk signal, so you see what&rsquo;s driving risk at a glance.</p>
         <blockquote class="rss-quote">&ldquo;This is how I stack risk factors in my mind, made visible.&rdquo;<cite>Shereef El-Ibiary, MD</cite></blockquote>
         <div class="chips" role="tablist" aria-label="Patients" id="rss-chips"></div>
         <p class="fineprint">Synthetic demo patients; contributors and points are RCCKM engine output.</p>
@@ -1313,6 +1391,35 @@ Management Considerations:
       else if (v && rssStarted && rssAuto && !rssAutoTimer) rssAutoTimer = setTimeout(function () { rssLoop((rssCur + 1) % RSS.length); }, 1500);
     }, 0.35);
     if (reduced) playRss(0);
+
+    /* 2c. Action plan: steps arrive one by one, then the CAC step shows its work. */
+    (function () {
+      var card = document.getElementById("ap"); if (!card) return;
+      var rows = card.querySelectorAll(".ap-row"), pop = document.getElementById("ap-pop"), plaque = document.getElementById("ap-plaque"), timers = [];
+      function play() {
+        timers.forEach(clearTimeout); timers = [];
+        rows.forEach(function (r) { r.classList.remove("in"); }); plaque.classList.remove("focus"); pop.classList.remove("show");
+        if (reduced) { rows.forEach(function (r) { r.classList.add("in"); }); plaque.classList.add("focus"); pop.classList.add("show"); return; }
+        rows.forEach(function (r, i) { timers.push(setTimeout(function () { r.classList.add("in"); }, 150 + i * 220)); });
+        var t = 150 + rows.length * 220 + 500;
+        timers.push(setTimeout(function () { plaque.classList.add("focus"); }, t));
+        timers.push(setTimeout(function () { pop.classList.add("show"); }, t + 450));
+      }
+      var started = false;
+      onView(card, function (v) { if (v && !started) { started = true; play(); } }, 0.35);
+      document.getElementById("ap-replay").addEventListener("click", play);
+    })();
+
+    /* 2d. Patient roadmap: the handout assembles step by step. */
+    (function () {
+      var card = document.getElementById("rm"); if (!card) return;
+      var steps = card.querySelectorAll(".rm-step"), nums = card.querySelectorAll(".rm-num b"), done = false;
+      onView(card, function (v) {
+        if (!v || done) return; done = true;
+        steps.forEach(function (st, i) { setTimeout(function () { st.classList.add("in"); }, reduced ? 0 : 200 + i * 420); });
+        nums.forEach(function (b) { var to = parseFloat(b.dataset.to); setTimeout(function () { tween(0, to, 900, function (x) { b.textContent = x.toFixed(2) + "%"; }); }, reduced ? 0 : 350); });
+      }, 0.2);
+    })();
 
     /* 3. Try a plan: the engine's simulate output for this patient, per lever combination. */
     var AGE = 52;

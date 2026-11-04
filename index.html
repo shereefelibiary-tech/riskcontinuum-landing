@@ -425,6 +425,8 @@
     .rssx { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 56px; align-items: center; }
     .rssx-copy h3 { font-size: clamp(28px, 3vw, 40px); line-height: 1.12; margin: 16px 0 18px; }
     .rssx-copy .chips { margin-top: 24px; }
+    .rss-quote { margin: 22px 0 0; padding-left: 16px; border-left: 3px solid var(--accent); font-family: var(--display); font-size: 20px; line-height: 1.4; color: var(--ink); }
+    .rss-quote cite { display: block; margin-top: 8px; font-family: inherit; font-size: 14px; font-style: normal; color: var(--muted); }
     .rss-card { padding: 28px 30px; }
     .rss-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
     .rss-score { display: flex; align-items: center; gap: 12px; }
@@ -945,14 +947,15 @@ Management Considerations:
           <div>
             <div class="rss-sub">Signal contributors</div>
             <div id="contribs"></div>
-            <p class="rss-note">Ordinal burden score, not an event probability. Displayed RSS equals the sum of the contributors shown.</p>
+            <p class="rss-note">A points tally, not an event probability. The score is the sum of the points shown.</p>
           </div>
         </div>
       </div>
       <div class="rssx-copy">
         <span class="eyebrow">Risk Signal Score</span>
-        <h3>Every contributor, counted.</h3>
-        <p class="lede">An ordinal burden score, not a probability: each signal adds its points, so what is driving risk is visible at a glance. <a class="inline-link" href="faq.html#levels-stages-and-risk">How it differs from PREVENT and the Levels &rarr;</a></p>
+        <h3>The stack you already keep in your head.</h3>
+        <p class="lede">With every patient, clinicians mentally pile up the risk factors: the Lp(a), the creeping A1c, the calcium score. RSS draws that stack, one block per signal, so you can see what&rsquo;s driving risk at a glance. It&rsquo;s a points tally, not a probability. <a class="inline-link" href="faq.html#levels-stages-and-risk">How it differs from PREVENT and the Levels &rarr;</a></p>
+        <blockquote class="rss-quote">&ldquo;This is how I stack risk factors in my mind, made visible.&rdquo;<cite>Shereef El-Ibiary, MD</cite></blockquote>
         <div class="chips" role="tablist" aria-label="Patients" id="rss-chips"></div>
         <p class="fineprint">Synthetic demo patients; contributors and points are RCCKM engine output.</p>
       </div>
@@ -1055,7 +1058,7 @@ Management Considerations:
     </div>
     <div class="faq-preview-list">
       <div id="levels"><h3><a href="faq.html#rcckm-categories">What do the RCCKM Levels mean?</a></h3><p>Each Level names a clinical pattern. The guide explains 3A, 3B and 3C alongside the other Levels and the separate CKM, KDIGO and PREVENT frameworks.</p></div>
-      <div id="signal"><h3><a href="faq.html#risk-signal-score">What does the Risk Signal Score add?</a></h3><p>Read how the ordinal score makes its contributors visible and how to interpret it alongside PREVENT.</p></div>
+      <div id="signal"><h3><a href="faq.html#risk-signal-score">What does the Risk Signal Score add?</a></h3><p>Read how the points tally makes its contributors visible and how to interpret it alongside PREVENT.</p></div>
       <div><h3><a href="faq.html#simulator-method">What does the simulator bring to the conversation?</a></h3><p>Explore options together using trial-derived LDL-C and blood pressure effects and supported PREVENT recalculations, with the methods in view.</p></div>
       <div><h3><a href="faq.html#validation-status">What supports the platform?</a></h3><p>Published equations and clinical frameworks underpin the assessment. Software checks and synthetic-case testing support development, with independent clinical evaluation as the next step.</p></div>
     </div>

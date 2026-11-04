@@ -73,15 +73,36 @@ def inline(node: Tag | NavigableString) -> str:
     return body
 
 
+def rule_identifier_markup(value: str, available_width: float) -> str:
+    """Wrap identifiers only at underscore boundaries, preserving each token."""
+    tokens = clean(value).split("_")
+    lines: list[str] = []
+    current = ""
+    for token in tokens:
+        candidate = f"{current}_{token}" if current else token
+        if current and pdfmetrics.stringWidth(candidate, "Methods", 7.3) > available_width:
+            lines.append(current + "_")
+            current = token
+        else:
+            current = candidate
+    if current:
+        lines.append(current)
+    return "<br/>".join(escape(line) for line in lines)
+
+
 def make_table(node: Tag) -> list:
     rows = []
     for row_index, tr in enumerate(node.find_all("tr")):
         cells = []
         for cell in tr.find_all(["th", "td"], recursive=False):
             style = styles["MethodsTableHeader"] if row_index == 0 else styles["MethodsTable"]
-            # Rule identifiers remain legible and wrap within the column.
+            # Keep identifiers readable; split at semantic underscore boundaries.
             for code in cell.find_all("code"):
                 code.insert_before(BeautifulSoup("<br/>", "html.parser"))
+                if "rule-table" in node.get("class", []) and code.get_text().startswith("LEVEL_"):
+                    wrapped = rule_identifier_markup(code.get_text(), 134)
+                    code.clear()
+                    code.append(BeautifulSoup(wrapped, "html.parser"))
             cells.append(Paragraph(inline(cell), style))
         rows.append(cells)
     count = len(rows[0])

@@ -1,28 +1,95 @@
 {
-  "verified_on": "2026-11-04",
+  "document_version": "1.2",
+  "verified_on": "2026-11-05",
+  "maintained_by": "Risk Continuum Health LLC",
   "engine_repository": "rcckm-nextjs-preview",
-  "engine_revision": "18baf7a8651b10cb4f047072590a5c8699e293c5",
+  "engine_revision": "2d6923ddd2619e4f55bb8791f1306fd60646ed5e",
+  "tested_application_revision": "789d38284d3e103959613dea8ad7bde11e5c469f",
+  "tested_ci_merge_revision": "49cfe1ab07d71bb95560de47c0d97ee60b4c2e2f",
+  "verified_source_tree_sha": "2abc64181fc8d794c118b2ba749a6c3ca7788a38",
+  "source_relationship": "The merged implementation and tested application head have identical Git source trees.",
+  "current_ci": {
+    "run_id": 41950817613,
+    "url": "https://github.com/shereefelibiary-tech/rcckm-nextjs-preview/actions/runs/41950817613",
+    "date_et": "2026-11-04",
+    "conclusion": "success",
+    "jobs": [
+      "validation (ubuntu-latest)",
+      "validation (windows-latest)",
+      "nextjs",
+      "critic500"
+    ]
+  },
   "routine_validation": {
-    "run_id": 41769906552,
-    "revision": "18baf7a8651b10cb4f047072590a5c8699e293c5",
-    "date_et": "2026-11-03",
+    "run_id": 41950817613,
+    "revision": "789d38284d3e103959613dea8ad7bde11e5c469f",
+    "date_et": "2026-11-04",
     "workflow_conclusion": "success",
-    "suite": "Full pytest suite, Ubuntu",
-    "passed": 7240,
+    "suite": "Full pytest suite, each of Ubuntu and Windows",
+    "passed": 7277,
     "skipped": 160,
     "warnings": 2,
+    "platform_log_receipts": {
+      "Ubuntu": [
+        "2026-11-05T01:54:22.5187630Z ========== 7277 passed, 160 skipped, 2 warnings in 323.85s (0:05:23) ==========="
+      ],
+      "Windows": [
+        "2026-11-05T01:52:58.3247345Z ========== 7277 passed, 160 skipped, 2 warnings in 215.91s (0:03:35) ==========\r"
+      ]
+    }
+  },
+  "harness_validation": {
+    "run_id": 41950817613,
+    "revision": "789d38284d3e103959613dea8ad7bde11e5c469f",
+    "date_et": "2026-11-04",
+    "passed": 379,
+    "skipped": 15,
+    "scope": "Harness integrity and retained browser-regression tests; the separate Next.js browser job also passed.",
     "log_receipt": [
-      "2026-11-04T04:01:36.7459204Z ========== 7240 passed, 160 skipped, 2 warnings in 386.30s (0:06:26) ==========="
+      "2026-11-05T01:55:24.4729119Z 379 passed, 15 skipped in 362.77s (0:06:02)"
     ]
   },
   "deterministic_replay": {
-    "run_id": 41769906552,
-    "revision": "18baf7a8651b10cb4f047072590a5c8699e293c5",
-    "date_et": "2026-11-03",
+    "run_id": 41950817613,
+    "revision": "789d38284d3e103959613dea8ad7bde11e5c469f",
+    "date_et": "2026-11-04",
     "primary_patients": 500,
     "format_variants": 100,
     "status": "PASS",
-    "verification": "Replay, baseline comparison, and exact-source identity assertions completed successfully in the critic500 CI job."
+    "baseline_comparison": "MATCH",
+    "changed_journeys": 0,
+    "approved_baseline_sha256": "e4fdda338cd0c61c1a77e0f8284547d9b9ae8aa947de70e726c4cd7f62f270f0",
+    "log_receipt": [
+      "2026-11-05T01:58:29.7479735Z   \"status\": \"PASS\",",
+      "2026-11-05T01:58:33.2196572Z   \"status\": \"PASS\",",
+      "2026-11-05T01:58:34.9719985Z   \"status\": \"VERIFIED\",",
+      "2026-11-05T02:01:55.9007187Z   \"status\": \"PASS\",",
+      "2026-11-05T02:01:55.9009144Z   \"journeys\": 600,",
+      "2026-11-05T02:01:58.0278861Z   \"status\": \"MATCH\",",
+      "2026-11-05T02:01:58.0280940Z   \"journeys\": 600,",
+      "2026-11-05T02:01:58.0281311Z   \"changed_journeys\": 0,"
+    ]
+  },
+  "fhir_paste_parity": {
+    "run_id": 41950817613,
+    "journeys": 500,
+    "status": "PASS",
+    "scope": "Agreement of supported FHIR and paste-normalized synthetic inputs."
+  },
+  "independent_prevent_reference": {
+    "official_repository": "AHA-DS-Analytics/PREVENT",
+    "official_commit": "3a7899b5456bab73d4482ac6d95c6043394d0910",
+    "package": "AHAprevent 1.1.0",
+    "original_artifact_sha256": "1b0e161ebf6f1fd2c6876f09c71c7a568c8cba0013b30162b2957ce5c702143b",
+    "accepted_artifact_sha256": "bd3e2ebdd2c123aa34d741dbf00f825d049367b5775361187132a6a84fa5b2da",
+    "binding_mode": "REUSED_EQUIVALENT",
+    "direct_matches": 535,
+    "governed_boundary_projection_matches": 5,
+    "clinically_ineligible": 60,
+    "journeys_compared": 600,
+    "published_examples_compared": 2,
+    "differences": 0,
+    "scope": "The accepted numerical evidence is reused after unchanged PREVENT source/input/model/endpoint comparisons; this is not a new R execution."
   },
   "semantic_browser_review": {
     "run_id": 41257395318,
@@ -48,29 +115,59 @@
     ],
     "review_type": "AI semantic review of synthetic browser journeys; not independent human clinical validation."
   },
-  "limitations": [
-    "Developer-maintained evidence summary, verified against repository CI records.",
-    "Counts describe software tests or synthetic journeys, not clinical study participants.",
-    "Semantic results apply to the recorded frozen source; no semantic PASS is asserted for later revisions.",
-    "The source repository and full CI artifacts are access-controlled; evaluation evidence can be requested from the developer.",
-    "Independent prospective clinical effectiveness and external prognostic validation of RCCKM-specific frameworks have not been established."
+  "current_semantic_release_gate": {
+    "status": "NOT_RUN",
+    "disposition": "WAIVED_BY_PHYSICIAN_OWNER_FOR_MERGE",
+    "decision_date_et": "2026-11-05",
+    "record": "https://github.com/shereefelibiary-tech/rcckm-nextjs-preview/pull/80",
+    "merge_commit": "2d6923ddd2619e4f55bb8791f1306fd60646ed5e",
+    "scope": "One reviewed merge. The earlier semantic PASS remains linked to its tested source."
+  },
+  "clinical_evaluation": {
+    "status": "PLANNED",
+    "priorities": [
+      "Independent clinician adjudication of prespecified cases",
+      "Prospective usability and workflow evaluation",
+      "Patient understanding and sustained clinician use"
+    ],
+    "scope": "Software verification is reported separately from independent clinical evaluation."
+  },
+  "evidence_scope": [
+    "Counts represent software tests and synthetic journeys, not clinical study participants.",
+    "Historical semantic reviews remain bound to their recorded source revision and driver.",
+    "Independent clinical usefulness, prospective benefit and calibration of the RCCKM-specific frameworks remain evaluation priorities."
   ],
-  "pending_changes": [
-    {
-      "pr": 79,
-      "url": "https://github.com/shereefelibiary-tech/rcckm-nextjs-preview/pull/79",
-      "revision": "63a9606c283d67d45adff4b3f41db9f54b4eef01",
-      "status": "DRAFT_NOT_RELEASED",
-      "scope": "Probability-first Next.js assessment; separate disease/plaque, prioritized drivers and input availability; legacy codes in technical details; one-decimal probability display. Existing exported reports retain their codes."
+  "historical_validation": {
+    "routine_validation": {
+      "run_id": 41769906552,
+      "revision": "18baf7a8651b10cb4f047072590a5c8699e293c5",
+      "date_et": "2026-11-03",
+      "workflow_conclusion": "success",
+      "suite": "Full pytest suite, Ubuntu",
+      "passed": 7240,
+      "skipped": 160,
+      "warnings": 2,
+      "log_receipt": [
+        "2026-11-04T04:01:36.7459204Z ========== 7240 passed, 160 skipped, 2 warnings in 386.30s (0:06:26) ==========="
+      ]
     },
+    "deterministic_replay": {
+      "run_id": 41769906552,
+      "revision": "18baf7a8651b10cb4f047072590a5c8699e293c5",
+      "date_et": "2026-11-03",
+      "primary_patients": 500,
+      "format_variants": 100,
+      "status": "PASS",
+      "verification": "Replay, baseline comparison, and exact-source identity assertions completed successfully in the critic500 CI job."
+    }
+  },
+  "implementation_changes": [
     {
       "pr": 80,
       "url": "https://github.com/shereefelibiary-tech/rcckm-nextjs-preview/pull/80",
       "revision": "789d38284d3e103959613dea8ad7bde11e5c469f",
-      "status": "DRAFT_NOT_RELEASED",
-      "scope": "Provenance-checked unrounded 10-year PREVENT ASCVD classification at 10%, with a physician-approved minimum Level 3A for Intermediate risk. PREVENT category and independent treatment rules remain separate. The reviewed baseline is installed; CI and release validation remain required.",
-      "proposed_level_floor_rule": "LEVEL_3A_INTERMEDIATE_PREVENT",
-      "proposed_3a_definition": "Modeled risk or single driver",
+      "status": "MERGED_2026-11-05",
+      "scope": "Consistent provenance-checked unrounded PREVENT cutoffs at 3%, 5% and 10%; minimum Level 3A for Intermediate 10-year ASCVD risk. Treatment pathways remain independent.",
       "frozen_candidate_raw_source_sha256": "2c4819d8a00357b8bfe4ab32d844c09026f5a775f1de06b926e3ca550c166a5d",
       "frozen_candidate_canonical_source_sha256": "250c17382828e9f097b2606189e72b42bfeb8d528f6529c278ce42a85bd9e22f",
       "clinical_review": "PHYSICIAN_APPROVED_2026-11-04",
@@ -82,7 +179,20 @@
         "clinical_output_differences": 0,
         "journeys_compared": 600,
         "signer_preserved": true
-      }
+      },
+      "merge_revision": "2d6923ddd2619e4f55bb8791f1306fd60646ed5e",
+      "level_floor_rule": "LEVEL_3A_INTERMEDIATE_PREVENT",
+      "level_3a_definition": "Modeled risk or single driver",
+      "ci_run_id": 41950817613
+    }
+  ],
+  "pending_changes": [
+    {
+      "pr": 79,
+      "url": "https://github.com/shereefelibiary-tech/rcckm-nextjs-preview/pull/79",
+      "revision": "63a9606c283d67d45adff4b3f41db9f54b4eef01",
+      "status": "DRAFT_NOT_RELEASED",
+      "scope": "Probability-first Next.js assessment; separate disease/plaque, prioritized drivers and input availability; legacy codes in technical details; one-decimal probability display. Existing exported reports retain their codes."
     }
   ]
 }

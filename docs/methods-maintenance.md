@@ -1,99 +1,80 @@
-# Methods & evidence: maintenance
+# Methods and evidence: maintenance
 
-The public page is `methods.html`. It is a documentation surface; it does not
-change clinical calculations, rules, recommendations or application behavior.
-The first methods version describes engine revision
-`18baf7a8651b10cb4f047072590a5c8699e293c5` from `rcckm-nextjs-preview`.
+Version 1.2 describes merged application revision
+`2d6923ddd2619e4f55bb8791f1306fd60646ed5e`. Its Git tree matches tested
+application head `789d38284d3e103959613dea8ad7bde11e5c469f`.
 
-Version 1.1 is a review draft. It separately identifies application PR #79
-(`63a9606c283d67d45adff4b3f41db9f54b4eef01`) for probability-first clinical
-profile presentation and PR #80 (`789d38284d3e103959613dea8ad7bde11e5c469f`)
-for provenance-checked unrounded classification at 10%. The physician owner
-subsequently agreed to an Intermediate-risk minimum of 3A; that local
-refinement and the broader 3A description are committed to the draft PR and
-unreleased. The physician owner approved the exact clinical differences and
-baseline proposal `f08e8a234a0ca61024122e8edf3314bf3712dbc6ed3c3affebf028a4d13a158c`
-on November 4, 2026. The initial approved baseline was
-`e0b6b858c8ca9cf73e3092c20e3177fa09fa31ee0e8d137dd4fa9493c435180a`.
-A CI test-only follow-up removes a stale historical checksum assertion and
-verifies the current approved outcome root instead. A source-only refresh to
-`e4fdda338cd0c61c1a77e0f8284547d9b9ae8aa947de70e726c4cd7f62f270f0`
-preserves the physician signer and all 600 outcomes and report texts exactly.
-The pinned rule table continues to describe the released source, while the
-pending-change section describes this separate proposed minimum. Neither proposal changes
-the released-engine reference or the RSS export fingerprints. Confirm their
-actual merge, validation and deployment status before describing them as live.
-The numerical PR has a fresh pinned independent reference accepted by the
-physician owner for baseline preparation. That acceptance does not approve
-the earlier baseline proposal. The separate later clinical approval covers
-the reviewed Level refinement and revised baseline. Preserve
-the exact numerical reference and verify source/input equivalence before reuse;
-final clinical-difference and release review remain required. Never transfer a
-historical semantic PASS to either draft.
+The current methods include the Intermediate PREVENT minimum of Level 3A,
+the broader 3A description, and provenance-checked unrounded classification
+at 3%, 5% and 10%. The complete base-rule table is followed by the minimum
+and the separate 3C modifier. The probability-first UI proposal in PR #79
+remains unmerged and appears only in the downloadable pending-change metadata.
+
+## Editorial approach
+
+Lead with the clinical workflow, implementation and completed verification.
+Keep the equations, counters, weights and assumptions available in the technical
+sections. Consolidate clinical-evaluation maturity in the evaluation section
+and practical use guidance in the scope section. State limitations plainly,
+without repeating disclaimers throughout the page.
 
 ## Files
 
-- `methods.html`, `methods.css`, `methods.js`: readable overview and expandable
-  technical appendices, available without JavaScript.
-- `downloads/rcckm-methods-data-v1.json`: canonical RSS methodology, exact
-  numeric intervals, Level rule IDs and reviewed source SHA-256 fingerprints.
-- `downloads/rcckm-evidence-register-v1.json`: dated developer-maintained
-  evidence receipts and explicit scope limits.
-- `downloads/RCCKM_Methods_and_Evidence_v1.pdf`: the full HTML content, including
+- `methods.html`, `methods.css`, `methods.js`: the public page; technical
+  details remain available without JavaScript.
+- `downloads/rcckm-methods-data-v1.json`: canonical RSS export, exact intervals,
+  current Level rule identifiers, source fingerprints and change metadata.
+- `downloads/rcckm-evidence-register-v1.json`: source-specific records,
+  workflow receipts, historical semantic evidence and clinical-evaluation scope.
+- `downloads/RCCKM_Methods_and_Evidence_v1.pdf`: the full page, including
   expanded technical appendices, exported for download.
 
-## Rebuild
+The download filenames remain stable across document versions.
 
-The RSS tables come from the engine's pure methodology export. Do not maintain
-a second hand-edited point table. Use a clean engine checkout at the documented
-revision, then run:
+## Rebuild and check
+
+Use the clean, pinned engine checkout:
 
 ```sh
 python scripts/refresh-methods-data.py /absolute/path/to/rcckm-nextjs-preview
-```
-
-The exporter evaluates the RSS dataclass/constants and pure documentation
-helpers in isolation; it does not import or execute the clinical application.
-A Git checkout must match the pinned revision with unchanged reviewed files.
-A retained read-only reference snapshot must match the existing source
-fingerprints. New clinical source requires review, an updated engine reference,
-and the appropriate methods document version before regeneration.
-
-The PDF is generated from the page, including its technical details:
-
-```sh
-python -m pip install beautifulsoup4 reportlab
 python scripts/build-methods-pdf.py
 ```
 
-The PDF builder uses DejaVu Sans regular and bold from
-`/usr/share/fonts/truetype/dejavu`. An absent italic face falls back to regular.
-Use an environment with these fonts when rebuilding. Render the PDF and check
-all pages after content changes. The web page, JSON and PDF should travel
-together in the same change.
+The exporter evaluates only the RSS documentation dataclass/constants and pure
+helpers. It does not import or assess patients through the clinical application.
+A read-only source snapshot must match retained file fingerprints. When updating
+the implementation reference, first verify its files against that exact Git
+revision and regenerate the export from those files. Do not retag old generated
+data as a new source.
 
-## Evidence scope
+The PDF builder needs Beautiful Soup, ReportLab and the DejaVu Sans fonts in
+`/usr/share/fonts/truetype/dejavu`. Render and inspect the final pages. Keep
+the page, JSON downloads and PDF consistent in the same change. Check local
+anchors, links, Level rule coverage and the RSS export before publication.
 
-The routine suite and deterministic replay are for revision `18baf7a` on
-November 3, 2026 Eastern Time. The completed browser/AI semantic QA is for the
-earlier frozen revision `933e1f6` on October 31, 2026 Eastern Time, through the
-retained Streamlit driver. The source job logs use UTC timestamps. Never carry
-the semantic PASS forward to another revision or imply it covers a full Next.js
-clinical journey review. Software tests and AI QA do not establish independent
-human clinical validity or prospective clinical benefit.
+## Evidence records
 
-When refreshing results, inspect completed job steps and actual output; a
-workflow title or green badge alone is insufficient. Report skipped tests
-separately. Preserve adverse findings and adjudications in the underlying
-development record. Update the checked date and downloadable register with
-verified revision/run identities and scope.
+The November 4, 2026 Eastern Time CI run `41950817613` passed all four jobs.
+Each platform's ordinary suite passed 7,277 tests with 160 skipped. The Critic
+harness passed 379 with 15 skipped; the provider-free 600 compared MATCH with
+zero changed journeys; FHIR/paste parity passed 500 journeys. The Next.js build
+and browser-regression job also passed. Counts describe checks and synthetic
+journeys, not study participants.
 
-## Review before publication
+The independent numerical reference is reused unchanged after a complete
+source/input/model/endpoint equivalence proof: 535 direct matches, five governed
+boundary projections and 60 clinically ineligible journeys. All 600 records and
+two published examples reproduce with zero differences. The approved baseline is
+`e4fdda338cd0c61c1a77e0f8284547d9b9ae8aa947de70e726c4cd7f62f270f0`.
 
-Confirm the clinical rule descriptions with the physician owner, especially
-the Level 3B-to-3C modifier, source-specific signal counters, qualitative plaque
-handling, and simulator endpoint/horizon assumptions. Check that all Level rule
-IDs are represented, RSS rows match the export, local links and downloads
-resolve, and the page remains usable at narrow widths and without JavaScript.
-Source documents and private implementation code remain access-controlled;
-this page publishes methodology summaries and scoring weights.
+The completed browser/AI semantic record is for revision `933e1f6` on
+October 31, 2026, through the retained Streamlit driver. The physician owner
+waived a new semantic gate for the November 5 merge in PR #80. Record that
+decision as a waiver, while preserving the earlier source-bound evidence,
+original findings and adjudications. Independent clinical evaluation remains
+separate from software and model-assisted checks.
+
+Inspect job steps and receipt text when refreshing results. Preserve skipped
+counts, distinguish test dates from verification/merge dates, and keep the
+tested source separate from the implementation reference and deployment status.
+Source revision alone does not establish which version is being served.

@@ -107,11 +107,13 @@ def make_table(node: Tag) -> list:
         rows.append(cells)
     count = len(rows[0])
     if "rule-table" in node.get("class", []):
-        widths = [34, 316, 154]
+        widths = [44, 306, 154]
     elif "rss-table" in node.get("class", []):
         widths = [195, 55, 254]
     elif count == 2:
         widths = [137, 367]
+    elif count == 4:
+        widths = [100, 92, 156, 156]
     else:
         widths = [112, 190, 202]
     caption_rows = 1 if node.caption else 0
@@ -174,7 +176,7 @@ def decoration(canvas, doc) -> None:
     canvas.line(54, 47, 558, 47)
     canvas.setFont("Methods", 7)
     canvas.setFillColor(MUTED)
-    canvas.drawString(54, 34, "Methods & evidence v1.1 review draft  |  Released reference 18baf7a  |  November 4, 2026")
+    canvas.drawString(54, 34, "Methods & evidence v1.2  |  Implementation 2d6923d  |  November 5, 2026")
     canvas.drawRightString(558, 34, str(doc.page))
     canvas.restoreState()
 
@@ -186,9 +188,9 @@ def main() -> None:
              Paragraph("Risk Continuum CKM", styles["MethodsH3"]),
              Paragraph("Clinical logic, Level rules, RSS weights, simulator methods, engineering and dated evaluation evidence.", styles["MethodsBody"]),
              Spacer(1, 18),
-             Paragraph("Document version 1.1 review draft · November 4, 2026<br/>Released-engine reference: 18baf7a8651b10cb4f047072590a5c8699e293c5<br/>RSS methodology: rss-methodology-v2<br/>Application PRs #79 and #80 are separately identified proposals, not released behavior.", styles["MethodsSmall"]),
+             Paragraph("Document version 1.2 · November 5, 2026<br/>Implementation reference: 2d6923ddd2619e4f55bb8791f1306fd60646ed5e<br/>RSS methodology: rss-methodology-v2<br/>Source-specific evidence and clinical evaluation priorities are reported separately.", styles["MethodsSmall"]),
              Spacer(1, 18), HRFlowable(width="100%", thickness=.5, color=LINE), Spacer(1, 18),
-             Paragraph("This appendix includes the full technical sections available on the methods page, including the ordered Level rules and every RSS band. It describes implementation and software verification. Independent prospective clinical effectiveness and external prognostic validation of RCCKM-specific frameworks have not been established.", styles["MethodsBody"]),
+             Paragraph("This appendix brings the clinical pathways, complete Level rules, RSS weights, simulator assumptions and verification records together for review. It includes the current Intermediate-risk minimum of Level 3A and the evidence supporting the implementation.", styles["MethodsBody"]),
              Paragraph('<link href="https://riskcontinuum.health/methods.html" color="#861327">riskcontinuum.health/methods.html</link>', styles["MethodsBody"]),
              Spacer(1, 18), Paragraph("CONTENTS", styles["MethodsCaption"])]
     sections = soup.select("section[data-export]")
@@ -201,7 +203,7 @@ def main() -> None:
         story.extend(walk(section))
     target = ROOT / "downloads/RCCKM_Methods_and_Evidence_v1.pdf"
     doc = SimpleDocTemplate(str(target), pagesize=letter, rightMargin=54, leftMargin=54,
-                            topMargin=66, bottomMargin=62, title="Risk Continuum CKM: Methods & Evidence v1.1 review draft",
+                            topMargin=66, bottomMargin=62, title="Risk Continuum CKM: Methods & Evidence v1.2",
                             author="Shereef El-Ibiary, MD | Risk Continuum Health LLC")
     doc.build(story, onFirstPage=decoration, onLaterPages=decoration)
     print(f"Built {target.name} ({target.stat().st_size:,} bytes).")

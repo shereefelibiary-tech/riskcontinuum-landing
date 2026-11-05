@@ -19,7 +19,7 @@ import subprocess
 from typing import Any, Optional
 
 ROOT = Path(__file__).resolve().parents[1]
-ENGINE_REVISION = "18baf7a8651b10cb4f047072590a5c8699e293c5"
+ENGINE_REVISION = "2d6923ddd2619e4f55bb8791f1306fd60646ed5e"
 SOURCE_FILES = (
     "modules/levels/level_classifier.py", "modules/levels/definitions.py",
     "modules/levels/descriptors.py", "modules/rss/engine.py",
@@ -60,12 +60,12 @@ def export(source: Path) -> dict:
     level_source = (source / "modules/levels/level_classifier.py").read_text()
     rule_ids = list(dict.fromkeys(re.findall(r'"(LEVEL_(?:[1-5][A-C]?|INCOMPLETE)_[A-Z0-9_]+)"', level_source)))
     return {
-        "document_version": "1.1-draft", "reviewed_on": "2026-11-04",
+        "document_version": "1.2", "reviewed_on": "2026-11-05",
         "engine_revision": ENGINE_REVISION,
         "source_sha256": {name: hashlib.sha256((source / name).read_bytes()).hexdigest() for name in SOURCE_FILES},
         "rss": method, "rss_exact_numeric_intervals": bands,
         "level_rule_ids": rule_ids,
-        "interpretation": "RCCKM-specific rules and weights are prespecified design choices. Published source evidence does not independently validate this synthesis.",
+        "interpretation": "RCCKM-specific rules and weights are prespecified implementation choices. Clinical evaluation is reported separately from software verification.",
     }
 
 
@@ -92,8 +92,9 @@ def main() -> None:
     # canonical RSS/Level export. Preserve their explicit unreleased status.
     if destination.is_file():
         previous = json.loads(destination.read_text())
-        if previous.get("pending_changes"):
-            data["pending_changes"] = previous["pending_changes"]
+        for key in ("implementation_changes", "pending_changes"):
+            if previous.get(key):
+                data[key] = previous[key]
     destination.parent.mkdir(exist_ok=True)
     destination.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
     blocks = []

@@ -1,10 +1,10 @@
 {
-  "document_version": "1.1-draft",
-  "reviewed_on": "2026-11-04",
-  "engine_revision": "18baf7a8651b10cb4f047072590a5c8699e293c5",
+  "document_version": "1.2",
+  "reviewed_on": "2026-11-05",
+  "engine_revision": "2d6923ddd2619e4f55bb8791f1306fd60646ed5e",
   "source_sha256": {
-    "modules/levels/level_classifier.py": "9094a351538bea488781c59e4b92618216cdf149b78f0aecfa3bfcf5fe108ec8",
-    "modules/levels/definitions.py": "95fbc4832757366e98c424ee9eb4aaec46933f61ec10a64293627894183679ac",
+    "modules/levels/level_classifier.py": "a1026820647dceea6aef211118f745cc26179d65731bd9001bd3b151ef1c805f",
+    "modules/levels/definitions.py": "b73bdf07cc0e15f7cb22e957b88794ee486eafdfa76df5f7c44a553bf8579f94",
     "modules/levels/descriptors.py": "31072313cd013526618d3a2e2325e241b567efab10caeada8dfef882d4a4123b",
     "modules/rss/engine.py": "00fd3d770934a5c06b0bf44ff782876bfc506c1e09ff4c0889a438920c5da935",
     "core/kidney_categories.py": "6b2865a76db8ab062cbe67551c8f352de433f1a56d9eca542a02ad2620a8b086",
@@ -12,7 +12,7 @@
     "core/version.py": "474e1cf7c1d71ad030be6e44109faad52d469fcb4b8f4db3c968cfe149e62026",
     "modules/lipids/severe_hypercholesterolemia.py": "ab3eecb3ba1a542295a730121db6904e85f6b02c3c09112c9f56a66b79ee1308",
     "modules/prevent/eligibility.py": "fa21e90c748c85acc4a9c7737fcb25efe50014f6e79a9fccf999c4e93f0dd917",
-    "modules/prevent/precision.py": "60f1674c718b0027ce6f59a94b95568ce024058c4d46422c8981555da0ef8081",
+    "modules/prevent/precision.py": "d7082cd77c765b939ddc2960d296d26b6e89b7ddf1390d55b44e79e528a6eb4a",
     "modules/prevent/treatment_effects.py": "05794511a344ad044647ec954351357b1f58bb298a674059bb50fc716825edca",
     "api/simulate.py": "bfd9643c915524110e0576c3d923d035ffba8557d8579309e37eca7831c2e3b3"
   },
@@ -568,6 +568,7 @@
     ]
   },
   "level_rule_ids": [
+    "LEVEL_3A_INTERMEDIATE_PREVENT",
     "LEVEL_5_CLINICAL_ASCVD",
     "LEVEL_5_HEART_FAILURE",
     "LEVEL_5_CAC_GE_300",
@@ -597,23 +598,14 @@
     "LEVEL_INCOMPLETE_MISSING_PREVENT_INPUTS",
     "LEVEL_1_MINIMAL_RISK"
   ],
-  "interpretation": "RCCKM-specific rules and weights are prespecified design choices. Published source evidence does not independently validate this synthesis.",
-  "pending_changes": [
-    {
-      "pr": 79,
-      "url": "https://github.com/shereefelibiary-tech/rcckm-nextjs-preview/pull/79",
-      "revision": "63a9606c283d67d45adff4b3f41db9f54b4eef01",
-      "status": "DRAFT_NOT_RELEASED",
-      "scope": "Probability-first Next.js assessment; separate disease/plaque, prioritized drivers and input availability; legacy codes in technical details; one-decimal probability display. Existing exported reports retain their codes."
-    },
+  "interpretation": "RCCKM-specific rules and weights are prespecified implementation choices. Clinical evaluation is reported separately from software verification.",
+  "implementation_changes": [
     {
       "pr": 80,
       "url": "https://github.com/shereefelibiary-tech/rcckm-nextjs-preview/pull/80",
       "revision": "789d38284d3e103959613dea8ad7bde11e5c469f",
-      "status": "DRAFT_NOT_RELEASED",
-      "scope": "Provenance-checked unrounded 10-year PREVENT ASCVD classification at 10%, with a physician-approved minimum Level 3A for Intermediate risk. PREVENT category and independent treatment rules remain separate. The reviewed baseline is installed; CI and release validation remain required.",
-      "proposed_level_floor_rule": "LEVEL_3A_INTERMEDIATE_PREVENT",
-      "proposed_3a_definition": "Modeled risk or single driver",
+      "status": "MERGED_2026-11-05",
+      "scope": "Consistent provenance-checked unrounded PREVENT cutoffs at 3%, 5% and 10%; minimum Level 3A for Intermediate 10-year ASCVD risk. Treatment pathways remain independent.",
       "frozen_candidate_raw_source_sha256": "2c4819d8a00357b8bfe4ab32d844c09026f5a775f1de06b926e3ca550c166a5d",
       "frozen_candidate_canonical_source_sha256": "250c17382828e9f097b2606189e72b42bfeb8d528f6529c278ce42a85bd9e22f",
       "clinical_review": "PHYSICIAN_APPROVED_2026-11-04",
@@ -625,7 +617,20 @@
         "clinical_output_differences": 0,
         "journeys_compared": 600,
         "signer_preserved": true
-      }
+      },
+      "merge_revision": "2d6923ddd2619e4f55bb8791f1306fd60646ed5e",
+      "level_floor_rule": "LEVEL_3A_INTERMEDIATE_PREVENT",
+      "level_3a_definition": "Modeled risk or single driver",
+      "ci_run_id": 41950817613
+    }
+  ],
+  "pending_changes": [
+    {
+      "pr": 79,
+      "url": "https://github.com/shereefelibiary-tech/rcckm-nextjs-preview/pull/79",
+      "revision": "63a9606c283d67d45adff4b3f41db9f54b4eef01",
+      "status": "DRAFT_NOT_RELEASED",
+      "scope": "Probability-first Next.js assessment; separate disease/plaque, prioritized drivers and input availability; legacy codes in technical details; one-decimal probability display. Existing exported reports retain their codes."
     }
   ]
 }

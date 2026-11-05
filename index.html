@@ -478,8 +478,6 @@
     .rssx { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 56px; align-items: center; }
     .rssx-copy h3 { font-size: clamp(28px, 3vw, 40px); line-height: 1.12; margin: 16px 0 18px; }
     .rssx-copy .chips { margin-top: 24px; }
-    .rss-quote { margin: 22px 0 0; padding-left: 16px; border-left: 3px solid var(--accent); font-family: var(--display); font-size: 20px; line-height: 1.4; color: var(--ink); }
-    .rss-quote cite { display: block; margin-top: 8px; font-family: inherit; font-size: 14px; font-style: normal; color: var(--muted); }
     .rss-card { padding: 28px 30px; }
     .rss-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
     .rss-score { display: flex; align-items: center; gap: 12px; }
@@ -775,7 +773,7 @@
             <div class="people" id="people" aria-hidden="true"></div>
             <div class="people-leg">
               <span><i style="background:var(--accent)"></i><b id="pl-ev">12</b> may have a heart attack or stroke</span>
-              <span id="pl-pv-row"><i style="background:var(--good)"></i><b id="pl-pv">0</b> fewer with this plan</span>
+              <span id="pl-pv-row" hidden><i style="background:var(--good)"></i><b id="pl-pv">0</b> fewer with this plan</span>
             </div>
           </div>
         </div>
@@ -992,8 +990,8 @@ Management Considerations:
         </div>
         <div class="rm-step"><div class="rm-k">Step 1</div><h4>Where you stand</h4>
           <div class="rm-two">
-            <div class="rm-num"><em>10-year risk</em><b data-to="2.12">0.00%</b><span>About 2 in 100 similar patients</span></div>
-            <div class="rm-num"><em>30-year risk</em><b data-to="12.17">0.00%</b><span>About 12 in 100 similar patients</span></div>
+            <div class="rm-num"><em>10-year risk</em><b data-to="2.12">2.12%</b><span>About 2 in 100 similar patients</span></div>
+            <div class="rm-num"><em>30-year risk</em><b data-to="12.17">12.17%</b><span>About 12 in 100 similar patients</span></div>
           </div>
           <div class="rm-plaque">Coronary plaque: not measured.</div>
         </div>
@@ -1020,10 +1018,10 @@ Management Considerations:
       <div class="card rss-card" id="rss">
         <div class="rss-head">
           <div><div class="card-eyebrow">Signal burden</div><div class="card-title">Risk Signal Score</div></div>
-          <div class="rss-score"><button class="btn btn-ghost btn-sm" id="rss-replay" type="button">↻ Replay</button><span class="rss-num" id="rss-num" aria-live="polite">0</span><span class="rss-pill" id="rss-pill"></span></div>
+          <div class="rss-score"><button class="btn btn-ghost btn-sm" id="rss-replay" type="button">↻ Replay</button><span class="rss-num" id="rss-num" aria-live="polite">12</span><span class="rss-pill Low show" id="rss-pill">Low</span></div>
         </div>
         <div class="rss-body">
-          <div class="tower" id="tower" role="img" aria-label=""></div>
+          <div class="tower" id="tower" role="img" aria-label="Risk Signal Score 12, 4 contributors"></div>
           <div>
             <div class="rss-sub">Signal contributors</div>
             <div id="contribs"></div>
@@ -1035,7 +1033,6 @@ Management Considerations:
         <span class="eyebrow">Risk Signal Score</span>
         <h3>The stack you already keep in your head.</h3>
         <p class="lede">One block per risk signal, so you see what&rsquo;s driving risk at a glance.</p>
-        <blockquote class="rss-quote">&ldquo;This is how I stack risk factors in my mind, made visible.&rdquo;<cite>Shereef El-Ibiary, MD</cite></blockquote>
         <div class="chips" role="tablist" aria-label="Patients" id="rss-chips"></div>
         <p class="fineprint">Synthetic demo patients; contributors and points are RCCKM engine output.</p>
       </div>
@@ -1495,7 +1492,7 @@ Management Considerations:
       });
       document.getElementById("pl-ev").textContent = evPlan;
       document.getElementById("pl-pv").textContent = evToday - evPlan;
-      document.getElementById("pl-pv-row").style.visibility = evToday - evPlan > 0 ? "visible" : "hidden";
+      var pvRow = document.getElementById("pl-pv-row"); pvRow.hidden = false; pvRow.style.visibility = evToday - evPlan > 0 ? "visible" : "hidden";
     }
     function key() { return ORDER.filter(function (n) { return on[n]; }).join("+") || "none"; }
     function render(animate) {

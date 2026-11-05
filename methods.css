@@ -1,0 +1,119 @@
+/* Methods shares the public site's established type and garnet palette. */
+html { scroll-behavior: smooth; scroll-padding-top: 104px; }
+.top { z-index: 20; }
+.top nav { display: flex; align-items: center; gap: 24px; }
+.top nav a { text-decoration: none; font-size: 15px; font-weight: 600; }
+.top .open-app, .method-button { background: var(--accent); color: white; border-radius: 999px; padding: 9px 18px; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-block; }
+.skip-link { position: fixed; top: -80px; left: 16px; z-index: 100; padding: 10px 18px; background: white; border: 2px solid var(--accent); }
+.skip-link:focus { top: 10px; }
+a:focus-visible, button:focus-visible, summary:focus-visible, .table-scroll:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+.methods-main { max-width: 1200px; margin: auto; padding: 62px 32px 0; }
+.methods-hero { max-width: 880px; padding-bottom: 40px; }
+.methods-hero h1 { font-size: clamp(42px, 6.2vw, 70px); margin: 15px 0 22px; letter-spacing: -.025em; }
+.methods-hero .lede { font-size: 21px; line-height: 1.65; max-width: 66ch; }
+.methods-meta { display: flex; flex-wrap: wrap; gap: 8px 24px; margin: 23px 0 26px; color: var(--muted); font-size: 14px; }
+.methods-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+.methods-actions > a:not(.method-button) { font-size: 15px; font-weight: 600; text-underline-offset: 4px; }
+.methods-layout { display: grid; grid-template-columns: 192px minmax(0, 1fr); gap: 54px; border-top: 1px solid var(--line); padding-top: 40px; }
+.methods-nav { position: sticky; top: 102px; align-self: start; }
+.methods-nav p { text-transform: uppercase; letter-spacing: .14em; font-size: 11px; font-weight: 700; color: var(--muted); margin-bottom: 14px; }
+.methods-nav a { display: block; padding: 9px 0 9px 13px; border-left: 2px solid var(--line); font-size: 14px; line-height: 1.45; color: var(--muted); text-decoration: none; }
+.methods-nav a:hover, .methods-nav a[aria-current="location"] { color: var(--accent); border-color: var(--accent); }
+.methods-content { min-width: 0; }
+.method-section { margin-bottom: 56px; }
+.section-number { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: .12em; }
+.method-section h2 { font-size: 31px; line-height: 1.2; margin: 8px 0 20px; }
+.method-section h3 { font-family: var(--display); font-size: 23px; font-weight: 500; line-height: 1.3; color: var(--ink); margin: 28px 0 12px; }
+.method-section h4 { font-size: 17px; color: var(--ink); margin: 24px 0 10px; }
+.method-section p, .method-section li { font-size: 16px; line-height: 1.8; }
+.method-section p + p { margin-top: 13px; }
+.method-section ul, .method-section ol { margin: 12px 0 16px 22px; }
+.method-section strong { color: var(--ink); }
+.note { margin: 22px 0; border-left: 3px solid var(--accent); background: #f1e8e8; border-radius: 0 12px 12px 0; padding: 18px 22px; }
+.note p { font-size: 15px; }
+.note b { display: block; margin-bottom: 5px; color: var(--ink); }
+.table-scroll { overflow-x: auto; margin: 20px 0; border: 1px solid var(--line); border-radius: 12px; background: white; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; line-height: 1.65; text-align: left; }
+caption { text-align: left; font-size: 12px; font-weight: 600; padding: 12px 16px; color: var(--muted); background: #fcfaf9; border-bottom: 1px solid var(--line); }
+th, td { padding: 13px 16px; vertical-align: top; border-bottom: 1px solid var(--line); }
+thead th { font-size: 12px; letter-spacing: .02em; color: var(--muted); background: #fcfaf9; }
+tbody th { color: var(--ink); font-weight: 600; }
+tbody tr:last-child > * { border-bottom: 0; }
+.level-cell { white-space: nowrap; color: var(--accent); }
+.level-cell span { display: block; font-size: 12px; font-weight: 500; color: var(--body); white-space: normal; min-width: 110px; }
+.points { white-space: nowrap; color: var(--accent); font-weight: 700; }
+.method-detail { border: 1px solid var(--line); background: white; border-radius: 14px; margin: 22px 0; }
+.method-detail > summary { padding: 18px 22px; font-size: 16px; font-weight: 600; color: var(--ink); cursor: pointer; line-height: 1.5; }
+.detail-body { padding: 0 22px 22px; }
+.detail-body .table-scroll { margin: 16px 0; }
+.rule-table { font-size: 13px; }
+.rule-table code { display: block; font-size: 10px; line-height: 1.45; color: var(--muted); margin-top: 7px; overflow-wrap: anywhere; }
+code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: .84em; overflow-wrap: anywhere; }
+.equation { background: var(--ink); color: #fff; border-radius: 14px; padding: 22px; margin: 20px 0; overflow-wrap: anywhere; }
+.equation code { display: block; font-size: 13px; line-height: 2; }
+.equation .equation-label { font-size: 11px; letter-spacing: .1em; color: #dac4ca; text-transform: uppercase; margin-bottom: 8px; }
+.workflow { list-style: none; margin: 24px 0 !important; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.workflow li { border: 1px solid var(--line); border-radius: 14px; padding: 20px; background: white; margin: 0; }
+.workflow b { color: var(--accent); display: block; margin-bottom: 6px; font-size: 15px; }
+.workflow p { font-size: 14px; }
+.evaluation-band { display: flex; flex-wrap: wrap; gap: 9px; margin: 15px 0 24px; }
+.status { font-size: 12px; font-weight: 600; padding: 5px 11px; border-radius: 999px; background: #e7eee9; color: #28553d; }
+.status.pending { color: #704412; background: #f1e9dc; }
+.references li { font-size: 14px; margin-bottom: 15px; }
+.references .reference-note { display: block; color: var(--muted); font-size: 13px; }
+.provenance { padding: 20px 24px; border: 1px solid var(--line); border-radius: 14px; margin-top: 24px; background: white; }
+.provenance p { font-size: 13px; }
+.contact-card { border-radius: 20px; padding: 28px; background: var(--ink); color: #f2e7e9; margin-top: 36px; }
+.contact-card h3 { color: white; margin-top: 0; }
+.contact-card a { color: #f7c7d1; }
+.print-only { display: none; }
+.foot { max-width: 1200px; margin: auto; }
+@media (max-width: 900px) {
+  .methods-layout { grid-template-columns: 1fr; gap: 26px; }
+  .methods-nav { position: static; display: flex; flex-wrap: wrap; gap: 6px; }
+  .methods-nav p { flex-basis: 100%; margin-bottom: 3px; }
+  .methods-nav a { border: 1px solid var(--line); padding: 7px 11px; border-radius: 999px; font-size: 12px; }
+}
+@media (max-width: 600px) {
+  .methods-main { padding: 36px 18px 0; }
+  .methods-hero h1 { font-size: 43px; }
+  .methods-hero .lede { font-size: 18px; }
+  .top .wrap { padding: 0 16px; }
+  .top nav { gap: 13px; }
+  .top nav a { font-size: 13px; }
+  .top .open-app { padding: 8px 12px; }
+  .top .logo { width: 120px; }
+  .workflow { grid-template-columns: 1fr; }
+  .detail-body { padding: 0 14px 16px; }
+  th, td { padding: 10px 12px; }
+  table { font-size: 13px; min-width: 540px; }
+  .rss-table { min-width: 480px; }
+  .level-cell span { min-width: 90px; }
+  .method-section h2 { font-size: 28px; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+@media print {
+  @page { margin: 18mm; }
+  body { background: #fff; color: #111; font-size: 10pt; }
+  .top, .methods-nav, .methods-actions, .foot, .contact-card, .skip-link { display: none; }
+  .methods-main { max-width: none; padding: 0; }
+  .methods-layout { display: block; border: 0; padding: 0; }
+  .methods-hero { padding-bottom: 20px; }
+  .methods-hero h1 { font-size: 32pt; }
+  .methods-hero .lede { font-size: 12pt; }
+  .method-section { margin-bottom: 25px; }
+  .method-section p, .method-section li { font-size: 10pt; }
+  .method-section h2 { font-size: 20pt; }
+  .method-section h3 { font-size: 14pt; }
+  .table-scroll { overflow: visible; border-radius: 0; }
+  table, .rss-table { min-width: 0; font-size: 8pt; }
+  th, td { padding: 7px; }
+  tr, .workflow li, .note, .provenance { break-inside: avoid; }
+  thead { display: table-header-group; }
+  h2, h3, h4, summary { break-after: avoid; }
+  .method-detail { border: 0; }
+  .detail-body { padding: 0; }
+  .equation { background: #f4f0f0; color: #111; }
+  .equation .equation-label { color: #555; }
+  .print-only { display: block; }
+}

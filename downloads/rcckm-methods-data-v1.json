@@ -1,0 +1,631 @@
+{
+  "document_version": "1.1-draft",
+  "reviewed_on": "2026-11-04",
+  "engine_revision": "18baf7a8651b10cb4f047072590a5c8699e293c5",
+  "source_sha256": {
+    "modules/levels/level_classifier.py": "9094a351538bea488781c59e4b92618216cdf149b78f0aecfa3bfcf5fe108ec8",
+    "modules/levels/definitions.py": "95fbc4832757366e98c424ee9eb4aaec46933f61ec10a64293627894183679ac",
+    "modules/levels/descriptors.py": "31072313cd013526618d3a2e2325e241b567efab10caeada8dfef882d4a4123b",
+    "modules/rss/engine.py": "00fd3d770934a5c06b0bf44ff782876bfc506c1e09ff4c0889a438920c5da935",
+    "core/kidney_categories.py": "6b2865a76db8ab062cbe67551c8f352de433f1a56d9eca542a02ad2620a8b086",
+    "core/hypertension.py": "cdd628e1b443e2602e0c6ab6bcddf7a5a1678180ab2bf58105eb62709ef29fe0",
+    "core/version.py": "474e1cf7c1d71ad030be6e44109faad52d469fcb4b8f4db3c968cfe149e62026",
+    "modules/lipids/severe_hypercholesterolemia.py": "ab3eecb3ba1a542295a730121db6904e85f6b02c3c09112c9f56a66b79ee1308",
+    "modules/prevent/eligibility.py": "fa21e90c748c85acc4a9c7737fcb25efe50014f6e79a9fccf999c4e93f0dd917",
+    "modules/prevent/precision.py": "60f1674c718b0027ce6f59a94b95568ce024058c4d46422c8981555da0ef8081",
+    "modules/prevent/treatment_effects.py": "05794511a344ad044647ec954351357b1f58bb298a674059bb50fc716825edca",
+    "api/simulate.py": "bfd9643c915524110e0576c3d923d035ffba8557d8579309e37eca7831c2e3b3"
+  },
+  "rss": {
+    "version": "rss-methodology-v2",
+    "summary": [
+      "RSS is an evidence-informed prespecified ordinal burden score.",
+      "Its point values are not fitted prediction coefficients and should not be interpreted as absolute event probabilities."
+    ],
+    "missing_data_policy": "Missing measurements are not scored as normal or converted to zero. CAC missing is not CAC 0, and UACR missing is not UACR 0.",
+    "treatment_state_policy": "Treatment can establish an underlying disease-burden signal, but treatment, diagnosis, and the current measurement are represented once within a domain.",
+    "chronicity_policy": "Repeated or established states receive greater authority than isolated measurements when chronicity materially changes interpretation.",
+    "overlap_rules": [
+      "Atherogenic lipid biology (ApoB or LDL-C fallback, suspected FH/HeFH, and triglycerides) is capped at 12 points.",
+      "Specific inflammatory diagnoses are represented by one chronic-inflammatory-disease contribution.",
+      "Higher-risk ancestry is represented once even when more than one supported label is present.",
+      "Reproductive history contributes 2 points per marker up to 4 points.",
+      "Numeric CAC supersedes qualitative incidental CAC for the same plaque evidence.",
+      "eGFR and albuminuria remain additive because they are independent KDIGO prognostic axes."
+    ],
+    "domain_caps": {
+      "atherogenic_lipid_burden": 12,
+      "reproductive_history": 4,
+      "blood_pressure": 8
+    },
+    "domains": [
+      {
+        "domain": "CAC",
+        "rationale": "Direct evidence of coronary atherosclerotic plaque. Increasing CAC burden is associated with a steep graded increase in ASCVD event rates; very high CAC can approach event rates observed in secondary-prevention populations.",
+        "rows": [
+          {
+            "signal": "1-99",
+            "points": 10,
+            "rationale": "CAC 1-99 indicates mild plaque burden."
+          },
+          {
+            "signal": "100-299",
+            "points": 20,
+            "rationale": "CAC 100-299 indicates moderate plaque burden."
+          },
+          {
+            "signal": "300-999",
+            "points": 30,
+            "rationale": "CAC 300-999 indicates severe plaque burden."
+          },
+          {
+            "signal": ">=1000",
+            "points": 40,
+            "rationale": "CAC >=1000 indicates extreme plaque burden."
+          }
+        ]
+      },
+      {
+        "domain": "ApoB",
+        "rationale": "Reflects the number of circulating atherogenic lipoprotein particles and therefore cumulative atherogenic particle burden. Risk rises continuously with increasing ApoB.",
+        "rows": [
+          {
+            "signal": "80-99 mg/dL",
+            "points": 4,
+            "rationale": "ApoB 80-99 represents borderline elevation."
+          },
+          {
+            "signal": "100-129 mg/dL",
+            "points": 8,
+            "rationale": "ApoB 100-129 represents elevated ApoB."
+          },
+          {
+            "signal": ">=130 mg/dL",
+            "points": 12,
+            "rationale": "ApoB >=130 is a higher RCCKM RSS particle-burden scoring band, not a treatment threshold."
+          }
+        ]
+      },
+      {
+        "domain": "LDL-C fallback",
+        "rationale": "Used only when ApoB is unavailable and LDL-C is in the severe hypercholesterolemia range.",
+        "rows": [
+          {
+            "signal": "LDL-C >=190 mg/dL when ApoB unavailable",
+            "points": 10,
+            "rationale": "LDL-C >=190 mg/dL indicates severe hypercholesterolemia."
+          }
+        ]
+      },
+      {
+        "domain": "Lp(a)",
+        "rationale": "A genetically determined, causal ASCVD risk factor with a continuous concentration-dependent relationship to risk. Very high concentrations can confer lifetime risk comparable with heterozygous familial hypercholesterolemia.",
+        "rows": [
+          {
+            "signal": "75-124 nmol/L / 30-49 mg/dL",
+            "points": 2,
+            "rationale": "Lp(a) 75-124 nmol/L is the consensus grey zone and a small risk-refinement signal."
+          },
+          {
+            "signal": "125-249 nmol/L / 50-99 mg/dL",
+            "points": 8,
+            "rationale": "Lp(a) 125-249 nmol/L indicates elevated Lp(a)."
+          },
+          {
+            "signal": "250-429 nmol/L / 100-179 mg/dL",
+            "points": 12,
+            "rationale": "Lp(a) 250-429 nmol/L indicates higher elevated Lp(a)."
+          },
+          {
+            "signal": ">=430 nmol/L / >=180 mg/dL",
+            "points": 15,
+            "rationale": "Lp(a) >=430 nmol/L indicates very high Lp(a) elevation."
+          }
+        ]
+      },
+      {
+        "domain": "hsCRP / inflammatory risk",
+        "rationale": "Persistent systemic inflammation is associated with residual cardiovascular risk. The >=2 mg/L threshold requires repeated elevation or chronic inflammatory context for full-band scoring.",
+        "rows": [
+          {
+            "signal": "Single hsCRP >=2 mg/L without established persistence/context",
+            "points": 2,
+            "rationale": "Unconfirmed measurement; confirm persistence or clinical context."
+          },
+          {
+            "signal": "2-4.9 mg/L",
+            "points": 4,
+            "rationale": "hsCRP 2-4.9 mg/L indicates elevated inflammatory risk."
+          },
+          {
+            "signal": ">=5 mg/L",
+            "points": 7,
+            "rationale": "hsCRP >=5 mg/L indicates high inflammatory risk."
+          }
+        ]
+      },
+      {
+        "domain": "Blood pressure / hypertension",
+        "rationale": "Prospective evidence shows a graded relationship between usual BP and vascular mortality. RSS requires established, treated, or repeated BP burden and assigns one domain contribution only.",
+        "rows": [
+          {
+            "signal": "Established/treated and controlled or current BP unavailable",
+            "points": 3,
+            "rationale": "Underlying hypertension burden persists despite control; an isolated reading alone does not qualify."
+          },
+          {
+            "signal": "Established/repeated stage 1 BP",
+            "points": 4,
+            "rationale": "Mild established BP burden."
+          },
+          {
+            "signal": "Established/repeated stage 2 BP",
+            "points": 6,
+            "rationale": "Major established BP burden."
+          },
+          {
+            "signal": "Repeated markedly/severely elevated BP",
+            "points": 8,
+            "rationale": "Maximum BP-domain burden; acute action remains separate from RSS."
+          }
+        ]
+      },
+      {
+        "domain": "Kidney disease",
+        "rationale": "Reduced eGFR and albuminuria independently predict cardiovascular events, with progressively greater risk as kidney dysfunction and albuminuria worsen.",
+        "rows": [
+          {
+            "signal": "45-<60",
+            "points": 5,
+            "rationale": "eGFR 45-<60 indicates mild kidney function reduction."
+          },
+          {
+            "signal": "30-<45",
+            "points": 8,
+            "rationale": "eGFR 30-<45 indicates moderate kidney function reduction."
+          },
+          {
+            "signal": "15-<30",
+            "points": 12,
+            "rationale": "eGFR 15-<30 indicates severe kidney function reduction."
+          },
+          {
+            "signal": "<15",
+            "points": 15,
+            "rationale": "eGFR <15 indicates kidney failure risk."
+          },
+          {
+            "signal": "30-<300 mg/g",
+            "points": 6,
+            "rationale": "UACR 30-<300 indicates moderately increased albuminuria."
+          },
+          {
+            "signal": ">=300 mg/g",
+            "points": 10,
+            "rationale": "UACR >=300 indicates severely increased albuminuria."
+          }
+        ]
+      },
+      {
+        "domain": "Triglycerides",
+        "rationale": "Triglycerides contribute remnant/metabolic context. TG >=500 mg/dL does not receive extra RSS points merely because pancreatitis prevention is urgent; urgency is handled in clinical actions.",
+        "rows": [
+          {
+            "signal": "150-499 mg/dL",
+            "points": 4,
+            "rationale": "Triglycerides 150-499 indicates hypertriglyceridemia."
+          },
+          {
+            "signal": ">=500 mg/dL",
+            "points": 4,
+            "rationale": "Triglycerides >=500 indicates severe hypertriglyceridemia; pancreatitis urgency is handled outside RSS."
+          }
+        ]
+      },
+      {
+        "domain": "Diabetes / dysglycemia",
+        "rationale": "Diabetes is a major cardiovascular risk state. Prediabetes-range glycemia receives a smaller weight as an earlier metabolic risk signal.",
+        "rows": [
+          {
+            "signal": "5.7-6.4%",
+            "points": 2,
+            "rationale": "A1c 5.7-6.4% indicates prediabetes-range dysglycemia."
+          },
+          {
+            "signal": "Diabetes / diabetes-range glycemia",
+            "points": 8,
+            "rationale": "Diabetes is a risk enhancer for ASCVD."
+          }
+        ]
+      },
+      {
+        "domain": "Smoking and family history",
+        "rationale": "Current smoking is a major causal and modifiable cardiovascular risk factor. Premature ASCVD in a first-degree relative is an established risk enhancer reflecting inherited and familial risk.",
+        "rows": [
+          {
+            "signal": "Current smoking",
+            "points": 8,
+            "rationale": "Current smoking is a modifiable risk factor."
+          },
+          {
+            "signal": "Premature family history",
+            "points": 3,
+            "rationale": "Premature first-degree family history is a risk enhancer."
+          },
+          {
+            "signal": "Suspected FH / HeFH",
+            "points": 8,
+            "rationale": "Up to 8 points, limited by the 12-point atherogenic-lipid overlap cap."
+          }
+        ]
+      },
+      {
+        "domain": "Incidental CAC",
+        "rationale": "Qualitative coronary calcium on noncardiac CT is plaque evidence when a numeric CAC score is unavailable.",
+        "rows": [
+          {
+            "signal": "Present",
+            "points": 10,
+            "rationale": "Incidental coronary calcium is qualitative plaque evidence."
+          },
+          {
+            "signal": "Severe",
+            "points": 20,
+            "rationale": "Severe incidental coronary calcium is qualitative high-burden plaque evidence."
+          }
+        ]
+      },
+      {
+        "domain": "Contextual enhancers",
+        "rationale": "Inflammatory disease, HIV, selected reproductive history, ancestry, OSA, and MASLD contribute additional risk information but receive deliberately smaller weights to avoid allowing contextual signals to overwhelm stronger evidence of atherogenic burden or established plaque.",
+        "rows": [
+          {
+            "signal": "Chronic inflammatory disease, HIV, OSA, MASLD, or higher-risk ancestry",
+            "points": 2,
+            "rationale": "Each distinct contextual domain is scored once."
+          },
+          {
+            "signal": "Reproductive risk markers",
+            "points": "2 each; maximum 4",
+            "rationale": "The reproductive-history domain is capped so correlated markers do not stack without limit."
+          }
+        ]
+      }
+    ],
+    "hierarchy": [
+      {
+        "level": "Small contextual enhancer",
+        "points": "~2 points"
+      },
+      {
+        "level": "Mild established signal",
+        "points": "~3-4 points"
+      },
+      {
+        "level": "Major risk driver",
+        "points": "~5-8 points"
+      },
+      {
+        "level": "Severe biological risk state",
+        "points": "~10-15 points"
+      },
+      {
+        "level": "Established plaque burden",
+        "points": "~10-40 points"
+      }
+    ],
+    "references": [
+      {
+        "title": "2026 ACC/AHA/AACVPR/ABC/ACPM/ADA/AGS/APhA/ASPC/NLA/PCNA Dyslipidemia Guideline",
+        "supports": "ApoB, Lp(a), LDL-C, triglycerides, CAC-guided lipid prevention context."
+      },
+      {
+        "title": "2025 AHA/ACC High Blood Pressure Guideline and prospective BP meta-analysis",
+        "supports": "BP categories, repeated-measurement authority, and graded vascular risk from usual BP."
+      },
+      {
+        "title": "MESA coronary artery calcium papers",
+        "supports": "CAC plaque-burden gradients, CAC 0 warranty context, and CAC reclassification evidence."
+      },
+      {
+        "title": "JUPITER",
+        "supports": "hsCRP >=2 mg/L as inflammatory risk-refinement context; guideline chronicity requirements govern full scoring."
+      },
+      {
+        "title": "UK Biobank ApoB discordance analyses",
+        "supports": "Atherogenic particle burden and overlap control for ApoB and triglycerides."
+      },
+      {
+        "title": "KDIGO CKD guideline",
+        "supports": "eGFR and albuminuria cardiovascular/kidney-risk classification."
+      },
+      {
+        "title": "AHA Cardiovascular-Kidney-Metabolic Health Presidential Advisory",
+        "supports": "Integrated cardiometabolic, kidney, and cardiovascular risk framing."
+      },
+      {
+        "title": "ADA Standards of Care cardiovascular disease and risk management sections",
+        "supports": "Diabetes cardiovascular risk context and kidney-risk assessment."
+      }
+    ]
+  },
+  "rss_exact_numeric_intervals": {
+    "RSS_CAC_BANDS": [
+      {
+        "label": "1-99",
+        "points": 10,
+        "min_value": 0,
+        "max_value": 100,
+        "include_min": false,
+        "include_max": false
+      },
+      {
+        "label": "100-299",
+        "points": 20,
+        "min_value": 100,
+        "max_value": 300,
+        "include_min": true,
+        "include_max": false
+      },
+      {
+        "label": "300-999",
+        "points": 30,
+        "min_value": 300,
+        "max_value": 1000,
+        "include_min": true,
+        "include_max": false
+      },
+      {
+        "label": ">=1000",
+        "points": 40,
+        "min_value": 1000,
+        "max_value": null,
+        "include_min": true,
+        "include_max": true
+      }
+    ],
+    "RSS_APOB_BANDS": [
+      {
+        "label": "80-99 mg/dL",
+        "points": 4,
+        "min_value": 80,
+        "max_value": 100,
+        "include_min": true,
+        "include_max": false
+      },
+      {
+        "label": "100-129 mg/dL",
+        "points": 8,
+        "min_value": 100,
+        "max_value": 130,
+        "include_min": true,
+        "include_max": false
+      },
+      {
+        "label": ">=130 mg/dL",
+        "points": 12,
+        "min_value": 130,
+        "max_value": null,
+        "include_min": true,
+        "include_max": true
+      }
+    ],
+    "RSS_LPA_NMOL_BANDS": [
+      {
+        "label": "75-124 nmol/L",
+        "points": 2,
+        "min_value": 75,
+        "max_value": 125,
+        "include_min": true,
+        "include_max": false
+      },
+      {
+        "label": "125-249 nmol/L",
+        "points": 8,
+        "min_value": 125,
+        "max_value": 250,
+        "include_min": true,
+        "include_max": false
+      },
+      {
+        "label": "250-429 nmol/L",
+        "points": 12,
+        "min_value": 250,
+        "max_value": 430,
+        "include_min": true,
+        "include_max": false
+      },
+      {
+        "label": ">=430 nmol/L",
+        "points": 15,
+        "min_value": 430,
+        "max_value": null,
+        "include_min": true,
+        "include_max": true
+      }
+    ],
+    "RSS_LPA_MGDL_BANDS": [
+      {
+        "label": "30-49 mg/dL",
+        "points": 2,
+        "min_value": 30,
+        "max_value": 50,
+        "include_min": true,
+        "include_max": false
+      },
+      {
+        "label": "50-99 mg/dL",
+        "points": 8,
+        "min_value": 50,
+        "max_value": 100,
+        "include_min": true,
+        "include_max": false
+      },
+      {
+        "label": "100-179 mg/dL",
+        "points": 12,
+        "min_value": 100,
+        "max_value": 180,
+        "include_min": true,
+        "include_max": false
+      },
+      {
+        "label": ">=180 mg/dL",
+        "points": 15,
+        "min_value": 180,
+        "max_value": null,
+        "include_min": true,
+        "include_max": true
+      }
+    ],
+    "RSS_HSCRP_BANDS": [
+      {
+        "label": "2-4.9 mg/L",
+        "points": 4,
+        "min_value": 2,
+        "max_value": 5,
+        "include_min": true,
+        "include_max": false
+      },
+      {
+        "label": ">=5 mg/L",
+        "points": 7,
+        "min_value": 5,
+        "max_value": null,
+        "include_min": true,
+        "include_max": true
+      }
+    ],
+    "RSS_EGFR_BANDS": [
+      {
+        "label": "45-<60",
+        "points": 5,
+        "min_value": 45.0,
+        "max_value": 60.0,
+        "include_min": true,
+        "include_max": false
+      },
+      {
+        "label": "30-<45",
+        "points": 8,
+        "min_value": 30.0,
+        "max_value": 45.0,
+        "include_min": true,
+        "include_max": false
+      },
+      {
+        "label": "15-<30",
+        "points": 12,
+        "min_value": 15.0,
+        "max_value": 30.0,
+        "include_min": true,
+        "include_max": false
+      },
+      {
+        "label": "<15",
+        "points": 15,
+        "min_value": null,
+        "max_value": 15.0,
+        "include_min": true,
+        "include_max": false
+      }
+    ],
+    "RSS_UACR_BANDS": [
+      {
+        "label": "30-<300 mg/g",
+        "points": 6,
+        "min_value": 30.0,
+        "max_value": 300.0,
+        "include_min": true,
+        "include_max": false
+      },
+      {
+        "label": ">=300 mg/g",
+        "points": 10,
+        "min_value": 300.0,
+        "max_value": null,
+        "include_min": true,
+        "include_max": true
+      }
+    ],
+    "RSS_TRIGLYCERIDE_BANDS": [
+      {
+        "label": "150-499 mg/dL",
+        "points": 4,
+        "min_value": 150,
+        "max_value": 500,
+        "include_min": true,
+        "include_max": false
+      },
+      {
+        "label": ">=500 mg/dL",
+        "points": 4,
+        "min_value": 500,
+        "max_value": null,
+        "include_min": true,
+        "include_max": true
+      }
+    ]
+  },
+  "level_rule_ids": [
+    "LEVEL_5_CLINICAL_ASCVD",
+    "LEVEL_5_HEART_FAILURE",
+    "LEVEL_5_CAC_GE_300",
+    "LEVEL_4_CAC_POSITIVE",
+    "LEVEL_3B_SEVERE_HYPERCHOLESTEROLEMIA_FH",
+    "LEVEL_3B_ADVANCED_KIDNEY_ALBUMINURIA",
+    "LEVEL_3B_ALBUMINURIA_PLUS_BURDEN",
+    "LEVEL_3B_HIGH_10Y_WITH_ELEVATED_30Y",
+    "LEVEL_3B_30Y_PREVENT_APOB_FAMILY_HISTORY",
+    "LEVEL_3B_30Y_PREVENT_PLUS_BIOLOGIC_BURDEN",
+    "LEVEL_3A_30Y_PREVENT",
+    "LEVEL_3B_HIDDEN_RISK_CLUSTER",
+    "LEVEL_3B_APOB_FAMILY_METABOLIC",
+    "LEVEL_3B_LDL_160_189_CONVERGENCE",
+    "LEVEL_3A_LDL_160_189",
+    "LEVEL_3A_INFLAMMATORY_CONTEXT",
+    "LEVEL_3B_MULTIPLE_ENHANCERS",
+    "LEVEL_3B_LPA_METABOLIC_BURDEN",
+    "LEVEL_3B_SMOKING_PLUS_BURDEN",
+    "LEVEL_3A_SMOKING",
+    "LEVEL_3B_PREVENT_PLUS_BURDEN",
+    "LEVEL_3B_ACTIONABLE_CLINICAL_PATHWAY",
+    "LEVEL_2A_ISOLATED_KIDNEY_CONFIRMATION",
+    "LEVEL_3A_APOB_GE_120",
+    "LEVEL_2B_MULTIPLE_MILD_SIGNALS",
+    "LEVEL_2A_SINGLE_MILD_SIGNAL",
+    "LEVEL_INCOMPLETE_MISSING_PREVENT_INPUTS",
+    "LEVEL_1_MINIMAL_RISK"
+  ],
+  "interpretation": "RCCKM-specific rules and weights are prespecified design choices. Published source evidence does not independently validate this synthesis.",
+  "pending_changes": [
+    {
+      "pr": 79,
+      "url": "https://github.com/shereefelibiary-tech/rcckm-nextjs-preview/pull/79",
+      "revision": "63a9606c283d67d45adff4b3f41db9f54b4eef01",
+      "status": "DRAFT_NOT_RELEASED",
+      "scope": "Probability-first Next.js assessment; separate disease/plaque, prioritized drivers and input availability; legacy codes in technical details; one-decimal probability display. Existing exported reports retain their codes."
+    },
+    {
+      "pr": 80,
+      "url": "https://github.com/shereefelibiary-tech/rcckm-nextjs-preview/pull/80",
+      "revision": "789d38284d3e103959613dea8ad7bde11e5c469f",
+      "status": "DRAFT_NOT_RELEASED",
+      "scope": "Provenance-checked unrounded 10-year PREVENT ASCVD classification at 10%, with a physician-approved minimum Level 3A for Intermediate risk. PREVENT category and independent treatment rules remain separate. The reviewed baseline is installed; CI and release validation remain required.",
+      "proposed_level_floor_rule": "LEVEL_3A_INTERMEDIATE_PREVENT",
+      "proposed_3a_definition": "Modeled risk or single driver",
+      "frozen_candidate_raw_source_sha256": "2c4819d8a00357b8bfe4ab32d844c09026f5a775f1de06b926e3ca550c166a5d",
+      "frozen_candidate_canonical_source_sha256": "250c17382828e9f097b2606189e72b42bfeb8d528f6529c278ce42a85bd9e22f",
+      "clinical_review": "PHYSICIAN_APPROVED_2026-11-04",
+      "approved_proposal_sha256": "f08e8a234a0ca61024122e8edf3314bf3712dbc6ed3c3affebf028a4d13a158c",
+      "approved_baseline_sha256": "e4fdda338cd0c61c1a77e0f8284547d9b9ae8aa947de70e726c4cd7f62f270f0",
+      "source_only_refresh": {
+        "initial_physician_approved_baseline_sha256": "e0b6b858c8ca9cf73e3092c20e3177fa09fa31ee0e8d137dd4fa9493c435180a",
+        "proposal_sha256": "7134c4b9d9c02aa6b7fcdbc2f5e2018847a8df19c4ceb8730ad5cca5396b619f",
+        "clinical_output_differences": 0,
+        "journeys_compared": 600,
+        "signer_preserved": true
+      }
+    }
+  ]
+}

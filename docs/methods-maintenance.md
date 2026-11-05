@@ -7,14 +7,18 @@ The first methods version describes engine revision
 
 Version 1.1 is a review draft. It separately identifies application PR #79
 (`63a9606c283d67d45adff4b3f41db9f54b4eef01`) for probability-first clinical
-profile presentation and PR #80 (`8040420bd8c5d6e45ef95b2951a9948d33681e4c`)
+profile presentation and PR #80 (`789d38284d3e103959613dea8ad7bde11e5c469f`)
 for provenance-checked unrounded classification at 10%. The physician owner
 subsequently agreed to an Intermediate-risk minimum of 3A; that local
 refinement and the broader 3A description are committed to the draft PR and
 unreleased. The physician owner approved the exact clinical differences and
 baseline proposal `f08e8a234a0ca61024122e8edf3314bf3712dbc6ed3c3affebf028a4d13a158c`
-on November 4, 2026. The installed baseline is
+on November 4, 2026. The initial approved baseline was
 `e0b6b858c8ca9cf73e3092c20e3177fa09fa31ee0e8d137dd4fa9493c435180a`.
+A CI test-only follow-up removes a stale historical checksum assertion and
+verifies the current approved outcome root instead. A source-only refresh to
+`e4fdda338cd0c61c1a77e0f8284547d9b9ae8aa947de70e726c4cd7f62f270f0`
+preserves the physician signer and all 600 outcomes and report texts exactly.
 The pinned rule table continues to describe the released source, while the
 pending-change section describes this separate proposed minimum. Neither proposal changes
 the released-engine reference or the RSS export fingerprints. Confirm their

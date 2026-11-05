@@ -66,16 +66,23 @@
     {
       "pr": 80,
       "url": "https://github.com/shereefelibiary-tech/rcckm-nextjs-preview/pull/80",
-      "revision": "8040420bd8c5d6e45ef95b2951a9948d33681e4c",
+      "revision": "789d38284d3e103959613dea8ad7bde11e5c469f",
       "status": "DRAFT_NOT_RELEASED",
       "scope": "Provenance-checked unrounded 10-year PREVENT ASCVD classification at 10%, with a physician-approved minimum Level 3A for Intermediate risk. PREVENT category and independent treatment rules remain separate. The reviewed baseline is installed; CI and release validation remain required.",
       "proposed_level_floor_rule": "LEVEL_3A_INTERMEDIATE_PREVENT",
       "proposed_3a_definition": "Modeled risk or single driver",
-      "frozen_candidate_raw_source_sha256": "d00fec9f33794a94b2a2c2f96c9713930c6ad67233f2b21219c402f260497e3a",
-      "frozen_candidate_canonical_source_sha256": "36a07cf8aae06f33f3215326e9b37535669e027f8c07921ace05778d22937e68",
+      "frozen_candidate_raw_source_sha256": "2c4819d8a00357b8bfe4ab32d844c09026f5a775f1de06b926e3ca550c166a5d",
+      "frozen_candidate_canonical_source_sha256": "250c17382828e9f097b2606189e72b42bfeb8d528f6529c278ce42a85bd9e22f",
       "clinical_review": "PHYSICIAN_APPROVED_2026-11-04",
       "approved_proposal_sha256": "f08e8a234a0ca61024122e8edf3314bf3712dbc6ed3c3affebf028a4d13a158c",
-      "approved_baseline_sha256": "e0b6b858c8ca9cf73e3092c20e3177fa09fa31ee0e8d137dd4fa9493c435180a"
+      "approved_baseline_sha256": "e4fdda338cd0c61c1a77e0f8284547d9b9ae8aa947de70e726c4cd7f62f270f0",
+      "source_only_refresh": {
+        "initial_physician_approved_baseline_sha256": "e0b6b858c8ca9cf73e3092c20e3177fa09fa31ee0e8d137dd4fa9493c435180a",
+        "proposal_sha256": "7134c4b9d9c02aa6b7fcdbc2f5e2018847a8df19c4ceb8730ad5cca5396b619f",
+        "clinical_output_differences": 0,
+        "journeys_compared": 600,
+        "signer_preserved": true
+      }
     }
   ]
 }

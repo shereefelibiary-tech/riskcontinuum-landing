@@ -59,16 +59,23 @@
     {
       "pr": 79,
       "url": "https://github.com/shereefelibiary-tech/rcckm-nextjs-preview/pull/79",
-      "revision": "7eddb21db6c7f77c6af1534c377a5b1a87e80937",
+      "revision": "63a9606c283d67d45adff4b3f41db9f54b4eef01",
       "status": "DRAFT_NOT_RELEASED",
       "scope": "Probability-first Next.js assessment; separate disease/plaque, prioritized drivers and input availability; legacy codes in technical details; one-decimal probability display. Existing exported reports retain their codes."
     },
     {
       "pr": 80,
       "url": "https://github.com/shereefelibiary-tech/rcckm-nextjs-preview/pull/80",
-      "revision": "f13dd16d82cd5104014ec76d811f6684829964dd",
+      "revision": "8040420bd8c5d6e45ef95b2951a9948d33681e4c",
       "status": "DRAFT_NOT_RELEASED",
-      "scope": "Extend provenance-checked unrounded 10-year PREVENT ASCVD classification from 3%/5% to 10%. Independent reference execution, exact clinical-difference review and release validation remain required."
+      "scope": "Provenance-checked unrounded 10-year PREVENT ASCVD classification at 10%, with a physician-approved minimum Level 3A for Intermediate risk. PREVENT category and independent treatment rules remain separate. The reviewed baseline is installed; CI and release validation remain required.",
+      "proposed_level_floor_rule": "LEVEL_3A_INTERMEDIATE_PREVENT",
+      "proposed_3a_definition": "Modeled risk or single driver",
+      "frozen_candidate_raw_source_sha256": "d00fec9f33794a94b2a2c2f96c9713930c6ad67233f2b21219c402f260497e3a",
+      "frozen_candidate_canonical_source_sha256": "36a07cf8aae06f33f3215326e9b37535669e027f8c07921ace05778d22937e68",
+      "clinical_review": "PHYSICIAN_APPROVED_2026-11-04",
+      "approved_proposal_sha256": "f08e8a234a0ca61024122e8edf3314bf3712dbc6ed3c3affebf028a4d13a158c",
+      "approved_baseline_sha256": "e0b6b858c8ca9cf73e3092c20e3177fa09fa31ee0e8d137dd4fa9493c435180a"
     }
   ]
 }

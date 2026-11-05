@@ -6,13 +6,26 @@ The first methods version describes engine revision
 `18baf7a8651b10cb4f047072590a5c8699e293c5` from `rcckm-nextjs-preview`.
 
 Version 1.1 is a review draft. It separately identifies application PR #79
-(`7eddb21db6c7f77c6af1534c377a5b1a87e80937`) for probability-first clinical
-profile presentation and PR #80 (`f13dd16d82cd5104014ec76d811f6684829964dd`)
-for provenance-checked unrounded classification at 10%. Neither proposal changes
+(`63a9606c283d67d45adff4b3f41db9f54b4eef01`) for probability-first clinical
+profile presentation and PR #80 (`8040420bd8c5d6e45ef95b2951a9948d33681e4c`)
+for provenance-checked unrounded classification at 10%. The physician owner
+subsequently agreed to an Intermediate-risk minimum of 3A; that local
+refinement and the broader 3A description are committed to the draft PR and
+unreleased. The physician owner approved the exact clinical differences and
+baseline proposal `f08e8a234a0ca61024122e8edf3314bf3712dbc6ed3c3affebf028a4d13a158c`
+on November 4, 2026. The installed baseline is
+`e0b6b858c8ca9cf73e3092c20e3177fa09fa31ee0e8d137dd4fa9493c435180a`.
+The pinned rule table continues to describe the released source, while the
+pending-change section describes this separate proposed minimum. Neither proposal changes
 the released-engine reference or the RSS export fingerprints. Confirm their
 actual merge, validation and deployment status before describing them as live.
-The numerical PR requires a fresh pinned independent reference and release
-review. Never transfer a historical semantic PASS to either draft.
+The numerical PR has a fresh pinned independent reference accepted by the
+physician owner for baseline preparation. That acceptance does not approve
+the earlier baseline proposal. The separate later clinical approval covers
+the reviewed Level refinement and revised baseline. Preserve
+the exact numerical reference and verify source/input equivalence before reuse;
+final clinical-difference and release review remain required. Never transfer a
+historical semantic PASS to either draft.
 
 ## Files
 

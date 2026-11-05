@@ -731,8 +731,8 @@
         <a href="https://app.riskcontinuum.health/sign-up" class="btn btn-primary">Create a free account</a>
         <a href="#pilot" class="btn btn-ghost">Discuss a pilot</a>
       </div>
-      <p class="hero-meta">Synthetic case demos &middot; Auditable calculations &middot; Clinician-reviewed output</p>
-      <p class="privacy-note"><span aria-hidden="true">🔒</span> Explore with synthetic cases. Do not enter names, dates of birth, MRNs or other patient identifiers.</p>
+      <p class="hero-meta">Deterministic engine &middot; Auditable calculations &middot; Clinician-reviewed output</p>
+      <p class="privacy-note"><span aria-hidden="true">🔒</span> Use de-identified chart text only. Do not enter names, dates of birth, MRNs or other patient identifiers.</p>
       <p class="hero-access"><a href="#plan">Try the simulator &darr;</a> &middot; <a href="https://app.riskcontinuum.health/">Sign in</a></p>
     </div>
 
@@ -778,7 +778,7 @@
           </div>
         </div>
       </div>
-      <p class="rp-note">Points are PREVENT's 10-year and 30-year estimates; the dotted lines only connect them. The 30-year plan value assumes the treatment effect is sustained. Synthetic demo patient; every value is RCCKM engine output.</p>
+      <p class="rp-note">Points are PREVENT's 10-year and 30-year estimates; the dotted lines only connect them. The 30-year plan value assumes the treatment effect is sustained. Demo patient; every value is RCCKM engine output.</p>
     </div>
     <span class="autoplay" id="autoplay">Playing a demo. Tap a lever to take over.</span>
 
@@ -787,7 +787,7 @@
         <span class="eyebrow">Next steps</span>
         <h3>Every recommendation shows its work.</h3>
         <p class="lede">Each step traces back to the patient&rsquo;s values and the guideline behind it, including the test that was never ordered.</p>
-        <p class="fineprint">Same synthetic 52-year-old as the simulator. Every line is RCCKM engine output.</p>
+        <p class="fineprint">Same 52-year-old demo patient as the simulator. Every line is RCCKM engine output.</p>
       </div>
       <div class="card ap-card reveal" id="ap">
         <div class="ap-head">
@@ -815,13 +815,13 @@
     <div class="wt-head center reveal">
       <span class="eyebrow">See it run</span>
       <h2 class="h2" id="wt-h2">From chart text to a plan in about a minute.</h2>
-      <p class="lede">One synthetic patient, the way a visit actually goes: paste, apply, assess, review, and try a plan when there&rsquo;s a decision to make.</p>
+      <p class="lede">One demo patient, the way a visit actually goes: paste, apply, assess, review, and try a plan when there&rsquo;s a decision to make.</p>
     </div>
     <div class="wt-body reveal">
       <ol class="wt-rail"><li><button type="button" class="wt-step" data-i="0" aria-controls="wt-panel-0"><span class="wt-n">01</span><span class="wt-t"><b>Copy from the EMR</b><i class="wt-short">Paste</i><span>Paste de-identified chart text or your SmartPhrase.</span></span><span class="wt-bar"><i></i></span></button></li><li><button type="button" class="wt-step" data-i="1" aria-controls="wt-panel-1"><span class="wt-n">02</span><span class="wt-t"><b>Parse and apply</b><i class="wt-short">Apply</i><span>A rule-based parser fills the worksheet and shows each value it found, and what is missing.</span></span><span class="wt-bar"><i></i></span></button></li><li><button type="button" class="wt-step" data-i="2" aria-controls="wt-panel-2"><span class="wt-n">03</span><span class="wt-t"><b>Start Assessment</b><i class="wt-short">Assess</i><span>Level, PREVENT and staging, back in seconds from a deterministic engine.</span></span><span class="wt-bar"><i></i></span></button></li><li><button type="button" class="wt-step" data-i="3" aria-controls="wt-panel-3"><span class="wt-n">04</span><span class="wt-t"><b>Check it against your read</b><i class="wt-short">Review</i><span>The note is ready to paste. The optional Clinical Pearl offers an AI-generated perspective for clinician review.</span></span><span class="wt-bar"><i></i></span></button></li><li><button type="button" class="wt-step" data-i="4" aria-controls="wt-panel-4"><span class="wt-n">05</span><span class="wt-t"><b>Try a plan, if there&#x27;s a decision</b><i class="wt-short">Try a plan</i><span>Run the simulator with the patient and add the plan you agree on to the note.</span></span><span class="wt-bar"><i></i></span></button></li></ol>
       <div class="wt-win">
         <div class="wt-chrome"><span></span><span></span><span></span><b class="wt-crumb">RCCKM &middot; Paste</b><button type="button" class="wt-play" aria-label="Pause walkthrough">Pause</button></div>
-        <div class="wt-stage"><div class="wt-panel" id="wt-panel-0" data-i="0" role="tabpanel" aria-label="Paste"><pre class="wt-paste"><code>Synthetic Epic SmartPhrase example. Not real patient data.
+        <div class="wt-stage"><div class="wt-panel" id="wt-panel-0" data-i="0" role="tabpanel" aria-label="Paste"><pre class="wt-paste"><code>Example Epic SmartPhrase. Not real patient data.
 
 === CARDIOVASCULAR RISK ASSESSMENT ===
 
@@ -878,7 +878,7 @@ Component	Value	Date
 	LABALBU	4.2	10/22/2026
 	BILITOT	0.6	10/22/2026
 	ALKPHOS	74	10/22/2026
-	AST	28	10/22/2026</code></pre><div class="wt-paste-foot"><span>Synthetic Epic SmartPhrase</span><button type="button" class="wt-btn" data-go="1">Parse and apply</button></div></div><div class="wt-panel" id="wt-panel-1" data-i="1" role="tabpanel" aria-label="Apply" hidden><div class="wt-chips-head">Recognized &middot; 19 values, 1 missing</div><div class="wt-chips"><span class="wt-chip" style="--i:0" tabindex="0" data-tip="explicit demographic age"><span aria-hidden="true">&#10003;</span>Age 58</span><span class="wt-chip" style="--i:1" tabindex="0" data-tip="explicit sex"><span aria-hidden="true">&#10003;</span>Sex male</span><span class="wt-chip" style="--i:2" tabindex="0" data-tip="latest dated BP reading"><span aria-hidden="true">&#10003;</span>BP 138/84</span><span class="wt-chip" style="--i:3" tabindex="0" data-tip="latest dated lipid result"><span aria-hidden="true">&#10003;</span>LDL-C 126 mg/dL</span><span class="wt-chip" style="--i:4" tabindex="0" data-tip="latest dated lipid result"><span aria-hidden="true">&#10003;</span>HDL-C 40 mg/dL</span><span class="wt-chip" style="--i:5" tabindex="0" data-tip="latest dated lipid result"><span aria-hidden="true">&#10003;</span>TG 240 mg/dL</span><span class="wt-chip" style="--i:6" tabindex="0" data-tip="10/22/2026 7.5 (H) 0 - 5.6 % Final"><span aria-hidden="true">&#10003;</span>A1c 7.5%</span><span class="wt-chip" style="--i:7" tabindex="0" data-tip="eGFR lab result"><span aria-hidden="true">&#10003;</span>eGFR 56</span><span class="wt-chip" style="--i:8" tabindex="0" data-tip="labeled value"><span aria-hidden="true">&#10003;</span>BMI 35.59</span><span class="wt-chip" style="--i:9" tabindex="0" data-tip="problem list diagnosis"><span aria-hidden="true">&#10003;</span>Diabetes detected</span><span class="wt-chip" style="--i:10" tabindex="0" data-tip="canonical smoking status reconciliation"><span aria-hidden="true">&#10003;</span>Smoking Not current</span><span class="wt-chip" style="--i:11" tabindex="0" data-tip="medication vocabulary"><span aria-hidden="true">&#10003;</span>Meds detected</span><span class="wt-chip" style="--i:12" tabindex="0" data-tip="ApoB"><span aria-hidden="true">&#10003;</span>ApoB 116 mg/dL</span><span class="wt-chip" style="--i:13" tabindex="0" data-tip="Lp(a)"><span aria-hidden="true">&#10003;</span>Lp(a) 168 nmol/L</span><span class="wt-chip" style="--i:14" tabindex="0" data-tip="ALBCREAT 126 (H) 10/22/2026"><span aria-hidden="true">&#10003;</span>UACR 126 mg/g</span><span class="wt-chip" style="--i:15" tabindex="0" data-tip="structured family history section"><span aria-hidden="true">&#10003;</span>Family history Father MI age 49</span><span class="wt-chip" style="--i:16" tabindex="0" data-tip="CRPHS 2.8 10/22/2026"><span aria-hidden="true">&#10003;</span>hsCRP 2.8 mg/L</span><span class="wt-chip" style="--i:17" tabindex="0" data-tip="problem list diagnosis"><span aria-hidden="true">&#10003;</span>OSA Yes</span><span class="wt-chip" style="--i:18" tabindex="0" data-tip="problem list diagnosis"><span aria-hidden="true">&#10003;</span>MASLD Yes</span><span class="wt-chip miss" style="--i:19" tabindex="0" data-tip="CAC unavailable or not done"><span aria-hidden="true">&#9675;</span>CAC not available</span></div><div class="wt-paste-foot"><span>Confirm or edit any value in the worksheet</span><button type="button" class="wt-btn" data-go="2">Confirm input data / Start Assessment</button></div></div><div class="wt-panel" id="wt-panel-2" data-i="2" role="tabpanel" aria-label="Assess" hidden>
+	AST	28	10/22/2026</code></pre><div class="wt-paste-foot"><span>Example Epic SmartPhrase</span><button type="button" class="wt-btn" data-go="1">Parse and apply</button></div></div><div class="wt-panel" id="wt-panel-1" data-i="1" role="tabpanel" aria-label="Apply" hidden><div class="wt-chips-head">Recognized &middot; 19 values, 1 missing</div><div class="wt-chips"><span class="wt-chip" style="--i:0" tabindex="0" data-tip="explicit demographic age"><span aria-hidden="true">&#10003;</span>Age 58</span><span class="wt-chip" style="--i:1" tabindex="0" data-tip="explicit sex"><span aria-hidden="true">&#10003;</span>Sex male</span><span class="wt-chip" style="--i:2" tabindex="0" data-tip="latest dated BP reading"><span aria-hidden="true">&#10003;</span>BP 138/84</span><span class="wt-chip" style="--i:3" tabindex="0" data-tip="latest dated lipid result"><span aria-hidden="true">&#10003;</span>LDL-C 126 mg/dL</span><span class="wt-chip" style="--i:4" tabindex="0" data-tip="latest dated lipid result"><span aria-hidden="true">&#10003;</span>HDL-C 40 mg/dL</span><span class="wt-chip" style="--i:5" tabindex="0" data-tip="latest dated lipid result"><span aria-hidden="true">&#10003;</span>TG 240 mg/dL</span><span class="wt-chip" style="--i:6" tabindex="0" data-tip="10/22/2026 7.5 (H) 0 - 5.6 % Final"><span aria-hidden="true">&#10003;</span>A1c 7.5%</span><span class="wt-chip" style="--i:7" tabindex="0" data-tip="eGFR lab result"><span aria-hidden="true">&#10003;</span>eGFR 56</span><span class="wt-chip" style="--i:8" tabindex="0" data-tip="labeled value"><span aria-hidden="true">&#10003;</span>BMI 35.59</span><span class="wt-chip" style="--i:9" tabindex="0" data-tip="problem list diagnosis"><span aria-hidden="true">&#10003;</span>Diabetes detected</span><span class="wt-chip" style="--i:10" tabindex="0" data-tip="canonical smoking status reconciliation"><span aria-hidden="true">&#10003;</span>Smoking Not current</span><span class="wt-chip" style="--i:11" tabindex="0" data-tip="medication vocabulary"><span aria-hidden="true">&#10003;</span>Meds detected</span><span class="wt-chip" style="--i:12" tabindex="0" data-tip="ApoB"><span aria-hidden="true">&#10003;</span>ApoB 116 mg/dL</span><span class="wt-chip" style="--i:13" tabindex="0" data-tip="Lp(a)"><span aria-hidden="true">&#10003;</span>Lp(a) 168 nmol/L</span><span class="wt-chip" style="--i:14" tabindex="0" data-tip="ALBCREAT 126 (H) 10/22/2026"><span aria-hidden="true">&#10003;</span>UACR 126 mg/g</span><span class="wt-chip" style="--i:15" tabindex="0" data-tip="structured family history section"><span aria-hidden="true">&#10003;</span>Family history Father MI age 49</span><span class="wt-chip" style="--i:16" tabindex="0" data-tip="CRPHS 2.8 10/22/2026"><span aria-hidden="true">&#10003;</span>hsCRP 2.8 mg/L</span><span class="wt-chip" style="--i:17" tabindex="0" data-tip="problem list diagnosis"><span aria-hidden="true">&#10003;</span>OSA Yes</span><span class="wt-chip" style="--i:18" tabindex="0" data-tip="problem list diagnosis"><span aria-hidden="true">&#10003;</span>MASLD Yes</span><span class="wt-chip miss" style="--i:19" tabindex="0" data-tip="CAC unavailable or not done"><span aria-hidden="true">&#9675;</span>CAC not available</span></div><div class="wt-paste-foot"><span>Confirm or edit any value in the worksheet</span><button type="button" class="wt-btn" data-go="2">Confirm input data / Start Assessment</button></div></div><div class="wt-panel" id="wt-panel-2" data-i="2" role="tabpanel" aria-label="Assess" hidden>
 <div class="wt-tiles"><div class="wt-tile l1"><b>Level 1</b><span>No signals found</span></div><div class="wt-tile l2"><b>Level 2</b><span>Early signals</span></div><div class="wt-tile l3 on"><b>Level 3C</b><span>Compounding drivers</span><em>Plaque unmeasured</em></div><div class="wt-tile l4"><b>Level 4</b><span>Plaque present</span></div><div class="wt-tile l5"><b>Level 5</b><span>Advanced plaque or disease</span></div></div>
 <p class="wt-reason"><b>Level 3C | Compounding drivers.</b> Albuminuria plus cardiometabolic burden is actionable early kidney risk.</p>
 <div class="wt-stats">
@@ -919,7 +919,7 @@ Management Considerations:
 <script type="application/json" id="wt-combos">{"order": ["bp", "intensify", "uacr", "a1c"], "combos": {"bp": {"t10": "9.9%", "t30": "26.6%", "note": "Systolic BP 120 mmHg: modeled PREVENT ASCVD 10y 14.5% → 9.9%, 30y 37.1% → 26.6% (trial-based estimate; not a treatment order)."}, "intensify": {"t10": "12.2%", "t30": "31.9%", "note": "High-intensity statin: modeled PREVENT ASCVD 10y 14.5% → 12.2%, 30y 37.1% → 31.9% (trial-based estimate; not a treatment order)."}, "uacr": {"t10": "11.6%", "t30": "34.7%", "note": "UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 11.6%, 30y 37.1% → 34.7% (model-based estimate; not a treatment order)."}, "a1c": {"t10": "13.8%", "t30": "36.2%", "note": "A1c 7.0%: modeled PREVENT ASCVD 10y 14.5% → 13.8%, 30y 37.1% → 36.2% (model-based estimate; not a treatment order)."}, "bp,intensify": {"t10": "8.3%", "t30": "22.7%", "note": "High-intensity statin and systolic BP 120 mmHg: modeled PREVENT ASCVD 10y 14.5% → 8.3%, 30y 37.1% → 22.7% (trial-based estimate; not a treatment order)."}, "bp,uacr": {"t10": "7.9%", "t30": "24.8%", "note": "Systolic BP 120 mmHg and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 7.9%, 30y 37.1% → 24.8% (trial- and model-based estimate; not a treatment order)."}, "bp,a1c": {"t10": "9.5%", "t30": "26.0%", "note": "Systolic BP 120 mmHg and A1c 7.0%: modeled PREVENT ASCVD 10y 14.5% → 9.5%, 30y 37.1% → 26.0% (trial- and model-based estimate; not a treatment order)."}, "intensify,uacr": {"t10": "9.7%", "t30": "29.8%", "note": "High-intensity statin and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 9.7%, 30y 37.1% → 29.8% (trial- and model-based estimate; not a treatment order)."}, "intensify,a1c": {"t10": "11.6%", "t30": "31.2%", "note": "High-intensity statin and A1c 7.0%: modeled PREVENT ASCVD 10y 14.5% → 11.6%, 30y 37.1% → 31.2% (trial- and model-based estimate; not a treatment order)."}, "uacr,a1c": {"t10": "11.1%", "t30": "33.9%", "note": "A1c 7.0% and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 11.1%, 30y 37.1% → 33.9% (model-based estimate; not a treatment order)."}, "bp,intensify,uacr": {"t10": "6.6%", "t30": "21.1%", "note": "High-intensity statin, systolic BP 120 mmHg and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 6.6%, 30y 37.1% → 21.1% (trial- and model-based estimate; not a treatment order)."}, "bp,intensify,a1c": {"t10": "7.9%", "t30": "22.1%", "note": "High-intensity statin, systolic BP 120 mmHg and A1c 7.0%: modeled PREVENT ASCVD 10y 14.5% → 7.9%, 30y 37.1% → 22.1% (trial- and model-based estimate; not a treatment order)."}, "bp,uacr,a1c": {"t10": "7.5%", "t30": "24.2%", "note": "Systolic BP 120 mmHg, A1c 7.0% and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 7.5%, 30y 37.1% → 24.2% (trial- and model-based estimate; not a treatment order)."}, "intensify,uacr,a1c": {"t10": "9.3%", "t30": "29.1%", "note": "High-intensity statin, A1c 7.0% and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 9.3%, 30y 37.1% → 29.1% (trial- and model-based estimate; not a treatment order)."}, "bp,intensify,uacr,a1c": {"t10": "6.3%", "t30": "20.5%", "note": "High-intensity statin, systolic BP 120 mmHg, A1c 7.0% and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 6.3%, 30y 37.1% → 20.5% (trial- and model-based estimate; not a treatment order)."}}}</script></div></div>
       </div>
     </div>
-    <p class="wt-src">Synthetic patient, 58M, Level 3C (Compounding drivers). The simulator above uses a different patient, 52F, Level 3B (Actionable drivers). Each sample keeps its own engine-assigned Level. Modeled plan estimates are for clinician review, not treatment orders.</p>
+    <p class="wt-src">Demo patient, 58M, Level 3C (Compounding drivers). The simulator above uses a different patient, 52F, Level 3B (Actionable drivers). Each sample keeps its own engine-assigned Level. Modeled plan estimates are for clinician review, not treatment orders.</p>
   </div>
 </section>
 
@@ -963,7 +963,7 @@ Management Considerations:
         </div>
       </div>
     </div>
-    <p class="traj-note">Synthetic demo patient, dated results from the chart text. Trends add context; they never change the level, PREVENT or the actions on their own.</p>
+    <p class="traj-note">Demo patient, dated results from the chart text. Trends add context; they never change the level, PREVENT or the actions on their own.</p>
   </div>
 </section>
 
@@ -1034,7 +1034,7 @@ Management Considerations:
         <h3>The stack you already keep in your head.</h3>
         <p class="lede">One block per risk signal, so you see what&rsquo;s driving risk at a glance.</p>
         <div class="chips" role="tablist" aria-label="Patients" id="rss-chips"></div>
-        <p class="fineprint">Synthetic demo patients; contributors and points are RCCKM engine output.</p>
+        <p class="fineprint">Demo patients; contributors and points are RCCKM engine output.</p>
       </div>
     </div>
 
@@ -1047,7 +1047,7 @@ Management Considerations:
     <div class="demo-head reveal">
       <span class="eyebrow">Try it here</span>
       <h2 class="h2" id="demo-h2">Pick a patient. Read the note RCCKM wrote.</h2>
-      <p class="lede">Four synthetic demo patients, each with its own engine-generated note. RCCKM Levels describe the clinical pattern; PREVENT supplies the probability. <a href="faq.html#rcckm-categories">Read the Level guide</a>.</p>
+      <p class="lede">Four demo patients, each with its own engine-generated note. RCCKM Levels describe the clinical pattern; PREVENT supplies the probability. <a href="faq.html#rcckm-categories">Read the Level guide</a>.</p>
     </div>
     <div class="chips" role="tablist" aria-label="Demo patients">
       <button class="pchip is-on" data-p="0" role="tab" type="button">🌱 34F &middot; clean visit</button>
@@ -1074,7 +1074,7 @@ Management Considerations:
       </aside>
       <div class="note" id="note">
         <div class="note-top"><span>Clinical report &middot; ready to paste</span><button class="copy" id="copy" type="button">Copy</button></div>
-        <pre id="note-body" tabindex="0" aria-label="Synthetic sample clinical note"></pre>
+        <pre id="note-body" tabindex="0" aria-label="Sample clinical note"></pre>
         <p class="copy-status" id="copy-status" role="status" aria-live="polite"></p>
       </div>
     </div>
@@ -1138,7 +1138,7 @@ Management Considerations:
       <div id="levels"><h3><a href="methods.html#levels">What do the RCCKM Levels mean?</a></h3><p>Each Level names a clinical pattern. The guide explains 3A, 3B and 3C alongside the other Levels and the separate CKM, KDIGO and PREVENT frameworks.</p></div>
       <div id="signal"><h3><a href="methods.html#rss">What does the Risk Signal Score add?</a></h3><p>Read how the points tally makes its contributors visible and how to interpret it alongside PREVENT.</p></div>
       <div><h3><a href="methods.html#simulator">What does the simulator bring to the conversation?</a></h3><p>Explore options together using trial-derived LDL-C and blood pressure effects and supported PREVENT recalculations, with the methods in view.</p></div>
-      <div><h3><a href="methods.html#evaluation">What supports the platform?</a></h3><p>Published equations and clinical frameworks underpin the assessment. Software checks and synthetic-case testing support development, with independent clinical evaluation as the next step.</p></div>
+      <div><h3><a href="methods.html#evaluation">What supports the platform?</a></h3><p>Published equations and clinical frameworks underpin the assessment. Software checks and automated case testing support development, with independent clinical evaluation as the next step.</p></div>
     </div>
   </div>
 </section>
@@ -1148,12 +1148,12 @@ Management Considerations:
   <div class="wrap">
     <svg class="logo cta-mark" viewBox="0 0 900 300" aria-hidden="true"><use href="#rc-logo"/></svg>
     <h2 id="cta-h2">Try it yourself, or bring it to your team.</h2>
-    <p class="lede">Create a free account and run a synthetic case in minutes, or talk with us about a pilot for your practice.</p>
+    <p class="lede">Create a free account and run your first case in minutes, or talk with us about a pilot for your practice.</p>
     <div class="hero-ctas">
       <a href="https://app.riskcontinuum.health/sign-up" class="btn btn-primary">Create a free account</a>
       <a href="#pilot" class="btn btn-ghost">Discuss a pilot</a>
     </div>
-    <p class="privacy-note"><span aria-hidden="true">🔒</span> Explore with synthetic cases. Do not enter names, dates of birth, MRNs or other patient identifiers.</p>
+    <p class="privacy-note"><span aria-hidden="true">🔒</span> Use de-identified chart text only. Do not enter names, dates of birth, MRNs or other patient identifiers.</p>
 
   </div>
 </section>
@@ -1166,7 +1166,7 @@ Management Considerations:
       <h2 class="h2" id="pilot-h2">Help evaluate prevention in the visit.</h2>
       <p class="lede">We're seeking practices, specialty groups and health systems to evaluate RCCKM's simulator, clinical note and patient handout.</p>
       <p>For platform teams, let's explore how the engine could support your existing workflow.</p>
-      <p class="fineprint">Start with a 15-minute synthetic-case demonstration. Clinical pilots and integrations require separate institutional approvals and agreements.</p>
+      <p class="fineprint">Start with a 15-minute demo on your own de-identified cases. Clinical pilots and integrations require separate institutional approvals and agreements.</p>
     </div>
     <div class="pilot">
       <span class="pilot-em">🏥</span>
@@ -1542,7 +1542,7 @@ Management Considerations:
       }, 200);
     });
 
-    /* 4. Live demo: synthetic demo cases; each note is RCCKM engine output. */
+    /* 4. Live demo: demo cases; each note is RCCKM engine output. */
     var patients = [{"name": "Patient A", "meta": "34F · non-smoker · clean prevention visit", "labs": [["A1c", "5.2 %"], ["LDL-C", "88 mg/dL"], ["ApoB", "70 mg/dL"], ["BP", "108/68"], ["eGFR · UACR", "105 · 4"], ["BMI", "22.0"]], "flags": [], "pos": 10, "label": "Level 1 · No signals found", "sub": "Plaque unmeasured", "note": "[k]Risk Continuum CKM™[/k]\nLevel 1 | CKM 0\n[k]PREVENT ASCVD:[/k] 10y 0.2% (Low), 30y 1.2% (Low) | Total CVD: 10y 0.2%, 30y 1.9%\n\n[k]Management Considerations:[/k]\n- [k]Lipids:[/k] No lipid-lowering medication indicated. LDL-C 88.\n- [k]Plaque:[/k] CAC not indicated.\n- [k]Kidney:[/k] Stable.\n- [k]BP:[/k] Continue routine BP surveillance.\n- [k]Metabolic:[/k] No glycemic action. A1c 5.2%.\n- [k]Aspirin:[/k] Not indicated."}, {"name": "Patient B", "meta": "52F · gestational diabetes hx · labs rising since 2024", "labs": [["A1c", "6.1 % ↑"], ["LDL-C", "122 mg/dL ↑"], ["ApoB", "92 mg/dL"], ["TG", "168 mg/dL ↑"], ["BP", "128/78 ↑"], ["BMI", "31.6"]], "flags": [0, 1, 3, 5], "pos": 50, "label": "Level 3B · Actionable drivers", "sub": "Plaque unmeasured", "note": "[k]Risk Continuum CKM™[/k]\nLevel 3B | Actionable drivers | CKM 2 | CAC Not Measured\n[k]PREVENT ASCVD:[/k] 10y 2.1% (Low), 30y 12.2% (Mildly elevated) | Total CVD: 10y 3.4%, 30y 20.3%\n\n[k]Assessment (ICD-10):[/k]\n- Hypertriglyceridemia (E78.1)\n- Prediabetes (R73.03)\n- Obesity, BMI 31.6 (E66.9, Z68.31)\n\n[k]Management Considerations:[/k]\n- [k]Lipids:[/k] Moderate-intensity statin reasonable. LDL-C 122. If treatment is selected: LDL-C goal <100.\n- [k]Plaque:[/k] Consider CAC.\n- [k]Kidney:[/k] Stable.\n- [k]BP:[/k] Continue routine BP surveillance.\n- [k]Metabolic:[/k] BMI >=30 — consider GLP-1 RA for weight/cardiometabolic risk. A1c 6.1%.\n- [k]Aspirin:[/k] Not indicated."}, {"name": "Patient C", "meta": "62F · treated hypertension · CAC 38 (82nd percentile)", "labs": [["A1c", "5.8 %"], ["LDL-C", "128 mg/dL"], ["ApoB", "95 mg/dL"], ["BP", "132/78 · treated"], ["Lp(a)", "82 nmol/L"], ["CAC", "38"]], "flags": [1, 4, 5], "pos": 70, "label": "Level 4 · Plaque present", "sub": "Plaque present (CAC 38)", "note": "[k]Risk Continuum CKM™[/k]\nLevel 4 | CKM 3 (CAC/subclinical CVD; CKD not established) | CAC 38\n[k]PREVENT ASCVD:[/k] 10y 4.4% (Borderline) | Total CVD: 10y 7.7%\n\n[k]Assessment (ICD-10):[/k]\n- Subclinical coronary atherosclerosis (CAC 38)\n- Primary hypertension (I10)\n- Prediabetes (R73.03)\n\n[k]Risk Drivers:[/k]\nCAC 38\n\n[k]Context:[/k]\n- Lp(a) 82 nmol/L (intermediate)\n\n[k]Management Considerations:[/k]\n- [k]Lipids:[/k] Moderate-intensity statin recommended. LDL-C 128; target <70.\n- [k]Plaque:[/k] Known plaque.\n- [k]Kidney:[/k] Stable.\n- [k]BP:[/k] Confirm BP; treat if persistent. Current BP 132/78 mmHg.\n- [k]Metabolic:[/k] GLP-1 weight therapy: eligible. BMI 29.5 with hypertension; A1c 5.8%.\n- [k]Aspirin:[/k] Not indicated.\n\n[k]Further Risk Assessment:[/k]\n- hsCRP"}, {"name": "Patient D", "meta": "67M · on rosuvastatin 20 mg · CAC 420 · Lp(a) 210", "labs": [["LDL-C", "104 mg/dL on statin"], ["ApoB", "102 mg/dL"], ["Lp(a)", "210 nmol/L"], ["CAC", "420"], ["BP", "126/74 · treated"], ["A1c", "5.9 %"]], "flags": [0, 1, 2, 3], "pos": 90, "label": "Level 5 · Advanced plaque or disease", "sub": "CAC 420", "note": "[k]Risk Continuum CKM™[/k]\nLevel 5 | CKM 3 (CAC/subclinical CVD; CKD not established) | CAC 420\n[k]PREVENT:[/k] Not applicable (CAC >=300 indicates severe subclinical cardiovascular disease; PREVENT is not reported in this context)\n\n[k]Assessment (ICD-10):[/k]\n- Severe subclinical coronary atherosclerosis (CAC 420)\n- Primary hypertension (I10)\n- Elevated lipoprotein(a) (E78.41)\n- Hypertriglyceridemia (E78.1)\n- Prediabetes (R73.03)\n\n[k]Risk Drivers:[/k]\nCAC 420 | ApoB 102 mg/dL | Lp(a) 210 nmol/L\n\n[k]Management Considerations:[/k]\n- [k]Lipids:[/k] Currently receiving rosuvastatin 20 mg. LDL-C 104; target <70. Review current lipid-lowering regimen and residual target gap. Consider additional nonstatin LDL-lowering therapy.\n- [k]Plaque:[/k] Known plaque.\n- [k]Kidney:[/k] Stable.\n- [k]BP:[/k] Continue current BP regimen.\n- [k]Metabolic:[/k] GLP-1 weight therapy: eligible. BMI 29 with hypertension; A1c 5.9%.\n- [k]Aspirin:[/k] Low-dose aspirin is generally reasonable if bleeding risk is acceptable."}];
     var dTiles = document.querySelectorAll("#demo-cont .tile"), dWalker = document.getElementById("demo-walker");
     var dDefaults = Array.prototype.map.call(dTiles, function (t) { return [t.querySelector("b").textContent, t.querySelector("span").textContent]; });

@@ -72,7 +72,7 @@
               <tr><th scope="row">5</th><td>Advanced plaque or disease<span class="plain">Clinical ASCVD, heart failure, or coronary calcium of 300 or more.</span></td></tr>
             </tbody>
           </table>
-          <p>The landing page uses different synthetic patients. The 52-year-old woman in the simulator is Level 3B, Actionable drivers. The 58-year-old man in the walkthrough is Level 3C, Compounding drivers. Each sample keeps its own engine-assigned Level.</p>
+          <p>The landing page uses different demo patients. The 52-year-old woman in the simulator is Level 3B, Actionable drivers. The 58-year-old man in the walkthrough is Level 3C, Compounding drivers. Each sample keeps its own engine-assigned Level.</p>
           <p>PREVENT supplies event probabilities for eligible patients. CKM staging and KDIGO classification use their own frameworks. A Level may remain incomplete when required information is missing; unmeasured plaque remains unmeasured.</p>
         </div>
       </details>
@@ -134,15 +134,15 @@
       </details>
       <details id="emr-workflow">
         <summary>How does RCCKM fit into an EMR workflow?</summary>
-        <div class="faq-answer"><p>The current workflow begins with de-identified chart text or manual worksheet entry. A rule-based parser proposes values for confirmation. After reviewing the assessment, the clinician can copy the note into the EMR and print or copy the patient roadmap.</p><p>That makes the current workflow available across EMR systems through text entry and copy-and-paste. RCCKM is developed as a reusable clinical decision-support engine. Platform teams and health systems can discuss evaluating it within their existing workflows. Direct EMR connectivity requires separate implementation, institutional approvals and agreements; the public demonstration currently uses synthetic cases and clinician-controlled transfer.</p></div>
+        <div class="faq-answer"><p>The current workflow begins with de-identified chart text or manual worksheet entry. A rule-based parser proposes values for confirmation. After reviewing the assessment, the clinician can copy the note into the EMR and print or copy the patient roadmap.</p><p>That makes the current workflow available across EMR systems through text entry and copy-and-paste. RCCKM is developed as a reusable clinical decision-support engine. Platform teams and health systems can discuss evaluating it within their existing workflows. Direct EMR connectivity requires separate implementation, institutional approvals and agreements; the public demonstration currently uses de-identified chart text and clinician-controlled transfer.</p></div>
       </details>
       <details id="privacy-and-ai">
         <summary>What information may I enter, and where does it go?</summary>
-        <div class="faq-answer"><p>Use synthetic or de-identified data only. Exclude names, dates of birth, medical record numbers, contact details, and other patient identifiers. Under the current <a href="privacy.html">Privacy Policy</a>, chart text and worksheet values are processed on the server for the assessment, held temporarily in the session, and not saved to a patient database.</p><p>Optional AI features send the de-identified assessment details needed for the response to an outside AI provider. Account and usage analytics are described separately in the policy. RCCKM does not currently offer business associate agreements for identifiable clinical data. Review the current policy before use.</p></div>
+        <div class="faq-answer"><p>Use de-identified data only. Exclude names, dates of birth, medical record numbers, contact details, and other patient identifiers. Under the current <a href="privacy.html">Privacy Policy</a>, chart text and worksheet values are processed on the server for the assessment, held temporarily in the session, and not saved to a patient database.</p><p>Optional AI features send the de-identified assessment details needed for the response to an outside AI provider. Account and usage analytics are described separately in the policy. RCCKM does not currently offer business associate agreements for identifiable clinical data. Review the current policy before use.</p></div>
       </details>
       <details id="independence-and-review">
         <summary>Who built RCCKM, and how can my team get involved?</summary>
-        <div class="faq-answer"><p>RCCKM is independently developed by Risk Continuum Health LLC, led by Shereef El-Ibiary, MD, a practicing internist in Greenville, South Carolina. The platform grew from the everyday opportunity to connect cardiovascular, kidney, and metabolic information and turn it into a useful prevention conversation.</p><p>Clinicians, researchers, and health systems are invited to explore a synthetic-case demonstration or discuss a structured evaluation. Areas of interest include clinical concordance, input accuracy, usability, decision time, and patient understanding. <a href="mailto:shereef@riskcontinuum.health?subject=RCCKM%20clinical%20evaluation">Contact Shereef El-Ibiary, MD</a> to start the conversation.</p></div>
+        <div class="faq-answer"><p>RCCKM is independently developed by Risk Continuum Health LLC, led by Shereef El-Ibiary, MD, a practicing internist in Greenville, South Carolina. The platform grew from the everyday opportunity to connect cardiovascular, kidney, and metabolic information and turn it into a useful prevention conversation.</p><p>Clinicians, researchers, and health systems are invited to see a demonstration on their own de-identified cases or discuss a structured evaluation. Areas of interest include clinical concordance, input accuracy, usability, decision time, and patient understanding. <a href="mailto:shereef@riskcontinuum.health?subject=RCCKM%20clinical%20evaluation">Contact Shereef El-Ibiary, MD</a> to start the conversation.</p></div>
       </details>
     </div>
   </section>
@@ -159,7 +159,7 @@
     </ol>
     <p class="faq-updated">These sources underpin the methods described above. RCCKM is independently developed; references acknowledge the scientific work and do not imply organizational endorsement.</p>
   </section>
-  <aside class="faq-contact" aria-labelledby="contact-heading"><h2 id="contact-heading">Bring your questions. Explore a case together.</h2><p>For a synthetic-case demonstration, methods questions, or an evaluation discussion, <a href="mailto:shereef@riskcontinuum.health?subject=RCCKM%20methods%20and%20evaluation">contact Shereef El-Ibiary, MD</a>.</p></aside>
+  <aside class="faq-contact" aria-labelledby="contact-heading"><h2 id="contact-heading">Bring your questions. Explore a case together.</h2><p>For a demonstration, methods questions, or an evaluation discussion, <a href="mailto:shereef@riskcontinuum.health?subject=RCCKM%20methods%20and%20evaluation">contact Shereef El-Ibiary, MD</a>.</p></aside>
 </main>
 
 <footer class="wrap foot"><p>&copy; 2026 Risk Continuum CKM · <a href="/">Home</a> · <a href="methods.html">Methods</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="mailto:shereef@riskcontinuum.health">Contact</a> · <a href="#feedback" data-feedback>Feedback</a></p></footer>

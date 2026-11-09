@@ -430,6 +430,43 @@
     .rm-goals { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
     .rm-goals div { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; font-size: 14px; color: var(--muted); }
     .rm-goals b { display: block; font-size: 15px; color: var(--ink); }
+    .rm-badge { display: inline-block; margin-top: 8px; font-size: 13px; font-weight: 600; color: #7A4A06; background: #FBEBD3; border: 1px solid #F1D3A6; border-radius: 999px; padding: 4px 11px; }
+    .rm-traj { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 14px; align-items: center; }
+    .rm-chart { display: block; width: 100%; height: auto; overflow: visible; }
+    .rm-chart .traj-axis { stroke: rgba(17, 17, 17, .16); }
+    .rm-chart .traj-grid { stroke: rgba(17, 17, 17, .09); stroke-dasharray: 3 4; }
+    .rm-chart .traj-tick { fill: rgba(17, 17, 17, .56); font-size: 12px; font-weight: 600; }
+    .rm-chart .traj-strong { fill: #6F6064; font-weight: 700; }
+    .rm-chart .traj-line { fill: none; stroke-dasharray: 2 6; stroke-linecap: round; stroke-width: 2.5; }
+    .rm-chart path.traj-today { stroke: #6F6064; } .rm-chart path.traj-plan { stroke: #2E7D50; }
+    .rm-chart circle.traj-today, .rm-chart text.traj-today { fill: #6F6064; } .rm-chart circle.traj-plan, .rm-chart text.traj-plan { fill: #2E7D50; }
+    .rm-chart .traj-value { font-size: 14px; font-weight: 700; }
+    .rm-chart .traj-band { fill: rgba(46, 125, 80, .13); stroke: none; }
+    .rm-chart .traj-gap { opacity: .25; stroke: #2E7D50; stroke-linecap: round; stroke-width: 7; }
+    .rm-chart .traj-gap-label { fill: #1E6B44; font-size: 12px; font-weight: 700; }
+    .rm-chart .traj-gap-value { font-size: 14px; }
+    .rm-chart .traj-band, .rm-chart path.traj-plan { clip-path: inset(-10px 100% -10px -10px); transition: clip-path 1.1s cubic-bezier(.22, 1, .36, 1) .5s; }
+    .rm-chart circle.traj-plan, .rm-chart text.traj-plan, .rm-chart .traj-gap-label, .rm-chart .traj-gap { opacity: 0; transition: opacity .35s ease-out 1.4s; }
+    .rm-step.in .rm-chart .traj-band, .rm-step.in .rm-chart path.traj-plan { clip-path: inset(-10px -10px -10px -10px); }
+    .rm-step.in .rm-chart circle.traj-plan, .rm-step.in .rm-chart text.traj-plan, .rm-step.in .rm-chart .traj-gap-label { opacity: 1; }
+    .rm-step.in .rm-chart .traj-gap { opacity: .25; }
+    .rm-legend { display: grid; gap: 8px; min-width: 0; }
+    .rm-legend .rm-num b { display: inline-block; font-size: 30px; }
+    .rm-pill { font-style: normal; font-size: 12px; font-weight: 600; color: #1E6B44; background: #E4F1E8; border-radius: 999px; padding: 2px 8px; margin-left: 8px; vertical-align: 6px; }
+    .rm-num span { display: block; }
+    .rm-num.rm-plan { border-color: rgba(46, 125, 80, .35); }
+    .rm-num.rm-plan em { color: #1E6B44; text-transform: none; letter-spacing: 0; font-size: 13px; }
+    .rm-num.rm-plan b { color: #1E6B44; }
+    .rm-fine { margin-top: 10px; font-size: 13px; color: var(--muted); }
+    .rm-why { list-style: none; margin: 0; padding: 0; }
+    .rm-why li { position: relative; padding: 8px 0 8px 18px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+    .rm-why li:first-child { border-top: 0; }
+    .rm-why li::before { content: ""; position: absolute; left: 2px; top: 15px; width: 7px; height: 7px; border-radius: 50%; background: var(--a3); }
+    .rm-why b { display: block; font-size: 15px; color: var(--ink); }
+    .rm-ctx { margin-top: 8px; font-size: 13px; font-weight: 600; color: var(--muted); }
+    .rm-ctx span { font-weight: 600; color: var(--ink); border: 1px solid var(--line-2); border-radius: 999px; padding: 3px 9px; margin-left: 6px; background: var(--surface); }
+    .rm-goals small { display: block; margin-top: 4px; font-size: 13px; color: var(--muted); }
+    @media (prefers-reduced-motion: reduce) { .rm-chart * { transition: none !important; } }
     .rm-next { list-style: none; margin: 0; padding: 0; counter-reset: rm; }
     .rm-next li { counter-increment: rm; position: relative; padding: 8px 0 8px 34px; border-top: 1px solid var(--line); font-size: 15px; color: var(--body); }
     .rm-next li:first-child { border-top: 0; }
@@ -441,6 +478,14 @@
       .ap-act { grid-column: 2; }
       .ap-dom { font-size: 15px; }
       .rm-two { grid-template-columns: 1fr; }
+      .rm-traj { grid-template-columns: 1fr; }
+      .rm-legend { grid-template-columns: 1fr 1fr; }
+      .rm-legend .rm-num.rm-plan { grid-column: 1 / -1; }
+      .rm-legend .rm-num b { font-size: 26px; }
+      .rm-chart .traj-tick { font-size: 16px; }
+      .rm-chart .traj-value { font-size: 17px; }
+      .rm-chart .traj-gap-label { font-size: 14px; }
+      .rm-chart .traj-gap-value { font-size: 15px; }
       .rm-goals { grid-template-columns: 1fr; }
       .rm-num b { font-size: 30px; }
     }
@@ -985,21 +1030,32 @@ Management Considerations:
     <figure class="sdm-wide">
       <div class="card rm-card" id="rm">
         <div class="rm-head">
-          <div><div class="card-eyebrow">For the patient</div><div class="card-title">Your Prevention Roadmap</div></div>
+          <div><div class="card-eyebrow">For the patient</div><div class="card-title">Your Prevention Roadmap</div><span class="rm-badge">Higher long-term risk: discuss a plan</span></div>
           <div class="rm-tags" aria-label="Handout options"><span class="rm-tag">Copy to after-visit summary</span><span class="rm-tag dark">Print</span></div>
         </div>
         <div class="rm-step"><div class="rm-k">Step 1</div><h4>Where you stand</h4>
-          <div class="rm-two">
-            <div class="rm-num"><em>10-year risk</em><b data-to="2.12">2.12%</b><span>About 2 in 100 similar patients</span></div>
-            <div class="rm-num"><em>30-year risk</em><b data-to="12.17">12.17%</b><span>About 12 in 100 similar patients</span></div>
+          <div class="rm-traj">
+            <svg class="rm-chart" viewBox="0 0 500 204" role="img" aria-label="Chance of a heart attack, stroke, or related artery disease event: 2.12% over 10 years and 12.17% over 30 years; with the plan discussed, 1.35% and 7.91%"><line x1="52.0" y1="172.0" x2="444.0" y2="172.0" class="traj-axis"/><line x1="52.0" y1="120.0" x2="444.0" y2="120.0" class="traj-grid"/><line x1="52.0" y1="68.0" x2="444.0" y2="68.0" class="traj-grid"/><line x1="52.0" y1="16.0" x2="444.0" y2="16.0" class="traj-grid"/><text x="44.0" y="176.0" text-anchor="end" class="traj-tick">0%</text><text x="44.0" y="124.0" text-anchor="end" class="traj-tick">5%</text><text x="44.0" y="72.0" text-anchor="end" class="traj-tick">10%</text><text x="44.0" y="20.0" text-anchor="end" class="traj-tick">15%</text><text x="52.0" y="194" text-anchor="start" class="traj-tick">52 (now)</text><text x="182.7" y="194" text-anchor="middle" class="traj-tick">age 62</text><text x="444.0" y="194" text-anchor="middle" class="traj-tick">age 82</text><path d="M52.0,172.0 L182.7,150.0 L444.0,45.4 L444.0,89.7 L182.7,158.0 L52.0,172.0 Z" class="traj-band"/><line x1="444.0" y1="45.4" x2="444.0" y2="89.7" class="traj-gap"/><line x1="182.7" y1="150.0" x2="182.7" y2="158.0" class="traj-gap"/><path d="M52.0,172.0 L182.7,150.0 L444.0,45.4" class="traj-line traj-today"/><circle cx="182.7" cy="150.0" r="4.5" class="traj-dot traj-today"/><circle cx="444.0" cy="45.4" r="5.5" class="traj-dot traj-today"/><path d="M52.0,172.0 L182.7,158.0 L444.0,89.7" class="traj-line traj-plan"/><circle cx="182.7" cy="158.0" r="4.5" class="traj-dot traj-plan"/><circle cx="444.0" cy="89.7" r="5.5" class="traj-dot traj-plan"/><text x="454.0" y="37.4" class="traj-value traj-today">12.2%</text><text x="454.0" y="103.7" class="traj-value traj-plan">7.9%</text><text x="174.7" y="142.0" text-anchor="end" class="traj-tick traj-strong">2.1%</text><text x="62.0" y="30" text-anchor="start" class="traj-gap-label">Risk reduction</text><text x="62.0" y="46" text-anchor="start" class="traj-gap-label traj-gap-value">By age 62: −0.8%</text><text x="62.0" y="62" text-anchor="start" class="traj-gap-label traj-gap-value">By age 82: −4.3% (about 35% lower)</text></svg>
+            <div class="rm-legend">
+              <div class="rm-num"><em>10-year risk</em><b data-to="2.12">2.12%</b><i class="rm-pill">Low</i><span>About 2 in 100 similar patients</span></div>
+              <div class="rm-num"><em>30-year risk</em><b data-to="12.17">12.17%</b><span>About 12 in 100 similar patients</span></div>
+              <div class="rm-num rm-plan"><em>With systolic BP 120 mmHg and LDL-C 79 mg/dL</em><b data-to="7.91">7.91%</b></div>
+            </div>
           </div>
+          <p class="rm-fine">ASCVD risk: the chance of a heart attack, stroke, or related artery disease event.</p>
           <div class="rm-plaque">Coronary plaque: not measured.</div>
         </div>
         <div class="rm-step"><div class="rm-k">Step 2</div><h4>Why your risk is higher</h4>
-          <div class="rm-chips"><span>Long-term risk</span><span>Triglycerides</span><span>Kidney and metabolic health</span><span>Cholesterol particles</span></div>
+          <ul class="rm-why">
+            <li><b>Long-term risk</b>Your 30-year risk is 12.17%, higher than expected for your age.</li>
+            <li><b>Triglycerides</b>Triglycerides are elevated (150 or higher).</li>
+            <li><b>Kidney and metabolic health</b>Kidney or metabolic findings add to risk.</li>
+            <li><b>Cholesterol particles</b>Cholesterol particle levels (ApoB / non-HDL) are elevated.</li>
+          </ul>
+          <div class="rm-ctx">Other context <span>Gestational diabetes</span></div>
         </div>
         <div class="rm-step"><div class="rm-k">Step 3</div><h4>Your goals</h4>
-          <div class="rm-goals"><div><b>LDL-C below 100</b>if treatment is selected &middot; now 122</div><div><b>ApoB below 90</b>if treatment is selected &middot; now 92</div><div><b>A1c below 5.7%</b>now 6.1%</div></div>
+          <div class="rm-goals"><div><b>LDL-C below 100 mg/dL</b>if treatment is selected<small>Current 122 mg/dL</small></div><div><b>ApoB below 90 mg/dL</b>if treatment is selected<small>Current 92 mg/dL</small></div><div><b>A1c below 5.7%</b>Prediabetes-range; lifestyle focus<small>Current 6.1%</small></div></div>
         </div>
         <div class="rm-step"><div class="rm-k">Step 4</div><h4>Your next steps</h4>
           <ol class="rm-next"><li><b>Cholesterol:</b> Discuss cholesterol-lowering medicine with your clinician.</li><li><b>Weight:</b> Discuss GLP-1 or GLP-1/GIP treatment as an option for weight benefit.</li><li><b>Coronary plaque:</b> Discuss a coronary calcium scan (CAC) to check for plaque.</li></ol>

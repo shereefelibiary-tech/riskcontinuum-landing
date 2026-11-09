@@ -179,6 +179,7 @@
       .wt-stage { height: 560px; }
     }
     @media (max-width: 640px) {
+      .ap-card { padding: 18px 14px; }
       .wt { padding: 84px 0; }
       .wt-n { display: none; }
       .wt-short { font-size: 12.5px; }
@@ -408,41 +409,107 @@
     .ap-act .ap-gap { display: inline-block; }
     .ap-pop small { display: block; font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
     .ap-pop .src { display: flex; justify-content: space-between; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
-    /* Patient roadmap: the handout builds itself */
-    .rm-card { padding: 26px 28px; max-width: 920px; margin: 0 auto; }
-    .rm-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    /* Patient roadmap sample: one printed sheet; the steps hang on a route whose dots grow like the logo's */
+    .rm-sheet { position: relative; max-width: 1040px; margin: 0 auto; background: var(--surface); border: 1px solid var(--line); border-radius: 22px; box-shadow: var(--shadow-lift); padding: 40px 52px 46px; text-align: left; }
+    .rm-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; padding-bottom: 24px; border-bottom: 1px solid var(--line); }
+    .rm-for { margin: 0; font-size: 15px; font-weight: 600; color: var(--accent); }
+    .rm-title { font-size: clamp(30px, 3.4vw, 42px); line-height: 1.08; margin: 2px 0 14px; }
+    .rm-badge { display: inline-block; font-size: 14px; font-weight: 600; color: #7A4A06; background: #FBEBD3; border-radius: 999px; padding: 5px 13px; }
     .rm-tags { display: flex; gap: 8px; flex-wrap: wrap; }
-    .rm-tag { font-size: 13px; font-weight: 600; border: 1px solid var(--line-2); border-radius: 999px; padding: 6px 12px; color: var(--ink); background: var(--surface); }
+    .rm-tag { font-size: 14px; font-weight: 600; border: 1px solid var(--line-2); border-radius: 999px; padding: 8px 14px; color: var(--ink); background: var(--surface); }
     .rm-tag.dark { background: var(--ink); color: #fff; border-color: var(--ink); }
-    .rm-step { border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; margin-top: 12px; background: var(--surface-2); opacity: 0; transform: translateY(14px); transition: opacity .5s var(--ease), transform .5s var(--ease); }
+    .rm-route { list-style: none; margin: 0; padding: 0 0 0 44px; position: relative; }
+    .rm-route::before, .rm-route::after { content: ""; position: absolute; left: 13px; top: 44px; bottom: 40px; width: 2px; border-radius: 2px; background: var(--line); }
+    .rm-route::after { background: linear-gradient(180deg, var(--accent), rgba(134, 19, 39, .25)); transform-origin: top; transform: scaleY(0); transition: transform 2s var(--ease) 1.4s; }
+    .rm-sheet.in .rm-route::after { transform: scaleY(1); }
+    .rm-step { position: relative; padding: 34px 0 0; opacity: 0; transform: translateY(12px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
     .rm-step.in { opacity: 1; transform: none; }
-    .rm-k { font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
-    .rm-step h4 { font-family: var(--display); font-size: 21px; color: var(--ink); margin: 2px 0 10px; }
-    .rm-two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .rm-num { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
-    .rm-num b { display: block; font-family: var(--display); font-size: 34px; line-height: 1.05; color: var(--ink); }
-    .rm-num span { font-size: 14px; color: var(--muted); }
-    .rm-num em { display: block; font-style: normal; font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
-    .rm-plaque { margin-top: 10px; font-size: 14px; font-weight: 600; color: var(--body); background: var(--bg-2); border-radius: 10px; padding: 8px 12px; }
-    .rm-chips { display: flex; flex-wrap: wrap; gap: 8px; }
-    .rm-chips span { font-size: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; color: var(--body); }
-    .rm-chips span::before { content: "●"; color: var(--a3); font-size: 10px; margin-right: 7px; vertical-align: 2px; }
-    .rm-goals { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-    .rm-goals div { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; font-size: 14px; color: var(--muted); }
-    .rm-goals b { display: block; font-size: 15px; color: var(--ink); }
-    .rm-next { list-style: none; margin: 0; padding: 0; counter-reset: rm; }
-    .rm-next li { counter-increment: rm; position: relative; padding: 8px 0 8px 34px; border-top: 1px solid var(--line); font-size: 15px; color: var(--body); }
-    .rm-next li:first-child { border-top: 0; }
-    .rm-next li::before { content: counter(rm); position: absolute; left: 0; top: 8px; width: 22px; height: 22px; border-radius: 50%; background: var(--surface); border: 1px solid var(--line-2); font-size: 12px; font-weight: 600; display: grid; place-items: center; color: var(--accent); }
+    .rm-mark { position: absolute; top: 42px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 6px var(--surface); }
+    .rm-step:nth-child(1) .rm-mark { width: 10px; height: 10px; left: -36px; }
+    .rm-step:nth-child(2) .rm-mark { width: 13px; height: 13px; left: -37.5px; top: 40.5px; }
+    .rm-step:nth-child(3) .rm-mark { width: 16px; height: 16px; left: -39px; top: 39px; }
+    .rm-step:nth-child(4) .rm-mark { width: 20px; height: 20px; left: -41px; top: 37px; }
+    .rm-step h4 { font-family: var(--display); font-weight: 500; font-size: 25px; line-height: 1.2; color: var(--ink); margin: 0 0 16px; }
+    .rm-k { display: block; font-family: var(--ui); font-size: 14px; font-weight: 600; color: var(--faint); margin-bottom: 2px; }
+    .rm-traj { display: grid; gap: 22px; }
+    .rm-plot { padding: 6px 56px 0 0; }
+    .rm-chart { display: block; width: 100%; height: auto; overflow: visible; }
+    .rm-chart .traj-axis { stroke: rgba(29, 20, 22, .18); }
+    .rm-chart .traj-grid { stroke: rgba(29, 20, 22, .08); stroke-dasharray: 3 4; }
+    .rm-chart .traj-tick { fill: rgba(29, 20, 22, .5); font-size: 10px; font-weight: 600; font-family: var(--ui); }
+    .rm-chart .traj-strong { fill: #6F6064; font-weight: 700; }
+    .rm-chart .traj-line { fill: none; stroke-dasharray: 2 6; stroke-linecap: round; stroke-width: 2.6; }
+    .rm-chart path.traj-today { stroke: #6F6064; } .rm-chart path.traj-plan { stroke: #2E7D50; }
+    .rm-chart circle.traj-today, .rm-chart text.traj-today { fill: #6F6064; } .rm-chart circle.traj-plan, .rm-chart text.traj-plan { fill: #2E7D50; }
+    .rm-chart .traj-value { font-size: 12px; font-weight: 700; font-family: var(--ui); }
+    .rm-chart .traj-band { fill: rgba(46, 125, 80, .14); stroke: none; }
+    .rm-chart .traj-gap { opacity: .25; stroke: #2E7D50; stroke-linecap: round; stroke-width: 7; }
+    .rm-chart .traj-gap-label { fill: #1E6B44; font-size: 10px; font-weight: 700; font-family: var(--ui); }
+    .rm-chart .traj-gap-value { font-size: 12px; }
+    .rm-gapnote { display: none; margin: 0; font-size: 14px; font-weight: 600; line-height: 1.5; color: #1E6B44; }
+    .rm-gapnote b { display: block; font-weight: 700; }
+    /* The one moment: today's curve draws, the plan bends it down, the gap fills. */
+    .rm-chart .traj-today:not(.traj-tick) { clip-path: inset(-12px 100% -12px -12px); transition: clip-path 1s cubic-bezier(.4, 0, .2, 1) .3s; }
+    .rm-chart .traj-band, .rm-chart path.traj-plan { clip-path: inset(-12px 100% -12px -12px); transition: clip-path 1.2s cubic-bezier(.22, 1, .36, 1) 1.3s; }
+    .rm-chart circle.traj-plan, .rm-chart text.traj-plan, .rm-chart .traj-gap-label, .rm-chart .traj-gap { opacity: 0; transition: opacity .45s ease-out 2.4s; }
+    .rm-hero.in .rm-chart .traj-today, .rm-hero.in .rm-chart .traj-band, .rm-hero.in .rm-chart path.traj-plan { clip-path: inset(-12px -12px -12px -12px); }
+    .rm-hero.in .rm-chart circle.traj-plan, .rm-hero.in .rm-chart text.traj-plan, .rm-hero.in .rm-chart .traj-gap-label { opacity: 1; }
+    .rm-hero.in .rm-chart .traj-gap { opacity: .25; }
+    .rm-stats { margin: 0; display: grid; grid-template-columns: 1fr 1fr 1.25fr; gap: 0; align-items: stretch; border-top: 1px solid var(--line); padding-top: 18px; }
+    .rm-num { padding: 0 20px; border-left: 1px solid var(--line); }
+    .rm-num:first-child { border-left: 0; padding-left: 0; }
+    .rm-num dt { font-size: 14px; font-weight: 600; color: var(--muted); }
+    .rm-num dd { margin: 0; }
+    .rm-v b { font-family: var(--display); font-weight: 500; font-size: 40px; line-height: 1.1; color: var(--ink); letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+    .rm-sub { font-size: 14px; color: var(--muted); }
+    .rm-pill { font-style: normal; font-size: 13px; font-weight: 600; color: #1E6B44; background: var(--good-soft); border-radius: 999px; padding: 3px 10px; margin-left: 10px; vertical-align: 9px; }
+    .rm-plan { border-left: 0; margin-left: 8px; padding: 14px 18px; border-radius: 14px; background: linear-gradient(135deg, #EEF6F0, #E4F1E8); }
+    .rm-plan dt { color: #1E6B44; }
+    .rm-plan .rm-v b { color: #1E6B44; }
+    .rm-plan .rm-sub { color: #2E6B48; }
+    .rm-fine { margin: 18px 0 0; font-size: 14px; color: var(--muted); max-width: 72ch; }
+    .rm-why { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 18px 36px; }
+    .rm-why li { position: relative; padding-left: 18px; font-size: 15px; line-height: 1.5; color: var(--muted); }
+    .rm-why li::before { content: ""; position: absolute; left: 0; top: 8px; width: 8px; height: 8px; border-radius: 50%; background: var(--a3); }
+    .rm-why b { display: block; font-size: 16px; color: var(--ink); }
+    .rm-ctx { margin: 16px 0 0; font-size: 14px; font-weight: 600; color: var(--muted); }
+    .rm-ctx span { color: var(--ink); border: 1px solid var(--line-2); border-radius: 999px; padding: 4px 11px; margin-left: 8px; }
+    .rm-goals { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .rm-goals > div { display: flex; flex-direction: column; gap: 2px; padding: 16px 20px; border-left: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+    .rm-goals > div:first-child { border-left: 0; padding-left: 0; }
+    .rm-gl { font-weight: 600; color: var(--accent); }
+    .rm-goals b { font-family: var(--display); font-weight: 500; font-size: 27px; line-height: 1.15; color: var(--ink); }
+    .rm-goals small { font-family: var(--ui); font-size: 14px; color: var(--muted); }
+    .rm-now { margin-top: 6px; color: var(--ink); font-weight: 600; }
+    .rm-next { list-style: none; margin: 0; padding: 0; counter-reset: rm; display: grid; gap: 12px; }
+    .rm-next li { counter-increment: rm; position: relative; padding-left: 38px; font-size: 16px; line-height: 1.5; color: var(--body); }
+    .rm-next li::before { content: counter(rm); position: absolute; left: 0; top: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--garnet-soft); color: var(--accent); font-size: 13px; font-weight: 700; display: grid; place-items: center; }
     .rm-next b { color: var(--ink); }
+    @media (prefers-reduced-motion: reduce) { .rm-step, .rm-route::after, .rm-chart *, .rm-gapnote { transition: none !important; } }
     @media (max-width: 640px) {
-      .ap-card, .rm-card { padding: 18px 14px; }
+      .rm-sheet { padding: 26px 18px 30px; border-radius: 18px; }
+      .rm-route { padding-left: 32px; }
+      .rm-route::before, .rm-route::after { left: 9px; }
+      .rm-step:nth-child(1) .rm-mark { left: -28px; } .rm-step:nth-child(2) .rm-mark { left: -29.5px; } .rm-step:nth-child(3) .rm-mark { left: -31px; } .rm-step:nth-child(4) .rm-mark { left: -33px; }
+      .rm-step h4 { font-size: 22px; }
+      .rm-traj { grid-template-columns: 1fr; gap: 18px; }
+      .rm-plot { padding-right: 18px; }
+      .rm-chart .traj-gap-label { display: none; }
+      .rm-gapnote { display: block; opacity: 0; transition: opacity .45s ease-out 2.4s; }
+      .rm-hero.in .rm-gapnote { opacity: 1; }
+      .rm-stats { grid-template-columns: 1fr 1fr; column-gap: 14px; row-gap: 14px; }
+      .rm-num { padding: 0 0 0 14px; }
+      .rm-num:first-child { padding-left: 0; }
+      .rm-plan { grid-column: 1 / -1; margin-left: 0; padding: 12px 14px; }
+      .rm-v b { font-size: 32px; }
+      .rm-pill { display: inline-block; margin: 0 0 0 6px; vertical-align: 6px; }
+      .rm-chart .traj-tick { font-size: 18px; } .rm-chart .traj-value { font-size: 23px; }
+      .rm-why { grid-template-columns: 1fr; gap: 14px; }
+      .rm-goals { grid-template-columns: 1fr; border-bottom: 0; }
+      .rm-goals > div { border-left: 0; padding: 14px 0; border-bottom: 1px solid var(--line); }
       .ap-row { grid-template-columns: 28px minmax(0, 1fr); }
       .ap-act { grid-column: 2; }
       .ap-dom { font-size: 15px; }
-      .rm-two { grid-template-columns: 1fr; }
-      .rm-goals { grid-template-columns: 1fr; }
-      .rm-num b { font-size: 30px; }
     }
     .sdm-handout { margin-top: 28px; text-align: center; font-size: 17px; color: var(--muted); }
     .sdm-card { background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px 24px; box-shadow: 0 1px 2px rgba(45,12,20,.04), 0 18px 40px -26px rgba(45,12,20,.22); }
@@ -983,27 +1050,52 @@ Management Considerations:
       <div class="sdm-card reveal"><div class="em">📝</div><h3>The conversation, documented</h3><p>"Risk Reduction Discussed" goes in the note with the numbers you shared.</p></div>
     </div>
     <figure class="sdm-wide">
-      <div class="card rm-card" id="rm">
-        <div class="rm-head">
-          <div><div class="card-eyebrow">For the patient</div><div class="card-title">Your Prevention Roadmap</div></div>
-          <div class="rm-tags" aria-label="Handout options"><span class="rm-tag">Copy to after-visit summary</span><span class="rm-tag dark">Print</span></div>
-        </div>
-        <div class="rm-step"><div class="rm-k">Step 1</div><h4>Where you stand</h4>
-          <div class="rm-two">
-            <div class="rm-num"><em>10-year risk</em><b data-to="2.12">2.12%</b><span>About 2 in 100 similar patients</span></div>
-            <div class="rm-num"><em>30-year risk</em><b data-to="12.17">12.17%</b><span>About 12 in 100 similar patients</span></div>
+      <div class="rm-sheet" id="rm">
+        <header class="rm-top">
+          <div>
+            <p class="rm-for">For the patient</p>
+            <h3 class="rm-title">Your Prevention Roadmap</h3>
+            <span class="rm-badge">Higher long-term risk: discuss a plan</span>
           </div>
-          <div class="rm-plaque">Coronary plaque: not measured.</div>
-        </div>
-        <div class="rm-step"><div class="rm-k">Step 2</div><h4>Why your risk is higher</h4>
-          <div class="rm-chips"><span>Long-term risk</span><span>Triglycerides</span><span>Kidney and metabolic health</span><span>Cholesterol particles</span></div>
-        </div>
-        <div class="rm-step"><div class="rm-k">Step 3</div><h4>Your goals</h4>
-          <div class="rm-goals"><div><b>LDL-C below 100</b>if treatment is selected &middot; now 122</div><div><b>ApoB below 90</b>if treatment is selected &middot; now 92</div><div><b>A1c below 5.7%</b>now 6.1%</div></div>
-        </div>
-        <div class="rm-step"><div class="rm-k">Step 4</div><h4>Your next steps</h4>
-          <ol class="rm-next"><li><b>Cholesterol:</b> Discuss cholesterol-lowering medicine with your clinician.</li><li><b>Weight:</b> Discuss GLP-1 or GLP-1/GIP treatment as an option for weight benefit.</li><li><b>Coronary plaque:</b> Discuss a coronary calcium scan (CAC) to check for plaque.</li></ol>
-        </div>
+          <div class="rm-tags" aria-label="Handout options"><span class="rm-tag">Copy to after-visit summary</span><span class="rm-tag dark">Print</span></div>
+        </header>
+        <ol class="rm-route">
+          <li class="rm-step rm-hero"><span class="rm-mark" aria-hidden="true"></span>
+            <h4><span class="rm-k">Step 1</span>Where you stand</h4>
+            <div class="rm-traj">
+              <div class="rm-plot"><svg class="rm-chart" viewBox="0 0 500 204" role="img" aria-label="Chance of a heart attack, stroke, or related artery disease event: 2.12% over 10 years and 12.17% over 30 years; with the plan discussed, 1.35% and 7.91%"><line x1="52.0" y1="172.0" x2="444.0" y2="172.0" class="traj-axis"/><line x1="52.0" y1="120.0" x2="444.0" y2="120.0" class="traj-grid"/><line x1="52.0" y1="68.0" x2="444.0" y2="68.0" class="traj-grid"/><line x1="52.0" y1="16.0" x2="444.0" y2="16.0" class="traj-grid"/><text x="44.0" y="176.0" text-anchor="end" class="traj-tick">0%</text><text x="44.0" y="124.0" text-anchor="end" class="traj-tick">5%</text><text x="44.0" y="72.0" text-anchor="end" class="traj-tick">10%</text><text x="44.0" y="20.0" text-anchor="end" class="traj-tick">15%</text><text x="52.0" y="194" text-anchor="start" class="traj-tick">52 (now)</text><text x="182.7" y="194" text-anchor="middle" class="traj-tick">age 62</text><text x="444.0" y="194" text-anchor="middle" class="traj-tick">age 82</text><path d="M52.0,172.0 L182.7,150.0 L444.0,45.4 L444.0,89.7 L182.7,158.0 L52.0,172.0 Z" class="traj-band"/><line x1="444.0" y1="45.4" x2="444.0" y2="89.7" class="traj-gap"/><line x1="182.7" y1="150.0" x2="182.7" y2="158.0" class="traj-gap"/><path d="M52.0,172.0 L182.7,150.0 L444.0,45.4" class="traj-line traj-today"/><circle cx="182.7" cy="150.0" r="4.5" class="traj-dot traj-today"/><circle cx="444.0" cy="45.4" r="5.5" class="traj-dot traj-today"/><path d="M52.0,172.0 L182.7,158.0 L444.0,89.7" class="traj-line traj-plan"/><circle cx="182.7" cy="158.0" r="4.5" class="traj-dot traj-plan"/><circle cx="444.0" cy="89.7" r="5.5" class="traj-dot traj-plan"/><text x="454.0" y="37.4" class="traj-value traj-today">12.2%</text><text x="454.0" y="103.7" class="traj-value traj-plan">7.9%</text><text x="174.7" y="142.0" text-anchor="end" class="traj-tick traj-strong">2.1%</text><text x="62.0" y="30" text-anchor="start" class="traj-gap-label">Risk reduction</text><text x="62.0" y="46" text-anchor="start" class="traj-gap-label traj-gap-value">By age 62: −0.8%</text><text x="62.0" y="62" text-anchor="start" class="traj-gap-label traj-gap-value">By age 82: −4.3% (about 35% lower)</text></svg></div>
+              <p class="rm-gapnote"><b>Risk reduction</b>By age 62: −0.8% · By age 82: −4.3% (about 35% lower)</p>
+              <dl class="rm-stats">
+                <div class="rm-num"><dt>10-year risk</dt><dd class="rm-v"><b data-to="2.12">2.12%</b><i class="rm-pill">Low</i></dd><dd class="rm-sub">About 2 in 100 similar patients</dd></div>
+                <div class="rm-num"><dt>30-year risk</dt><dd class="rm-v"><b data-to="12.17">12.17%</b></dd><dd class="rm-sub">About 12 in 100 similar patients</dd></div>
+                <div class="rm-num rm-plan"><dt>With systolic BP 120 mmHg and LDL-C 79 mg/dL</dt><dd class="rm-v"><b data-to="7.91" data-from="12.17" data-delay="1300" data-ms="1200">7.91%</b></dd><dd class="rm-sub">30-year risk with the plan</dd></div>
+              </dl>
+            </div>
+            <p class="rm-fine">ASCVD risk: the chance of a heart attack, stroke, or related artery disease event. Coronary plaque: not measured.</p>
+          </li>
+          <li class="rm-step"><span class="rm-mark" aria-hidden="true"></span>
+            <h4><span class="rm-k">Step 2</span>Why your risk is higher</h4>
+            <ul class="rm-why">
+              <li><b>Long-term risk</b>Your 30-year risk is 12.17%, higher than expected for your age.</li>
+              <li><b>Triglycerides</b>Triglycerides are elevated (150 or higher).</li>
+              <li><b>Kidney and metabolic health</b>Kidney or metabolic findings add to risk.</li>
+              <li><b>Cholesterol particles</b>Cholesterol particle levels (ApoB / non-HDL) are elevated.</li>
+            </ul>
+            <p class="rm-ctx">Other context <span>Gestational diabetes</span></p>
+          </li>
+          <li class="rm-step"><span class="rm-mark" aria-hidden="true"></span>
+            <h4><span class="rm-k">Step 3</span>Your goals</h4>
+            <div class="rm-goals">
+              <div><span class="rm-gl">LDL-C</span><b>below 100 <small>mg/dL</small></b><span>if treatment is selected</span><span class="rm-now">Current 122 mg/dL</span></div>
+              <div><span class="rm-gl">ApoB</span><b>below 90 <small>mg/dL</small></b><span>if treatment is selected</span><span class="rm-now">Current 92 mg/dL</span></div>
+              <div><span class="rm-gl">A1c</span><b>below 5.7%</b><span>Prediabetes-range; lifestyle focus</span><span class="rm-now">Current 6.1%</span></div>
+            </div>
+          </li>
+          <li class="rm-step"><span class="rm-mark" aria-hidden="true"></span>
+            <h4><span class="rm-k">Step 4</span>Your next steps</h4>
+            <ol class="rm-next"><li><b>Cholesterol:</b> Discuss cholesterol-lowering medicine with your clinician.</li><li><b>Weight:</b> Discuss GLP-1 or GLP-1/GIP treatment as an option for weight benefit.</li><li><b>Coronary plaque:</b> Discuss a coronary calcium scan (CAC) to check for plaque.</li></ol>
+          </li>
+        </ol>
       </div>
       <figcaption class="shot-cap" style="text-align:center"><b>A handout in plain language.</b> Print it, or paste it into the after-visit summary.</figcaption>
     </figure>
@@ -1416,8 +1508,9 @@ Management Considerations:
       var steps = card.querySelectorAll(".rm-step"), nums = card.querySelectorAll(".rm-num b"), done = false;
       onView(card, function (v) {
         if (!v || done) return; done = true;
+        card.classList.add("in");
         steps.forEach(function (st, i) { setTimeout(function () { st.classList.add("in"); }, reduced ? 0 : 200 + i * 420); });
-        nums.forEach(function (b) { var to = parseFloat(b.dataset.to); setTimeout(function () { tween(0, to, 900, function (x) { b.textContent = x.toFixed(2) + "%"; }); }, reduced ? 0 : 350); });
+        nums.forEach(function (b) { var to = parseFloat(b.dataset.to), from = parseFloat(b.dataset.from || 0), ms = parseFloat(b.dataset.ms || 900); if (reduced) return; b.textContent = from.toFixed(2) + "%"; setTimeout(function () { tween(from, to, ms, function (x) { b.textContent = x.toFixed(2) + "%"; }); }, parseFloat(b.dataset.delay || 350)); });
       }, 0.2);
     })();
 

@@ -1,7 +1,10 @@
 # Methods and evidence: maintenance
 
-Version 1.3 describes application revision
-`5e7cb9911d1c5231e751b55b7b89cde5ad010c56`, tested in CI run `43787494529`
+Version 1.4 describes application revision
+`4837b83b12f153504b800ea702273578a1ec4e44` (catalog `option_effects_v6`: BP effect
+capped at 20 mmHg, aspirin kidney caution beside the bleeding figure, Ference
+cited to Eur Heart J 2017), tested in CI run `43795718876`. Version 1.3
+described `5e7cb9911d1c5231e751b55b7b89cde5ad010c56`, CI run `43787494529`
 (November 15, 2026). It adds the patient view's per-option estimates
 (`modules/prevent/option_effects.py`, catalog `option_effects_v5`), the
 heart-failure lane, the 30-year projection for statin and BP, the non-HDL-C
@@ -59,8 +62,8 @@ anchors, links, Level rule coverage and the RSS export before publication.
 
 ## Evidence records
 
-The November 15, 2026 CI run `43787494529` passed all five jobs: Linux and
-Windows tests (6,276 passed, 179 skipped each), clinical output snapshots (738
+The November 15, 2026 CI run `43795718876` passed all five jobs: Linux and
+Windows tests (6,279 passed, 179 skipped each), clinical output snapshots (738
 snapshots, no changes; 700 journeys passed their independent contracts,
 including PREVENT against the AHA's official R implementation), engine parity
 (108 journeys, 1,512 responses, zero mismatches; FHIR/paste parity 500

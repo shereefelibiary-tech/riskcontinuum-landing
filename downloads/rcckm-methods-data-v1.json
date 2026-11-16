@@ -1,7 +1,7 @@
 {
-  "document_version": "1.3",
-  "reviewed_on": "2026-11-15",
-  "engine_revision": "5e7cb9911d1c5231e751b55b7b89cde5ad010c56",
+  "document_version": "1.4",
+  "reviewed_on": "2026-11-16",
+  "engine_revision": "4837b83b12f153504b800ea702273578a1ec4e44",
   "source_sha256": {
     "modules/levels/level_classifier.py": "a1026820647dceea6aef211118f745cc26179d65731bd9001bd3b151ef1c805f",
     "modules/levels/definitions.py": "b73bdf07cc0e15f7cb22e957b88794ee486eafdfa76df5f7c44a553bf8579f94",
@@ -13,9 +13,9 @@
     "modules/lipids/severe_hypercholesterolemia.py": "ff42ef3491a5f8b4d7fff96e5913b059e0885f93202a6b5409d7478679c8b5b7",
     "modules/prevent/eligibility.py": "fa21e90c748c85acc4a9c7737fcb25efe50014f6e79a9fccf999c4e93f0dd917",
     "modules/prevent/precision.py": "d7082cd77c765b939ddc2960d296d26b6e89b7ddf1390d55b44e79e528a6eb4a",
-    "modules/prevent/treatment_effects.py": "05794511a344ad044647ec954351357b1f58bb298a674059bb50fc716825edca",
+    "modules/prevent/treatment_effects.py": "65df59d48d083b28e0eb2151958664aac75692844b45ff38684ed79c97cd5f2a",
     "api/simulate.py": "a3f8f63f3a5cca1079f849604b5e57e096abefcdbdcda6c68877fc8c29cef66e",
-    "modules/prevent/option_effects.py": "afc40e234a31b510ac1bc4b78e30626294def5e7a9a23bbb0c12858b326255de",
+    "modules/prevent/option_effects.py": "ef6328f04f68416f879e49333c1825f507161367113a7992f8462d85dd1611c6",
     "modules/prevent/relative_reduction.py": "b1d9982c540e6f71b6cd05ee5b88afd7371a4b9d419c5cf4609476546fd9e012"
   },
   "rss": {

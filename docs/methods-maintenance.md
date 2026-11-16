@@ -1,8 +1,13 @@
 # Methods and evidence: maintenance
 
-Version 1.2 describes merged application revision
-`2d6923ddd2619e4f55bb8791f1306fd60646ed5e`. Its Git tree matches tested
-application head `789d38284d3e103959613dea8ad7bde11e5c469f`.
+Version 1.3 describes application revision
+`5e7cb9911d1c5231e751b55b7b89cde5ad010c56`, tested in CI run `43787494529`
+(November 15, 2026). It adds the patient view's per-option estimates
+(`modules/prevent/option_effects.py`, catalog `option_effects_v5`), the
+heart-failure lane, the 30-year projection for statin and BP, the non-HDL-C
+>220 marker for severe hypercholesterolemia, and clinical output snapshots with
+physician approval as the verification layer. The Level rule IDs and RSS export
+are unchanged from version 1.2.
 
 The current methods include the Intermediate PREVENT minimum of Level 3A,
 the broader 3A description, and provenance-checked unrounded classification
@@ -54,6 +59,16 @@ anchors, links, Level rule coverage and the RSS export before publication.
 
 ## Evidence records
 
+The November 15, 2026 CI run `43787494529` passed all five jobs: Linux and
+Windows tests (6,276 passed, 179 skipped each), clinical output snapshots (738
+snapshots, no changes; 700 journeys passed their independent contracts,
+including PREVENT against the AHA's official R implementation), engine parity
+(108 journeys, 1,512 responses, zero mismatches; FHIR/paste parity 500
+journeys) and Next.js. Read the counts from the job logs when refreshing.
+
+The paragraphs below describe the earlier (version 1.2) records, which the
+register keeps under `historical_validation`.
+
 The November 4, 2026 Eastern Time CI run `41950817613` passed all four jobs.
 Each platform's ordinary suite passed 7,277 tests with 160 skipped. The Critic
 harness passed 379 with 15 skipped; the provider-free 600 compared MATCH with
@@ -73,6 +88,11 @@ waived a new semantic gate for the November 5 merge in PR #80. Record that
 decision as a waiver, while preserving the earlier source-bound evidence,
 original findings and adjudications. Independent clinical evaluation remains
 separate from software and model-assisted checks.
+
+Clinical output snapshots replaced the frozen-baseline replay and the
+model-assisted semantic review on November 13, 2026 (application PRs #97 and
+#101). Do not describe a new semantic pass; keep the October 31 record as
+historical.
 
 Inspect job steps and receipt text when refreshing results. Preserve skipped
 counts, distinguish test dates from verification/merge dates, and keep the

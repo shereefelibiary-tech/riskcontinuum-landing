@@ -19,7 +19,7 @@ import subprocess
 from typing import Any, Optional
 
 ROOT = Path(__file__).resolve().parents[1]
-ENGINE_REVISION = "2d6923ddd2619e4f55bb8791f1306fd60646ed5e"
+ENGINE_REVISION = "5e7cb9911d1c5231e751b55b7b89cde5ad010c56"
 SOURCE_FILES = (
     "modules/levels/level_classifier.py", "modules/levels/definitions.py",
     "modules/levels/descriptors.py", "modules/rss/engine.py",
@@ -27,6 +27,7 @@ SOURCE_FILES = (
     "modules/lipids/severe_hypercholesterolemia.py",
     "modules/prevent/eligibility.py", "modules/prevent/precision.py",
     "modules/prevent/treatment_effects.py", "api/simulate.py",
+    "modules/prevent/option_effects.py", "modules/prevent/relative_reduction.py",
 )
 
 
@@ -60,7 +61,7 @@ def export(source: Path) -> dict:
     level_source = (source / "modules/levels/level_classifier.py").read_text()
     rule_ids = list(dict.fromkeys(re.findall(r'"(LEVEL_(?:[1-5][A-C]?|INCOMPLETE)_[A-Z0-9_]+)"', level_source)))
     return {
-        "document_version": "1.2", "reviewed_on": "2026-11-05",
+        "document_version": "1.3", "reviewed_on": "2026-11-15",
         "engine_revision": ENGINE_REVISION,
         "source_sha256": {name: hashlib.sha256((source / name).read_bytes()).hexdigest() for name in SOURCE_FILES},
         "rss": method, "rss_exact_numeric_intervals": bands,

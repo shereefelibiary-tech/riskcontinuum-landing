@@ -728,6 +728,189 @@
       .nav .wrap { gap: 8px; }
       .nav .btn, .nav-menu > summary { padding-left: 12px; padding-right: 12px; }
     }
+    /* PATIENT VIEW SHOWCASE: the app's "Show patient" screen, driven by engine output */
+    .pv { --pv-bg: #170D10; --pv-ink: #FBF4F2; --pv-muted: #CDBDBF; padding: 130px 0 110px; color: var(--pv-ink); background: radial-gradient(900px 520px at 78% 18%, rgba(134,19,39,.55), transparent 70%), radial-gradient(700px 460px at 8% 92%, rgba(30,113,72,.28), transparent 70%), var(--pv-bg); overflow: hidden; isolation: isolate; }
+    .pv::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .35; background-image: radial-gradient(rgba(255,255,255,.08) 1px, transparent 1.2px); background-size: 26px 26px; mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent); }
+    .pv .eyebrow { color: #F2A7B4; }
+    .pv h2 { color: var(--pv-ink); }
+    .pv .lede { color: var(--pv-muted); }
+    .pv-head { display: grid; grid-template-columns: 1.05fr .95fr; gap: 64px; align-items: end; }
+    .pv-head .h2 em { font-style: normal; background: linear-gradient(90deg, #F2A7B4, #8FD9AE); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .pv-body { display: grid; grid-template-columns: 270px minmax(0, 1fr); gap: 34px; margin-top: 60px; align-items: start; }
+    .pv-rail { list-style: none; display: grid; gap: 8px; position: sticky; top: 96px; }
+    .pv-step { width: 100%; text-align: left; display: grid; grid-template-columns: 34px 1fr; gap: 2px 10px; padding: 14px 16px 12px; border-radius: 16px; border: 1px solid transparent; background: none; color: var(--pv-ink); cursor: pointer; transition: background .3s, border-color .3s; }
+    .pv-step:hover { background: rgba(255,255,255,.05); }
+    .pv-step.on { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.14); }
+    .pv-n { font-family: var(--display); font-weight: 600; font-size: 14px; letter-spacing: .12em; color: rgba(255,255,255,.4); padding-top: 3px; }
+    .pv-step.on .pv-n, .pv-step.done .pv-n { color: #8FD9AE; }
+    .pv-step b { display: block; font-family: var(--display); font-weight: 500; font-size: 19px; line-height: 1.25; }
+    .pv-step .pv-d { display: block; grid-column: 2; font-size: 14.5px; line-height: 1.5; color: var(--pv-muted); max-height: 0; overflow: hidden; opacity: 0; transition: max-height .45s var(--ease), opacity .3s, margin .3s; }
+    .pv-step.on .pv-d { max-height: 140px; opacity: 1; margin-top: 4px; }
+    .pv-bar { grid-column: 2; height: 2px; border-radius: 2px; background: rgba(255,255,255,.12); overflow: hidden; margin-top: 10px; }
+    .pv-step:not(.on) .pv-bar { visibility: hidden; }
+    .pv-bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #F2A7B4, #8FD9AE); }
+    .pv-status { margin: 14px 4px 0; font-size: 13.5px; color: var(--pv-muted); }
+    .pv-status button { font-size: 13.5px; font-weight: 600; color: #8FD9AE; background: none; border: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; padding: 0; }
+    .pv-stage { position: relative; min-width: 0; }
+
+    /* the tablet */
+    .pv-device { position: relative; background: #2A2023; border-radius: 34px; padding: 14px; box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 50px 120px -40px rgba(0,0,0,.8), 0 0 90px -30px rgba(134,19,39,.7); transform: perspective(1800px) rotateY(-4deg) rotateX(2deg); transform-origin: 60% 50%; transition: transform 1s var(--ease); }
+    .pv-device.flat { transform: none; }
+    .pv-screen { position: relative; height: 660px; overflow: auto; scroll-behavior: smooth; overscroll-behavior: contain; border-radius: 22px; background: var(--bg); color: var(--body); padding: 18px 18px 26px; scrollbar-width: thin; }
+    .pv-top { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+    .pv-top h3 { font-family: var(--display); font-size: 26px; color: var(--ink); margin-right: auto; }
+    .pv-pill { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line-2); border-radius: 999px; padding: 3px 10px; }
+    .pv-btn { font-size: 14px; font-weight: 600; border-radius: 999px; padding: 9px 16px; cursor: pointer; border: 1px solid var(--line-2); background: var(--surface); color: var(--ink); transition: border-color .2s, transform .2s var(--ease); }
+    .pv-btn:hover { border-color: var(--accent); }
+    .pv-btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .pv-card { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; box-shadow: 0 1px 2px rgba(45,12,20,.04), 0 14px 34px -24px rgba(45,12,20,.3); margin-bottom: 14px; }
+    .pv-hero { display: grid; grid-template-columns: minmax(190px, 4fr) 7fr; gap: 4px 20px; align-items: center; padding: 20px 22px 16px; }
+    .pv-hero h4, .pv-sec h4 { font-family: var(--display); font-weight: 500; font-size: 19px; color: var(--ink); line-height: 1.25; }
+    .pv-horizon { display: inline-flex; margin: 10px 0 6px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 3px; }
+    .pv-horizon button { font-size: 13px; font-weight: 600; border: 0; background: none; color: var(--muted); border-radius: 999px; padding: 5px 12px; cursor: pointer; transition: background .25s, color .25s; }
+    .pv-horizon button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+    .pv-small { display: block; font-size: 13px; line-height: 1.45; color: var(--muted); }
+    .pv-fromto { display: flex; align-items: baseline; gap: 12px; margin: 10px 0 4px; font-family: var(--display); }
+    .pv-fromto s { font-size: 28px; font-weight: 500; color: var(--faint); text-decoration-thickness: 2px; opacity: 0; transform: translateX(10px); transition: opacity .4s, transform .5s var(--ease); }
+    .pv-fromto.moved s { opacity: 1; transform: none; }
+    .pv-fromto b { font-size: clamp(58px, 6.2vw, 88px); line-height: .86; font-weight: 600; letter-spacing: -.03em; color: var(--garnet); font-variant-numeric: tabular-nums; transition: color .6s var(--ease); }
+    .pv-fromto.moved b { color: var(--good); }
+    .pv-fromto b small { font-size: .42em; font-weight: 500; letter-spacing: 0; margin-left: 2px; }
+    .pv-fewer { display: block; font-size: 16px; font-weight: 700; color: var(--good); min-height: 1.5em; }
+    .pv-fewer.muted { color: var(--muted); font-weight: 600; }
+    .pv-possible { display: block; font-size: 13px; color: #2E7D52; margin-top: 2px; min-height: 1.4em; }
+    .pv-curve { width: 100%; height: auto; display: block; overflow: visible; }
+    .pv-curve .axis { stroke: var(--line-2); stroke-width: 2; }
+    .pv-curve .tick { font: 600 15px var(--ui); fill: var(--muted); }
+    .pv-curve .path { fill: none; stroke-width: 5; stroke-dasharray: 2 11; stroke-linecap: round; }
+    .pv-curve .path.today { stroke: var(--garnet); }
+    .pv-curve .path.plan { stroke: var(--good); }
+    .pv-curve .saved { fill: #DDEFE3; }
+    .pv-curve .possible { fill: #BFE3CC; opacity: .6; }
+    .pv-curve .dot.today { fill: var(--garnet); }
+    .pv-curve .dot.plan { fill: var(--good); }
+    .pv-curve .dot.possible { fill: var(--surface); stroke: var(--good); stroke-width: 3; stroke-dasharray: 3 3; }
+    .pv-curve .end { font: 600 30px var(--display); font-variant-numeric: tabular-nums; }
+    .pv-curve .end.today { fill: var(--garnet); }
+    .pv-curve .end.plan { fill: var(--good); }
+    .pv-curve .end.possible { fill: #3E9A66; font-size: 22px; }
+    .pv-curve .cap { font: 600 15px var(--ui); fill: var(--muted); }
+    .pv-curve .draw { stroke-dasharray: 2 11; animation: pvDash 1.2s linear infinite; }
+    @keyframes pvDash { to { stroke-dashoffset: -26; } }
+    .pv-foot { grid-column: 1 / -1; font-size: 13.5px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 10px; margin-top: 4px; }
+    .pv-foot b { color: var(--ink); }
+    .pv-foot b.pv-plan { color: var(--good); }
+    .pv-sec { padding: 8px 10px 6px; }
+    .pv-sec-head { padding: 12px 10px 8px; }
+    .pv-sec-head > span { display: block; font-size: 13px; color: var(--muted); margin-top: 2px; }
+    .pv-hfnum { display: flex; align-items: baseline; gap: 10px; margin-top: 8px; font-family: var(--display); }
+    .pv-hfnum s { font-size: 20px; color: var(--faint); }
+    .pv-hfnum b { font-size: 40px; line-height: 1; font-weight: 600; color: #1F4A7A; font-variant-numeric: tabular-nums; }
+    .pv-hfnum em { font-style: normal; font-family: var(--ui); font-size: 14px; font-weight: 700; color: var(--good); }
+    .pv-rows { position: relative; }
+    .pv-opt { display: grid; grid-template-columns: 30px minmax(0, 1fr) minmax(170px, 230px) auto; gap: 6px 14px; align-items: center; padding: 13px 10px; border-radius: 14px; border-top: 1px solid var(--line); transition: background .35s; }
+    .pv-opt:first-child { border-top: 0; }
+    .pv-opt.on { background: #EEF7F1; }
+    .pv-opt.lit { background: #FBF1F2; }
+    .pv-rank { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font: 600 13px var(--display); color: var(--muted); background: var(--surface-2); border: 1px solid var(--line); transition: background .3s, color .3s; }
+    .pv-opt.on .pv-rank { background: var(--good); color: #fff; border-color: var(--good); }
+    .pv-otext { min-width: 0; }
+    .pv-oname { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; }
+    .pv-oname b { font-family: var(--display); font-weight: 500; font-size: 17px; color: var(--ink); }
+    .pv-ev { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--surface-2); color: var(--muted); white-space: nowrap; }
+    .pv-ev.proven { background: #E4F1E8; color: var(--good); }
+    .pv-ev.single_trial { background: #F8EED3; color: #85590A; }
+    .pv-ev.uncertain { background: #EFE9E8; color: #5A4C50; }
+    .pv-why { display: block; font-size: 13.5px; line-height: 1.45; color: var(--body); margin-top: 4px; }
+    .pv-why b { font-weight: 700; color: var(--accent); margin-right: 4px; }
+    .pv-opt.lit .pv-why { animation: pvGlow 1.6s var(--ease); }
+    @keyframes pvGlow { 0%, 100% { background: transparent; } 30% { background: #F6E4E7; } }
+    .pv-est { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+    .pv-yrs { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+    .pv-eff { font-size: 14.5px; color: var(--ink); }
+    .pv-eff b { font-family: var(--display); font-size: 19px; font-weight: 600; color: var(--good); }
+    .pv-eff i { font-style: normal; font-size: 12.5px; font-weight: 700; color: var(--good); margin-left: 6px; }
+    .pv-eff.unclear { font-weight: 700; color: #6B5A5E; }
+    .pv-range { position: relative; height: 8px; border-radius: 4px; background: var(--surface-2); }
+    .pv-range .pv-band { position: absolute; top: 0; height: 8px; border-radius: 4px; background: #9FD3B2; transform-origin: left; transition: left .6s var(--ease), width .6s var(--ease); }
+    .pv-range .pv-band.harm { background: #EFB38C; }
+    .pv-range .pv-zero { position: absolute; top: -4px; width: 2px; height: 16px; margin-left: -1px; background: var(--ink); opacity: .5; }
+    .pv-range .pv-pt { position: absolute; top: -4px; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; background: var(--good); border: 2px solid var(--surface); box-shadow: 0 1px 2px rgba(0,0,0,.2); transition: left .6s var(--ease); }
+    .pv-range .pv-pt.unclear { background: var(--muted); }
+    .pv-rtext, .pv-long { font-size: 12.5px; color: var(--muted); }
+    .pv-add { min-width: 78px; min-height: 40px; padding: 0 16px; border-radius: 999px; border: 1.5px solid var(--garnet); background: var(--surface); color: var(--garnet); font-size: 14px; font-weight: 600; cursor: pointer; transition: background .2s, color .2s, transform .15s; }
+    .pv-add[aria-pressed="true"] { background: var(--garnet); color: #fff; }
+    .pv-add.tap { animation: pvTap .45s var(--ease); }
+    @keyframes pvTap { 40% { transform: scale(.9); box-shadow: 0 0 0 10px rgba(134,19,39,.14); } }
+    .pv-linked { font-size: 12.5px; font-weight: 600; color: var(--muted); text-align: center; min-width: 78px; }
+    .pv-note { font-size: 12.5px; color: var(--muted); padding: 6px 10px 10px; }
+    .pv-goals { font-size: 13.5px; color: var(--body); padding: 4px 6px; }
+    .pv-goals b { color: var(--ink); }
+    .pv-finger { position: absolute; z-index: 5; width: 46px; height: 46px; margin: -23px 0 0 -23px; border-radius: 50%; background: rgba(255,255,255,.55); border: 2px solid rgba(134,19,39,.55); box-shadow: 0 6px 20px rgba(0,0,0,.25); pointer-events: none; opacity: 0; transition: left .7s var(--ease), top .7s var(--ease), opacity .3s; }
+    .pv-finger.show { opacity: 1; }
+    .pv-finger.press { animation: pvPress .4s var(--ease); }
+    @keyframes pvPress { 50% { transform: scale(.72); background: rgba(134,19,39,.35); } }
+
+    /* QR sheet inside the tablet */
+    .pv-sheet { position: absolute; inset: 14px; border-radius: 22px; background: rgba(29,20,22,.55); backdrop-filter: blur(3px); display: grid; place-items: center; opacity: 0; pointer-events: none; transition: opacity .35s; z-index: 6; }
+    .pv-sheet.show { opacity: 1; pointer-events: auto; }
+    .pv-sheet-card { width: min(340px, 86%); background: var(--surface); border-radius: 22px; padding: 22px 22px 18px; text-align: center; color: var(--body); transform: translateY(16px) scale(.97); transition: transform .45s var(--ease); box-shadow: 0 30px 60px -20px rgba(0,0,0,.5); }
+    .pv-sheet.show .pv-sheet-card { transform: none; }
+    .pv-sheet-card h4 { font-family: var(--display); font-weight: 500; font-size: 21px; color: var(--ink); margin-bottom: 12px; }
+    .pv-qr-code { width: 100%; max-width: 230px; margin: 0 auto; display: block; border-radius: 10px; }
+    .pv-sheet-card p { font-size: 13px; line-height: 1.5; margin-top: 10px; }
+    .pv-sheet-card .fine { font-size: 12px; color: var(--muted); }
+    .pv-sheet-card .pv-btn { margin-top: 12px; }
+
+    .pv-fine { margin-top: 70px; font-size: 14px; color: var(--pv-muted); max-width: 86ch; }
+    .pv-fine a { color: #8FD9AE; text-underline-offset: 3px; }
+    .pv-scan { display: inline-flex; gap: 8px; align-items: center; font-weight: 600; color: var(--pv-ink); }
+
+    @media (max-width: 1100px) {
+      .pv-body { grid-template-columns: 1fr; }
+      .pv-rail { position: static; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+      .pv-step { grid-template-columns: 1fr; padding: 10px 10px 8px; }
+      .pv-n { padding: 0; }
+      .pv-step b { font-size: 15px; }
+      .pv-step .pv-d, .pv-bar { grid-column: 1; }
+      .pv-step .pv-d { display: none; }
+      .pv-stage { padding-right: 0; }
+    }
+    @media (max-width: 760px) {
+      .pv { padding: 90px 0 80px; }
+      .pv-head { grid-template-columns: 1fr; gap: 8px; }
+      .pv-rail { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+      .pv-step b { font-size: 0; }
+      .pv-step b::after { content: attr(data-short); font-size: 13px; }
+      .pv-device { transform: none; padding: 8px; border-radius: 26px; }
+      .pv-screen { height: 600px; padding: 12px 10px 20px; border-radius: 19px; }
+      .pv-sheet { inset: 8px; }
+      .pv-hero { grid-template-columns: 1fr; padding: 16px; }
+      .pv-top .pv-pill { display: none; }
+      .pv-opt { grid-template-columns: 26px minmax(0, 1fr) auto; }
+      .pv-est { grid-column: 2 / 4; grid-row: 2; }
+      .pv-fine { margin-top: 32px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .pv-device, .pv-fromto s, .pv-range .pv-band, .pv-range .pv-pt, .pv-sheet, .pv-sheet-card, .pv-finger { transition: none !important; }
+      .pv-curve .draw, .pv-add.tap, .pv-finger.press, .pv-opt.lit .pv-why { animation: none !important; }
+      .pv-device { transform: none; }
+    }
+
+
+    /* hero: a risk path that bends */
+    .hero-curve { position: relative; max-width: 1080px; margin: 54px auto 0; }
+    .hero-curve svg { width: 100%; height: auto; display: block; overflow: visible; }
+    .hc-axis { stroke: var(--line-2); stroke-width: 1.5; }
+    .hc-today { fill: none; stroke: var(--garnet); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 2 12; animation: pvDash 1.4s linear infinite; }
+    .hc-plan { fill: none; stroke: var(--good); stroke-width: 5; stroke-linecap: round; stroke-dasharray: 2 12; animation: pvDash 1.4s linear infinite; }
+    .hc-gap { fill: url(#hc-gap); }
+    .hc-dot { transition: none; }
+    .hc-lbl { font: 600 15px var(--ui); fill: var(--muted); letter-spacing: .02em; }
+    .hc-lbl.g { fill: var(--good); }
+    .hc-lbl.r { fill: var(--garnet); }
+    @media (max-width: 720px) { .hero-curve { margin-top: 36px; } .hc-lbl { font-size: 22px; } }
+    .wt-show { margin-top: 12px; display: inline-flex; text-decoration: none; }
   </style>
 </head>
 <body>
@@ -762,6 +945,7 @@
         <a href="#walkthrough">See it run</a>
         <a href="#trajectory">Trajectory</a>
         <a href="#decide">Shared decisions</a>
+        <a href="#patient-view">Show patient</a>
         <a href="faq.html#rcckm-categories">Reading the result</a>
         <a href="#signal-score">Signal score</a>
         <a href="#demo">Sample notes</a>
@@ -793,14 +977,28 @@
       </div>
       <h1 id="hero-h1">Make prevention <span class="soft">visible.</span></h1>
       <p class="sub">A clinical decision-support engine for every clinician in CKM care.</p>
-      <p class="lede">Explore your patient's risk continuum over time, compare modeled prevention scenarios together, and carry the conversation into the note.</p>
+      <p class="lede">Explore your patient's risk continuum over time, show them how each option bends their curve, and carry the decision into the note.</p>
       <div class="hero-ctas">
         <a href="https://app.riskcontinuum.health/sign-up" class="btn btn-primary">Create a free account</a>
         <a href="#pilot" class="btn btn-ghost">Discuss a pilot</a>
       </div>
       <p class="hero-meta">Deterministic engine &middot; Auditable calculations &middot; Clinician-reviewed output &middot; Runs in your browser</p>
       <p class="privacy-note"><span aria-hidden="true">🔒</span> Patient data stays on your device: chart text is assessed in your browser and never sent to our servers. RCCKM doesn&rsquo;t need names, dates of birth or MRNs, and flags any it finds.</p>
-      <p class="hero-access"><a href="#plan">Try the simulator &darr;</a> &middot; <a href="https://app.riskcontinuum.health/">Sign in</a></p>
+      <p class="hero-access"><a href="#plan">Try the simulator &darr;</a> &middot; <a href="#patient-view">See the patient view &darr;</a> &middot; <a href="https://app.riskcontinuum.health/">Sign in</a></p>
+    </div>
+
+    <div class="hero-curve" aria-hidden="true">
+      <svg viewBox="0 0 1080 190">
+        <defs><linearGradient id="hc-gap" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1E7148" stop-opacity=".16"/><stop offset="1" stop-color="#1E7148" stop-opacity=".02"/></linearGradient></defs>
+        <line class="hc-axis" x1="40" y1="170" x2="1040" y2="170"/>
+        <path class="hc-gap" d="M40 170 Q 640 160 1000 40 L1000 104 Q 640 166 40 170 Z"/>
+        <path class="hc-today" d="M40 170 Q 640 160 1000 40"/>
+        <path class="hc-plan" d="M40 170 Q 640 166 1000 104"/>
+        <circle class="hc-dot" cx="1000" cy="40" r="7" fill="#861327"/>
+        <circle class="hc-dot hc-pd" cx="1000" cy="104" r="8" fill="#1E7148"/>
+        <text class="hc-lbl r" x="990" y="22" text-anchor="end">today&rsquo;s path</text>
+        <text class="hc-lbl g hc-pl" x="990" y="136" text-anchor="end">with the plan</text>
+      </svg>
     </div>
 
   </div>
@@ -885,7 +1083,7 @@
       <p class="lede">One demo patient, the way a visit actually goes: paste, apply, assess, review, and try a plan when there&rsquo;s a decision to make.</p>
     </div>
     <div class="wt-body reveal">
-      <ol class="wt-rail"><li><button type="button" class="wt-step" data-i="0" aria-controls="wt-panel-0"><span class="wt-n">01</span><span class="wt-t"><b>Copy from the EMR</b><i class="wt-short">Paste</i><span>Paste de-identified chart text or your SmartPhrase.</span></span><span class="wt-bar"><i></i></span></button></li><li><button type="button" class="wt-step" data-i="1" aria-controls="wt-panel-1"><span class="wt-n">02</span><span class="wt-t"><b>Parse and apply</b><i class="wt-short">Apply</i><span>A rule-based parser fills the worksheet and shows each value it found, and what is missing.</span></span><span class="wt-bar"><i></i></span></button></li><li><button type="button" class="wt-step" data-i="2" aria-controls="wt-panel-2"><span class="wt-n">03</span><span class="wt-t"><b>Start Assessment</b><i class="wt-short">Assess</i><span>Level, PREVENT and staging, back in seconds from a deterministic engine.</span></span><span class="wt-bar"><i></i></span></button></li><li><button type="button" class="wt-step" data-i="3" aria-controls="wt-panel-3"><span class="wt-n">04</span><span class="wt-t"><b>Check it against your read</b><i class="wt-short">Review</i><span>The note is ready to paste. The optional Clinical Pearl offers an AI-generated perspective for clinician review.</span></span><span class="wt-bar"><i></i></span></button></li><li><button type="button" class="wt-step" data-i="4" aria-controls="wt-panel-4"><span class="wt-n">05</span><span class="wt-t"><b>Try a plan, if there&#x27;s a decision</b><i class="wt-short">Try a plan</i><span>Run the simulator with the patient and add the plan you agree on to the note.</span></span><span class="wt-bar"><i></i></span></button></li></ol>
+      <ol class="wt-rail"><li><button type="button" class="wt-step" data-i="0" aria-controls="wt-panel-0"><span class="wt-n">01</span><span class="wt-t"><b>Copy from the EMR</b><i class="wt-short">Paste</i><span>Paste de-identified chart text or your SmartPhrase.</span></span><span class="wt-bar"><i></i></span></button></li><li><button type="button" class="wt-step" data-i="1" aria-controls="wt-panel-1"><span class="wt-n">02</span><span class="wt-t"><b>Parse and apply</b><i class="wt-short">Apply</i><span>A rule-based parser fills the worksheet and shows each value it found, and what is missing.</span></span><span class="wt-bar"><i></i></span></button></li><li><button type="button" class="wt-step" data-i="2" aria-controls="wt-panel-2"><span class="wt-n">03</span><span class="wt-t"><b>Start Assessment</b><i class="wt-short">Assess</i><span>Level, PREVENT and staging, back in seconds from a deterministic engine.</span></span><span class="wt-bar"><i></i></span></button></li><li><button type="button" class="wt-step" data-i="3" aria-controls="wt-panel-3"><span class="wt-n">04</span><span class="wt-t"><b>Check it against your read</b><i class="wt-short">Review</i><span>The note is ready to paste. The optional Clinical Pearl offers an AI-generated perspective for clinician review.</span></span><span class="wt-bar"><i></i></span></button></li><li><button type="button" class="wt-step" data-i="4" aria-controls="wt-panel-4"><span class="wt-n">05</span><span class="wt-t"><b>Try a plan, if there&#x27;s a decision</b><i class="wt-short">Try a plan</i><span>Run the simulator, tap Show patient to hand them the screen, and add the plan you agree on to the note.</span></span><span class="wt-bar"><i></i></span></button></li></ol>
       <div class="wt-win">
         <div class="wt-chrome"><span></span><span></span><span></span><b class="wt-crumb">RCCKM &middot; Paste</b><button type="button" class="wt-play" aria-label="Pause walkthrough">Pause</button></div>
         <div class="wt-stage"><div class="wt-panel" id="wt-panel-0" data-i="0" role="tabpanel" aria-label="Paste"><pre class="wt-paste"><code>Example Epic SmartPhrase. Not real patient data.
@@ -971,10 +1169,10 @@ ApoB 116 mg/dL | T2DM with CKD G3aA2 | Lp(a) 168 nmol/L | hsCRP 2.8 mg/L (dated 
 Management Considerations:
 - Lipids: Currently receiving atorvastatin 20 mg. Intensify to high-intensity or maximally tolerated statin therapy based on the independent risk indication. LDL-C 126; target &lt;70. If still above goal on maximally tolerated statin, consider add-on nonstatin therapy.
 - Plaque: Consider CAC.
-- Kidney: Optimize kidney protection. SGLT2i beneficial if no contraindication (T2D with CKD; eGFR 56; UACR 126). ACEi/ARB active. G3a/A2 kidney-risk pattern.
+- Kidney: Optimize kidney protection. SGLT2i recommended unless contraindicated (T2D with CKD; eGFR 56; UACR 126). ACEi/ARB active. G3a/A2 kidney-risk pattern.
 - BP: Confirm BP; optimize RAAS if persistent. Current BP 138/84 mmHg.
 - Metabolic: Diabetes control worsening. A1c 7.5%, worsened from 6.4%; above goal; on current therapy; review regimen; Recommend GLP-1/GLP-1-GIP for glycemic, cardiovascular, cardiorenal, and weight benefits.
-- Aspirin: Not indicated.">Copy</button></div><pre class="wt-note"><span class="ln" style="--i:0">Risk Continuum CKM™</span><span class="ln" style="--i:1">Level 3C | Compounding drivers | CKM 3 (total CVD ≥20%) | G3aA2 | CAC Not Measured</span><span class="ln" style="--i:2">PREVENT ASCVD: 10y 14.5% (High), 30y 37.1% (High) | Total CVD: 10y 22.9%, 30y 53.7%</span><span class="ln" style="--i:3">&nbsp;</span><span class="ln" style="--i:4">Assessment (ICD-10):</span><span class="ln" style="--i:5">- T2DM with CKD G3aA2 (E11.22, N18.31)</span><span class="ln" style="--i:6">- Primary hypertension (I10)</span><span class="ln" style="--i:7">- Elevated lipoprotein(a) (E78.41)</span><span class="ln" style="--i:8">- Hypertriglyceridemia (E78.1)</span><span class="ln" style="--i:9">- Obesity, BMI 35.6 (E66.9, Z68.35)</span><span class="ln" style="--i:10">- Metabolic dysfunction-associated steatotic liver disease (K76.0)</span><span class="ln" style="--i:11">- Obstructive sleep apnea (G47.33)</span><span class="ln" style="--i:12">&nbsp;</span><span class="ln" style="--i:13">Risk Drivers:</span><span class="ln" style="--i:14">ApoB 116 mg/dL | T2DM with CKD G3aA2 | Lp(a) 168 nmol/L | hsCRP 2.8 mg/L (dated 2026-10-22; 10 days before assessment; single measurement; confirm persistence/context)</span><span class="ln" style="--i:15">&nbsp;</span><span class="ln" style="--i:16">Management Considerations:</span><span class="ln" style="--i:17">- Lipids: Currently receiving atorvastatin 20 mg. Intensify to high-intensity or maximally tolerated statin therapy based on the independent risk indication. LDL-C 126; target &lt;70. If still above goal on maximally tolerated statin, consider add-on nonstatin therapy.</span><span class="ln" style="--i:18">- Plaque: Consider CAC.</span><span class="ln" style="--i:19">- Kidney: Optimize kidney protection. SGLT2i beneficial if no contraindication (T2D with CKD; eGFR 56; UACR 126). ACEi/ARB active. G3a/A2 kidney-risk pattern.</span><span class="ln" style="--i:20">- BP: Confirm BP; optimize RAAS if persistent. Current BP 138/84 mmHg.</span><span class="ln" style="--i:21">- Metabolic: Diabetes control worsening. A1c 7.5%, worsened from 6.4%; above goal; on current therapy; review regimen; Recommend GLP-1/GLP-1-GIP for glycemic, cardiovascular, cardiorenal, and weight benefits.</span><span class="ln" style="--i:22">- Aspirin: Not indicated.</span></pre></div><div class="wt-panel" id="wt-panel-4" data-i="4" role="tabpanel" aria-label="Try a plan" hidden>
+- Aspirin: Not indicated.">Copy</button></div><pre class="wt-note"><span class="ln" style="--i:0">Risk Continuum CKM™</span><span class="ln" style="--i:1">Level 3C | Compounding drivers | CKM 3 (total CVD ≥20%) | G3aA2 | CAC Not Measured</span><span class="ln" style="--i:2">PREVENT ASCVD: 10y 14.5% (High), 30y 37.1% (High) | Total CVD: 10y 22.9%, 30y 53.7%</span><span class="ln" style="--i:3">&nbsp;</span><span class="ln" style="--i:4">Assessment (ICD-10):</span><span class="ln" style="--i:5">- T2DM with CKD G3aA2 (E11.22, N18.31)</span><span class="ln" style="--i:6">- Primary hypertension (I10)</span><span class="ln" style="--i:7">- Elevated lipoprotein(a) (E78.41)</span><span class="ln" style="--i:8">- Hypertriglyceridemia (E78.1)</span><span class="ln" style="--i:9">- Obesity, BMI 35.6 (E66.9, Z68.35)</span><span class="ln" style="--i:10">- Metabolic dysfunction-associated steatotic liver disease (K76.0)</span><span class="ln" style="--i:11">- Obstructive sleep apnea (G47.33)</span><span class="ln" style="--i:12">&nbsp;</span><span class="ln" style="--i:13">Risk Drivers:</span><span class="ln" style="--i:14">ApoB 116 mg/dL | T2DM with CKD G3aA2 | Lp(a) 168 nmol/L | hsCRP 2.8 mg/L (dated 2026-10-22; 10 days before assessment; single measurement; confirm persistence/context)</span><span class="ln" style="--i:15">&nbsp;</span><span class="ln" style="--i:16">Management Considerations:</span><span class="ln" style="--i:17">- Lipids: Currently receiving atorvastatin 20 mg. Intensify to high-intensity or maximally tolerated statin therapy based on the independent risk indication. LDL-C 126; target &lt;70. If still above goal on maximally tolerated statin, consider add-on nonstatin therapy.</span><span class="ln" style="--i:18">- Plaque: Consider CAC.</span><span class="ln" style="--i:19">- Kidney: Optimize kidney protection. SGLT2i recommended unless contraindicated (T2D with CKD; eGFR 56; UACR 126). ACEi/ARB active. G3a/A2 kidney-risk pattern.</span><span class="ln" style="--i:20">- BP: Confirm BP; optimize RAAS if persistent. Current BP 138/84 mmHg.</span><span class="ln" style="--i:21">- Metabolic: Diabetes control worsening. A1c 7.5%, worsened from 6.4%; above goal; on current therapy; review regimen; Recommend GLP-1/GLP-1-GIP for glycemic, cardiovascular, cardiorenal, and weight benefits.</span><span class="ln" style="--i:22">- Aspirin: Not indicated.</span></pre></div><div class="wt-panel" id="wt-panel-4" data-i="4" role="tabpanel" aria-label="Try a plan" hidden>
 <div class="wt-sim-head">Levers ranked by how much they lower 30-yr ASCVD <span class="wt-hint">Tap to combine</span></div>
 <div class="wt-levers"><button type="button" class="wt-lever pick" style="--i:0" data-id="bp" aria-pressed="true"><span class="wt-box" aria-hidden="true"></span><span class="wt-lt"><b>Systolic BP to 120<sup>&dagger;</sup></b><span>&minus;10.4 pts &rarr; 26.6% &middot; 30-yr ASCVD</span></span></button><button type="button" class="wt-lever pick" style="--i:1" data-id="intensify" aria-pressed="true"><span class="wt-box" aria-hidden="true"></span><span class="wt-lt"><b>High-intensity statin<sup>&dagger;</sup></b><span>&minus;5.2 pts &rarr; 31.9% &middot; 30-yr ASCVD</span></span></button><button type="button" class="wt-lever" style="--i:2" data-id="uacr" aria-pressed="false"><span class="wt-box" aria-hidden="true"></span><span class="wt-lt"><b>UACR 126 → 20 mg/g<sup>*</sup></b><span>&minus;2.4 pts &rarr; 34.7% &middot; 30-yr ASCVD</span></span></button><button type="button" class="wt-lever" style="--i:3" data-id="a1c" aria-pressed="false"><span class="wt-box" aria-hidden="true"></span><span class="wt-lt"><b>A1c 7.5% → 7.0%<sup>*</sup></b><span>&minus;0.8 pts &rarr; 36.2% &middot; 30-yr ASCVD</span></span></button></div>
 <p class="wt-key">&dagger; Trial-derived treatment effect &nbsp; * Recalculated risk factor, not a treatment effect</p>
@@ -982,7 +1180,7 @@ Management Considerations:
   <div><small>10-yr ASCVD</small><b><s>14.5%</s> &rarr; <span class="wt-t10">8.3%</span></b></div>
   <div><small>30-yr ASCVD</small><b><s>37.1%</s> &rarr; <span class="wt-t30">22.7%</span></b></div>
 </div>
-<div class="wt-plan-note"><small>Added to the note &middot; Risk Reduction Discussed</small><p class="wt-plan-line">High-intensity statin and systolic BP 120 mmHg: modeled PREVENT ASCVD 10y 14.5% → 8.3%, 30y 37.1% → 22.7% (trial-based estimate; not a treatment order).</p></div>
+<a class="wt-btn ghost wt-show" href="#patient-view">Show patient &rarr;</a><div class="wt-plan-note"><small>Added to the note &middot; Risk Reduction Discussed</small><p class="wt-plan-line">High-intensity statin and systolic BP 120 mmHg: modeled PREVENT ASCVD 10y 14.5% → 8.3%, 30y 37.1% → 22.7% (trial-based estimate; not a treatment order).</p></div>
 <script type="application/json" id="wt-combos">{"order": ["bp", "intensify", "uacr", "a1c"], "combos": {"bp": {"t10": "9.9%", "t30": "26.6%", "note": "Systolic BP 120 mmHg: modeled PREVENT ASCVD 10y 14.5% → 9.9%, 30y 37.1% → 26.6% (trial-based estimate; not a treatment order)."}, "intensify": {"t10": "12.2%", "t30": "31.9%", "note": "High-intensity statin: modeled PREVENT ASCVD 10y 14.5% → 12.2%, 30y 37.1% → 31.9% (trial-based estimate; not a treatment order)."}, "uacr": {"t10": "11.6%", "t30": "34.7%", "note": "UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 11.6%, 30y 37.1% → 34.7% (model-based estimate; not a treatment order)."}, "a1c": {"t10": "13.8%", "t30": "36.2%", "note": "A1c 7.0%: modeled PREVENT ASCVD 10y 14.5% → 13.8%, 30y 37.1% → 36.2% (model-based estimate; not a treatment order)."}, "bp,intensify": {"t10": "8.3%", "t30": "22.7%", "note": "High-intensity statin and systolic BP 120 mmHg: modeled PREVENT ASCVD 10y 14.5% → 8.3%, 30y 37.1% → 22.7% (trial-based estimate; not a treatment order)."}, "bp,uacr": {"t10": "7.9%", "t30": "24.8%", "note": "Systolic BP 120 mmHg and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 7.9%, 30y 37.1% → 24.8% (trial- and model-based estimate; not a treatment order)."}, "bp,a1c": {"t10": "9.5%", "t30": "26.0%", "note": "Systolic BP 120 mmHg and A1c 7.0%: modeled PREVENT ASCVD 10y 14.5% → 9.5%, 30y 37.1% → 26.0% (trial- and model-based estimate; not a treatment order)."}, "intensify,uacr": {"t10": "9.7%", "t30": "29.8%", "note": "High-intensity statin and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 9.7%, 30y 37.1% → 29.8% (trial- and model-based estimate; not a treatment order)."}, "intensify,a1c": {"t10": "11.6%", "t30": "31.2%", "note": "High-intensity statin and A1c 7.0%: modeled PREVENT ASCVD 10y 14.5% → 11.6%, 30y 37.1% → 31.2% (trial- and model-based estimate; not a treatment order)."}, "uacr,a1c": {"t10": "11.1%", "t30": "33.9%", "note": "A1c 7.0% and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 11.1%, 30y 37.1% → 33.9% (model-based estimate; not a treatment order)."}, "bp,intensify,uacr": {"t10": "6.6%", "t30": "21.1%", "note": "High-intensity statin, systolic BP 120 mmHg and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 6.6%, 30y 37.1% → 21.1% (trial- and model-based estimate; not a treatment order)."}, "bp,intensify,a1c": {"t10": "7.9%", "t30": "22.1%", "note": "High-intensity statin, systolic BP 120 mmHg and A1c 7.0%: modeled PREVENT ASCVD 10y 14.5% → 7.9%, 30y 37.1% → 22.1% (trial- and model-based estimate; not a treatment order)."}, "bp,uacr,a1c": {"t10": "7.5%", "t30": "24.2%", "note": "Systolic BP 120 mmHg, A1c 7.0% and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 7.5%, 30y 37.1% → 24.2% (trial- and model-based estimate; not a treatment order)."}, "intensify,uacr,a1c": {"t10": "9.3%", "t30": "29.1%", "note": "High-intensity statin, A1c 7.0% and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 9.3%, 30y 37.1% → 29.1% (trial- and model-based estimate; not a treatment order)."}, "bp,intensify,uacr,a1c": {"t10": "6.3%", "t30": "20.5%", "note": "High-intensity statin, systolic BP 120 mmHg, A1c 7.0% and UACR 20 mg/g: modeled PREVENT ASCVD 10y 14.5% → 6.3%, 30y 37.1% → 20.5% (trial- and model-based estimate; not a treatment order)."}}}</script></div></div>
       </div>
     </div>
@@ -1045,7 +1243,7 @@ Management Considerations:
       <p class="lede">Patients decide better when they can see their own risk and what each option would change. RCCKM gives you something to point at, a way to try options together, and a record of what you talked about.</p>
     </div>
     <div class="sdm-cards">
-      <div class="sdm-card reveal"><div class="em">👥</div><h3>Risk they can picture</h3><p>"About 2 in 100 similar patients," with a 100-person array at 10 and 30 years.</p></div>
+      <div class="sdm-card reveal"><div class="em">👥</div><h3>Risk they can picture</h3><p>"About 2 in 100 similar patients," in plain words on the handout.</p></div>
       <div class="sdm-card reveal"><div class="em">📉</div><h3>A curve they can watch bend</h3><p>Today and the plan on one timeline, out to age 82 for this patient.</p></div>
       <div class="sdm-card reveal"><div class="em">📝</div><h3>The conversation, documented</h3><p>"Risk Reduction Discussed" goes in the note with the numbers you shared.</p></div>
     </div>
@@ -1079,7 +1277,7 @@ Management Considerations:
               <li><b>Long-term risk</b>Your 30-year risk is 12.17%, higher than expected for your age.</li>
               <li><b>Triglycerides</b>Triglycerides are elevated (150 or higher).</li>
               <li><b>Kidney and metabolic health</b>Kidney or metabolic findings add to risk.</li>
-              <li><b>Cholesterol particles</b>Cholesterol particle levels (ApoB / non-HDL) are elevated.</li>
+              <li><b>Cholesterol particles</b>Cholesterol particle burden (ApoB or non-HDL cholesterol) is elevated.</li>
             </ul>
             <p class="rm-ctx">Other context <span>Gestational diabetes</span></p>
           </li>
@@ -1099,6 +1297,67 @@ Management Considerations:
       </div>
       <figcaption class="shot-cap" style="text-align:center"><b>A handout in plain language.</b> Print it, or paste it into the after-visit summary.</figcaption>
     </figure>
+  </div>
+</section>
+
+<!-- PATIENT VIEW: the app's "Show patient" screen, every figure engine output -->
+<section data-analytics-section="patient-view" class="pv" id="patient-view" aria-labelledby="pv-h2">
+  <div class="wrap">
+    <div class="pv-head reveal">
+      <div>
+        <span class="eyebrow">Show patient</span>
+        <h2 class="h2" id="pv-h2">Hand them the screen. <em>Watch their curve bend.</em></h2>
+      </div>
+      <p class="lede">One tap on <b>Show patient</b> turns the plan simulator into a plain-language view for the person in the room: their own number, their options ranked by what each would change, why each one applies to them.</p>
+    </div>
+    <div class="pv-body">
+      <div>
+        <ol class="pv-rail" aria-label="What the patient view shows"><li><button type="button" class="pv-step on" aria-current="step"><span class="pv-n">01</span><b data-short="Number">Their number</b><span class="pv-d">One number out of 100 people with similar health information, and the path they&rsquo;re on today.</span><span class="pv-bar"><i></i></span></button></li><li><button type="button" class="pv-step" aria-current="false"><span class="pv-n">02</span><b data-short="Bend">Bend the curve</b><span class="pv-d">Tap an option and the curve bends. Statin and blood pressure combine into the main number: 14% becomes 8%.</span><span class="pv-bar"><i></i></span></button></li><li><button type="button" class="pv-step" aria-current="false"><span class="pv-n">03</span><b data-short="Ranked">Ranked, with reasons</b><span class="pv-d">Every option on its own, with its trial range and why it applies to them. Uncertain benefit says so. Heart failure gets its own number.</span><span class="pv-bar"><i></i></span></button></li><li><button type="button" class="pv-step" aria-current="false"><span class="pv-n">04</span><b data-short="30 yrs">10 or 30 years</b><span class="pv-d">Under 60, a 30-year projection shows what years of treatment could mean: 37% becomes 23%.</span><span class="pv-bar"><i></i></span></button></li><li><button type="button" class="pv-step" aria-current="false"><span class="pv-n">05</span><b data-short="Copy">A copy, if they want one</b><span class="pv-d">If the patient wants one, a QR code opens the plan on their phone. Nothing is stored on a server.</span><span class="pv-bar"><i></i></span></button></li></ol>
+        <p class="pv-status" role="status">Playing a demo. Tap any option to take over.</p>
+      </div>
+      <div class="pv-stage">
+        <div class="pv-device">
+          <div class="pv-screen" tabindex="0" aria-label="Patient view demo">
+            <div class="pv-top"><h3>Options</h3><span class="pv-pill">Patient view</span><button type="button" class="pv-btn pv-send">Send to phone</button></div>
+            <section class="pv-card pv-hero" aria-label="Heart attack and stroke risk">
+              <div>
+                <h4>Heart attack and stroke risk</h4>
+                <div class="pv-horizon" role="group" aria-label="Time span"><button type="button" data-y="10" aria-pressed="true">10 years</button><button type="button" data-y="30" aria-pressed="false">30 years</button></div>
+                <span class="pv-small">Next 10 years, of 100 people with similar health information</span>
+                <div class="pv-fromto" aria-live="polite" aria-label="14% today"><s class="pv-was" aria-hidden="true">14%</s><b aria-hidden="true"><span class="pv-big">14</span><small>%</small></b></div>
+                <span class="pv-fewer muted">Add an option to bend the curve</span>
+                <span class="pv-possible"></span>
+              </div>
+              <div class="pv-curvebox"><svg class="pv-curve" viewBox="0 0 668 236" aria-hidden="true"><defs><linearGradient id="pv-under" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#861327" stop-opacity=".09"/><stop offset="1" stop-color="#861327" stop-opacity="0"/></linearGradient></defs><path d="M36 200 Q 273 194 452 77.1 L452 200 Z" fill="url(#pv-under)"/><line class="axis" x1="36" y1="200" x2="452" y2="200"/><text class="tick" x="36" y="226">Today</text><text class="tick" x="452" y="226" text-anchor="middle">10 years</text><path class="path today draw" d="M36 200 Q 273 194 452 77.1"/><circle class="dot today" cx="452" cy="77.1" r="8"/><text class="end today" x="468" y="86.1">14%<tspan dx="7" class="cap">today</tspan></text></svg></div>
+              <p class="pv-foot"><b>37%</b> over 30 years with no changes (37 of 100 people). The 30-year figures are projections.</p>
+            </section>
+            <section class="pv-card pv-sec ascvd" aria-label="Options for heart attack and stroke risk">
+              <div class="pv-sec-head"><h4>Options for heart attack and stroke risk</h4><span>Highest yield first. Each estimated on its own, per 100 people over 10 years.</span></div>
+              <div class="pv-rows ascvd"><div class="pv-opt" data-row="bp"><span class="pv-rank" aria-hidden="true">1</span><div class="pv-otext"><div class="pv-oname"><b>Lower blood pressure</b><span class="pv-ev proven">Proven in large trials</span></div><span class="pv-why"><b>Why</b>Blood pressure 138; goal about 120.</span></div><div class="pv-est"><span class="pv-eff">About <b>4</b> fewer of 100<i>30% lower</i></span><div class="pv-range" aria-hidden="true"><i class="pv-band" style="left:63.4%;width:17.7%"></i><i class="pv-zero" style="left:9.3%"></i><i class="pv-pt" style="left:72.5%"></i></div><span class="pv-rtext">Likely 4 to 5 fewer</span><span class="pv-long">Over 30 years: about 9 to 12 fewer</span></div><button type="button" class="pv-add" data-opt="bp" aria-pressed="false" aria-label="Add Lower blood pressure">Add</button></div><div class="pv-opt" data-row="diet"><span class="pv-rank" aria-hidden="true">2</span><div class="pv-otext"><div class="pv-oname"><b>Mediterranean eating</b><span class="pv-ev single_trial">One large trial</span></div><span class="pv-why"><b>Why</b>Diabetes (A1c 7.5).</span></div><div class="pv-est"><span class="pv-eff">About <b>4</b> fewer of 100<i>30% lower</i></span><div class="pv-range" aria-hidden="true"><i class="pv-band" style="left:18.6%;width:81.4%"></i><i class="pv-zero" style="left:9.3%"></i><i class="pv-pt" style="left:66.3%"></i></div><span class="pv-rtext">Likely 0.7 to 7 fewer</span></div><button type="button" class="pv-add" data-opt="diet" aria-pressed="false" aria-label="Add Mediterranean eating">Add</button></div><div class="pv-opt" data-row="intensify"><span class="pv-rank" aria-hidden="true">3</span><div class="pv-otext"><div class="pv-oname"><b>Stronger statin</b><span class="pv-ev proven">Proven in large trials</span></div><span class="pv-why"><b>Why</b>LDL cholesterol 126 on a statin; expected about 97.</span></div><div class="pv-est"><span class="pv-eff">About <b>2</b> fewer of 100<i>15% lower</i></span><div class="pv-range" aria-hidden="true"><i class="pv-band" style="left:38.2%;width:6.1%"></i><i class="pv-zero" style="left:9.3%"></i><i class="pv-pt" style="left:41.3%"></i></div><span class="pv-rtext">Likely 2 to 3 fewer</span><span class="pv-long">Over 30 years: about 5 to 12 fewer</span></div><button type="button" class="pv-add" data-opt="intensify" aria-pressed="false" aria-label="Add Stronger statin">Add</button></div><div class="pv-opt" data-row="glp1"><span class="pv-rank" aria-hidden="true">4</span><div class="pv-otext"><div class="pv-oname"><b>GLP-1 medicine</b><span class="pv-ev uncertain">Benefit uncertain</span></div><span class="pv-why"><b>Why</b>Diabetes (A1c 7.5) and BMI 35.6.</span></div><div class="pv-est"><span class="pv-eff unclear">Benefit unclear</span><div class="pv-range" aria-hidden="true"><i class="pv-band harm" style="left:0.0%;width:9.3%"></i><i class="pv-band" style="left:9.3%;width:49.4%"></i><i class="pv-zero" style="left:9.3%"></i><i class="pv-pt unclear" style="left:31.8%"></i></div><span class="pv-rtext">From about 0.7 more to 4 fewer</span></div><button type="button" class="pv-add" data-opt="glp1" aria-pressed="false" aria-label="Add GLP-1 medicine">Add</button></div></div>
+              <p class="pv-note">Statin and blood pressure move the main number. Other options only shade the path: how much they add on top isn&rsquo;t known.</p>
+            </section>
+            <section class="pv-card pv-sec hf" aria-label="Options for heart failure risk">
+              <div class="pv-sec-head"><h4>Options for heart failure risk</h4><span>A separate risk: the heart getting too weak or stiff to keep up.</span><span class="pv-small" style="margin-top:6px">Out of 100 people, over 10 years</span><div class="pv-hfnum" aria-live="polite"><b>17%</b></div></div>
+              <div class="pv-rows hf"><div class="pv-opt" data-row="sglt2"><span></span><div class="pv-otext"><div class="pv-oname"><b>SGLT2 medicine</b><span class="pv-ev proven">Proven in large trials</span></div><span class="pv-why"><b>Why</b>Diabetes (A1c 7.5), reduced kidney function (eGFR 56) and protein in the urine (UACR 126).</span></div><div class="pv-est"><span class="pv-eff">About <b>5</b> fewer of 100<i>30% lower</i></span><div class="pv-range" aria-hidden="true"><i class="pv-band" style="left:73.2%;width:18.1%"></i><i class="pv-zero" style="left:52.7%"></i><i class="pv-pt" style="left:83.2%"></i></div><span class="pv-rtext">Likely 3 to 6 fewer</span></div><button type="button" class="pv-add" data-opt="sglt2" aria-pressed="false" aria-label="Add SGLT2 medicine">Add</button></div><div class="pv-opt" data-row="bp_hf"><span></span><div class="pv-otext"><div class="pv-oname"><b>Lower blood pressure</b><span class="pv-ev uncertain">Benefit uncertain</span></div><span class="pv-why"><b>Why</b>Blood pressure 138; goal about 120.</span></div><div class="pv-est"><span class="pv-eff unclear">Benefit unclear</span><div class="pv-range" aria-hidden="true"><i class="pv-band harm" style="left:0.0%;width:52.7%"></i><i class="pv-band" style="left:52.7%;width:47.3%"></i><i class="pv-zero" style="left:52.7%"></i><i class="pv-pt unclear" style="left:61.2%"></i></div><span class="pv-rtext">From about 8 more to 8 fewer</span></div><span class="pv-linked" data-linked="bp">With blood pressure</span></div></div>
+            </section>
+            <p class="pv-goals"><b>Also worth working on:</b> Blood sugar (A1c) toward your goal · Urine protein: confirm it and protect your kidneys. Not counted in the number above.</p>
+          </div>
+          <div class="pv-sheet" aria-hidden="true">
+            <div class="pv-sheet-card" role="dialog" aria-label="Send this plan to a phone">
+              <h4>Send to phone</h4>
+              <svg class="pv-qr-code" viewBox="0 0 81 81" shape-rendering="crispEdges" role="img" aria-label="QR code that opens this demo plan on a phone"><rect width="81" height="81" fill="#fff"/><path d="M2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM5 2h1v1h-1zM6 2h1v1h-1zM7 2h1v1h-1zM8 2h1v1h-1zM11 2h1v1h-1zM15 2h1v1h-1zM16 2h1v1h-1zM17 2h1v1h-1zM18 2h1v1h-1zM20 2h1v1h-1zM21 2h1v1h-1zM23 2h1v1h-1zM25 2h1v1h-1zM26 2h1v1h-1zM29 2h1v1h-1zM31 2h1v1h-1zM32 2h1v1h-1zM33 2h1v1h-1zM39 2h1v1h-1zM40 2h1v1h-1zM41 2h1v1h-1zM42 2h1v1h-1zM43 2h1v1h-1zM44 2h1v1h-1zM45 2h1v1h-1zM46 2h1v1h-1zM47 2h1v1h-1zM48 2h1v1h-1zM49 2h1v1h-1zM52 2h1v1h-1zM54 2h1v1h-1zM57 2h1v1h-1zM58 2h1v1h-1zM59 2h1v1h-1zM60 2h1v1h-1zM62 2h1v1h-1zM65 2h1v1h-1zM66 2h1v1h-1zM67 2h1v1h-1zM72 2h1v1h-1zM73 2h1v1h-1zM74 2h1v1h-1zM75 2h1v1h-1zM76 2h1v1h-1zM77 2h1v1h-1zM78 2h1v1h-1zM2 3h1v1h-1zM8 3h1v1h-1zM11 3h1v1h-1zM13 3h1v1h-1zM19 3h1v1h-1zM21 3h1v1h-1zM24 3h1v1h-1zM25 3h1v1h-1zM26 3h1v1h-1zM28 3h1v1h-1zM33 3h1v1h-1zM34 3h1v1h-1zM35 3h1v1h-1zM37 3h1v1h-1zM42 3h1v1h-1zM44 3h1v1h-1zM47 3h1v1h-1zM48 3h1v1h-1zM51 3h1v1h-1zM52 3h1v1h-1zM53 3h1v1h-1zM55 3h1v1h-1zM59 3h1v1h-1zM60 3h1v1h-1zM61 3h1v1h-1zM62 3h1v1h-1zM63 3h1v1h-1zM64 3h1v1h-1zM65 3h1v1h-1zM68 3h1v1h-1zM70 3h1v1h-1zM72 3h1v1h-1zM78 3h1v1h-1zM2 4h1v1h-1zM4 4h1v1h-1zM5 4h1v1h-1zM6 4h1v1h-1zM8 4h1v1h-1zM10 4h1v1h-1zM11 4h1v1h-1zM12 4h1v1h-1zM13 4h1v1h-1zM15 4h1v1h-1zM16 4h1v1h-1zM17 4h1v1h-1zM18 4h1v1h-1zM20 4h1v1h-1zM21 4h1v1h-1zM23 4h1v1h-1zM28 4h1v1h-1zM37 4h1v1h-1zM39 4h1v1h-1zM42 4h1v1h-1zM43 4h1v1h-1zM44 4h1v1h-1zM46 4h1v1h-1zM47 4h1v1h-1zM49 4h1v1h-1zM50 4h1v1h-1zM51 4h1v1h-1zM52 4h1v1h-1zM53 4h1v1h-1zM54 4h1v1h-1zM58 4h1v1h-1zM61 4h1v1h-1zM66 4h1v1h-1zM70 4h1v1h-1zM72 4h1v1h-1zM74 4h1v1h-1zM75 4h1v1h-1zM76 4h1v1h-1zM78 4h1v1h-1zM2 5h1v1h-1zM4 5h1v1h-1zM5 5h1v1h-1zM6 5h1v1h-1zM8 5h1v1h-1zM10 5h1v1h-1zM14 5h1v1h-1zM15 5h1v1h-1zM17 5h1v1h-1zM19 5h1v1h-1zM21 5h1v1h-1zM22 5h1v1h-1zM24 5h1v1h-1zM25 5h1v1h-1zM26 5h1v1h-1zM27 5h1v1h-1zM28 5h1v1h-1zM31 5h1v1h-1zM32 5h1v1h-1zM33 5h1v1h-1zM35 5h1v1h-1zM37 5h1v1h-1zM38 5h1v1h-1zM43 5h1v1h-1zM45 5h1v1h-1zM47 5h1v1h-1zM48 5h1v1h-1zM50 5h1v1h-1zM53 5h1v1h-1zM55 5h1v1h-1zM56 5h1v1h-1zM59 5h1v1h-1zM60 5h1v1h-1zM62 5h1v1h-1zM64 5h1v1h-1zM65 5h1v1h-1zM70 5h1v1h-1zM72 5h1v1h-1zM74 5h1v1h-1zM75 5h1v1h-1zM76 5h1v1h-1zM78 5h1v1h-1zM2 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM11 6h1v1h-1zM20 6h1v1h-1zM21 6h1v1h-1zM24 6h1v1h-1zM26 6h1v1h-1zM27 6h1v1h-1zM28 6h1v1h-1zM29 6h1v1h-1zM30 6h1v1h-1zM31 6h1v1h-1zM32 6h1v1h-1zM37 6h1v1h-1zM39 6h1v1h-1zM43 6h1v1h-1zM44 6h1v1h-1zM47 6h1v1h-1zM48 6h1v1h-1zM49 6h1v1h-1zM50 6h1v1h-1zM51 6h1v1h-1zM52 6h1v1h-1zM53 6h1v1h-1zM54 6h1v1h-1zM57 6h1v1h-1zM59 6h1v1h-1zM61 6h1v1h-1zM62 6h1v1h-1zM65 6h1v1h-1zM66 6h1v1h-1zM67 6h1v1h-1zM68 6h1v1h-1zM69 6h1v1h-1zM70 6h1v1h-1zM72 6h1v1h-1zM74 6h1v1h-1zM75 6h1v1h-1zM76 6h1v1h-1zM78 6h1v1h-1zM2 7h1v1h-1zM8 7h1v1h-1zM10 7h1v1h-1zM11 7h1v1h-1zM12 7h1v1h-1zM13 7h1v1h-1zM14 7h1v1h-1zM15 7h1v1h-1zM18 7h1v1h-1zM19 7h1v1h-1zM24 7h1v1h-1zM25 7h1v1h-1zM26 7h1v1h-1zM30 7h1v1h-1zM31 7h1v1h-1zM34 7h1v1h-1zM36 7h1v1h-1zM37 7h1v1h-1zM38 7h1v1h-1zM40 7h1v1h-1zM41 7h1v1h-1zM42 7h1v1h-1zM46 7h1v1h-1zM47 7h1v1h-1zM48 7h1v1h-1zM52 7h1v1h-1zM54 7h1v1h-1zM55 7h1v1h-1zM58 7h1v1h-1zM59 7h1v1h-1zM60 7h1v1h-1zM63 7h1v1h-1zM67 7h1v1h-1zM68 7h1v1h-1zM72 7h1v1h-1zM78 7h1v1h-1zM2 8h1v1h-1zM3 8h1v1h-1zM4 8h1v1h-1zM5 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM8 8h1v1h-1zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM16 8h1v1h-1zM18 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM24 8h1v1h-1zM26 8h1v1h-1zM28 8h1v1h-1zM30 8h1v1h-1zM32 8h1v1h-1zM34 8h1v1h-1zM36 8h1v1h-1zM38 8h1v1h-1zM40 8h1v1h-1zM42 8h1v1h-1zM44 8h1v1h-1zM46 8h1v1h-1zM48 8h1v1h-1zM50 8h1v1h-1zM52 8h1v1h-1zM54 8h1v1h-1zM56 8h1v1h-1zM58 8h1v1h-1zM60 8h1v1h-1zM62 8h1v1h-1zM64 8h1v1h-1zM66 8h1v1h-1zM68 8h1v1h-1zM70 8h1v1h-1zM72 8h1v1h-1zM73 8h1v1h-1zM74 8h1v1h-1zM75 8h1v1h-1zM76 8h1v1h-1zM77 8h1v1h-1zM78 8h1v1h-1zM10 9h1v1h-1zM12 9h1v1h-1zM13 9h1v1h-1zM15 9h1v1h-1zM16 9h1v1h-1zM19 9h1v1h-1zM20 9h1v1h-1zM21 9h1v1h-1zM22 9h1v1h-1zM23 9h1v1h-1zM25 9h1v1h-1zM26 9h1v1h-1zM30 9h1v1h-1zM31 9h1v1h-1zM33 9h1v1h-1zM34 9h1v1h-1zM36 9h1v1h-1zM38 9h1v1h-1zM39 9h1v1h-1zM40 9h1v1h-1zM41 9h1v1h-1zM43 9h1v1h-1zM44 9h1v1h-1zM47 9h1v1h-1zM48 9h1v1h-1zM52 9h1v1h-1zM54 9h1v1h-1zM55 9h1v1h-1zM56 9h1v1h-1zM57 9h1v1h-1zM58 9h1v1h-1zM61 9h1v1h-1zM64 9h1v1h-1zM65 9h1v1h-1zM66 9h1v1h-1zM68 9h1v1h-1zM2 10h1v1h-1zM4 10h1v1h-1zM5 10h1v1h-1zM6 10h1v1h-1zM7 10h1v1h-1zM8 10h1v1h-1zM12 10h1v1h-1zM13 10h1v1h-1zM14 10h1v1h-1zM15 10h1v1h-1zM16 10h1v1h-1zM17 10h1v1h-1zM21 10h1v1h-1zM22 10h1v1h-1zM23 10h1v1h-1zM24 10h1v1h-1zM26 10h1v1h-1zM27 10h1v1h-1zM28 10h1v1h-1zM29 10h1v1h-1zM30 10h1v1h-1zM33 10h1v1h-1zM35 10h1v1h-1zM36 10h1v1h-1zM37 10h1v1h-1zM38 10h1v1h-1zM40 10h1v1h-1zM45 10h1v1h-1zM46 10h1v1h-1zM48 10h1v1h-1zM49 10h1v1h-1zM50 10h1v1h-1zM51 10h1v1h-1zM52 10h1v1h-1zM53 10h1v1h-1zM56 10h1v1h-1zM59 10h1v1h-1zM60 10h1v1h-1zM62 10h1v1h-1zM63 10h1v1h-1zM65 10h1v1h-1zM66 10h1v1h-1zM67 10h1v1h-1zM68 10h1v1h-1zM70 10h1v1h-1zM72 10h1v1h-1zM73 10h1v1h-1zM74 10h1v1h-1zM75 10h1v1h-1zM76 10h1v1h-1zM4 11h1v1h-1zM7 11h1v1h-1zM10 11h1v1h-1zM11 11h1v1h-1zM12 11h1v1h-1zM13 11h1v1h-1zM14 11h1v1h-1zM17 11h1v1h-1zM18 11h1v1h-1zM20 11h1v1h-1zM21 11h1v1h-1zM22 11h1v1h-1zM28 11h1v1h-1zM30 11h1v1h-1zM31 11h1v1h-1zM32 11h1v1h-1zM33 11h1v1h-1zM34 11h1v1h-1zM36 11h1v1h-1zM38 11h1v1h-1zM39 11h1v1h-1zM41 11h1v1h-1zM43 11h1v1h-1zM44 11h1v1h-1zM46 11h1v1h-1zM47 11h1v1h-1zM48 11h1v1h-1zM54 11h1v1h-1zM57 11h1v1h-1zM58 11h1v1h-1zM59 11h1v1h-1zM60 11h1v1h-1zM61 11h1v1h-1zM64 11h1v1h-1zM70 11h1v1h-1zM71 11h1v1h-1zM73 11h1v1h-1zM77 11h1v1h-1zM2 12h1v1h-1zM3 12h1v1h-1zM4 12h1v1h-1zM5 12h1v1h-1zM6 12h1v1h-1zM8 12h1v1h-1zM9 12h1v1h-1zM11 12h1v1h-1zM12 12h1v1h-1zM16 12h1v1h-1zM18 12h1v1h-1zM19 12h1v1h-1zM20 12h1v1h-1zM21 12h1v1h-1zM22 12h1v1h-1zM23 12h1v1h-1zM25 12h1v1h-1zM27 12h1v1h-1zM28 12h1v1h-1zM30 12h1v1h-1zM32 12h1v1h-1zM33 12h1v1h-1zM35 12h1v1h-1zM37 12h1v1h-1zM39 12h1v1h-1zM42 12h1v1h-1zM44 12h1v1h-1zM45 12h1v1h-1zM46 12h1v1h-1zM48 12h1v1h-1zM50 12h1v1h-1zM52 12h1v1h-1zM53 12h1v1h-1zM54 12h1v1h-1zM58 12h1v1h-1zM60 12h1v1h-1zM62 12h1v1h-1zM64 12h1v1h-1zM66 12h1v1h-1zM69 12h1v1h-1zM70 12h1v1h-1zM73 12h1v1h-1zM75 12h1v1h-1zM76 12h1v1h-1zM2 13h1v1h-1zM4 13h1v1h-1zM5 13h1v1h-1zM6 13h1v1h-1zM7 13h1v1h-1zM11 13h1v1h-1zM12 13h1v1h-1zM14 13h1v1h-1zM15 13h1v1h-1zM20 13h1v1h-1zM21 13h1v1h-1zM22 13h1v1h-1zM25 13h1v1h-1zM26 13h1v1h-1zM27 13h1v1h-1zM28 13h1v1h-1zM31 13h1v1h-1zM32 13h1v1h-1zM36 13h1v1h-1zM38 13h1v1h-1zM40 13h1v1h-1zM42 13h1v1h-1zM43 13h1v1h-1zM45 13h1v1h-1zM46 13h1v1h-1zM47 13h1v1h-1zM48 13h1v1h-1zM49 13h1v1h-1zM50 13h1v1h-1zM52 13h1v1h-1zM55 13h1v1h-1zM56 13h1v1h-1zM58 13h1v1h-1zM59 13h1v1h-1zM61 13h1v1h-1zM63 13h1v1h-1zM66 13h1v1h-1zM68 13h1v1h-1zM70 13h1v1h-1zM71 13h1v1h-1zM72 13h1v1h-1zM73 13h1v1h-1zM74 13h1v1h-1zM77 13h1v1h-1zM78 13h1v1h-1zM6 14h1v1h-1zM7 14h1v1h-1zM8 14h1v1h-1zM11 14h1v1h-1zM12 14h1v1h-1zM16 14h1v1h-1zM18 14h1v1h-1zM19 14h1v1h-1zM20 14h1v1h-1zM24 14h1v1h-1zM26 14h1v1h-1zM29 14h1v1h-1zM30 14h1v1h-1zM31 14h1v1h-1zM33 14h1v1h-1zM35 14h1v1h-1zM37 14h1v1h-1zM38 14h1v1h-1zM39 14h1v1h-1zM43 14h1v1h-1zM44 14h1v1h-1zM45 14h1v1h-1zM50 14h1v1h-1zM53 14h1v1h-1zM54 14h1v1h-1zM56 14h1v1h-1zM60 14h1v1h-1zM62 14h1v1h-1zM65 14h1v1h-1zM66 14h1v1h-1zM69 14h1v1h-1zM70 14h1v1h-1zM71 14h1v1h-1zM72 14h1v1h-1zM73 14h1v1h-1zM74 14h1v1h-1zM75 14h1v1h-1zM76 14h1v1h-1zM77 14h1v1h-1zM78 14h1v1h-1zM6 15h1v1h-1zM12 15h1v1h-1zM13 15h1v1h-1zM14 15h1v1h-1zM15 15h1v1h-1zM17 15h1v1h-1zM20 15h1v1h-1zM21 15h1v1h-1zM24 15h1v1h-1zM25 15h1v1h-1zM27 15h1v1h-1zM28 15h1v1h-1zM29 15h1v1h-1zM31 15h1v1h-1zM32 15h1v1h-1zM34 15h1v1h-1zM37 15h1v1h-1zM43 15h1v1h-1zM44 15h1v1h-1zM45 15h1v1h-1zM46 15h1v1h-1zM47 15h1v1h-1zM52 15h1v1h-1zM54 15h1v1h-1zM58 15h1v1h-1zM59 15h1v1h-1zM60 15h1v1h-1zM61 15h1v1h-1zM62 15h1v1h-1zM64 15h1v1h-1zM65 15h1v1h-1zM68 15h1v1h-1zM70 15h1v1h-1zM76 15h1v1h-1zM2 16h1v1h-1zM3 16h1v1h-1zM7 16h1v1h-1zM8 16h1v1h-1zM11 16h1v1h-1zM13 16h1v1h-1zM17 16h1v1h-1zM21 16h1v1h-1zM22 16h1v1h-1zM23 16h1v1h-1zM25 16h1v1h-1zM26 16h1v1h-1zM27 16h1v1h-1zM29 16h1v1h-1zM31 16h1v1h-1zM34 16h1v1h-1zM35 16h1v1h-1zM36 16h1v1h-1zM38 16h1v1h-1zM39 16h1v1h-1zM40 16h1v1h-1zM41 16h1v1h-1zM43 16h1v1h-1zM44 16h1v1h-1zM45 16h1v1h-1zM47 16h1v1h-1zM48 16h1v1h-1zM51 16h1v1h-1zM53 16h1v1h-1zM55 16h1v1h-1zM58 16h1v1h-1zM63 16h1v1h-1zM65 16h1v1h-1zM66 16h1v1h-1zM71 16h1v1h-1zM73 16h1v1h-1zM74 16h1v1h-1zM76 16h1v1h-1zM3 17h1v1h-1zM5 17h1v1h-1zM6 17h1v1h-1zM12 17h1v1h-1zM13 17h1v1h-1zM14 17h1v1h-1zM15 17h1v1h-1zM19 17h1v1h-1zM20 17h1v1h-1zM26 17h1v1h-1zM28 17h1v1h-1zM29 17h1v1h-1zM30 17h1v1h-1zM31 17h1v1h-1zM34 17h1v1h-1zM35 17h1v1h-1zM36 17h1v1h-1zM37 17h1v1h-1zM44 17h1v1h-1zM46 17h1v1h-1zM47 17h1v1h-1zM51 17h1v1h-1zM52 17h1v1h-1zM54 17h1v1h-1zM55 17h1v1h-1zM56 17h1v1h-1zM57 17h1v1h-1zM58 17h1v1h-1zM59 17h1v1h-1zM60 17h1v1h-1zM61 17h1v1h-1zM64 17h1v1h-1zM66 17h1v1h-1zM70 17h1v1h-1zM72 17h1v1h-1zM73 17h1v1h-1zM74 17h1v1h-1zM75 17h1v1h-1zM77 17h1v1h-1zM3 18h1v1h-1zM4 18h1v1h-1zM5 18h1v1h-1zM6 18h1v1h-1zM7 18h1v1h-1zM8 18h1v1h-1zM9 18h1v1h-1zM10 18h1v1h-1zM13 18h1v1h-1zM16 18h1v1h-1zM17 18h1v1h-1zM18 18h1v1h-1zM19 18h1v1h-1zM21 18h1v1h-1zM24 18h1v1h-1zM25 18h1v1h-1zM26 18h1v1h-1zM27 18h1v1h-1zM28 18h1v1h-1zM29 18h1v1h-1zM33 18h1v1h-1zM35 18h1v1h-1zM36 18h1v1h-1zM37 18h1v1h-1zM38 18h1v1h-1zM40 18h1v1h-1zM43 18h1v1h-1zM45 18h1v1h-1zM47 18h1v1h-1zM53 18h1v1h-1zM55 18h1v1h-1zM56 18h1v1h-1zM58 18h1v1h-1zM59 18h1v1h-1zM60 18h1v1h-1zM64 18h1v1h-1zM65 18h1v1h-1zM66 18h1v1h-1zM67 18h1v1h-1zM68 18h1v1h-1zM70 18h1v1h-1zM72 18h1v1h-1zM73 18h1v1h-1zM74 18h1v1h-1zM4 19h1v1h-1zM7 19h1v1h-1zM11 19h1v1h-1zM16 19h1v1h-1zM19 19h1v1h-1zM20 19h1v1h-1zM21 19h1v1h-1zM23 19h1v1h-1zM24 19h1v1h-1zM25 19h1v1h-1zM27 19h1v1h-1zM31 19h1v1h-1zM37 19h1v1h-1zM38 19h1v1h-1zM39 19h1v1h-1zM43 19h1v1h-1zM44 19h1v1h-1zM46 19h1v1h-1zM47 19h1v1h-1zM48 19h1v1h-1zM49 19h1v1h-1zM52 19h1v1h-1zM53 19h1v1h-1zM54 19h1v1h-1zM56 19h1v1h-1zM59 19h1v1h-1zM60 19h1v1h-1zM64 19h1v1h-1zM65 19h1v1h-1zM66 19h1v1h-1zM71 19h1v1h-1zM72 19h1v1h-1zM73 19h1v1h-1zM77 19h1v1h-1zM6 20h1v1h-1zM8 20h1v1h-1zM11 20h1v1h-1zM12 20h1v1h-1zM13 20h1v1h-1zM14 20h1v1h-1zM15 20h1v1h-1zM16 20h1v1h-1zM18 20h1v1h-1zM20 20h1v1h-1zM22 20h1v1h-1zM25 20h1v1h-1zM26 20h1v1h-1zM27 20h1v1h-1zM28 20h1v1h-1zM29 20h1v1h-1zM32 20h1v1h-1zM33 20h1v1h-1zM34 20h1v1h-1zM35 20h1v1h-1zM39 20h1v1h-1zM42 20h1v1h-1zM43 20h1v1h-1zM45 20h1v1h-1zM46 20h1v1h-1zM47 20h1v1h-1zM50 20h1v1h-1zM51 20h1v1h-1zM52 20h1v1h-1zM57 20h1v1h-1zM59 20h1v1h-1zM60 20h1v1h-1zM62 20h1v1h-1zM64 20h1v1h-1zM65 20h1v1h-1zM66 20h1v1h-1zM69 20h1v1h-1zM74 20h1v1h-1zM75 20h1v1h-1zM76 20h1v1h-1zM2 21h1v1h-1zM5 21h1v1h-1zM10 21h1v1h-1zM11 21h1v1h-1zM14 21h1v1h-1zM15 21h1v1h-1zM16 21h1v1h-1zM17 21h1v1h-1zM18 21h1v1h-1zM19 21h1v1h-1zM22 21h1v1h-1zM23 21h1v1h-1zM24 21h1v1h-1zM26 21h1v1h-1zM30 21h1v1h-1zM34 21h1v1h-1zM35 21h1v1h-1zM36 21h1v1h-1zM37 21h1v1h-1zM38 21h1v1h-1zM39 21h1v1h-1zM45 21h1v1h-1zM46 21h1v1h-1zM47 21h1v1h-1zM48 21h1v1h-1zM51 21h1v1h-1zM53 21h1v1h-1zM54 21h1v1h-1zM56 21h1v1h-1zM58 21h1v1h-1zM61 21h1v1h-1zM65 21h1v1h-1zM66 21h1v1h-1zM67 21h1v1h-1zM68 21h1v1h-1zM69 21h1v1h-1zM72 21h1v1h-1zM73 21h1v1h-1zM74 21h1v1h-1zM77 21h1v1h-1zM3 22h1v1h-1zM4 22h1v1h-1zM6 22h1v1h-1zM8 22h1v1h-1zM9 22h1v1h-1zM11 22h1v1h-1zM13 22h1v1h-1zM15 22h1v1h-1zM17 22h1v1h-1zM20 22h1v1h-1zM26 22h1v1h-1zM27 22h1v1h-1zM30 22h1v1h-1zM31 22h1v1h-1zM32 22h1v1h-1zM33 22h1v1h-1zM37 22h1v1h-1zM38 22h1v1h-1zM39 22h1v1h-1zM40 22h1v1h-1zM45 22h1v1h-1zM47 22h1v1h-1zM48 22h1v1h-1zM53 22h1v1h-1zM59 22h1v1h-1zM64 22h1v1h-1zM65 22h1v1h-1zM66 22h1v1h-1zM67 22h1v1h-1zM68 22h1v1h-1zM69 22h1v1h-1zM70 22h1v1h-1zM73 22h1v1h-1zM74 22h1v1h-1zM75 22h1v1h-1zM76 22h1v1h-1zM78 22h1v1h-1zM2 23h1v1h-1zM3 23h1v1h-1zM4 23h1v1h-1zM6 23h1v1h-1zM9 23h1v1h-1zM10 23h1v1h-1zM11 23h1v1h-1zM12 23h1v1h-1zM13 23h1v1h-1zM14 23h1v1h-1zM17 23h1v1h-1zM18 23h1v1h-1zM19 23h1v1h-1zM20 23h1v1h-1zM21 23h1v1h-1zM22 23h1v1h-1zM23 23h1v1h-1zM24 23h1v1h-1zM25 23h1v1h-1zM26 23h1v1h-1zM27 23h1v1h-1zM32 23h1v1h-1zM33 23h1v1h-1zM34 23h1v1h-1zM38 23h1v1h-1zM39 23h1v1h-1zM42 23h1v1h-1zM43 23h1v1h-1zM44 23h1v1h-1zM45 23h1v1h-1zM46 23h1v1h-1zM47 23h1v1h-1zM48 23h1v1h-1zM49 23h1v1h-1zM50 23h1v1h-1zM57 23h1v1h-1zM59 23h1v1h-1zM60 23h1v1h-1zM65 23h1v1h-1zM66 23h1v1h-1zM68 23h1v1h-1zM70 23h1v1h-1zM71 23h1v1h-1zM73 23h1v1h-1zM74 23h1v1h-1zM76 23h1v1h-1zM77 23h1v1h-1zM2 24h1v1h-1zM3 24h1v1h-1zM5 24h1v1h-1zM6 24h1v1h-1zM7 24h1v1h-1zM8 24h1v1h-1zM9 24h1v1h-1zM11 24h1v1h-1zM14 24h1v1h-1zM15 24h1v1h-1zM17 24h1v1h-1zM18 24h1v1h-1zM20 24h1v1h-1zM24 24h1v1h-1zM25 24h1v1h-1zM27 24h1v1h-1zM28 24h1v1h-1zM31 24h1v1h-1zM36 24h1v1h-1zM37 24h1v1h-1zM38 24h1v1h-1zM39 24h1v1h-1zM40 24h1v1h-1zM41 24h1v1h-1zM44 24h1v1h-1zM48 24h1v1h-1zM52 24h1v1h-1zM54 24h1v1h-1zM55 24h1v1h-1zM56 24h1v1h-1zM57 24h1v1h-1zM60 24h1v1h-1zM61 24h1v1h-1zM64 24h1v1h-1zM66 24h1v1h-1zM67 24h1v1h-1zM68 24h1v1h-1zM76 24h1v1h-1zM2 25h1v1h-1zM9 25h1v1h-1zM13 25h1v1h-1zM14 25h1v1h-1zM15 25h1v1h-1zM16 25h1v1h-1zM17 25h1v1h-1zM18 25h1v1h-1zM19 25h1v1h-1zM21 25h1v1h-1zM22 25h1v1h-1zM24 25h1v1h-1zM25 25h1v1h-1zM26 25h1v1h-1zM28 25h1v1h-1zM33 25h1v1h-1zM35 25h1v1h-1zM41 25h1v1h-1zM42 25h1v1h-1zM45 25h1v1h-1zM47 25h1v1h-1zM49 25h1v1h-1zM50 25h1v1h-1zM51 25h1v1h-1zM54 25h1v1h-1zM57 25h1v1h-1zM58 25h1v1h-1zM59 25h1v1h-1zM60 25h1v1h-1zM61 25h1v1h-1zM66 25h1v1h-1zM67 25h1v1h-1zM68 25h1v1h-1zM69 25h1v1h-1zM72 25h1v1h-1zM73 25h1v1h-1zM74 25h1v1h-1zM75 25h1v1h-1zM78 25h1v1h-1zM2 26h1v1h-1zM6 26h1v1h-1zM7 26h1v1h-1zM8 26h1v1h-1zM9 26h1v1h-1zM10 26h1v1h-1zM15 26h1v1h-1zM17 26h1v1h-1zM18 26h1v1h-1zM20 26h1v1h-1zM21 26h1v1h-1zM22 26h1v1h-1zM23 26h1v1h-1zM24 26h1v1h-1zM26 26h1v1h-1zM27 26h1v1h-1zM28 26h1v1h-1zM29 26h1v1h-1zM30 26h1v1h-1zM31 26h1v1h-1zM32 26h1v1h-1zM36 26h1v1h-1zM37 26h1v1h-1zM38 26h1v1h-1zM39 26h1v1h-1zM40 26h1v1h-1zM43 26h1v1h-1zM44 26h1v1h-1zM45 26h1v1h-1zM47 26h1v1h-1zM48 26h1v1h-1zM49 26h1v1h-1zM50 26h1v1h-1zM51 26h1v1h-1zM52 26h1v1h-1zM53 26h1v1h-1zM55 26h1v1h-1zM56 26h1v1h-1zM58 26h1v1h-1zM63 26h1v1h-1zM65 26h1v1h-1zM66 26h1v1h-1zM70 26h1v1h-1zM71 26h1v1h-1zM72 26h1v1h-1zM73 26h1v1h-1zM74 26h1v1h-1zM76 26h1v1h-1zM77 26h1v1h-1zM4 27h1v1h-1zM6 27h1v1h-1zM10 27h1v1h-1zM11 27h1v1h-1zM12 27h1v1h-1zM17 27h1v1h-1zM18 27h1v1h-1zM19 27h1v1h-1zM21 27h1v1h-1zM22 27h1v1h-1zM23 27h1v1h-1zM26 27h1v1h-1zM30 27h1v1h-1zM31 27h1v1h-1zM32 27h1v1h-1zM33 27h1v1h-1zM37 27h1v1h-1zM39 27h1v1h-1zM41 27h1v1h-1zM43 27h1v1h-1zM44 27h1v1h-1zM47 27h1v1h-1zM48 27h1v1h-1zM52 27h1v1h-1zM53 27h1v1h-1zM57 27h1v1h-1zM58 27h1v1h-1zM59 27h1v1h-1zM60 27h1v1h-1zM62 27h1v1h-1zM64 27h1v1h-1zM65 27h1v1h-1zM66 27h1v1h-1zM68 27h1v1h-1zM69 27h1v1h-1zM70 27h1v1h-1zM74 27h1v1h-1zM76 27h1v1h-1zM78 27h1v1h-1zM2 28h1v1h-1zM3 28h1v1h-1zM4 28h1v1h-1zM5 28h1v1h-1zM6 28h1v1h-1zM8 28h1v1h-1zM10 28h1v1h-1zM11 28h1v1h-1zM13 28h1v1h-1zM17 28h1v1h-1zM20 28h1v1h-1zM25 28h1v1h-1zM26 28h1v1h-1zM28 28h1v1h-1zM30 28h1v1h-1zM32 28h1v1h-1zM35 28h1v1h-1zM37 28h1v1h-1zM39 28h1v1h-1zM40 28h1v1h-1zM41 28h1v1h-1zM43 28h1v1h-1zM46 28h1v1h-1zM47 28h1v1h-1zM48 28h1v1h-1zM50 28h1v1h-1zM52 28h1v1h-1zM53 28h1v1h-1zM55 28h1v1h-1zM57 28h1v1h-1zM60 28h1v1h-1zM61 28h1v1h-1zM63 28h1v1h-1zM64 28h1v1h-1zM70 28h1v1h-1zM72 28h1v1h-1zM74 28h1v1h-1zM76 28h1v1h-1zM77 28h1v1h-1zM3 29h1v1h-1zM4 29h1v1h-1zM5 29h1v1h-1zM6 29h1v1h-1zM10 29h1v1h-1zM13 29h1v1h-1zM14 29h1v1h-1zM16 29h1v1h-1zM21 29h1v1h-1zM24 29h1v1h-1zM25 29h1v1h-1zM26 29h1v1h-1zM30 29h1v1h-1zM32 29h1v1h-1zM33 29h1v1h-1zM34 29h1v1h-1zM36 29h1v1h-1zM41 29h1v1h-1zM47 29h1v1h-1zM48 29h1v1h-1zM52 29h1v1h-1zM54 29h1v1h-1zM56 29h1v1h-1zM58 29h1v1h-1zM61 29h1v1h-1zM66 29h1v1h-1zM67 29h1v1h-1zM68 29h1v1h-1zM70 29h1v1h-1zM74 29h1v1h-1zM2 30h1v1h-1zM3 30h1v1h-1zM4 30h1v1h-1zM6 30h1v1h-1zM7 30h1v1h-1zM8 30h1v1h-1zM9 30h1v1h-1zM10 30h1v1h-1zM12 30h1v1h-1zM13 30h1v1h-1zM14 30h1v1h-1zM16 30h1v1h-1zM17 30h1v1h-1zM19 30h1v1h-1zM20 30h1v1h-1zM23 30h1v1h-1zM24 30h1v1h-1zM25 30h1v1h-1zM26 30h1v1h-1zM27 30h1v1h-1zM28 30h1v1h-1zM29 30h1v1h-1zM30 30h1v1h-1zM31 30h1v1h-1zM33 30h1v1h-1zM37 30h1v1h-1zM38 30h1v1h-1zM39 30h1v1h-1zM40 30h1v1h-1zM44 30h1v1h-1zM45 30h1v1h-1zM48 30h1v1h-1zM49 30h1v1h-1zM50 30h1v1h-1zM51 30h1v1h-1zM52 30h1v1h-1zM53 30h1v1h-1zM55 30h1v1h-1zM58 30h1v1h-1zM60 30h1v1h-1zM65 30h1v1h-1zM66 30h1v1h-1zM67 30h1v1h-1zM68 30h1v1h-1zM70 30h1v1h-1zM71 30h1v1h-1zM72 30h1v1h-1zM73 30h1v1h-1zM74 30h1v1h-1zM75 30h1v1h-1zM76 30h1v1h-1zM77 30h1v1h-1zM4 31h1v1h-1zM5 31h1v1h-1zM7 31h1v1h-1zM9 31h1v1h-1zM10 31h1v1h-1zM12 31h1v1h-1zM13 31h1v1h-1zM17 31h1v1h-1zM18 31h1v1h-1zM20 31h1v1h-1zM21 31h1v1h-1zM23 31h1v1h-1zM24 31h1v1h-1zM25 31h1v1h-1zM29 31h1v1h-1zM31 31h1v1h-1zM32 31h1v1h-1zM33 31h1v1h-1zM34 31h1v1h-1zM38 31h1v1h-1zM39 31h1v1h-1zM42 31h1v1h-1zM43 31h1v1h-1zM44 31h1v1h-1zM45 31h1v1h-1zM46 31h1v1h-1zM48 31h1v1h-1zM51 31h1v1h-1zM52 31h1v1h-1zM53 31h1v1h-1zM54 31h1v1h-1zM58 31h1v1h-1zM59 31h1v1h-1zM61 31h1v1h-1zM62 31h1v1h-1zM65 31h1v1h-1zM66 31h1v1h-1zM68 31h1v1h-1zM70 31h1v1h-1zM71 31h1v1h-1zM72 31h1v1h-1zM73 31h1v1h-1zM74 31h1v1h-1zM77 31h1v1h-1zM2 32h1v1h-1zM7 32h1v1h-1zM8 32h1v1h-1zM10 32h1v1h-1zM13 32h1v1h-1zM14 32h1v1h-1zM15 32h1v1h-1zM17 32h1v1h-1zM19 32h1v1h-1zM20 32h1v1h-1zM21 32h1v1h-1zM23 32h1v1h-1zM25 32h1v1h-1zM29 32h1v1h-1zM30 32h1v1h-1zM31 32h1v1h-1zM35 32h1v1h-1zM38 32h1v1h-1zM41 32h1v1h-1zM44 32h1v1h-1zM49 32h1v1h-1zM53 32h1v1h-1zM54 32h1v1h-1zM55 32h1v1h-1zM58 32h1v1h-1zM59 32h1v1h-1zM60 32h1v1h-1zM62 32h1v1h-1zM63 32h1v1h-1zM64 32h1v1h-1zM66 32h1v1h-1zM67 32h1v1h-1zM69 32h1v1h-1zM70 32h1v1h-1zM71 32h1v1h-1zM72 32h1v1h-1zM73 32h1v1h-1zM74 32h1v1h-1zM76 32h1v1h-1zM4 33h1v1h-1zM6 33h1v1h-1zM7 33h1v1h-1zM14 33h1v1h-1zM15 33h1v1h-1zM16 33h1v1h-1zM22 33h1v1h-1zM23 33h1v1h-1zM24 33h1v1h-1zM25 33h1v1h-1zM28 33h1v1h-1zM30 33h1v1h-1zM31 33h1v1h-1zM32 33h1v1h-1zM37 33h1v1h-1zM38 33h1v1h-1zM39 33h1v1h-1zM41 33h1v1h-1zM42 33h1v1h-1zM44 33h1v1h-1zM45 33h1v1h-1zM46 33h1v1h-1zM48 33h1v1h-1zM51 33h1v1h-1zM52 33h1v1h-1zM57 33h1v1h-1zM58 33h1v1h-1zM59 33h1v1h-1zM60 33h1v1h-1zM61 33h1v1h-1zM63 33h1v1h-1zM64 33h1v1h-1zM68 33h1v1h-1zM74 33h1v1h-1zM75 33h1v1h-1zM2 34h1v1h-1zM3 34h1v1h-1zM4 34h1v1h-1zM6 34h1v1h-1zM7 34h1v1h-1zM8 34h1v1h-1zM12 34h1v1h-1zM14 34h1v1h-1zM16 34h1v1h-1zM19 34h1v1h-1zM20 34h1v1h-1zM22 34h1v1h-1zM23 34h1v1h-1zM24 34h1v1h-1zM25 34h1v1h-1zM28 34h1v1h-1zM29 34h1v1h-1zM32 34h1v1h-1zM33 34h1v1h-1zM35 34h1v1h-1zM38 34h1v1h-1zM43 34h1v1h-1zM44 34h1v1h-1zM45 34h1v1h-1zM51 34h1v1h-1zM52 34h1v1h-1zM53 34h1v1h-1zM55 34h1v1h-1zM56 34h1v1h-1zM58 34h1v1h-1zM65 34h1v1h-1zM66 34h1v1h-1zM69 34h1v1h-1zM70 34h1v1h-1zM71 34h1v1h-1zM72 34h1v1h-1zM73 34h1v1h-1zM74 34h1v1h-1zM77 34h1v1h-1zM78 34h1v1h-1zM2 35h1v1h-1zM3 35h1v1h-1zM4 35h1v1h-1zM5 35h1v1h-1zM9 35h1v1h-1zM10 35h1v1h-1zM13 35h1v1h-1zM14 35h1v1h-1zM15 35h1v1h-1zM16 35h1v1h-1zM17 35h1v1h-1zM19 35h1v1h-1zM20 35h1v1h-1zM21 35h1v1h-1zM23 35h1v1h-1zM24 35h1v1h-1zM26 35h1v1h-1zM27 35h1v1h-1zM28 35h1v1h-1zM29 35h1v1h-1zM30 35h1v1h-1zM31 35h1v1h-1zM32 35h1v1h-1zM37 35h1v1h-1zM38 35h1v1h-1zM39 35h1v1h-1zM44 35h1v1h-1zM46 35h1v1h-1zM47 35h1v1h-1zM50 35h1v1h-1zM51 35h1v1h-1zM54 35h1v1h-1zM59 35h1v1h-1zM60 35h1v1h-1zM62 35h1v1h-1zM64 35h1v1h-1zM65 35h1v1h-1zM71 35h1v1h-1zM72 35h1v1h-1zM73 35h1v1h-1zM76 35h1v1h-1zM77 35h1v1h-1zM5 36h1v1h-1zM6 36h1v1h-1zM8 36h1v1h-1zM9 36h1v1h-1zM10 36h1v1h-1zM12 36h1v1h-1zM13 36h1v1h-1zM14 36h1v1h-1zM17 36h1v1h-1zM18 36h1v1h-1zM19 36h1v1h-1zM20 36h1v1h-1zM22 36h1v1h-1zM25 36h1v1h-1zM27 36h1v1h-1zM32 36h1v1h-1zM33 36h1v1h-1zM35 36h1v1h-1zM38 36h1v1h-1zM41 36h1v1h-1zM42 36h1v1h-1zM43 36h1v1h-1zM44 36h1v1h-1zM46 36h1v1h-1zM48 36h1v1h-1zM53 36h1v1h-1zM54 36h1v1h-1zM55 36h1v1h-1zM60 36h1v1h-1zM61 36h1v1h-1zM62 36h1v1h-1zM63 36h1v1h-1zM64 36h1v1h-1zM66 36h1v1h-1zM67 36h1v1h-1zM69 36h1v1h-1zM70 36h1v1h-1zM71 36h1v1h-1zM72 36h1v1h-1zM74 36h1v1h-1zM75 36h1v1h-1zM77 36h1v1h-1zM78 36h1v1h-1zM2 37h1v1h-1zM5 37h1v1h-1zM7 37h1v1h-1zM9 37h1v1h-1zM10 37h1v1h-1zM12 37h1v1h-1zM13 37h1v1h-1zM14 37h1v1h-1zM16 37h1v1h-1zM17 37h1v1h-1zM24 37h1v1h-1zM25 37h1v1h-1zM26 37h1v1h-1zM27 37h1v1h-1zM28 37h1v1h-1zM29 37h1v1h-1zM30 37h1v1h-1zM32 37h1v1h-1zM33 37h1v1h-1zM35 37h1v1h-1zM36 37h1v1h-1zM37 37h1v1h-1zM42 37h1v1h-1zM43 37h1v1h-1zM44 37h1v1h-1zM45 37h1v1h-1zM46 37h1v1h-1zM47 37h1v1h-1zM49 37h1v1h-1zM50 37h1v1h-1zM51 37h1v1h-1zM52 37h1v1h-1zM53 37h1v1h-1zM54 37h1v1h-1zM56 37h1v1h-1zM57 37h1v1h-1zM58 37h1v1h-1zM63 37h1v1h-1zM75 37h1v1h-1zM2 38h1v1h-1zM3 38h1v1h-1zM4 38h1v1h-1zM8 38h1v1h-1zM9 38h1v1h-1zM10 38h1v1h-1zM15 38h1v1h-1zM18 38h1v1h-1zM19 38h1v1h-1zM20 38h1v1h-1zM21 38h1v1h-1zM23 38h1v1h-1zM24 38h1v1h-1zM25 38h1v1h-1zM27 38h1v1h-1zM28 38h1v1h-1zM31 38h1v1h-1zM32 38h1v1h-1zM33 38h1v1h-1zM35 38h1v1h-1zM38 38h1v1h-1zM39 38h1v1h-1zM40 38h1v1h-1zM43 38h1v1h-1zM44 38h1v1h-1zM45 38h1v1h-1zM49 38h1v1h-1zM53 38h1v1h-1zM55 38h1v1h-1zM56 38h1v1h-1zM58 38h1v1h-1zM59 38h1v1h-1zM62 38h1v1h-1zM63 38h1v1h-1zM65 38h1v1h-1zM66 38h1v1h-1zM67 38h1v1h-1zM68 38h1v1h-1zM69 38h1v1h-1zM70 38h1v1h-1zM72 38h1v1h-1zM73 38h1v1h-1zM74 38h1v1h-1zM76 38h1v1h-1zM77 38h1v1h-1zM5 39h1v1h-1zM7 39h1v1h-1zM9 39h1v1h-1zM11 39h1v1h-1zM12 39h1v1h-1zM13 39h1v1h-1zM14 39h1v1h-1zM17 39h1v1h-1zM18 39h1v1h-1zM22 39h1v1h-1zM25 39h1v1h-1zM27 39h1v1h-1zM29 39h1v1h-1zM30 39h1v1h-1zM32 39h1v1h-1zM34 39h1v1h-1zM37 39h1v1h-1zM39 39h1v1h-1zM41 39h1v1h-1zM43 39h1v1h-1zM44 39h1v1h-1zM45 39h1v1h-1zM46 39h1v1h-1zM47 39h1v1h-1zM49 39h1v1h-1zM50 39h1v1h-1zM52 39h1v1h-1zM53 39h1v1h-1zM57 39h1v1h-1zM59 39h1v1h-1zM60 39h1v1h-1zM62 39h1v1h-1zM65 39h1v1h-1zM69 39h1v1h-1zM71 39h1v1h-1zM72 39h1v1h-1zM73 39h1v1h-1zM74 39h1v1h-1zM75 39h1v1h-1zM77 39h1v1h-1zM4 40h1v1h-1zM6 40h1v1h-1zM7 40h1v1h-1zM8 40h1v1h-1zM9 40h1v1h-1zM10 40h1v1h-1zM11 40h1v1h-1zM13 40h1v1h-1zM14 40h1v1h-1zM15 40h1v1h-1zM17 40h1v1h-1zM18 40h1v1h-1zM20 40h1v1h-1zM22 40h1v1h-1zM23 40h1v1h-1zM24 40h1v1h-1zM30 40h1v1h-1zM31 40h1v1h-1zM32 40h1v1h-1zM34 40h1v1h-1zM35 40h1v1h-1zM38 40h1v1h-1zM42 40h1v1h-1zM49 40h1v1h-1zM52 40h1v1h-1zM54 40h1v1h-1zM55 40h1v1h-1zM57 40h1v1h-1zM58 40h1v1h-1zM60 40h1v1h-1zM61 40h1v1h-1zM62 40h1v1h-1zM64 40h1v1h-1zM2 41h1v1h-1zM4 41h1v1h-1zM6 41h1v1h-1zM7 41h1v1h-1zM11 41h1v1h-1zM12 41h1v1h-1zM13 41h1v1h-1zM14 41h1v1h-1zM15 41h1v1h-1zM19 41h1v1h-1zM25 41h1v1h-1zM26 41h1v1h-1zM27 41h1v1h-1zM28 41h1v1h-1zM29 41h1v1h-1zM35 41h1v1h-1zM38 41h1v1h-1zM45 41h1v1h-1zM48 41h1v1h-1zM50 41h1v1h-1zM51 41h1v1h-1zM54 41h1v1h-1zM55 41h1v1h-1zM57 41h1v1h-1zM58 41h1v1h-1zM60 41h1v1h-1zM61 41h1v1h-1zM63 41h1v1h-1zM65 41h1v1h-1zM66 41h1v1h-1zM67 41h1v1h-1zM68 41h1v1h-1zM69 41h1v1h-1zM73 41h1v1h-1zM75 41h1v1h-1zM78 41h1v1h-1zM3 42h1v1h-1zM5 42h1v1h-1zM7 42h1v1h-1zM8 42h1v1h-1zM9 42h1v1h-1zM11 42h1v1h-1zM13 42h1v1h-1zM15 42h1v1h-1zM17 42h1v1h-1zM18 42h1v1h-1zM19 42h1v1h-1zM21 42h1v1h-1zM22 42h1v1h-1zM26 42h1v1h-1zM28 42h1v1h-1zM29 42h1v1h-1zM30 42h1v1h-1zM32 42h1v1h-1zM33 42h1v1h-1zM36 42h1v1h-1zM37 42h1v1h-1zM38 42h1v1h-1zM39 42h1v1h-1zM41 42h1v1h-1zM43 42h1v1h-1zM44 42h1v1h-1zM45 42h1v1h-1zM50 42h1v1h-1zM52 42h1v1h-1zM53 42h1v1h-1zM54 42h1v1h-1zM56 42h1v1h-1zM58 42h1v1h-1zM59 42h1v1h-1zM60 42h1v1h-1zM63 42h1v1h-1zM65 42h1v1h-1zM66 42h1v1h-1zM71 42h1v1h-1zM73 42h1v1h-1zM74 42h1v1h-1zM75 42h1v1h-1zM78 42h1v1h-1zM2 43h1v1h-1zM4 43h1v1h-1zM6 43h1v1h-1zM7 43h1v1h-1zM9 43h1v1h-1zM10 43h1v1h-1zM11 43h1v1h-1zM12 43h1v1h-1zM14 43h1v1h-1zM16 43h1v1h-1zM17 43h1v1h-1zM18 43h1v1h-1zM20 43h1v1h-1zM21 43h1v1h-1zM23 43h1v1h-1zM26 43h1v1h-1zM28 43h1v1h-1zM29 43h1v1h-1zM30 43h1v1h-1zM33 43h1v1h-1zM34 43h1v1h-1zM35 43h1v1h-1zM37 43h1v1h-1zM43 43h1v1h-1zM44 43h1v1h-1zM46 43h1v1h-1zM48 43h1v1h-1zM49 43h1v1h-1zM51 43h1v1h-1zM56 43h1v1h-1zM57 43h1v1h-1zM59 43h1v1h-1zM60 43h1v1h-1zM61 43h1v1h-1zM64 43h1v1h-1zM66 43h1v1h-1zM68 43h1v1h-1zM69 43h1v1h-1zM70 43h1v1h-1zM72 43h1v1h-1zM74 43h1v1h-1zM78 43h1v1h-1zM2 44h1v1h-1zM4 44h1v1h-1zM7 44h1v1h-1zM8 44h1v1h-1zM14 44h1v1h-1zM15 44h1v1h-1zM16 44h1v1h-1zM20 44h1v1h-1zM21 44h1v1h-1zM22 44h1v1h-1zM23 44h1v1h-1zM27 44h1v1h-1zM30 44h1v1h-1zM31 44h1v1h-1zM36 44h1v1h-1zM38 44h1v1h-1zM39 44h1v1h-1zM41 44h1v1h-1zM43 44h1v1h-1zM45 44h1v1h-1zM46 44h1v1h-1zM52 44h1v1h-1zM53 44h1v1h-1zM60 44h1v1h-1zM61 44h1v1h-1zM63 44h1v1h-1zM64 44h1v1h-1zM67 44h1v1h-1zM69 44h1v1h-1zM70 44h1v1h-1zM71 44h1v1h-1zM72 44h1v1h-1zM73 44h1v1h-1zM74 44h1v1h-1zM75 44h1v1h-1zM3 45h1v1h-1zM9 45h1v1h-1zM11 45h1v1h-1zM12 45h1v1h-1zM13 45h1v1h-1zM14 45h1v1h-1zM15 45h1v1h-1zM23 45h1v1h-1zM24 45h1v1h-1zM28 45h1v1h-1zM29 45h1v1h-1zM32 45h1v1h-1zM33 45h1v1h-1zM34 45h1v1h-1zM35 45h1v1h-1zM36 45h1v1h-1zM37 45h1v1h-1zM40 45h1v1h-1zM41 45h1v1h-1zM46 45h1v1h-1zM48 45h1v1h-1zM50 45h1v1h-1zM51 45h1v1h-1zM52 45h1v1h-1zM53 45h1v1h-1zM54 45h1v1h-1zM55 45h1v1h-1zM57 45h1v1h-1zM58 45h1v1h-1zM59 45h1v1h-1zM61 45h1v1h-1zM64 45h1v1h-1zM65 45h1v1h-1zM66 45h1v1h-1zM68 45h1v1h-1zM74 45h1v1h-1zM75 45h1v1h-1zM78 45h1v1h-1zM5 46h1v1h-1zM8 46h1v1h-1zM9 46h1v1h-1zM10 46h1v1h-1zM11 46h1v1h-1zM13 46h1v1h-1zM14 46h1v1h-1zM15 46h1v1h-1zM17 46h1v1h-1zM18 46h1v1h-1zM24 46h1v1h-1zM27 46h1v1h-1zM28 46h1v1h-1zM29 46h1v1h-1zM30 46h1v1h-1zM33 46h1v1h-1zM35 46h1v1h-1zM36 46h1v1h-1zM37 46h1v1h-1zM38 46h1v1h-1zM43 46h1v1h-1zM44 46h1v1h-1zM45 46h1v1h-1zM50 46h1v1h-1zM53 46h1v1h-1zM54 46h1v1h-1zM55 46h1v1h-1zM58 46h1v1h-1zM62 46h1v1h-1zM64 46h1v1h-1zM65 46h1v1h-1zM67 46h1v1h-1zM69 46h1v1h-1zM73 46h1v1h-1zM74 46h1v1h-1zM75 46h1v1h-1zM76 46h1v1h-1zM4 47h1v1h-1zM5 47h1v1h-1zM6 47h1v1h-1zM9 47h1v1h-1zM12 47h1v1h-1zM16 47h1v1h-1zM17 47h1v1h-1zM20 47h1v1h-1zM21 47h1v1h-1zM22 47h1v1h-1zM26 47h1v1h-1zM30 47h1v1h-1zM31 47h1v1h-1zM33 47h1v1h-1zM34 47h1v1h-1zM37 47h1v1h-1zM38 47h1v1h-1zM41 47h1v1h-1zM43 47h1v1h-1zM44 47h1v1h-1zM46 47h1v1h-1zM48 47h1v1h-1zM49 47h1v1h-1zM50 47h1v1h-1zM52 47h1v1h-1zM57 47h1v1h-1zM59 47h1v1h-1zM60 47h1v1h-1zM61 47h1v1h-1zM65 47h1v1h-1zM66 47h1v1h-1zM70 47h1v1h-1zM71 47h1v1h-1zM75 47h1v1h-1zM76 47h1v1h-1zM77 47h1v1h-1zM2 48h1v1h-1zM3 48h1v1h-1zM4 48h1v1h-1zM5 48h1v1h-1zM6 48h1v1h-1zM7 48h1v1h-1zM8 48h1v1h-1zM9 48h1v1h-1zM10 48h1v1h-1zM12 48h1v1h-1zM13 48h1v1h-1zM15 48h1v1h-1zM18 48h1v1h-1zM19 48h1v1h-1zM24 48h1v1h-1zM25 48h1v1h-1zM26 48h1v1h-1zM27 48h1v1h-1zM28 48h1v1h-1zM29 48h1v1h-1zM30 48h1v1h-1zM31 48h1v1h-1zM33 48h1v1h-1zM35 48h1v1h-1zM40 48h1v1h-1zM45 48h1v1h-1zM46 48h1v1h-1zM48 48h1v1h-1zM49 48h1v1h-1zM50 48h1v1h-1zM51 48h1v1h-1zM52 48h1v1h-1zM53 48h1v1h-1zM54 48h1v1h-1zM55 48h1v1h-1zM58 48h1v1h-1zM59 48h1v1h-1zM60 48h1v1h-1zM61 48h1v1h-1zM64 48h1v1h-1zM65 48h1v1h-1zM67 48h1v1h-1zM70 48h1v1h-1zM71 48h1v1h-1zM72 48h1v1h-1zM73 48h1v1h-1zM74 48h1v1h-1zM2 49h1v1h-1zM3 49h1v1h-1zM4 49h1v1h-1zM5 49h1v1h-1zM6 49h1v1h-1zM10 49h1v1h-1zM11 49h1v1h-1zM12 49h1v1h-1zM13 49h1v1h-1zM14 49h1v1h-1zM15 49h1v1h-1zM16 49h1v1h-1zM17 49h1v1h-1zM18 49h1v1h-1zM19 49h1v1h-1zM21 49h1v1h-1zM22 49h1v1h-1zM26 49h1v1h-1zM30 49h1v1h-1zM31 49h1v1h-1zM32 49h1v1h-1zM33 49h1v1h-1zM34 49h1v1h-1zM35 49h1v1h-1zM38 49h1v1h-1zM41 49h1v1h-1zM45 49h1v1h-1zM48 49h1v1h-1zM52 49h1v1h-1zM53 49h1v1h-1zM54 49h1v1h-1zM55 49h1v1h-1zM56 49h1v1h-1zM58 49h1v1h-1zM59 49h1v1h-1zM63 49h1v1h-1zM66 49h1v1h-1zM67 49h1v1h-1zM70 49h1v1h-1zM74 49h1v1h-1zM75 49h1v1h-1zM77 49h1v1h-1zM3 50h1v1h-1zM4 50h1v1h-1zM5 50h1v1h-1zM6 50h1v1h-1zM8 50h1v1h-1zM10 50h1v1h-1zM11 50h1v1h-1zM13 50h1v1h-1zM15 50h1v1h-1zM16 50h1v1h-1zM17 50h1v1h-1zM19 50h1v1h-1zM22 50h1v1h-1zM25 50h1v1h-1zM26 50h1v1h-1zM28 50h1v1h-1zM30 50h1v1h-1zM31 50h1v1h-1zM33 50h1v1h-1zM37 50h1v1h-1zM38 50h1v1h-1zM39 50h1v1h-1zM43 50h1v1h-1zM44 50h1v1h-1zM47 50h1v1h-1zM48 50h1v1h-1zM50 50h1v1h-1zM52 50h1v1h-1zM53 50h1v1h-1zM55 50h1v1h-1zM62 50h1v1h-1zM64 50h1v1h-1zM65 50h1v1h-1zM69 50h1v1h-1zM70 50h1v1h-1zM72 50h1v1h-1zM74 50h1v1h-1zM78 50h1v1h-1zM2 51h1v1h-1zM4 51h1v1h-1zM5 51h1v1h-1zM6 51h1v1h-1zM10 51h1v1h-1zM11 51h1v1h-1zM12 51h1v1h-1zM16 51h1v1h-1zM17 51h1v1h-1zM19 51h1v1h-1zM20 51h1v1h-1zM22 51h1v1h-1zM23 51h1v1h-1zM25 51h1v1h-1zM26 51h1v1h-1zM30 51h1v1h-1zM33 51h1v1h-1zM34 51h1v1h-1zM35 51h1v1h-1zM37 51h1v1h-1zM39 51h1v1h-1zM41 51h1v1h-1zM43 51h1v1h-1zM44 51h1v1h-1zM45 51h1v1h-1zM47 51h1v1h-1zM48 51h1v1h-1zM52 51h1v1h-1zM54 51h1v1h-1zM56 51h1v1h-1zM57 51h1v1h-1zM58 51h1v1h-1zM59 51h1v1h-1zM60 51h1v1h-1zM61 51h1v1h-1zM68 51h1v1h-1zM70 51h1v1h-1zM74 51h1v1h-1zM78 51h1v1h-1zM6 52h1v1h-1zM7 52h1v1h-1zM8 52h1v1h-1zM9 52h1v1h-1zM10 52h1v1h-1zM11 52h1v1h-1zM12 52h1v1h-1zM14 52h1v1h-1zM16 52h1v1h-1zM18 52h1v1h-1zM19 52h1v1h-1zM20 52h1v1h-1zM24 52h1v1h-1zM25 52h1v1h-1zM26 52h1v1h-1zM27 52h1v1h-1zM28 52h1v1h-1zM29 52h1v1h-1zM30 52h1v1h-1zM31 52h1v1h-1zM37 52h1v1h-1zM38 52h1v1h-1zM40 52h1v1h-1zM41 52h1v1h-1zM42 52h1v1h-1zM47 52h1v1h-1zM48 52h1v1h-1zM49 52h1v1h-1zM50 52h1v1h-1zM51 52h1v1h-1zM52 52h1v1h-1zM55 52h1v1h-1zM57 52h1v1h-1zM60 52h1v1h-1zM61 52h1v1h-1zM62 52h1v1h-1zM64 52h1v1h-1zM69 52h1v1h-1zM70 52h1v1h-1zM71 52h1v1h-1zM72 52h1v1h-1zM73 52h1v1h-1zM74 52h1v1h-1zM3 53h1v1h-1zM5 53h1v1h-1zM9 53h1v1h-1zM14 53h1v1h-1zM15 53h1v1h-1zM17 53h1v1h-1zM18 53h1v1h-1zM19 53h1v1h-1zM20 53h1v1h-1zM21 53h1v1h-1zM22 53h1v1h-1zM25 53h1v1h-1zM26 53h1v1h-1zM27 53h1v1h-1zM29 53h1v1h-1zM30 53h1v1h-1zM34 53h1v1h-1zM35 53h1v1h-1zM37 53h1v1h-1zM39 53h1v1h-1zM41 53h1v1h-1zM43 53h1v1h-1zM44 53h1v1h-1zM45 53h1v1h-1zM46 53h1v1h-1zM47 53h1v1h-1zM48 53h1v1h-1zM49 53h1v1h-1zM53 53h1v1h-1zM54 53h1v1h-1zM55 53h1v1h-1zM56 53h1v1h-1zM57 53h1v1h-1zM58 53h1v1h-1zM59 53h1v1h-1zM61 53h1v1h-1zM66 53h1v1h-1zM67 53h1v1h-1zM68 53h1v1h-1zM70 53h1v1h-1zM72 53h1v1h-1zM75 53h1v1h-1zM77 53h1v1h-1zM2 54h1v1h-1zM4 54h1v1h-1zM7 54h1v1h-1zM8 54h1v1h-1zM9 54h1v1h-1zM12 54h1v1h-1zM13 54h1v1h-1zM14 54h1v1h-1zM16 54h1v1h-1zM17 54h1v1h-1zM18 54h1v1h-1zM20 54h1v1h-1zM21 54h1v1h-1zM22 54h1v1h-1zM26 54h1v1h-1zM27 54h1v1h-1zM29 54h1v1h-1zM33 54h1v1h-1zM37 54h1v1h-1zM38 54h1v1h-1zM40 54h1v1h-1zM45 54h1v1h-1zM50 54h1v1h-1zM52 54h1v1h-1zM53 54h1v1h-1zM55 54h1v1h-1zM56 54h1v1h-1zM58 54h1v1h-1zM59 54h1v1h-1zM64 54h1v1h-1zM65 54h1v1h-1zM66 54h1v1h-1zM68 54h1v1h-1zM69 54h1v1h-1zM70 54h1v1h-1zM74 54h1v1h-1zM75 54h1v1h-1zM76 54h1v1h-1zM2 55h1v1h-1zM5 55h1v1h-1zM6 55h1v1h-1zM10 55h1v1h-1zM11 55h1v1h-1zM12 55h1v1h-1zM13 55h1v1h-1zM14 55h1v1h-1zM15 55h1v1h-1zM18 55h1v1h-1zM20 55h1v1h-1zM24 55h1v1h-1zM25 55h1v1h-1zM28 55h1v1h-1zM29 55h1v1h-1zM34 55h1v1h-1zM37 55h1v1h-1zM38 55h1v1h-1zM39 55h1v1h-1zM41 55h1v1h-1zM44 55h1v1h-1zM45 55h1v1h-1zM47 55h1v1h-1zM49 55h1v1h-1zM53 55h1v1h-1zM54 55h1v1h-1zM56 55h1v1h-1zM58 55h1v1h-1zM59 55h1v1h-1zM60 55h1v1h-1zM61 55h1v1h-1zM62 55h1v1h-1zM66 55h1v1h-1zM69 55h1v1h-1zM70 55h1v1h-1zM72 55h1v1h-1zM73 55h1v1h-1zM74 55h1v1h-1zM75 55h1v1h-1zM76 55h1v1h-1zM77 55h1v1h-1zM2 56h1v1h-1zM6 56h1v1h-1zM7 56h1v1h-1zM8 56h1v1h-1zM9 56h1v1h-1zM10 56h1v1h-1zM11 56h1v1h-1zM17 56h1v1h-1zM19 56h1v1h-1zM21 56h1v1h-1zM22 56h1v1h-1zM23 56h1v1h-1zM25 56h1v1h-1zM26 56h1v1h-1zM29 56h1v1h-1zM31 56h1v1h-1zM32 56h1v1h-1zM33 56h1v1h-1zM34 56h1v1h-1zM35 56h1v1h-1zM36 56h1v1h-1zM37 56h1v1h-1zM38 56h1v1h-1zM43 56h1v1h-1zM46 56h1v1h-1zM47 56h1v1h-1zM50 56h1v1h-1zM51 56h1v1h-1zM52 56h1v1h-1zM55 56h1v1h-1zM59 56h1v1h-1zM60 56h1v1h-1zM63 56h1v1h-1zM66 56h1v1h-1zM67 56h1v1h-1zM70 56h1v1h-1zM2 57h1v1h-1zM5 57h1v1h-1zM6 57h1v1h-1zM7 57h1v1h-1zM10 57h1v1h-1zM11 57h1v1h-1zM13 57h1v1h-1zM14 57h1v1h-1zM15 57h1v1h-1zM16 57h1v1h-1zM19 57h1v1h-1zM20 57h1v1h-1zM25 57h1v1h-1zM32 57h1v1h-1zM38 57h1v1h-1zM39 57h1v1h-1zM41 57h1v1h-1zM48 57h1v1h-1zM52 57h1v1h-1zM53 57h1v1h-1zM54 57h1v1h-1zM56 57h1v1h-1zM58 57h1v1h-1zM63 57h1v1h-1zM64 57h1v1h-1zM65 57h1v1h-1zM66 57h1v1h-1zM67 57h1v1h-1zM69 57h1v1h-1zM70 57h1v1h-1zM75 57h1v1h-1zM77 57h1v1h-1zM5 58h1v1h-1zM6 58h1v1h-1zM7 58h1v1h-1zM8 58h1v1h-1zM9 58h1v1h-1zM10 58h1v1h-1zM12 58h1v1h-1zM13 58h1v1h-1zM14 58h1v1h-1zM17 58h1v1h-1zM18 58h1v1h-1zM19 58h1v1h-1zM21 58h1v1h-1zM22 58h1v1h-1zM24 58h1v1h-1zM25 58h1v1h-1zM26 58h1v1h-1zM27 58h1v1h-1zM30 58h1v1h-1zM33 58h1v1h-1zM37 58h1v1h-1zM38 58h1v1h-1zM39 58h1v1h-1zM40 58h1v1h-1zM44 58h1v1h-1zM45 58h1v1h-1zM50 58h1v1h-1zM52 58h1v1h-1zM53 58h1v1h-1zM60 58h1v1h-1zM62 58h1v1h-1zM63 58h1v1h-1zM64 58h1v1h-1zM65 58h1v1h-1zM70 58h1v1h-1zM74 58h1v1h-1zM76 58h1v1h-1zM78 58h1v1h-1zM2 59h1v1h-1zM3 59h1v1h-1zM5 59h1v1h-1zM9 59h1v1h-1zM10 59h1v1h-1zM12 59h1v1h-1zM13 59h1v1h-1zM14 59h1v1h-1zM16 59h1v1h-1zM17 59h1v1h-1zM19 59h1v1h-1zM20 59h1v1h-1zM21 59h1v1h-1zM23 59h1v1h-1zM27 59h1v1h-1zM28 59h1v1h-1zM29 59h1v1h-1zM31 59h1v1h-1zM32 59h1v1h-1zM35 59h1v1h-1zM39 59h1v1h-1zM41 59h1v1h-1zM42 59h1v1h-1zM43 59h1v1h-1zM44 59h1v1h-1zM46 59h1v1h-1zM48 59h1v1h-1zM49 59h1v1h-1zM50 59h1v1h-1zM52 59h1v1h-1zM53 59h1v1h-1zM58 59h1v1h-1zM59 59h1v1h-1zM68 59h1v1h-1zM70 59h1v1h-1zM71 59h1v1h-1zM73 59h1v1h-1zM74 59h1v1h-1zM75 59h1v1h-1zM77 59h1v1h-1zM3 60h1v1h-1zM6 60h1v1h-1zM7 60h1v1h-1zM8 60h1v1h-1zM10 60h1v1h-1zM11 60h1v1h-1zM15 60h1v1h-1zM18 60h1v1h-1zM22 60h1v1h-1zM24 60h1v1h-1zM26 60h1v1h-1zM27 60h1v1h-1zM28 60h1v1h-1zM32 60h1v1h-1zM36 60h1v1h-1zM39 60h1v1h-1zM40 60h1v1h-1zM41 60h1v1h-1zM47 60h1v1h-1zM50 60h1v1h-1zM51 60h1v1h-1zM54 60h1v1h-1zM55 60h1v1h-1zM59 60h1v1h-1zM60 60h1v1h-1zM62 60h1v1h-1zM64 60h1v1h-1zM67 60h1v1h-1zM71 60h1v1h-1zM72 60h1v1h-1zM73 60h1v1h-1zM3 61h1v1h-1zM5 61h1v1h-1zM7 61h1v1h-1zM11 61h1v1h-1zM15 61h1v1h-1zM17 61h1v1h-1zM19 61h1v1h-1zM21 61h1v1h-1zM25 61h1v1h-1zM26 61h1v1h-1zM27 61h1v1h-1zM30 61h1v1h-1zM34 61h1v1h-1zM37 61h1v1h-1zM38 61h1v1h-1zM40 61h1v1h-1zM42 61h1v1h-1zM43 61h1v1h-1zM45 61h1v1h-1zM46 61h1v1h-1zM48 61h1v1h-1zM49 61h1v1h-1zM52 61h1v1h-1zM54 61h1v1h-1zM57 61h1v1h-1zM58 61h1v1h-1zM60 61h1v1h-1zM63 61h1v1h-1zM64 61h1v1h-1zM65 61h1v1h-1zM66 61h1v1h-1zM67 61h1v1h-1zM68 61h1v1h-1zM70 61h1v1h-1zM71 61h1v1h-1zM72 61h1v1h-1zM73 61h1v1h-1zM74 61h1v1h-1zM75 61h1v1h-1zM78 61h1v1h-1zM2 62h1v1h-1zM3 62h1v1h-1zM4 62h1v1h-1zM5 62h1v1h-1zM8 62h1v1h-1zM9 62h1v1h-1zM11 62h1v1h-1zM13 62h1v1h-1zM14 62h1v1h-1zM19 62h1v1h-1zM21 62h1v1h-1zM22 62h1v1h-1zM24 62h1v1h-1zM27 62h1v1h-1zM28 62h1v1h-1zM30 62h1v1h-1zM32 62h1v1h-1zM37 62h1v1h-1zM38 62h1v1h-1zM40 62h1v1h-1zM44 62h1v1h-1zM45 62h1v1h-1zM48 62h1v1h-1zM51 62h1v1h-1zM52 62h1v1h-1zM53 62h1v1h-1zM54 62h1v1h-1zM55 62h1v1h-1zM56 62h1v1h-1zM59 62h1v1h-1zM64 62h1v1h-1zM65 62h1v1h-1zM66 62h1v1h-1zM67 62h1v1h-1zM74 62h1v1h-1zM75 62h1v1h-1zM76 62h1v1h-1zM3 63h1v1h-1zM4 63h1v1h-1zM5 63h1v1h-1zM6 63h1v1h-1zM10 63h1v1h-1zM12 63h1v1h-1zM19 63h1v1h-1zM22 63h1v1h-1zM23 63h1v1h-1zM24 63h1v1h-1zM27 63h1v1h-1zM28 63h1v1h-1zM31 63h1v1h-1zM34 63h1v1h-1zM37 63h1v1h-1zM38 63h1v1h-1zM39 63h1v1h-1zM41 63h1v1h-1zM43 63h1v1h-1zM44 63h1v1h-1zM46 63h1v1h-1zM48 63h1v1h-1zM50 63h1v1h-1zM51 63h1v1h-1zM52 63h1v1h-1zM54 63h1v1h-1zM56 63h1v1h-1zM58 63h1v1h-1zM59 63h1v1h-1zM62 63h1v1h-1zM64 63h1v1h-1zM65 63h1v1h-1zM66 63h1v1h-1zM69 63h1v1h-1zM70 63h1v1h-1zM73 63h1v1h-1zM74 63h1v1h-1zM76 63h1v1h-1zM78 63h1v1h-1zM6 64h1v1h-1zM7 64h1v1h-1zM8 64h1v1h-1zM12 64h1v1h-1zM13 64h1v1h-1zM15 64h1v1h-1zM18 64h1v1h-1zM19 64h1v1h-1zM22 64h1v1h-1zM25 64h1v1h-1zM28 64h1v1h-1zM29 64h1v1h-1zM30 64h1v1h-1zM31 64h1v1h-1zM32 64h1v1h-1zM33 64h1v1h-1zM34 64h1v1h-1zM35 64h1v1h-1zM37 64h1v1h-1zM39 64h1v1h-1zM41 64h1v1h-1zM44 64h1v1h-1zM45 64h1v1h-1zM54 64h1v1h-1zM57 64h1v1h-1zM60 64h1v1h-1zM63 64h1v1h-1zM64 64h1v1h-1zM65 64h1v1h-1zM67 64h1v1h-1zM68 64h1v1h-1zM70 64h1v1h-1zM71 64h1v1h-1zM74 64h1v1h-1zM2 65h1v1h-1zM3 65h1v1h-1zM5 65h1v1h-1zM9 65h1v1h-1zM10 65h1v1h-1zM11 65h1v1h-1zM14 65h1v1h-1zM15 65h1v1h-1zM16 65h1v1h-1zM19 65h1v1h-1zM20 65h1v1h-1zM25 65h1v1h-1zM28 65h1v1h-1zM31 65h1v1h-1zM32 65h1v1h-1zM36 65h1v1h-1zM38 65h1v1h-1zM39 65h1v1h-1zM42 65h1v1h-1zM43 65h1v1h-1zM44 65h1v1h-1zM45 65h1v1h-1zM47 65h1v1h-1zM48 65h1v1h-1zM49 65h1v1h-1zM50 65h1v1h-1zM52 65h1v1h-1zM56 65h1v1h-1zM58 65h1v1h-1zM59 65h1v1h-1zM60 65h1v1h-1zM64 65h1v1h-1zM65 65h1v1h-1zM66 65h1v1h-1zM68 65h1v1h-1zM69 65h1v1h-1zM70 65h1v1h-1zM73 65h1v1h-1zM74 65h1v1h-1zM75 65h1v1h-1zM2 66h1v1h-1zM3 66h1v1h-1zM4 66h1v1h-1zM5 66h1v1h-1zM6 66h1v1h-1zM8 66h1v1h-1zM9 66h1v1h-1zM10 66h1v1h-1zM11 66h1v1h-1zM12 66h1v1h-1zM14 66h1v1h-1zM15 66h1v1h-1zM16 66h1v1h-1zM20 66h1v1h-1zM21 66h1v1h-1zM22 66h1v1h-1zM23 66h1v1h-1zM25 66h1v1h-1zM27 66h1v1h-1zM28 66h1v1h-1zM30 66h1v1h-1zM32 66h1v1h-1zM33 66h1v1h-1zM34 66h1v1h-1zM37 66h1v1h-1zM38 66h1v1h-1zM39 66h1v1h-1zM40 66h1v1h-1zM43 66h1v1h-1zM45 66h1v1h-1zM53 66h1v1h-1zM54 66h1v1h-1zM55 66h1v1h-1zM56 66h1v1h-1zM58 66h1v1h-1zM62 66h1v1h-1zM63 66h1v1h-1zM65 66h1v1h-1zM67 66h1v1h-1zM68 66h1v1h-1zM69 66h1v1h-1zM74 66h1v1h-1zM75 66h1v1h-1zM76 66h1v1h-1zM78 66h1v1h-1zM2 67h1v1h-1zM7 67h1v1h-1zM9 67h1v1h-1zM10 67h1v1h-1zM13 67h1v1h-1zM14 67h1v1h-1zM16 67h1v1h-1zM17 67h1v1h-1zM20 67h1v1h-1zM23 67h1v1h-1zM25 67h1v1h-1zM26 67h1v1h-1zM27 67h1v1h-1zM30 67h1v1h-1zM31 67h1v1h-1zM34 67h1v1h-1zM37 67h1v1h-1zM38 67h1v1h-1zM39 67h1v1h-1zM41 67h1v1h-1zM42 67h1v1h-1zM43 67h1v1h-1zM44 67h1v1h-1zM47 67h1v1h-1zM48 67h1v1h-1zM49 67h1v1h-1zM50 67h1v1h-1zM51 67h1v1h-1zM53 67h1v1h-1zM56 67h1v1h-1zM59 67h1v1h-1zM65 67h1v1h-1zM66 67h1v1h-1zM70 67h1v1h-1zM71 67h1v1h-1zM73 67h1v1h-1zM74 67h1v1h-1zM3 68h1v1h-1zM6 68h1v1h-1zM7 68h1v1h-1zM8 68h1v1h-1zM11 68h1v1h-1zM14 68h1v1h-1zM15 68h1v1h-1zM16 68h1v1h-1zM18 68h1v1h-1zM21 68h1v1h-1zM26 68h1v1h-1zM29 68h1v1h-1zM30 68h1v1h-1zM31 68h1v1h-1zM32 68h1v1h-1zM33 68h1v1h-1zM34 68h1v1h-1zM35 68h1v1h-1zM39 68h1v1h-1zM40 68h1v1h-1zM41 68h1v1h-1zM42 68h1v1h-1zM43 68h1v1h-1zM46 68h1v1h-1zM47 68h1v1h-1zM48 68h1v1h-1zM51 68h1v1h-1zM52 68h1v1h-1zM54 68h1v1h-1zM55 68h1v1h-1zM57 68h1v1h-1zM58 68h1v1h-1zM60 68h1v1h-1zM63 68h1v1h-1zM64 68h1v1h-1zM65 68h1v1h-1zM70 68h1v1h-1zM71 68h1v1h-1zM72 68h1v1h-1zM73 68h1v1h-1zM74 68h1v1h-1zM76 68h1v1h-1zM6 69h1v1h-1zM11 69h1v1h-1zM13 69h1v1h-1zM14 69h1v1h-1zM15 69h1v1h-1zM18 69h1v1h-1zM20 69h1v1h-1zM22 69h1v1h-1zM29 69h1v1h-1zM30 69h1v1h-1zM31 69h1v1h-1zM32 69h1v1h-1zM33 69h1v1h-1zM35 69h1v1h-1zM37 69h1v1h-1zM39 69h1v1h-1zM40 69h1v1h-1zM41 69h1v1h-1zM43 69h1v1h-1zM45 69h1v1h-1zM46 69h1v1h-1zM49 69h1v1h-1zM50 69h1v1h-1zM54 69h1v1h-1zM55 69h1v1h-1zM56 69h1v1h-1zM57 69h1v1h-1zM59 69h1v1h-1zM65 69h1v1h-1zM66 69h1v1h-1zM67 69h1v1h-1zM68 69h1v1h-1zM69 69h1v1h-1zM70 69h1v1h-1zM73 69h1v1h-1zM74 69h1v1h-1zM75 69h1v1h-1zM77 69h1v1h-1zM78 69h1v1h-1zM3 70h1v1h-1zM4 70h1v1h-1zM5 70h1v1h-1zM6 70h1v1h-1zM8 70h1v1h-1zM10 70h1v1h-1zM13 70h1v1h-1zM16 70h1v1h-1zM17 70h1v1h-1zM21 70h1v1h-1zM23 70h1v1h-1zM25 70h1v1h-1zM26 70h1v1h-1zM27 70h1v1h-1zM28 70h1v1h-1zM29 70h1v1h-1zM30 70h1v1h-1zM33 70h1v1h-1zM36 70h1v1h-1zM37 70h1v1h-1zM38 70h1v1h-1zM39 70h1v1h-1zM44 70h1v1h-1zM45 70h1v1h-1zM47 70h1v1h-1zM48 70h1v1h-1zM49 70h1v1h-1zM50 70h1v1h-1zM51 70h1v1h-1zM52 70h1v1h-1zM53 70h1v1h-1zM56 70h1v1h-1zM60 70h1v1h-1zM65 70h1v1h-1zM66 70h1v1h-1zM67 70h1v1h-1zM70 70h1v1h-1zM71 70h1v1h-1zM72 70h1v1h-1zM73 70h1v1h-1zM74 70h1v1h-1zM77 70h1v1h-1zM78 70h1v1h-1zM10 71h1v1h-1zM11 71h1v1h-1zM12 71h1v1h-1zM17 71h1v1h-1zM18 71h1v1h-1zM24 71h1v1h-1zM25 71h1v1h-1zM26 71h1v1h-1zM30 71h1v1h-1zM31 71h1v1h-1zM32 71h1v1h-1zM34 71h1v1h-1zM37 71h1v1h-1zM39 71h1v1h-1zM43 71h1v1h-1zM44 71h1v1h-1zM45 71h1v1h-1zM46 71h1v1h-1zM48 71h1v1h-1zM52 71h1v1h-1zM54 71h1v1h-1zM56 71h1v1h-1zM57 71h1v1h-1zM59 71h1v1h-1zM61 71h1v1h-1zM69 71h1v1h-1zM70 71h1v1h-1zM74 71h1v1h-1zM75 71h1v1h-1zM76 71h1v1h-1zM78 71h1v1h-1zM2 72h1v1h-1zM3 72h1v1h-1zM4 72h1v1h-1zM5 72h1v1h-1zM6 72h1v1h-1zM7 72h1v1h-1zM8 72h1v1h-1zM12 72h1v1h-1zM13 72h1v1h-1zM15 72h1v1h-1zM16 72h1v1h-1zM17 72h1v1h-1zM19 72h1v1h-1zM20 72h1v1h-1zM23 72h1v1h-1zM26 72h1v1h-1zM28 72h1v1h-1zM30 72h1v1h-1zM32 72h1v1h-1zM33 72h1v1h-1zM34 72h1v1h-1zM36 72h1v1h-1zM37 72h1v1h-1zM40 72h1v1h-1zM41 72h1v1h-1zM44 72h1v1h-1zM45 72h1v1h-1zM47 72h1v1h-1zM48 72h1v1h-1zM50 72h1v1h-1zM52 72h1v1h-1zM54 72h1v1h-1zM55 72h1v1h-1zM57 72h1v1h-1zM60 72h1v1h-1zM61 72h1v1h-1zM62 72h1v1h-1zM63 72h1v1h-1zM65 72h1v1h-1zM66 72h1v1h-1zM67 72h1v1h-1zM68 72h1v1h-1zM69 72h1v1h-1zM70 72h1v1h-1zM72 72h1v1h-1zM74 72h1v1h-1zM2 73h1v1h-1zM8 73h1v1h-1zM10 73h1v1h-1zM12 73h1v1h-1zM13 73h1v1h-1zM14 73h1v1h-1zM15 73h1v1h-1zM17 73h1v1h-1zM20 73h1v1h-1zM22 73h1v1h-1zM26 73h1v1h-1zM30 73h1v1h-1zM32 73h1v1h-1zM33 73h1v1h-1zM34 73h1v1h-1zM35 73h1v1h-1zM38 73h1v1h-1zM41 73h1v1h-1zM43 73h1v1h-1zM47 73h1v1h-1zM48 73h1v1h-1zM52 73h1v1h-1zM53 73h1v1h-1zM54 73h1v1h-1zM58 73h1v1h-1zM59 73h1v1h-1zM60 73h1v1h-1zM63 73h1v1h-1zM65 73h1v1h-1zM66 73h1v1h-1zM69 73h1v1h-1zM70 73h1v1h-1zM74 73h1v1h-1zM75 73h1v1h-1zM2 74h1v1h-1zM4 74h1v1h-1zM5 74h1v1h-1zM6 74h1v1h-1zM8 74h1v1h-1zM10 74h1v1h-1zM12 74h1v1h-1zM14 74h1v1h-1zM15 74h1v1h-1zM18 74h1v1h-1zM21 74h1v1h-1zM23 74h1v1h-1zM25 74h1v1h-1zM26 74h1v1h-1zM27 74h1v1h-1zM28 74h1v1h-1zM29 74h1v1h-1zM30 74h1v1h-1zM31 74h1v1h-1zM32 74h1v1h-1zM37 74h1v1h-1zM39 74h1v1h-1zM45 74h1v1h-1zM47 74h1v1h-1zM48 74h1v1h-1zM49 74h1v1h-1zM50 74h1v1h-1zM51 74h1v1h-1zM52 74h1v1h-1zM53 74h1v1h-1zM55 74h1v1h-1zM56 74h1v1h-1zM63 74h1v1h-1zM65 74h1v1h-1zM70 74h1v1h-1zM71 74h1v1h-1zM72 74h1v1h-1zM73 74h1v1h-1zM74 74h1v1h-1zM2 75h1v1h-1zM4 75h1v1h-1zM5 75h1v1h-1zM6 75h1v1h-1zM8 75h1v1h-1zM10 75h1v1h-1zM14 75h1v1h-1zM15 75h1v1h-1zM17 75h1v1h-1zM20 75h1v1h-1zM21 75h1v1h-1zM23 75h1v1h-1zM24 75h1v1h-1zM25 75h1v1h-1zM26 75h1v1h-1zM31 75h1v1h-1zM39 75h1v1h-1zM42 75h1v1h-1zM43 75h1v1h-1zM45 75h1v1h-1zM46 75h1v1h-1zM51 75h1v1h-1zM52 75h1v1h-1zM53 75h1v1h-1zM56 75h1v1h-1zM57 75h1v1h-1zM59 75h1v1h-1zM61 75h1v1h-1zM62 75h1v1h-1zM69 75h1v1h-1zM70 75h1v1h-1zM73 75h1v1h-1zM75 75h1v1h-1zM76 75h1v1h-1zM77 75h1v1h-1zM2 76h1v1h-1zM4 76h1v1h-1zM5 76h1v1h-1zM6 76h1v1h-1zM8 76h1v1h-1zM10 76h1v1h-1zM13 76h1v1h-1zM14 76h1v1h-1zM17 76h1v1h-1zM19 76h1v1h-1zM20 76h1v1h-1zM23 76h1v1h-1zM25 76h1v1h-1zM26 76h1v1h-1zM30 76h1v1h-1zM32 76h1v1h-1zM33 76h1v1h-1zM36 76h1v1h-1zM37 76h1v1h-1zM39 76h1v1h-1zM40 76h1v1h-1zM41 76h1v1h-1zM44 76h1v1h-1zM47 76h1v1h-1zM50 76h1v1h-1zM51 76h1v1h-1zM52 76h1v1h-1zM54 76h1v1h-1zM57 76h1v1h-1zM59 76h1v1h-1zM60 76h1v1h-1zM63 76h1v1h-1zM64 76h1v1h-1zM66 76h1v1h-1zM69 76h1v1h-1zM70 76h1v1h-1zM72 76h1v1h-1zM73 76h1v1h-1zM74 76h1v1h-1zM76 76h1v1h-1zM77 76h1v1h-1zM2 77h1v1h-1zM8 77h1v1h-1zM11 77h1v1h-1zM12 77h1v1h-1zM13 77h1v1h-1zM14 77h1v1h-1zM16 77h1v1h-1zM19 77h1v1h-1zM23 77h1v1h-1zM24 77h1v1h-1zM27 77h1v1h-1zM30 77h1v1h-1zM32 77h1v1h-1zM34 77h1v1h-1zM36 77h1v1h-1zM37 77h1v1h-1zM38 77h1v1h-1zM39 77h1v1h-1zM40 77h1v1h-1zM41 77h1v1h-1zM42 77h1v1h-1zM44 77h1v1h-1zM48 77h1v1h-1zM49 77h1v1h-1zM52 77h1v1h-1zM54 77h1v1h-1zM56 77h1v1h-1zM57 77h1v1h-1zM58 77h1v1h-1zM59 77h1v1h-1zM61 77h1v1h-1zM63 77h1v1h-1zM66 77h1v1h-1zM67 77h1v1h-1zM68 77h1v1h-1zM69 77h1v1h-1zM70 77h1v1h-1zM71 77h1v1h-1zM73 77h1v1h-1zM74 77h1v1h-1zM75 77h1v1h-1zM77 77h1v1h-1zM2 78h1v1h-1zM3 78h1v1h-1zM4 78h1v1h-1zM5 78h1v1h-1zM6 78h1v1h-1zM7 78h1v1h-1zM8 78h1v1h-1zM10 78h1v1h-1zM11 78h1v1h-1zM14 78h1v1h-1zM18 78h1v1h-1zM19 78h1v1h-1zM20 78h1v1h-1zM23 78h1v1h-1zM29 78h1v1h-1zM33 78h1v1h-1zM35 78h1v1h-1zM37 78h1v1h-1zM38 78h1v1h-1zM39 78h1v1h-1zM43 78h1v1h-1zM44 78h1v1h-1zM45 78h1v1h-1zM48 78h1v1h-1zM52 78h1v1h-1zM53 78h1v1h-1zM54 78h1v1h-1zM55 78h1v1h-1zM58 78h1v1h-1zM64 78h1v1h-1zM65 78h1v1h-1zM66 78h1v1h-1zM69 78h1v1h-1zM71 78h1v1h-1zM74 78h1v1h-1z" fill="#1D1416"/></svg>
+              <p>Point the phone&rsquo;s camera at the code and tap the link.</p>
+              <p class="fine">This demo code opens the demo plan. The plan travels inside the code; it is not saved or sent to our servers.</p>
+              <button type="button" class="pv-btn pv-close">Done</button>
+            </div>
+          </div>
+          <span class="pv-finger" aria-hidden="true"></span>
+        </div>
+      </div>
+    </div>
+    <p class="pv-fine">Demo patient: the same 58-year-old man with type 2 diabetes, kidney disease (G3a/A2) and high blood pressure as <a href="#walkthrough">See it run</a>. Every number and phrase on this screen is RCCKM engine output, worded the way the app words it. Option figures are rough estimates for discussion, not treatment orders; each range covers trial uncertainty only. <a href="methods.html#option-estimates">How each option is estimated</a>.</p>
+    <script type="application/json" id="pv-data">{"today":{"ascvd_10y":14.46,"ascvd_30y":37.08,"hf_10y":16.63,"category":"high"},"horizon":10,"options":[{"id":"bp","name":"Lower blood pressure","lane":"ascvd","evidence":"proven","counted":true,"lever_id":"bp","fewer_per_100":4.54,"fewer_per_100_best":5.16,"fewer_per_100_worst":3.89,"relative_reduction":30,"risk_after":9.92,"harm_per_100":null,"why":[{"fact":"sbp","value":138,"target":120}],"line":"A lower target that keeps you feeling well.","long_term":{"risk":37.08,"risk_after":26.66,"fewer_per_100":10.42,"fewer_per_100_low":8.88,"fewer_per_100_high":11.95,"relative_reduction":30}},{"id":"diet","name":"Mediterranean eating","lane":"ascvd","evidence":"single_trial","counted":false,"lever_id":null,"fewer_per_100":4.1,"fewer_per_100_best":6.52,"fewer_per_100_worst":0.67,"relative_reduction":30,"risk_after":10.36,"harm_per_100":null,"why":[{"fact":"diabetes","value":7.5}],"line":"Vegetables, beans, fish, olive oil and nuts, one change at a time.","long_term":null},{"id":"intensify","name":"Stronger statin","lane":"ascvd","evidence":"proven","counted":true,"lever_id":"intensify","fewer_per_100":2.3,"fewer_per_100_best":2.52,"fewer_per_100_worst":2.08,"relative_reduction":15,"risk_after":12.16,"harm_per_100":null,"why":[{"fact":"lipid","value":126,"measure":"LDL-C","expected":97,"on_statin":true}],"line":"Lowers LDL cholesterol further. Your clinician chooses the medicine and dose.","long_term":{"risk":37.08,"risk_after":31.92,"fewer_per_100":5.16,"fewer_per_100_low":4.66,"fewer_per_100_high":11.98,"relative_reduction":15}},{"id":"glp1","name":"GLP-1 medicine","lane":"ascvd","evidence":"uncertain","counted":false,"lever_id":null,"fewer_per_100":1.62,"fewer_per_100_best":3.55,"fewer_per_100_worst":-0.67,"relative_reduction":null,"risk_after":12.84,"harm_per_100":null,"why":[{"fact":"diabetes","value":7.5},{"fact":"bmi","value":35.6}],"line":"Helps blood sugar and weight. Your clinician chooses the medicine.","long_term":null},{"id":"sglt2","name":"SGLT2 medicine","lane":"hf","evidence":"proven","counted":false,"lever_id":null,"fewer_per_100":4.84,"fewer_per_100_best":6.13,"fewer_per_100_worst":3.25,"relative_reduction":30,"risk_after":11.79,"harm_per_100":null,"why":[{"fact":"diabetes","value":7.5},{"fact":"egfr_low","value":56},{"fact":"uacr_high","value":126}],"line":"A daily pill that also protects the kidneys.","long_term":null},{"id":"bp_hf","name":"Lower blood pressure","lane":"hf","evidence":"uncertain","counted":false,"lever_id":"bp","fewer_per_100":1.35,"fewer_per_100_best":7.5,"fewer_per_100_worst":-8.37,"relative_reduction":null,"risk_after":15.28,"harm_per_100":null,"why":[{"fact":"sbp","value":138,"target":120}],"line":"Comes with the blood pressure option above.","long_term":null}],"plans":{"|diet":{"a10":14.46,"a30":37.08,"cat":"high","rrr10":null,"rrr30":null,"possible":10.36},"|glp1":{"a10":14.46,"a30":37.08,"cat":"high","rrr10":null,"rrr30":null,"possible":12.84},"|diet+glp1":{"a10":14.46,"a30":37.08,"cat":"high","rrr10":null,"rrr30":null,"possible":9.17},"bp|":{"a10":9.92,"a30":26.65,"cat":"high","rrr10":30,"rrr30":30,"possible":null},"bp|diet":{"a10":9.92,"a30":26.65,"cat":"high","rrr10":30,"rrr30":30,"possible":7.05},"bp|glp1":{"a10":9.92,"a30":26.65,"cat":"high","rrr10":30,"rrr30":30,"possible":8.78},"bp|diet+glp1":{"a10":9.92,"a30":26.65,"cat":"high","rrr10":30,"rrr30":30,"possible":6.23},"intensify|":{"a10":12.16,"a30":31.92,"cat":"high","rrr10":15,"rrr30":15,"possible":null},"intensify|diet":{"a10":12.16,"a30":31.92,"cat":"high","rrr10":15,"rrr30":15,"possible":8.68},"intensify|glp1":{"a10":12.16,"a30":31.92,"cat":"high","rrr10":15,"rrr30":15,"possible":10.78},"intensify|diet+glp1":{"a10":12.16,"a30":31.92,"cat":"high","rrr10":15,"rrr30":15,"possible":7.68},"bp+intensify|":{"a10":8.31,"a30":22.68,"cat":"intermediate","rrr10":45,"rrr30":40,"possible":null},"bp+intensify|diet":{"a10":8.31,"a30":22.68,"cat":"intermediate","rrr10":45,"rrr30":40,"possible":5.89},"bp+intensify|glp1":{"a10":8.31,"a30":22.68,"cat":"intermediate","rrr10":45,"rrr30":40,"possible":7.35},"bp+intensify|diet+glp1":{"a10":8.31,"a30":22.68,"cat":"intermediate","rrr10":45,"rrr30":40,"possible":5.2}},"thirty_note":"30-year figures assume the trial effect (about 5 years of treatment) is sustained.","goals":["Blood sugar (A1c) toward your goal","Urine protein: confirm it and protect your kidneys"]}</script>
+    <script type="application/json" id="pv-words">{"options":[{"id":"bp","lane":"ascvd","counted":true,"lever":"bp","name":"Lower blood pressure","line":"A lower target that keeps you feeling well.","evidence":"proven","evidenceLabel":"Proven in large trials","why":"Blood pressure 138; goal about 120.","ten":{"unclear":false,"fewer":4,"rel":30,"range":"Likely 4 to 5 fewer","pt":4.54,"lo":3.89,"hi":5.16},"longLine":"Over 30 years: about 9 to 12 fewer","thirty":{"fewer":10,"rel":30,"range":"Likely 9 to 12 fewer","pt":10.42,"lo":8.88,"hi":11.95,"tenLine":"Over 10 years: about 4 fewer of 100"},"noThirtyLine":null},{"id":"diet","lane":"ascvd","counted":false,"lever":null,"name":"Mediterranean eating","line":"Vegetables, beans, fish, olive oil and nuts, one change at a time.","evidence":"single_trial","evidenceLabel":"One large trial","why":"Diabetes (A1c 7.5).","ten":{"unclear":false,"fewer":4,"rel":30,"range":"Likely 0.7 to 7 fewer","pt":4.1,"lo":0.67,"hi":6.52},"longLine":"","thirty":null,"noThirtyLine":"Over 10 years: about 4 fewer of 100"},{"id":"intensify","lane":"ascvd","counted":true,"lever":"intensify","name":"Stronger statin","line":"Lowers LDL cholesterol further. Your clinician chooses the medicine and dose.","evidence":"proven","evidenceLabel":"Proven in large trials","why":"LDL cholesterol 126 on a statin; expected about 97.","ten":{"unclear":false,"fewer":2,"rel":15,"range":"Likely 2 to 3 fewer","pt":2.3,"lo":2.08,"hi":2.52},"longLine":"Over 30 years: about 5 to 12 fewer","thirty":{"fewer":5,"rel":15,"range":"Likely 5 to 12 fewer","pt":5.16,"lo":4.66,"hi":11.98,"tenLine":"Over 10 years: about 2 fewer of 100"},"noThirtyLine":null},{"id":"glp1","lane":"ascvd","counted":false,"lever":null,"name":"GLP-1 medicine","line":"Helps blood sugar and weight. Your clinician chooses the medicine.","evidence":"uncertain","evidenceLabel":"Benefit uncertain","why":"Diabetes (A1c 7.5) and BMI 35.6.","ten":{"unclear":true,"fewer":null,"rel":null,"range":"From about 0.7 more to 4 fewer","pt":1.62,"lo":-0.67,"hi":3.55},"longLine":"","thirty":null,"noThirtyLine":"Over 10 years: benefit unclear"},{"id":"sglt2","lane":"hf","counted":false,"lever":null,"name":"SGLT2 medicine","line":"A daily pill that also protects the kidneys.","evidence":"proven","evidenceLabel":"Proven in large trials","why":"Diabetes (A1c 7.5), reduced kidney function (eGFR 56) and protein in the urine (UACR 126).","ten":{"unclear":false,"fewer":5,"rel":30,"range":"Likely 3 to 6 fewer","pt":4.84,"lo":3.25,"hi":6.13},"longLine":"","thirty":null,"noThirtyLine":"Over 10 years: about 5 fewer of 100"},{"id":"bp_hf","lane":"hf","counted":false,"lever":"bp","name":"Lower blood pressure","line":"Comes with the blood pressure option above.","evidence":"uncertain","evidenceLabel":"Benefit uncertain","why":"Blood pressure 138; goal about 120.","ten":{"unclear":true,"fewer":null,"rel":null,"range":"From about 8 more to 8 fewer","pt":1.35,"lo":-8.37,"hi":7.5},"longLine":"","thirty":null,"noThirtyLine":"Over 10 years: benefit unclear"}],"order30":["bp","intensify","diet","glp1","sglt2","bp_hf"]}</script>
   </div>
 </section>
 
@@ -1229,8 +1488,8 @@ Management Considerations:
     <div class="faq-preview-list">
       <div id="levels"><h3><a href="methods.html#levels">What do the RCCKM Levels mean?</a></h3><p>Each Level names a clinical pattern. The guide explains 3A, 3B and 3C alongside the other Levels and the separate CKM, KDIGO and PREVENT frameworks.</p></div>
       <div id="signal"><h3><a href="methods.html#rss">What does the Risk Signal Score add?</a></h3><p>Read how the points tally makes its contributors visible and how to interpret it alongside PREVENT.</p></div>
-      <div><h3><a href="methods.html#simulator">What does the simulator bring to the conversation?</a></h3><p>Explore options together using trial-derived LDL-C and blood pressure effects and supported PREVENT recalculations, with the methods in view.</p></div>
-      <div><h3><a href="methods.html#evaluation">What supports the platform?</a></h3><p>Published equations and clinical frameworks underpin the assessment. Software checks and automated case testing support development, with independent clinical evaluation as the next step.</p></div>
+      <div><h3><a href="methods.html#simulator">What does the simulator bring to the conversation?</a></h3><p>Explore options together: trial-derived statin and blood pressure effects, each other option estimated on its own with its range, and a patient view to hand over. <a href="faq.html#patient-view">What the patient sees</a>.</p></div>
+      <div><h3><a href="methods.html#evaluation">What supports the platform?</a></h3><p>Published equations and clinical frameworks underpin the assessment. Every PREVENT value is checked against the AHA&rsquo;s official implementation, and every change to clinical output is reviewed by a physician before it ships, with independent clinical evaluation as the next step.</p></div>
     </div>
   </div>
 </section>
@@ -1256,7 +1515,7 @@ Management Considerations:
     <div class="pilot-copy">
       <span class="eyebrow">Pilots</span>
       <h2 class="h2" id="pilot-h2">Help evaluate prevention in the visit.</h2>
-      <p class="lede">We're seeking practices, specialty groups and health systems to evaluate RCCKM's simulator, missing-test simulator, clinical note and patient roadmap.</p>
+      <p class="lede">We're seeking practices, specialty groups and health systems to evaluate RCCKM's simulator, patient view, missing-test simulator, clinical note and patient roadmap.</p>
       <p>For platform teams, let's explore how the engine could support your existing workflow.</p>
       <p class="fineprint">Start with a 15-minute demo on your own de-identified cases. Clinical pilots and integrations require separate institutional approvals and agreements.</p>
     </div>
@@ -1636,7 +1895,7 @@ Management Considerations:
     });
 
     /* 4. Live demo: demo cases; each note is RCCKM engine output. */
-    var patients = [{"name": "Patient A", "meta": "34F · non-smoker · clean prevention visit", "labs": [["A1c", "5.2 %"], ["LDL-C", "88 mg/dL"], ["ApoB", "70 mg/dL"], ["BP", "108/68"], ["eGFR · UACR", "105 · 4"], ["BMI", "22.0"]], "flags": [], "pos": 10, "label": "Level 1 · No signals found", "sub": "Plaque unmeasured", "note": "[k]Risk Continuum CKM™[/k]\nLevel 1 | CKM 0\n[k]PREVENT ASCVD:[/k] 10y 0.2% (Low), 30y 1.2% (Low) | Total CVD: 10y 0.2%, 30y 1.9%\n\n[k]Management Considerations:[/k]\n- [k]Lipids:[/k] No lipid-lowering medication indicated. LDL-C 88.\n- [k]Plaque:[/k] CAC not indicated.\n- [k]Kidney:[/k] Stable.\n- [k]BP:[/k] Continue routine BP surveillance.\n- [k]Metabolic:[/k] No glycemic action. A1c 5.2%.\n- [k]Aspirin:[/k] Not indicated."}, {"name": "Patient B", "meta": "52F · gestational diabetes hx · labs rising since 2024", "labs": [["A1c", "6.1 % ↑"], ["LDL-C", "122 mg/dL ↑"], ["ApoB", "92 mg/dL"], ["TG", "168 mg/dL ↑"], ["BP", "128/78 ↑"], ["BMI", "31.6"]], "flags": [0, 1, 3, 5], "pos": 50, "label": "Level 3B · Actionable drivers", "sub": "Plaque unmeasured", "note": "[k]Risk Continuum CKM™[/k]\nLevel 3B | Actionable drivers | CKM 2 | CAC Not Measured\n[k]PREVENT ASCVD:[/k] 10y 2.1% (Low), 30y 12.2% (Mildly elevated) | Total CVD: 10y 3.4%, 30y 20.3%\n\n[k]Assessment (ICD-10):[/k]\n- Hypertriglyceridemia (E78.1)\n- Prediabetes (R73.03)\n- Obesity, BMI 31.6 (E66.9, Z68.31)\n\n[k]Management Considerations:[/k]\n- [k]Lipids:[/k] Moderate-intensity statin reasonable. LDL-C 122. If treatment is selected: LDL-C goal <100.\n- [k]Plaque:[/k] Consider CAC.\n- [k]Kidney:[/k] Stable.\n- [k]BP:[/k] Continue routine BP surveillance.\n- [k]Metabolic:[/k] BMI >=30 — consider GLP-1 RA for weight/cardiometabolic risk. A1c 6.1%.\n- [k]Aspirin:[/k] Not indicated."}, {"name": "Patient C", "meta": "62F · treated hypertension · CAC 38 (82nd percentile)", "labs": [["A1c", "5.8 %"], ["LDL-C", "128 mg/dL"], ["ApoB", "95 mg/dL"], ["BP", "132/78 · treated"], ["Lp(a)", "82 nmol/L"], ["CAC", "38"]], "flags": [1, 4, 5], "pos": 70, "label": "Level 4 · Plaque present", "sub": "Plaque present (CAC 38)", "note": "[k]Risk Continuum CKM™[/k]\nLevel 4 | CKM 3 (CAC/subclinical CVD; CKD not established) | CAC 38\n[k]PREVENT ASCVD:[/k] 10y 4.4% (Borderline) | Total CVD: 10y 7.7%\n\n[k]Assessment (ICD-10):[/k]\n- Subclinical coronary atherosclerosis (CAC 38)\n- Primary hypertension (I10)\n- Prediabetes (R73.03)\n\n[k]Risk Drivers:[/k]\nCAC 38\n\n[k]Context:[/k]\n- Lp(a) 82 nmol/L (intermediate)\n\n[k]Management Considerations:[/k]\n- [k]Lipids:[/k] Moderate-intensity statin recommended. LDL-C 128; target <70.\n- [k]Plaque:[/k] Known plaque.\n- [k]Kidney:[/k] Stable.\n- [k]BP:[/k] Confirm BP; treat if persistent. Current BP 132/78 mmHg.\n- [k]Metabolic:[/k] GLP-1 weight therapy: eligible. BMI 29.5 with hypertension; A1c 5.8%.\n- [k]Aspirin:[/k] Not indicated.\n\n[k]Further Risk Assessment:[/k]\n- hsCRP"}, {"name": "Patient D", "meta": "67M · on rosuvastatin 20 mg · CAC 420 · Lp(a) 210", "labs": [["LDL-C", "104 mg/dL on statin"], ["ApoB", "102 mg/dL"], ["Lp(a)", "210 nmol/L"], ["CAC", "420"], ["BP", "126/74 · treated"], ["A1c", "5.9 %"]], "flags": [0, 1, 2, 3], "pos": 90, "label": "Level 5 · Advanced plaque or disease", "sub": "CAC 420", "note": "[k]Risk Continuum CKM™[/k]\nLevel 5 | CKM 3 (CAC/subclinical CVD; CKD not established) | CAC 420\n[k]PREVENT:[/k] Not applicable (CAC >=300 indicates severe subclinical cardiovascular disease; PREVENT is not reported in this context)\n\n[k]Assessment (ICD-10):[/k]\n- Severe subclinical coronary atherosclerosis (CAC 420)\n- Primary hypertension (I10)\n- Elevated lipoprotein(a) (E78.41)\n- Hypertriglyceridemia (E78.1)\n- Prediabetes (R73.03)\n\n[k]Risk Drivers:[/k]\nCAC 420 | ApoB 102 mg/dL | Lp(a) 210 nmol/L\n\n[k]Management Considerations:[/k]\n- [k]Lipids:[/k] Currently receiving rosuvastatin 20 mg. LDL-C 104; target <70. Review current lipid-lowering regimen and residual target gap. Consider additional nonstatin LDL-lowering therapy.\n- [k]Plaque:[/k] Known plaque.\n- [k]Kidney:[/k] Stable.\n- [k]BP:[/k] Continue current BP regimen.\n- [k]Metabolic:[/k] GLP-1 weight therapy: eligible. BMI 29 with hypertension; A1c 5.9%.\n- [k]Aspirin:[/k] Low-dose aspirin is generally reasonable if bleeding risk is acceptable."}];
+    var patients = [{"name": "Patient A", "meta": "34F · non-smoker · clean prevention visit", "labs": [["A1c", "5.2 %"], ["LDL-C", "88 mg/dL"], ["ApoB", "70 mg/dL"], ["BP", "108/68"], ["eGFR · UACR", "105 · 4"], ["BMI", "22.0"]], "flags": [], "pos": 10, "label": "Level 1 · No signals found", "sub": "Plaque unmeasured", "note": "[k]Risk Continuum CKM™[/k]\nLevel 1 | CKM 0\n[k]PREVENT ASCVD:[/k] 10y 0.2% (Low), 30y 1.3% (Low) | Total CVD: 10y 0.3%, 30y 2.1%\n\n[k]Management Considerations:[/k]\n- [k]Lipids:[/k] No lipid-lowering medication indicated. LDL-C 88.\n- [k]Plaque:[/k] CAC not indicated.\n- [k]Kidney:[/k] Stable.\n- [k]BP:[/k] Continue routine BP surveillance.\n- [k]Metabolic:[/k] No glycemic action. A1c 5.2%.\n- [k]Aspirin:[/k] Not indicated."}, {"name": "Patient B", "meta": "52F · gestational diabetes hx · labs rising since 2024", "labs": [["A1c", "6.1 % ↑"], ["LDL-C", "122 mg/dL ↑"], ["ApoB", "92 mg/dL"], ["TG", "168 mg/dL ↑"], ["BP", "128/78 ↑"], ["BMI", "31.6"]], "flags": [0, 1, 3, 5], "pos": 50, "label": "Level 3B · Actionable drivers", "sub": "Plaque unmeasured", "note": "[k]Risk Continuum CKM™[/k]\nLevel 3B | Actionable drivers | CKM 2 | CAC Not Measured\n[k]PREVENT ASCVD:[/k] 10y 2.1% (Low), 30y 12.2% (Mildly elevated) | Total CVD: 10y 3.4%, 30y 20.3%\n\n[k]Assessment (ICD-10):[/k]\n- Hypertriglyceridemia (E78.1)\n- Prediabetes (R73.03)\n- Obesity, BMI 31.6 (E66.9, Z68.31)\n\n[k]Management Considerations:[/k]\n- [k]Lipids:[/k] Moderate-intensity statin reasonable. LDL-C 122. If treatment is selected: LDL-C goal <100.\n- [k]Plaque:[/k] Consider CAC.\n- [k]Kidney:[/k] Stable.\n- [k]BP:[/k] Continue routine BP surveillance.\n- [k]Metabolic:[/k] BMI ≥30: consider GLP-1 RA for weight and cardiometabolic risk. A1c 6.1%.\n- [k]Aspirin:[/k] Not indicated."}, {"name": "Patient C", "meta": "62F · treated hypertension · CAC 38 (82nd percentile)", "labs": [["A1c", "5.8 %"], ["LDL-C", "128 mg/dL"], ["ApoB", "95 mg/dL"], ["BP", "132/78 · treated"], ["Lp(a)", "82 nmol/L"], ["CAC", "38"]], "flags": [1, 4, 5], "pos": 70, "label": "Level 4 · Plaque present", "sub": "Plaque present (CAC 38)", "note": "[k]Risk Continuum CKM™[/k]\nLevel 4 | CKM 3 (CAC/subclinical CVD; CKD not established) | CAC 38\n[k]PREVENT ASCVD:[/k] 10y 4.7% (Borderline) | Total CVD: 10y 8.3%\n\n[k]Assessment (ICD-10):[/k]\n- Subclinical coronary atherosclerosis (CAC 38) (no ICD-10 code)\n- Primary hypertension (I10)\n- Prediabetes (R73.03)\n\n[k]Risk Drivers:[/k]\nCAC 38\n\n[k]Context:[/k]\n- Lp(a) 82 nmol/L (intermediate)\n\n[k]Management Considerations:[/k]\n- [k]Lipids:[/k] Moderate-intensity statin recommended. LDL-C 128; target <70.\n- [k]Plaque:[/k] Known plaque.\n- [k]Kidney:[/k] Stable.\n- [k]BP:[/k] Confirm BP; treat if persistent. Current BP 132/78 mmHg.\n- [k]Metabolic:[/k] GLP-1 weight therapy: eligible. BMI 29.5 with hypertension; A1c 5.8%.\n- [k]Aspirin:[/k] Not indicated.\n\n[k]Further Risk Assessment:[/k]\n- hsCRP"}, {"name": "Patient D", "meta": "67M · on rosuvastatin 20 mg · CAC 420 · Lp(a) 210", "labs": [["LDL-C", "104 mg/dL on statin"], ["ApoB", "102 mg/dL"], ["Lp(a)", "210 nmol/L"], ["CAC", "420"], ["BP", "126/74 · treated"], ["A1c", "5.9 %"]], "flags": [0, 1, 2, 3], "pos": 90, "label": "Level 5 · Advanced plaque or disease", "sub": "CAC 420", "note": "[k]Risk Continuum CKM™[/k]\nLevel 5 | CKM 3 (CAC/subclinical CVD; CKD not established) | CAC 420\n[k]PREVENT:[/k] Not applicable (CAC >=300 indicates severe subclinical cardiovascular disease; PREVENT is not reported in this context)\n\n[k]Assessment (ICD-10):[/k]\n- Severe subclinical coronary atherosclerosis (CAC 420) (no ICD-10 code)\n- Primary hypertension (I10)\n- Elevated lipoprotein(a) (E78.41)\n- Hypertriglyceridemia (E78.1)\n- Prediabetes (R73.03)\n\n[k]Risk Drivers:[/k]\nCAC 420 | ApoB 102 mg/dL | Lp(a) 210 nmol/L\n\n[k]Management Considerations:[/k]\n- [k]Lipids:[/k] Currently receiving rosuvastatin 20 mg. LDL-C 104; target <70. Review current lipid-lowering regimen and residual target gap. Consider additional nonstatin LDL-lowering therapy.\n- [k]Plaque:[/k] Known plaque.\n- [k]Kidney:[/k] Stable.\n- [k]BP:[/k] Continue current BP regimen.\n- [k]Metabolic:[/k] GLP-1 weight therapy: eligible. BMI 29 with hypertension; A1c 5.9%.\n- [k]Aspirin:[/k] Low-dose aspirin is generally reasonable if bleeding risk is acceptable."}];
     var dTiles = document.querySelectorAll("#demo-cont .tile"), dWalker = document.getElementById("demo-walker");
     var dDefaults = Array.prototype.map.call(dTiles, function (t) { return [t.querySelector("b").textContent, t.querySelector("span").textContent]; });
     var pchips = document.querySelectorAll(".demo .pchip"), note = document.getElementById("note"), body = document.getElementById("note-body"), copy = document.getElementById("copy");
@@ -1768,6 +2027,354 @@ Management Considerations:
       run();
     }, { threshold: 0.35 }).observe(root.querySelector(".wt-win"));
     if (reduced) setPlaying(false);
+  })();
+</script>
+<script>
+  /* Patient view showcase. D: engine output for the demo patient; W: the app's own wording for each option. */
+  function pvViews(D, W) {
+    var X0 = 36, X1 = 452, XM = 273, FLOOR = 200;
+    var OPT = {}; W.options.forEach(function (o) { OPT[o.id] = o; });
+    var ASCVD = W.options.filter(function (o) { return o.lane === "ascvd"; }).map(function (o) { return o.id; });
+    var HF = W.options.filter(function (o) { return o.lane === "hf"; }).map(function (o) { return o.id; });
+    var PERSON = '<circle cx="12" cy="5" r="4.2"/><path d="M7 11h10a3 3 0 0 1 3 3v8h-3v12h-4v-9h-2v9H7V22H4v-8a3 3 0 0 1 3-3z"/>';
+    function sorted(set) { var a = []; set.forEach(function (v) { a.push(v); }); return a.sort(); }
+    function plan(s) {
+      var k = sorted(s.chosen).join("+") + "|" + sorted(s.extra).join("+");
+      return D.plans[k] || null;
+    }
+    function curveMax(p) { return Math.max(10, Math.ceil((p * 1.25) / 5) * 5); }
+    function curveY(p, m) { return 200 - (Math.min(Math.max(p, 0), m) / m) * 170; }
+    function spread(ys) {
+      var order = ys.map(function (y, i) { return { y: y, i: i }; }).sort(function (p, q) { return p.y - q.y; });
+      for (var k = 1; k < order.length; k++) order[k].y = Math.max(order[k].y, order[k - 1].y + 38);
+      var over = Math.max(0, order[order.length - 1].y - (FLOOR + 4)), out = [];
+      order.forEach(function (o) { out[o.i] = o.y - over; });
+      return out;
+    }
+    /* The app's "bend the curve" chart; yPlan / yPos are animated by the caller. */
+    function curve(today, yPlan, yPos, labels, years) {
+      var m = curveMax(today), yB = curveY(today, m);
+      var line = function (y, bow) { return "M" + X0 + " " + FLOOR + " Q " + XM + " " + bow + " " + X1 + " " + y.toFixed(1); };
+      var ends = [yB].concat(yPlan !== null ? [yPlan] : []).concat(yPos !== null ? [yPos] : []);
+      var at = spread(ends.map(function (y) { return y + 9; }));
+      var h = '<svg class="pv-curve" viewBox="0 0 668 236" aria-hidden="true">';
+      h += '<defs><linearGradient id="pv-under" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#861327" stop-opacity=".09"/><stop offset="1" stop-color="#861327" stop-opacity="0"/></linearGradient></defs>';
+      h += '<path d="' + line(yB, 194) + " L" + X1 + " " + FLOOR + ' Z" fill="url(#pv-under)"/>';
+      if (yPlan !== null) h += '<path class="saved" d="' + line(yB, 194) + " L" + X1 + " " + yPlan.toFixed(1) + " Q " + XM + " 196 " + X0 + " " + FLOOR + ' Z"/>';
+      if (yPos !== null) { var base = yPlan !== null ? yPlan : yB; h += '<path class="possible" d="' + line(base, yPlan !== null ? 196 : 194) + " L" + X1 + " " + yPos.toFixed(1) + " Q " + XM + " 198 " + X0 + " " + FLOOR + ' Z"/>'; }
+      h += '<line class="axis" x1="' + X0 + '" y1="' + FLOOR + '" x2="' + X1 + '" y2="' + FLOOR + '"/>';
+      h += '<text class="tick" x="' + X0 + '" y="226">Today</text><text class="tick" x="' + X1 + '" y="226" text-anchor="middle">' + years + ' years</text>';
+      h += '<path class="path today draw" d="' + line(yB, 194) + '"/><circle class="dot today" cx="' + X1 + '" cy="' + yB.toFixed(1) + '" r="8"/>';
+      h += '<text class="end today" x="' + (X1 + 16) + '" y="' + at[0].toFixed(1) + '">' + labels.today + '%<tspan dx="7" class="cap">today</tspan></text>';
+      if (yPlan !== null) {
+        h += '<path class="path plan draw" d="' + line(yPlan, 196) + '"/><circle class="dot plan" cx="' + X1 + '" cy="' + yPlan.toFixed(1) + '" r="8"/>';
+        h += '<text class="end plan" x="' + (X1 + 16) + '" y="' + at[1].toFixed(1) + '">' + labels.plan + '%<tspan dx="7" class="cap">with plan</tspan></text>';
+      }
+      if (yPos !== null) {
+        h += '<circle class="dot possible" cx="' + X1 + '" cy="' + yPos.toFixed(1) + '" r="6"/>';
+        h += '<text class="end possible" x="' + (X1 + 16) + '" y="' + at[at.length - 1].toFixed(1) + '">' + labels.possible + '%<tspan dx="7" class="cap">possibly</tspan></text>';
+      }
+      return h + "</svg>";
+    }
+    /* Where the hero is headed for a state: every figure is the engine's. */
+    function target(s) {
+      var p = plan(s), long = s.years === 30, moved = s.chosen.size > 0 && p !== null;
+      var today = long ? D.today.ascvd_30y : D.today.ascvd_10y;
+      var lead = moved ? (long ? p.a30 : p.a10) : today;
+      var possible = !long && p && p.possible !== null ? p.possible : null;
+      return { long: long, moved: moved, today: today, lead: lead, possible: possible, rrr: moved ? (long ? p.rrr30 : p.rrr10) : null, p: p };
+    }
+    function heroText(s) {
+      var t = target(s), base = Math.round(t.today), now = Math.round(t.lead), fewer = Math.max(0, base - now);
+      var fewerLine = t.moved ? (fewer > 0 ? "About " + fewer + " fewer of 100" + (t.rrr ? " · " + t.rrr + "% lower" : "") : "About the same with this plan") : "Add an option to bend the curve";
+      var names = ASCVD.filter(function (id) { return s.extra.has(id); }).map(function (id) { return OPT[id].name; });
+      var possibleLine = t.possible !== null ? "Possibly <b>" + Math.round(t.possible) + "%</b> with " + names.join(" and ") + ". Not counted: the added effect isn&rsquo;t known." : "";
+      var b10 = Math.round(D.today.ascvd_10y), b30 = Math.round(D.today.ascvd_30y), foot;
+      if (t.long) {
+        var n10 = t.moved ? Math.round(t.p.a10) : b10;
+        foot = "<b>" + b10 + "%</b> over 10 years today" + (t.moved && n10 < b10 ? '; about <b class="pv-plan">' + n10 + "%</b> with this plan" : "") + ". " + D.thirty_note;
+      } else {
+        var n30 = t.moved ? Math.round(t.p.a30) : null;
+        foot = "<b>" + b30 + "%</b> over 30 years with no changes (" + b30 + " of 100 people)." + (n30 !== null && n30 < b30 ? ' About <b class="pv-plan">' + n30 + "%</b> with this plan, if its benefit holds for 30 years." : " The 30-year figures are projections.");
+      }
+      return { base: base, now: now, moved: t.moved, fewer: fewerLine, possible: possibleLine, foot: foot,
+        small: "Next " + s.years + " years, of 100 people with similar health information" + (t.long ? " (a projection)" : "") };
+    }
+    function scale(list) {
+      return { min: Math.min.apply(null, [0].concat(list.map(function (e) { return e.lo; }))), max: Math.max.apply(null, [1].concat(list.map(function (e) { return e.hi; }))) };
+    }
+    var S10 = scale(ASCVD.map(function (id) { return OPT[id].ten; }));
+    var S30 = scale(ASCVD.filter(function (id) { return OPT[id].thirty; }).map(function (id) { return OPT[id].thirty; }));
+    var SHF = scale(HF.map(function (id) { return OPT[id].ten; }));
+    function bar(e, sc) {
+      var span = sc.max - sc.min || 1, at = function (x) { return ((Math.max(sc.min, Math.min(x, sc.max)) - sc.min) / span) * 100; };
+      var h = '<div class="pv-range" aria-hidden="true">', unclear = e.lo <= 0;
+      if (e.lo < 0) h += '<i class="pv-band harm" style="left:' + at(e.lo).toFixed(1) + "%;width:" + (at(0) - at(e.lo)).toFixed(1) + '%"></i>';
+      h += '<i class="pv-band" style="left:' + at(Math.max(0, e.lo)).toFixed(1) + "%;width:" + (at(e.hi) - at(Math.max(0, e.lo))).toFixed(1) + '%"></i>';
+      if (sc.min < 0) h += '<i class="pv-zero" style="left:' + at(0).toFixed(1) + '%"></i>';
+      return h + '<i class="pv-pt' + (unclear ? " unclear" : "") + '" style="left:' + at(e.pt).toFixed(1) + '%"></i></div>';
+    }
+    function eff(e) {
+      if (e.unclear || e.lo <= 0) return '<span class="pv-eff unclear">Benefit unclear</span>';
+      return '<span class="pv-eff">About <b>' + e.fewer + "</b> fewer of 100" + (e.rel ? "<i>" + e.rel + "% lower</i>" : "") + "</span>";
+    }
+    function estimate(o, years, sc) {
+      if (years === 30 && o.lane === "ascvd") {
+        if (!o.thirty) return '<div class="pv-est"><span class="pv-eff unclear">No 30-year estimate</span><span class="pv-rtext">' + o.noThirtyLine + "</span></div>";
+        return '<div class="pv-est"><span class="pv-yrs">Over 30 years (projection)</span>' + eff(o.thirty) + bar(o.thirty, S30) + '<span class="pv-rtext">' + o.thirty.range + '</span><span class="pv-long">' + o.thirty.tenLine + "</span></div>";
+      }
+      return '<div class="pv-est">' + eff(o.ten) + bar(o.ten, sc) + '<span class="pv-rtext">' + o.ten.range + "</span>" + (o.longLine ? '<span class="pv-long">' + o.longLine + "</span>" : "") + "</div>";
+    }
+    function row(o, rank, years, sc) {
+      var ctl = o.id === "bp_hf"
+        ? '<span class="pv-linked" data-linked="bp">With blood pressure</span>'
+        : '<button type="button" class="pv-add" data-opt="' + o.id + '" aria-pressed="false" aria-label="Add ' + o.name + '">Add</button>';
+      return '<div class="pv-opt" data-row="' + o.id + '">' + (rank ? '<span class="pv-rank" aria-hidden="true">' + rank + "</span>" : "<span></span>") +
+        '<div class="pv-otext"><div class="pv-oname"><b>' + o.name + '</b><span class="pv-ev ' + o.evidence + '">' + o.evidenceLabel + "</span></div>" +
+        '<span class="pv-why"><b>Why</b>' + o.why + "</span></div>" + estimate(o, years, sc) + ctl + "</div>";
+    }
+    function rows(years) {
+      var ids = years === 30 ? W.order30.filter(function (id) { return OPT[id].lane === "ascvd"; }) : ASCVD;
+      return ids.map(function (id, i) { return row(OPT[id], i + 1, years, years === 30 ? S30 : S10); }).join("");
+    }
+    function hfRows() { return HF.map(function (id) { return row(OPT[id], 0, 10, SHF); }).join(""); }
+    function grid() { var h = ""; for (var i = 0; i < 100; i++) h += '<svg viewBox="0 0 24 34" data-i="' + i + '">' + PERSON + "</svg>"; return h; }
+    return { plan: plan, target: target, heroText: heroText, curve: curve, curveMax: curveMax, curveY: curveY, rows: rows, hfRows: hfRows, grid: grid, OPT: OPT, ASCVD: ASCVD };
+  }
+  if (typeof module !== "undefined") module.exports = pvViews;
+
+  if (typeof document !== "undefined") (function () {
+    var root = document.getElementById("patient-view");
+    if (!root) return;
+    var D = JSON.parse(document.getElementById("pv-data").textContent);
+    var W = JSON.parse(document.getElementById("pv-words").textContent);
+    var V = pvViews(D, W);
+    var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var $ = function (sel) { return root.querySelector(sel); };
+    var screen = $(".pv-screen"), device = $(".pv-device"), finger = $(".pv-finger"), sheet = $(".pv-sheet");
+    var fromto = $(".pv-fromto"), bigNum = $(".pv-big"), wasNum = $(".pv-was"), fewerEl = $(".pv-fewer"), possEl = $(".pv-possible"), footEl = $(".pv-foot"), smallEl = $(".pv-hero .pv-small"), curveBox = $(".pv-curvebox");
+    var rowsEl = $(".pv-rows.ascvd"), hfRowsEl = $(".pv-rows.hf"), hfNum = $(".pv-hfnum"), status = $(".pv-status");
+    var steps = [].slice.call(root.querySelectorAll(".pv-step"));
+    var S = { chosen: new Set(), extra: new Set(), hf: new Set(), years: D.horizon, qr: false };
+    var shown = { num: Math.round(D.today.ascvd_10y), yPlan: null, yPos: null, years: D.horizon };
+
+    function tween(from, to, ms, step, done) {
+      if (reduced || !ms || from === to) { step(to); if (done) done(); return; }
+      var t0 = performance.now();
+      (function f(t) {
+        var k = Math.min(1, (t - t0) / ms), e = 1 - Math.pow(1 - k, 3);
+        step(from + (to - from) * e);
+        if (k < 1) requestAnimationFrame(f); else if (done) done();
+      })(t0);
+    }
+    var curveAnim = 0;
+    function drawCurve(animate) {
+      var t = V.target(S), m = V.curveMax(t.today);
+      var toPlan = t.moved ? V.curveY(t.lead, m) : null, toPos = t.possible !== null ? V.curveY(t.possible, m) : null;
+      var yB = V.curveY(t.today, m), labels = { today: Math.round(t.today), plan: Math.round(t.lead), possible: t.possible !== null ? Math.round(t.possible) : 0 };
+      var fromPlan = shown.years === S.years && shown.yPlan !== null ? shown.yPlan : yB;
+      var fromPos = shown.years === S.years && shown.yPos !== null ? shown.yPos : (toPlan !== null ? toPlan : yB);
+      var id = ++curveAnim;
+      shown.years = S.years;
+      tween(0, 1, animate ? 750 : 0, function (k) {
+        if (id !== curveAnim) return;
+        var yp = toPlan === null ? null : fromPlan + (toPlan - fromPlan) * k;
+        var ys = toPos === null ? null : fromPos + (toPos - fromPos) * k;
+        curveBox.innerHTML = V.curve(t.today, yp, ys, labels, S.years);
+        shown.yPlan = yp; shown.yPos = ys;
+      });
+    }
+    var numAnim = 0;
+    function render(animate) {
+      var h = V.heroText(S), id = ++numAnim;
+      smallEl.textContent = h.small;
+      wasNum.textContent = h.base + "%";
+      fromto.classList.toggle("moved", h.moved);
+      var from = shown.num;
+      tween(from, h.now, animate ? 800 : 0, function (v) { if (id === numAnim) bigNum.textContent = Math.round(v); });
+      shown.num = h.now;
+      fromto.setAttribute("aria-label", h.moved ? h.base + "% today, about " + h.now + "% with this plan" : h.base + "% today");
+      fewerEl.textContent = h.fewer; fewerEl.classList.toggle("muted", !h.moved);
+      possEl.innerHTML = h.possible; footEl.innerHTML = h.foot;
+      root.querySelectorAll(".pv-horizon button").forEach(function (b) { b.setAttribute("aria-pressed", String(+b.dataset.y === S.years)); });
+      root.querySelectorAll(".pv-add").forEach(function (b) {
+        var id = b.dataset.opt, o = V.OPT[id];
+        var on = o.lane === "hf" ? S.hf.has(id) : o.counted ? S.chosen.has(o.lever) : S.extra.has(id);
+        b.setAttribute("aria-pressed", String(on)); b.textContent = on ? "Added" : "Add";
+        b.setAttribute("aria-label", (on ? "Remove " : "Add ") + o.name);
+        b.closest(".pv-opt").classList.toggle("on", on);
+      });
+      root.querySelectorAll("[data-linked]").forEach(function (el) { var on = S.chosen.has("bp"); el.textContent = on ? "Included" : "With blood pressure"; el.closest(".pv-opt").classList.toggle("on", on); });
+      var sg = V.OPT.sglt2, hfT = Math.round(D.today.hf_10y);
+      if (sg) {
+        var hfA = Math.round(D.today.hf_10y - sg.ten.pt), on = S.hf.has("sglt2");
+        hfNum.innerHTML = (on ? "<s>" + hfT + "%</s>" : "") + "<b>" + (on ? hfA : hfT) + "%</b>" + (on ? "<em>About " + (hfT - hfA) + " fewer of 100" + (sg.ten.rel ? " · " + sg.ten.rel + "% lower" : "") + "</em>" : "");
+      }
+      drawCurve(animate);
+    }
+    function setYears(y, animate) {
+      if (S.years === y) return;
+      S.years = y;
+      var first = {};
+      rowsEl.querySelectorAll(".pv-opt").forEach(function (r) { first[r.dataset.row] = r.getBoundingClientRect().top; });
+      rowsEl.innerHTML = V.rows(y);
+      $(".pv-sec.ascvd .pv-sec-head > span").textContent = y === 30 ? "Highest yield first, over 30 years where there is an estimate. Each on its own, per 100 people." : "Highest yield first. Each estimated on its own, per 100 people over 10 years.";
+      $(".pv-note").textContent = y === 30 ? "Statin and blood pressure move the main number. The other options have no 30-year estimate." : "Statin and blood pressure move the main number. Other options only shade the path: how much they add on top isn't known.";
+      if (animate && !reduced) rowsEl.querySelectorAll(".pv-opt").forEach(function (r) {
+        var dy = (first[r.dataset.row] || 0) - r.getBoundingClientRect().top;
+        r.animate([{ transform: "translateY(" + dy + "px)", opacity: .6 }, { transform: "none", opacity: 1 }], { duration: 650, easing: "cubic-bezier(.2,.8,.2,1)" });
+      });
+      render(animate);
+    }
+    function toggle(id, animate) {
+      var o = V.OPT[id];
+      var set = o.lane === "hf" ? S.hf : o.counted ? S.chosen : S.extra, key = o.counted ? o.lever : id;
+      if (set.has(key)) set.delete(key); else set.add(key);
+      render(animate);
+    }
+    function setQr(on) {
+      S.qr = on; sheet.classList.toggle("show", on); sheet.setAttribute("aria-hidden", String(!on));
+    }
+
+    /* A visible fingertip taps what the demo taps. */
+    function tapAt(el, then) {
+      if (reduced || !el) { if (then) then(); return; }
+      var sr = screen.getBoundingClientRect(), er = el.getBoundingClientRect();
+      if (screen.contains(el) && (er.top < sr.top + 40 || er.bottom > sr.bottom - 40)) screen.scrollBy({ top: er.top - sr.top - sr.height / 2 + er.height / 2, behavior: "smooth" });
+      var wait = setTimeout(function () {
+        var d = device.getBoundingClientRect(), r = el.getBoundingClientRect();
+        finger.style.left = (r.left - d.left + r.width / 2) + "px"; finger.style.top = (r.top - d.top + r.height / 2) + "px";
+        finger.classList.add("show");
+      }, 420);
+      timers.push(wait);
+      timers.push(setTimeout(function () {
+        finger.classList.remove("press"); void finger.offsetWidth; finger.classList.add("press");
+        el.classList.add("tap"); setTimeout(function () { el.classList.remove("tap"); }, 450);
+        if (then) then();
+      }, 1150));
+    }
+    function scrollTo(el) { if (el) screen.scrollTo({ top: Math.max(0, el.offsetTop - 14), behavior: reduced ? "auto" : "smooth" }); }
+    function lit(ids) { rowsEl.querySelectorAll(".pv-opt").forEach(function (r) { r.classList.toggle("lit", ids.indexOf(r.dataset.row) >= 0); }); }
+    function addBtn(id) { return root.querySelector('.pv-add[data-opt="' + id + '"]'); }
+
+    /* Each step's end state, so a click on the rail lands there directly. */
+    function stateFor(i) {
+      return {
+        chosen: i >= 1 ? ["bp", "intensify"] : [], extra: i >= 2 ? ["diet"] : [], hf: i >= 2 ? ["sglt2"] : [],
+        years: i === 3 ? 30 : 10, qr: i === 4,
+      };
+    }
+    function apply(st, animate) {
+      setQr(false);
+      S.chosen = new Set(st.chosen); S.extra = new Set(st.extra); S.hf = new Set(st.hf);
+      if (S.years !== st.years) setYears(st.years, animate); else render(animate);
+      lit([]);
+      if (st.qr) setQr(true);
+    }
+    var PLAY = [
+      { ms: 5200, run: function (go) { apply(stateFor(0), true); scrollTo(screen.firstElementChild); go(1400, function () { lit(["bp", "intensify"]); }); } },
+      { ms: 6200, run: function (go) { apply(stateFor(0), false); lit([]);
+          go(300, function () { scrollTo($(".pv-sec.ascvd")); });
+          go(900, function () { tapAt(addBtn("bp"), function () { toggle("bp", true); }); });
+          go(2700, function () { tapAt(addBtn("intensify"), function () { toggle("intensify", true); }); });
+          go(4300, function () { scrollTo(screen.firstElementChild); finger.classList.remove("show"); }); } },
+      { ms: 8200, run: function (go) { apply(stateFor(1), false);
+          go(300, function () { scrollTo($(".pv-sec.ascvd")); lit(["diet", "glp1"]); });
+          go(1200, function () { tapAt(addBtn("diet"), function () { toggle("diet", true); }); });
+          go(3300, function () { lit([]); scrollTo($(".pv-sec.hf")); });
+          go(4300, function () { tapAt(addBtn("sglt2"), function () { toggle("sglt2", true); }); });
+          go(6200, function () { finger.classList.remove("show"); scrollTo(screen.firstElementChild); }); } },
+      { ms: 6400, run: function (go) { apply(stateFor(2), false); scrollTo(screen.firstElementChild);
+          go(900, function () { tapAt($('.pv-horizon button[data-y="30"]'), function () { setYears(30, true); }); });
+          go(3200, function () { finger.classList.remove("show"); scrollTo($(".pv-sec.ascvd")); }); } },
+      { ms: 6000, run: function (go) { apply(stateFor(2), false); scrollTo(screen.firstElementChild);
+          go(700, function () { tapAt($(".pv-send"), function () { setQr(true); finger.classList.remove("show"); }); }); } },
+    ];
+    var timers = [], cur = -1, playing = false, driving = false;
+    function clear() { timers.forEach(clearTimeout); timers = []; }
+    function mark(i) {
+      steps.forEach(function (s, j) {
+        s.classList.toggle("on", j === i); s.classList.toggle("done", j < i); s.setAttribute("aria-current", j === i ? "step" : "false");
+        var bar = s.querySelector(".pv-bar i"); bar.style.transition = "none"; bar.style.width = j < i ? "100%" : "0";
+      });
+    }
+    function runStep(i, auto) {
+      clear(); cur = i; mark(i);
+      var st = PLAY[i], go = function (ms, fn) { timers.push(setTimeout(fn, ms)); };
+      st.run(go);
+      if (auto) {
+        var bar = steps[i].querySelector(".pv-bar i"); void bar.offsetWidth;
+        bar.style.transition = "width " + st.ms + "ms linear"; bar.style.width = "100%";
+        go(st.ms, function () { runStep((i + 1) % PLAY.length, true); });
+      }
+    }
+    function play() { if (reduced || driving) return; playing = true; runStep(cur < 0 ? 0 : cur, true); }
+    function pause() { playing = false; clear(); finger.classList.remove("show"); }
+    function takeOver() {
+      if (driving) return;
+      driving = true; pause(); mark(cur); device.classList.add("flat");
+      status.innerHTML = 'You&rsquo;re driving: every tap uses the engine&rsquo;s numbers. <button type="button" class="pv-replay">Replay the demo</button>';
+    }
+    status.addEventListener("click", function (e) {
+      if (!e.target.closest(".pv-replay")) return;
+      driving = false; device.classList.remove("flat"); status.textContent = "Playing a demo. Tap any option to take over.";
+      cur = 0; play();
+    });
+    steps.forEach(function (s, i) {
+      s.addEventListener("click", function () {
+        if (reduced || driving) { pause(); cur = i; mark(i); apply(stateFor(i), !reduced); if (i === 3 || i === 2) scrollTo($(".pv-sec.ascvd")); return; }
+        runStep(i, true);
+      });
+    });
+    screen.addEventListener("click", function (e) {
+      var add = e.target.closest(".pv-add"), yr = e.target.closest(".pv-horizon button"), send = e.target.closest(".pv-send");
+      if (!e.isTrusted || !(add || yr || send)) return;
+      takeOver();
+      if (add) toggle(add.dataset.opt, true);
+      if (yr) setYears(+yr.dataset.y, true);
+      if (send) { apply(stateFor(4), true); }
+    });
+    sheet.addEventListener("click", function (e) {
+      if (!e.isTrusted) return;
+      if (e.target.closest(".pv-close") || e.target === sheet) { takeOver(); setQr(false); }
+    });
+    root.addEventListener("keydown", function (e) { if (e.key === "Escape" && S.qr) { takeOver(); setQr(false); } });
+
+    rowsEl.innerHTML = V.rows(S.years); hfRowsEl.innerHTML = V.hfRows();
+    render(false);
+    if (reduced) { cur = 1; mark(1); apply(stateFor(1), false); status.textContent = "Tap a step, or any option, to explore."; return; }
+    new IntersectionObserver(function (es) {
+      es.forEach(function (en) { if (en.isIntersecting) { if (!playing && !driving) play(); } else if (playing) pause(); });
+    }, { threshold: 0.3 }).observe($(".pv-stage"));
+  })();
+
+
+  (function () {
+    var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    /* Hero: the plan path bends away from today's path, and back, slowly. */
+    var plan = document.querySelector(".hc-plan"), gap = document.querySelector(".hc-gap"), pd = document.querySelector(".hc-pd"), pl = document.querySelector(".hc-pl");
+    if (plan && !reduced) {
+      var t0 = performance.now();
+      (function f(t) {
+        var k = ((t - t0) / 9000) % 1, w = 0.5 - 0.5 * Math.cos(k * 2 * Math.PI), e = w < .5 ? 4 * w * w * w : 1 - Math.pow(-2 * w + 2, 3) / 2;
+        var y = 40 + 64 * e, c = 160 + 6 * e;
+        plan.setAttribute("d", "M40 170 Q 640 " + c.toFixed(1) + " 1000 " + y.toFixed(1));
+        gap.setAttribute("d", "M40 170 Q 640 160 1000 40 L1000 " + y.toFixed(1) + " Q 640 " + c.toFixed(1) + " 40 170 Z");
+        pd.setAttribute("cy", y.toFixed(1)); pl.setAttribute("y", (y + 32).toFixed(1)); pl.style.opacity = Math.min(1, e * 1.6).toFixed(2);
+        requestAnimationFrame(f);
+      })(t0);
+    }
+    /* Stats count up the first time they come into view; the HTML already holds the final values. */
+    document.querySelectorAll(".stat-num").forEach(function (el) {
+      var m = el.textContent.match(/^(\d+)(.*)$/);
+      if (!m || reduced) return;
+      var to = +m[1], rest = m[2];
+      new IntersectionObserver(function (es, ob) {
+        if (!es[0].isIntersecting) return; ob.disconnect();
+        var s = performance.now();
+        (function f(t) { var k = Math.min(1, (t - s) / 1300), e = 1 - Math.pow(1 - k, 3); el.textContent = Math.round(to * e) + rest; if (k < 1) requestAnimationFrame(f); })(s);
+      }, { threshold: 0.6 }).observe(el);
+    });
   })();
 </script>
 <script src="contact.js" defer></script>

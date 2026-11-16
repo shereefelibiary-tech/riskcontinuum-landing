@@ -800,7 +800,7 @@
     @keyframes pvDash { to { stroke-dashoffset: -26; } }
     .pv-foot { grid-column: 1 / -1; font-size: 13.5px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 10px; margin-top: 4px; }
     .pv-foot b { color: var(--ink); }
-    .pv-foot b.plan { color: var(--good); }
+    .pv-foot b.pv-plan { color: var(--good); }
     .pv-sec { padding: 8px 10px 6px; }
     .pv-sec-head { padding: 12px 10px 8px; }
     .pv-sec-head > span { display: block; font-size: 13px; color: var(--muted); margin-top: 2px; }
@@ -2134,10 +2134,10 @@ Management Considerations:
       var b10 = Math.round(D.today.ascvd_10y), b30 = Math.round(D.today.ascvd_30y), foot;
       if (t.long) {
         var n10 = t.moved ? Math.round(t.p.a10) : b10;
-        foot = "<b>" + b10 + "%</b> over 10 years today" + (t.moved && n10 < b10 ? '; about <b class="plan">' + n10 + "%</b> with this plan" : "") + ". " + D.thirty_note;
+        foot = "<b>" + b10 + "%</b> over 10 years today" + (t.moved && n10 < b10 ? '; about <b class="pv-plan">' + n10 + "%</b> with this plan" : "") + ". " + D.thirty_note;
       } else {
         var n30 = t.moved ? Math.round(t.p.a30) : null;
-        foot = "<b>" + b30 + "%</b> over 30 years with no changes (" + b30 + " of 100 people)." + (n30 !== null && n30 < b30 ? ' About <b class="plan">' + n30 + "%</b> with this plan, if its benefit holds for 30 years." : " The 30-year figures are projections.");
+        foot = "<b>" + b30 + "%</b> over 30 years with no changes (" + b30 + " of 100 people)." + (n30 !== null && n30 < b30 ? ' About <b class="pv-plan">' + n30 + "%</b> with this plan, if its benefit holds for 30 years." : " The 30-year figures are projections.");
       }
       return { base: base, now: now, moved: t.moved, fewer: fewerLine, possible: possibleLine, foot: foot,
         small: "Next " + s.years + " years, of 100 people with similar health information" + (t.long ? " (a projection)" : "") };

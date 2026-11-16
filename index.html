@@ -729,11 +729,11 @@
       .nav .btn, .nav-menu > summary { padding-left: 12px; padding-right: 12px; }
     }
     /* PATIENT VIEW SHOWCASE: the app's "Show patient" screen, driven by engine output */
-    .pv { --pv-bg: #170D10; --pv-ink: #FBF4F2; --pv-muted: #CDBDBF; padding: 130px 0 110px; color: var(--pv-ink); background: radial-gradient(900px 520px at 78% 18%, rgba(134,19,39,.55), transparent 70%), radial-gradient(700px 460px at 8% 92%, rgba(30,113,72,.28), transparent 70%), var(--pv-bg); overflow: hidden; isolation: isolate; }
-    .pv::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .35; background-image: radial-gradient(rgba(255,255,255,.08) 1px, transparent 1.2px); background-size: 26px 26px; mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent); }
-    .pv .eyebrow { color: #F2A7B4; }
-    .pv h2 { color: var(--pv-ink); }
-    .pv .lede { color: var(--pv-muted); }
+    .pv-section { --pv-bg: #170D10; --pv-ink: #FBF4F2; --pv-muted: #CDBDBF; padding: 130px 0 110px; color: var(--pv-ink); background: radial-gradient(900px 520px at 78% 18%, rgba(134,19,39,.55), transparent 70%), radial-gradient(700px 460px at 8% 92%, rgba(30,113,72,.28), transparent 70%), var(--pv-bg); overflow: hidden; isolation: isolate; }
+    .pv-section::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .35; background-image: radial-gradient(rgba(255,255,255,.08) 1px, transparent 1.2px); background-size: 26px 26px; mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent); }
+    .pv-section .eyebrow { color: #F2A7B4; }
+    .pv-section h2 { color: var(--pv-ink); }
+    .pv-section .lede { color: var(--pv-muted); }
     .pv-head { display: grid; grid-template-columns: 1.05fr .95fr; gap: 64px; align-items: end; }
     .pv-head .h2 em { font-style: normal; background: linear-gradient(90deg, #F2A7B4, #8FD9AE); -webkit-background-clip: text; background-clip: text; color: transparent; }
     .pv-body { display: grid; grid-template-columns: 270px minmax(0, 1fr); gap: 34px; margin-top: 60px; align-items: start; }
@@ -877,7 +877,7 @@
       .pv-stage { padding-right: 0; }
     }
     @media (max-width: 760px) {
-      .pv { padding: 90px 0 80px; }
+      .pv-section { padding: 90px 0 80px; }
       .pv-head { grid-template-columns: 1fr; gap: 8px; }
       .pv-rail { grid-template-columns: repeat(5, minmax(0, 1fr)); }
       .pv-step b { font-size: 0; }
@@ -1301,7 +1301,7 @@ Management Considerations:
 </section>
 
 <!-- PATIENT VIEW: the app's "Show patient" screen, every figure engine output -->
-<section data-analytics-section="patient-view" class="pv" id="patient-view" aria-labelledby="pv-h2">
+<section data-analytics-section="patient-view" class="pv-section" id="patient-view" aria-labelledby="pv-h2">
   <div class="wrap">
     <div class="pv-head reveal">
       <div>

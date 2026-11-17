@@ -29,7 +29,7 @@
     <p class="eyebrow">Frequently asked questions</p>
     <h1>The science behind<br />the conversation.</h1>
     <p class="lede">RCCKM brings published science into a working prevention platform. Explore the evidence, calculations, and clinical thinking behind the assessment and simulator.</p>
-    <p class="faq-updated">Updated November 3, 2026 · Development evaluation</p>
+    <p class="faq-updated">Updated November 17, 2026 · Development evaluation</p>
   </div>
   <div class="faq-map" aria-label="Three complementary views">
     <div><b>Risk probabilities</b><p>PREVENT estimates for eligible patients.</p></div>
@@ -83,6 +83,10 @@
       <details id="prevent-eligibility">
         <summary>When can PREVENT risk be reported?</summary>
         <div class="faq-answer"><p>PREVENT supports primary prevention assessment in eligible adults. RCCKM supports 10-year estimates at ages 30–79 and 30-year estimates at ages 30–59, when the required inputs and clinical eligibility criteria are met.</p><p>For known cardiovascular disease, established heart failure, or CAC of at least 300, RCCKM's eligibility rules direct attention to the disease context and withhold PREVENT. Clinicians confirm eligibility against the <a href="#source-prevent">AHA's full guidance</a>, including exclusions beyond those represented in the software.</p><p>Measured disease remains central to the assessment. Plaque and other established disease findings retain their clinical importance alongside any reported risk estimate.</p></div>
+      </details>
+      <details id="calcium-score">
+        <summary>What does a coronary calcium score tell you, and what doesn't it?</summary>
+        <div class="faq-answer"><p>CAC measures calcified coronary plaque. It is one of the strongest tools for estimating longer-term risk, which is why RCCKM uses it to refine Levels and statin decisions. It does not measure total plaque, noncalcified plaque, or how narrow any one artery is.</p><p><strong>CAC of 0 is not the same as no plaque.</strong> Early plaque is often noncalcified, and an artery can narrow before calcium appears. In a large registry of symptomatic patients with obstructive disease, a zero score was far more common in younger adults than in older ones. <a href="#source-cac-age">[6]</a> A zero score generally signals low near-term risk, but it carries less weight in younger patients and in those with strong risk factors.</p><p><strong>Plaque burden and stenosis are different measures.</strong> In the same registry, total calcified plaque burden predicted events better than stenosis itself, and patients with CAC of 0 had low event rates even when a stenosis was present. <a href="#source-cac-burden">[7]</a> How tight one blockage is, how much plaque there is overall, and the chance of a future event are related, but they are not interchangeable.</p><p><strong>A rising score on treatment is not necessarily failure.</strong> Statins can shrink plaque while making the plaque that remains more calcified. <a href="#source-statin-calcium">[8]</a> At the same calcium volume, denser calcium has been associated with fewer events. <a href="#source-cac-density">[9]</a> The direction of the score alone does not settle the question either way.</p><p><strong>“Hard” versus “soft” plaque is too simple.</strong> Risk depends on how much plaque there is, what it is made of, where it sits, how dense the calcium is, and how much it narrows the artery. When those questions matter, coronary CT angiography (CCTA) can show noncalcified plaque, total plaque burden and stenosis. RCCKM does not currently take CCTA results as an input.</p></div>
       </details>
       <details id="missing-data">
         <summary>How should missing, conflicting, or unconfirmed information be handled?</summary>
@@ -164,6 +168,10 @@
       <li id="source-kdigo"><a href="https://kdigo.org/guidelines/ckd-evaluation-and-management/">KDIGO 2024 CKD evaluation and management guideline</a>. Kidney disease evaluation and classification.</li>
       <li id="source-ctt"><a href="https://pubmed.ncbi.nlm.nih.gov/21067804/">CTT Collaboration. Lancet. 2010;376:1670–1681.</a> LDL-C lowering and major vascular events. DOI: 10.1016/S0140-6736(10)61350-5.</li>
       <li id="source-bp"><a href="https://pubmed.ncbi.nlm.nih.gov/26724178/">Ettehad et al. Lancet. 2016;387:957–967.</a> Blood pressure lowering and cardiovascular outcomes. DOI: 10.1016/S0140-6736(15)01225-8.</li>
+      <li id="source-cac-age"><a href="https://pubmed.ncbi.nlm.nih.gov/34705022/">Mortensen et al. JAMA Cardiol. 2022;7:36–44.</a> Age and the diagnostic value of a zero calcium score in symptomatic patients. DOI: 10.1001/jamacardio.2021.4406.</li>
+      <li id="source-cac-burden"><a href="https://pubmed.ncbi.nlm.nih.gov/33303068/">Mortensen et al. J Am Coll Cardiol. 2020;76:2803–2813.</a> Plaque burden versus stenosis and cardiovascular events. DOI: 10.1016/j.jacc.2020.10.021.</li>
+      <li id="source-statin-calcium"><a href="https://pubmed.ncbi.nlm.nih.gov/25835438/">Puri et al. J Am Coll Cardiol. 2015;65:1273–1282.</a> Statins and serial coronary calcification on intravascular ultrasound. DOI: 10.1016/j.jacc.2015.01.036.</li>
+      <li id="source-cac-density"><a href="https://doi.org/10.1001/jama.2013.282535">Criqui et al. JAMA. 2014;311:271–278.</a> Calcium density, calcium volume and cardiovascular events in MESA. DOI: 10.1001/jama.2013.282535.</li>
     </ol>
     <p class="faq-updated">These sources underpin the methods described above. RCCKM is independently developed; references acknowledge the scientific work and do not imply organizational endorsement.</p>
   </section>

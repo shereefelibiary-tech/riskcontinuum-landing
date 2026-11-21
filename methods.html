@@ -45,6 +45,29 @@
           <tr><th scope="row">RCCKM Level</th><td>Which prespecified clinical pattern best describes the reviewed findings?</td><td>RCCKM's ordered clinical pathways, with the reason for each assignment shown.</td></tr>
           <tr><th scope="row">Risk Signal Score</th><td>Which selected findings contribute to the visible burden summary?</td><td>Prespecified points and domain caps, with individual contributors shown for review.</td></tr>
         </tbody></table></div>
+        <h3 id="ckm-checks">Five more checks</h3>
+        <p>Each stays silent until it matters, then adds one tag to the line it belongs to.</p>
+        <div class="table-scroll" tabindex="0" role="region" aria-label="Added CKM checks"><table><caption>Added CKM checks</caption><thead><tr><th scope="col">Check</th><th scope="col">Speaks up when</th><th scope="col">Points to</th></tr></thead><tbody>
+          <tr><th scope="row">FIB-4</th><td>MASLD or CKM risk, score ≥1.3 (≥2.0 at 65+)</td><td>Elastography or ELF; hepatology above 2.67 <a href="#source-ckm">[2]</a></td></tr>
+          <tr><th scope="row">KFRE</th><td>CKD G3–G5, 5-year risk ≥3%</td><td>Nephrology; KRT planning above 40% at 2 years <a href="#source-kdigo">[3]</a> <a href="#source-kfre">[16]</a></td></tr>
+          <tr><th scope="row">CHA&#8322;DS&#8322;-VASc</th><td>AF without a recorded anticoagulant</td><td>A DOAC; warfarin with a mechanical valve <a href="#source-af">[17]</a></td></tr>
+          <tr><th scope="row">Pre-heart failure</th><td>BNP ≥50 or NT-proBNP ≥125 pg/mL</td><td>Echocardiography <a href="#source-ada">[18]</a></td></tr>
+          <tr><th scope="row">Primary aldosteronism</th><td>Resistant hypertension, low potassium, OSA or adrenal mass; or a positive screen</td><td>Aldosterone/renin screen; endocrinology <a href="#source-htn">[19]</a></td></tr>
+        </tbody></table></div>
+        <details class="method-detail" id="ckm-checks-detail"><summary>Technical appendix E · Formulas, cutoffs and quiet states</summary><div class="detail-body">
+          <h4>FIB-4</h4>
+          <div class="equation"><code>FIB-4 = (age × AST) / (platelets × √ALT)</code></div>
+          <p>Low &lt;1.3 (&lt;2.0 at age ≥65); indeterminate 1.3–2.67; high &gt;2.67. Not reported below age 35 or during acute aminotransferase elevation. Missing AST, ALT or platelets prompt an order only when MASLD is on the record.</p>
+          <h4>KFRE (4-variable, North American)</h4>
+          <div class="equation"><code>risk = 1 − S0 ^ exp(−0.2201·(age/10 − 7.036) + 0.2467·(male − 0.5642) − 0.5567·(eGFR/5 − 7.222) + 0.4510·(ln UACR − 5.137))</code><code>S0 = 0.9750 (2 years), 0.9240 (5 years)</code></div>
+          <p>CKD G3–G5 only. Withheld when sex is not recorded. A 5-year risk below 3% stays silent.</p>
+          <h4>AF stroke prevention</h4>
+          <p>Anticoagulation recommended at CHA&#8322;DS&#8322;-VASc ≥2 in men or ≥3 in women; reasonable at 1 in men or 2 in women. DOACs over warfarin except with a mechanical valve or moderate-severe rheumatic mitral stenosis. Aspirin is never offered as a substitute. With sex unrecorded, the sex-free CHA&#8322;DS&#8322;-VA is used; its tiers are the same. Silent when an anticoagulant is recorded or the score is 0.</p>
+          <h4>Pre-heart failure</h4>
+          <p>Natriuretic peptides are suggested at PREVENT-HF ≥5% or with diabetes; that prompt stays in the engine, not the note. An abnormal result (BNP ≥50, NT-proBNP ≥125 pg/mL) points to echocardiography. Obesity, low eGFR and AF are shown as interpretation cautions.</p>
+          <h4>Primary aldosteronism</h4>
+          <p>Screen with resistant hypertension (regardless of potassium), hypokalemia, OSA or an adrenal mass. Positive: suppressed renin (&lt;1 ng/mL/h), aldosterone ≥10 ng/dL and ARR ≥30; direct renin accepted at 8.2 mU/L per ng/mL/h. Stage 2 hypertension alone stays silent.</p>
+        </div></details>
         <h3 id="lipids-and-cac">Lipids and calcium, per the 2026 ACC/AHA guideline</h3>
         <ul class="prose-list">
           <li><b>Non-HDL-C counts.</b> 190–219 mg/dL is a major risk enhancer; above 220 it is an indication on its own. <a href="#source-lipids">[6]</a></li>
@@ -265,6 +288,10 @@
           <li id="source-sglt2"><a href="https://doi.org/10.1016/S0140-6736(18)32590-X">Zelniker TA, et al. SGLT2 inhibitors for primary and secondary prevention of cardiovascular and renal outcomes in type 2 diabetes. Lancet. 2019;393:31–39.</a></li>
           <li id="source-pencina"><a href="https://doi.org/10.1161/CIRCULATIONAHA.120.045851">Pencina MJ, et al. The expected 30-year benefits of early versus delayed primary prevention of cardiovascular disease by lipid lowering. Circulation. 2020;142:827–837.</a></li>
           <li id="source-ference"><a href="https://doi.org/10.1093/eurheartj/ehx144">Ference BA, et al. Low-density lipoproteins cause atherosclerotic cardiovascular disease. 1. Evidence from genetic, epidemiologic, and clinical studies. A consensus statement from the European Atherosclerosis Society Consensus Panel. Eur Heart J. 2017;38:2459–2472.</a></li>
+                  <li id="source-kfre"><a href="https://doi.org/10.1001/jama.2015.18202">Tangri N, et al. Multinational assessment of accuracy of equations for predicting risk of kidney failure. JAMA. 2016;315:164–174.</a></li>
+          <li id="source-af"><a href="https://doi.org/10.1161/CIR.0000000000001193">Joglar JA, et al. 2023 ACC/AHA/ACCP/HRS guideline for the diagnosis and management of atrial fibrillation. Circulation. 2024;149:e1–e156.</a></li>
+          <li id="source-ada"><a href="https://doi.org/10.2337/dc26-S010">American Diabetes Association. 10. Cardiovascular disease and risk management: Standards of Care in Diabetes—2026. Diabetes Care. 2026;49(Suppl 1):S216–S245.</a></li>
+          <li id="source-htn"><a href="https://doi.org/10.1161/HYP.0000000000000249">Jones DW, et al. 2025 AHA/ACC guideline for the prevention, detection, evaluation and management of high blood pressure in adults. Hypertension. 2025;82:e212–e316.</a></li>
         </ol>
         <div class="provenance"><p><strong>Version 1.5 · November 21, 2026.</strong> 2026 ACC/AHA lipid and CAC goals; medication safety states; missing age or sex makes the Level incomplete; simulator options follow the engine; a richer take-home plan. RSS weights and Level rules unchanged. Implementation reference: <code>c63886decd4002868a7875bed9173fec15e8cda1</code>.</p><p>Earlier versions remain in the downloadable registers.</p></div>
         <div class="contact-card"><h3>Questions?</h3><p>Talk to <a href="mailto:shereef@riskcontinuum.health?subject=RCCKM%20methods">Shereef El-Ibiary, MD</a>.</p></div>

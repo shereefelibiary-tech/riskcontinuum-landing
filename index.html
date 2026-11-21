@@ -348,8 +348,8 @@
     .summary { margin-top: 14px; background: var(--bg-2); border-radius: 14px; padding: 14px 18px; font-size: 17px; color: var(--body); min-height: 54px; }
     .summary b { color: var(--ink); }
     .summary .g { color: var(--good); font-weight: 700; }
-    .rp-body { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 34px; margin-top: 22px; align-items: start; }
-    .sentence { font-size: 19px; color: var(--ink); min-height: 31px; }
+    .rp-body { display: grid; gap: 18px; margin-top: 22px; }
+    .sentence { font-family: var(--display); font-size: 26px; line-height: 1.25; color: var(--ink); min-height: 66px; max-width: 760px; }
     .chart { width: 100%; height: auto; display: block; margin-top: 6px; overflow: visible; }
     .chart text { font-family: var(--ui); }
     .legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 15px; color: var(--muted); margin-top: 6px; }
@@ -357,7 +357,8 @@
     .people-box { background: var(--bg-2); border: 1px solid var(--line); border-radius: 18px; padding: 18px; }
     .people-box h4 small.people-src { display: block; margin-top: 2px; font-family: var(--ui); font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
     .people-box h4 { font-family: var(--display); font-size: 17px; font-weight: 500; color: var(--ink); margin-bottom: 12px; }
-    .people { display: grid; grid-template-columns: repeat(10, 1fr); gap: 5px 6px; max-width: 320px; }
+    .people { display: grid; grid-template-columns: repeat(20, 1fr); gap: 6px 8px; max-width: 760px; }
+    @media (max-width: 620px) { .people { grid-template-columns: repeat(10, 1fr); max-width: 340px; } }
     .people svg { width: 100%; height: auto; display: block; fill: var(--icon-off); transition: fill .45s; }
     .people svg.ev { fill: var(--accent); }
     .people svg.pv { fill: var(--good); animation: pop .5s var(--ease); }
@@ -909,7 +910,15 @@
     .hc-lbl { font: 600 15px var(--ui); fill: var(--muted); letter-spacing: .02em; }
     .hc-lbl.g { fill: var(--good); }
     .hc-lbl.r { fill: var(--garnet); }
-    @media (max-width: 720px) { .hero-curve { margin-top: 36px; } .hc-lbl { font-size: 22px; } }
+    .hc-grid { stroke: var(--line); stroke-width: 1; stroke-dasharray: 3 5; }
+    .hc-ax { font: 600 13px var(--ui); fill: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
+    .hc-tick { font: 600 15px var(--ui); fill: var(--muted); }
+    .hc-val { font: 600 28px var(--display); font-variant-numeric: tabular-nums; }
+    .hc-val.r { fill: var(--garnet); } .hc-val.g { fill: var(--good); }
+    .hc-leg { display: none; justify-content: center; gap: 18px; margin-top: 6px; font-size: 14px; font-weight: 600; }
+    .hc-leg .r { color: var(--garnet); } .hc-leg .g { color: var(--good); }
+    .hc-cap { margin: 10px auto 0; max-width: 720px; text-align: center; font-size: 14px; color: var(--muted); }
+    @media (max-width: 720px) { .hero-curve { margin-top: 36px; } .hc-lbl, .hc-tick { font-size: 30px; } .hc-ax { font-size: 26px; } .hc-val { font-size: 44px; } .hc-lbl { display: none; } .hc-leg { display: flex; } .hc-cap { font-size: 13px; } }
     .wt-show { margin-top: 12px; display: inline-flex; text-decoration: none; }
   </style>
 </head>
@@ -977,7 +986,7 @@
       </div>
       <h1 id="hero-h1">Make prevention <span class="soft">visible.</span></h1>
       <p class="sub">A clinical decision-support engine for every clinician in CKM care.</p>
-      <p class="lede">Explore your patient's risk continuum over time, show them how each option bends their curve, and carry the decision into the note.</p>
+      <p class="lede">Explore your patient's risk continuum over time, show them what each option would change, and carry the decision into the note.</p>
       <div class="hero-ctas">
         <a href="https://app.riskcontinuum.health/sign-up" class="btn btn-primary">Create a free account</a>
         <a href="#pilot" class="btn btn-ghost">Discuss a pilot</a>
@@ -987,19 +996,26 @@
       <p class="hero-access"><a href="#plan">Try the simulator &darr;</a> &middot; <a href="#patient-view">See the patient view &darr;</a> &middot; <a href="https://app.riskcontinuum.health/">Sign in</a></p>
     </div>
 
-    <div class="hero-curve" aria-hidden="true">
-      <svg viewBox="0 0 1080 190">
+    <figure class="hero-curve">
+      <svg viewBox="0 0 1080 230" role="img" aria-label="Example patient, age 52: chance of a heart attack or stroke by age 82 is 12% on today's path and 8% with a plan to lower blood pressure and cholesterol.">
         <defs><linearGradient id="hc-gap" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1E7148" stop-opacity=".16"/><stop offset="1" stop-color="#1E7148" stop-opacity=".02"/></linearGradient></defs>
-        <line class="hc-axis" x1="40" y1="170" x2="1040" y2="170"/>
-        <path class="hc-gap" d="M40 170 Q 640 160 1000 40 L1000 104 Q 640 166 40 170 Z"/>
-        <path class="hc-today" d="M40 170 Q 640 160 1000 40"/>
-        <path class="hc-plan" d="M40 170 Q 640 166 1000 104"/>
-        <circle class="hc-dot" cx="1000" cy="40" r="7" fill="#861327"/>
-        <circle class="hc-dot hc-pd" cx="1000" cy="104" r="8" fill="#1E7148"/>
-        <text class="hc-lbl r" x="990" y="22" text-anchor="end">today&rsquo;s path</text>
-        <text class="hc-lbl g hc-pl" x="990" y="136" text-anchor="end">with the plan</text>
+        <text class="hc-ax" x="40" y="22">Chance of a heart attack or stroke</text>
+        <line class="hc-grid" x1="40" y1="40" x2="960" y2="40"/>
+        <line class="hc-axis" x1="40" y1="170" x2="960" y2="170"/>
+        <path class="hc-gap" d="M40 170 Q 640 160 960 40 L960 86 Q 640 164 40 170 Z"/>
+        <path class="hc-today" d="M40 170 Q 640 160 960 40"/>
+        <path class="hc-plan" d="M40 170 Q 640 164 960 86"/>
+        <circle class="hc-dot" cx="960" cy="40" r="7" fill="#861327"/>
+        <circle class="hc-dot hc-pd" cx="960" cy="86" r="8" fill="#1E7148"/>
+        <text class="hc-val r" x="976" y="48">12%</text>
+        <text class="hc-lbl r" x="945" y="26" text-anchor="end">today&rsquo;s path</text>
+        <g class="hc-pl"><text class="hc-val g" x="976" y="94">8%</text><text class="hc-lbl g" x="945" y="124" text-anchor="end">with the plan</text></g>
+        <text class="hc-tick" x="40" y="198">Age 52 &middot; today</text>
+        <text class="hc-tick" x="960" y="198" text-anchor="middle">Age 82</text>
       </svg>
-    </div>
+      <p class="hc-leg" aria-hidden="true"><span class="r">&#9679; Today&rsquo;s path</span><span class="g">&#9679; With the plan</span></p>
+      <figcaption class="hc-cap">Example patient, 52, with prediabetes and high triglycerides. Her 30-year PREVENT risk, today and with blood pressure to 120 and LDL-C to 79. Synthetic data; RCCKM engine output.</figcaption>
+    </figure>
 
   </div>
 </section>
@@ -1214,7 +1230,7 @@ Management Considerations:
     </div>
     <div class="sdm-cards">
       <div class="sdm-card reveal"><div class="em">👥</div><h3>Risk they can picture</h3><p>"About 2 in 100 similar patients," in plain words on the handout.</p></div>
-      <div class="sdm-card reveal"><div class="em">📉</div><h3>A curve they can watch bend</h3><p>Today and the plan on one timeline, out to age 82 for this patient.</p></div>
+      <div class="sdm-card reveal"><div class="em">🧭</div><h3>Reasons they can follow</h3><p>What is driving their risk, and the next steps, in words they can take home.</p></div>
       <div class="sdm-card reveal"><div class="em">📝</div><h3>The conversation, documented</h3><p>"Risk Reduction Discussed" goes in the note with the numbers you shared.</p></div>
     </div>
     <figure class="sdm-wide">
@@ -1293,23 +1309,17 @@ Management Considerations:
       <p class="marks"><span title="Today's PREVENT risk with the relative risk reduction seen in trials: CTT Collaboration for LDL-C, Ettehad 2016 for systolic BP."><sup>†</sup> Trial-derived treatment effect</span> &nbsp; <span title="PREVENT full model rerun with the new value. A modeled scenario, not a proven treatment effect."><sup>*</sup> Recalculated risk factor, not a treatment effect</span></p>
       <div class="summary" id="summary" aria-live="polite"></div>
       <div class="rp-body">
-        <div>
-          <p class="sentence" id="sentence"></p>
-          <svg class="chart" id="tl" viewBox="0 0 600 270" role="img" aria-label="Cumulative ASCVD risk timeline: 2.1% by age 62 and 12.2% by age 82 today"></svg>
-          <div class="legend"><span><i style="background:var(--muted)"></i>Today</span><span><i style="background:var(--good)"></i>With plan</span></div>
-        </div>
-        <div>
-          <div class="people-box">
-            <h4>100 similar patients over 30 years <small class="people-src">PREVENT model</small></h4>
-            <div class="people" id="people" aria-hidden="true"></div>
-            <div class="people-leg">
-              <span><i style="background:var(--accent)"></i><b id="pl-ev">12</b> may have a heart attack or stroke</span>
-              <span id="pl-pv-row" hidden><i style="background:var(--good)"></i><b id="pl-pv">0</b> fewer with this plan</span>
-            </div>
+        <p class="sentence" id="sentence"></p>
+        <div class="people-box">
+          <h4>100 similar patients over 30 years <small class="people-src">PREVENT model</small></h4>
+          <div class="people" id="people" aria-hidden="true"></div>
+          <div class="people-leg">
+            <span><i style="background:var(--accent)"></i><b id="pl-ev">12</b> may have a heart attack or stroke</span>
+            <span id="pl-pv-row" hidden><i style="background:var(--good)"></i><b id="pl-pv">0</b> fewer with this plan</span>
           </div>
         </div>
       </div>
-      <p class="rp-note">Points are PREVENT's 10-year and 30-year estimates; the dotted lines only connect them. The 30-year plan value assumes the treatment effect is sustained. Demo patient; every value is RCCKM engine output.</p>
+      <p class="rp-note">Figures are PREVENT's 10-year and 30-year estimates. The 30-year plan value assumes the treatment effect is sustained. Demo patient; every value is RCCKM engine output.</p>
     </div>
     <span class="autoplay" id="autoplay">Playing a demo. Tap a lever to take over.</span>
 
@@ -1788,53 +1798,9 @@ Management Considerations:
     };
     var ORDER = ["statin", "bp", "a1c"];
     var NOW = SCEN.none, NAMES = { statin: "Start a statin", bp: "Systolic BP to 120", a1c: "A1c 6.1% \u2192 5.5%" };
-    var on = { statin: false, bp: false, a1c: false }, cur = { r10: NOW.r10, r30: NOW.r30 };
+    var on = { statin: false, bp: false, a1c: false };
     var levers = document.querySelectorAll(".lever[data-lever]");
-    var tl = document.getElementById("tl"), people = document.getElementById("people");
-    var W = 600, H = 270, L = 46, R = 76, T = 18, B = 40, TOP = 20;
-    var gap10, gap30, nowPath, planPath, n10, n30, p10, p30;
-    function x(yr) { return L + (yr / 30) * (W - L - R); }
-    function y(v) { return H - B - (v / TOP) * (H - T - B); }
-    function mk(tag, attrs, parent) { var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); (parent || tl).appendChild(e); return e; }
-    function dot(color) { var g = mk("g", {}); return { g: g, c: mk("circle", { r: 5.5, fill: color }, g), t: mk("text", { "font-size": 15, "font-weight": 700, fill: color }, g) }; }
-    function joined(a, b) { return "M" + x(0) + "," + y(0) + " L" + x(10) + "," + y(a) + " L" + x(30) + "," + y(b); }
-    function place(d, yr, v, above) {
-      d.c.setAttribute("cx", x(yr)); d.c.setAttribute("cy", y(v));
-      d.t.setAttribute("x", x(yr) + 10); d.t.setAttribute("y", y(v) + (above ? -9 : 19));
-      d.t.textContent = v.toFixed(1) + "%";
-    }
-    function buildTimeline() {
-      W = Math.max(320, Math.round(tl.getBoundingClientRect().width) || 600); H = W < 460 ? 250 : 270; R = W < 460 ? 54 : 76;
-      tl.setAttribute("viewBox", "0 0 " + W + " " + H);
-      while (tl.firstChild) tl.removeChild(tl.firstChild);
-      [0, 10, 20].forEach(function (t) {
-        mk("line", { x1: L, x2: W - R, y1: y(t), y2: y(t), stroke: "#ECE4E3", "stroke-dasharray": t ? "3 4" : "none" });
-        mk("text", { x: L - 8, y: y(t) + 4, "font-size": 13, "text-anchor": "end", fill: "#6F6064" }).textContent = t + "%";
-      });
-      [[0, W < 460 ? "Now" : AGE + " (now)", "start"], [10, "age " + (AGE + 10), "middle"], [30, "age " + (AGE + 30), "middle"]].forEach(function (a) {
-        mk("text", { x: x(a[0]), y: H - 12, "font-size": 13, "text-anchor": a[2], fill: "#6F6064" }).textContent = a[1];
-      });
-      gap10 = mk("line", { "stroke-width": 7, "stroke-linecap": "round", stroke: "#1E7148", opacity: 0 });
-      gap30 = mk("line", { "stroke-width": 7, "stroke-linecap": "round", stroke: "#1E7148", opacity: 0 });
-      nowPath = mk("path", { fill: "none", stroke: "#861327", "stroke-width": 2.4, "stroke-dasharray": "2 6", "stroke-linecap": "round" });
-      planPath = mk("path", { fill: "none", stroke: "#1E7148", "stroke-width": 2.6, "stroke-dasharray": "2 6", "stroke-linecap": "round", opacity: 0 });
-      n10 = dot("#861327"); n30 = dot("#861327"); p10 = dot("#1E7148"); p30 = dot("#1E7148");
-      nowPath.setAttribute("d", joined(NOW.r10, NOW.r30));
-    }
-    buildTimeline();
-    function drawPlan(a, b, moved) {
-      planPath.setAttribute("d", joined(a, b));
-      place(n10, 10, NOW.r10, true); place(n30, 30, NOW.r30, true);
-      place(p10, 10, a, false); place(p30, 30, b, false);
-      [[gap10, 10, NOW.r10, a], [gap30, 30, NOW.r30, b]].forEach(function (g) {
-        g[0].setAttribute("x1", x(g[1])); g[0].setAttribute("x2", x(g[1])); g[0].setAttribute("y1", y(g[2])); g[0].setAttribute("y2", y(g[3]));
-        g[0].setAttribute("opacity", moved ? .28 : 0);
-      });
-      [planPath, p10.g, p30.g].forEach(function (e) { e.setAttribute("opacity", moved ? 1 : 0); });
-      var c = moved ? "#9C8D90" : "#861327";
-      [n10, n30].forEach(function (d) { d.c.setAttribute("fill", c); d.t.setAttribute("fill", c); });
-      nowPath.setAttribute("stroke", c);
-    }
+    var people = document.getElementById("people");
     for (var i = 0; i < 100; i++) { var s = document.createElementNS(NS, "svg"); s.setAttribute("viewBox", "0 0 24 34"); s.innerHTML = PERSON; people.appendChild(s); }
     var personEls = people.querySelectorAll("svg");
     function setPeople(evToday, evPlan) {
@@ -1859,14 +1825,7 @@ Management Considerations:
           ? "By age " + (AGE + 30) + ", about " + Math.round(s.r30) + " in 100 similar patients, a change of less than one person in 100."
           : "By age " + (AGE + 30) + ", about " + Math.round(s.r30) + " in 100 similar patients instead of " + Math.round(NOW.r30) + (s.rel ? " (about " + s.rel + "% lower)." : "."))
         : "Without changes, about " + Math.round(NOW.r30) + " in 100 similar patients may have a heart attack or stroke by age " + (AGE + 30) + ".";
-      tl.setAttribute("aria-label", "Cumulative ASCVD risk: today 2.1% by age 62 and 12.2% by age 82" + (moved ? "; with plan " + s.r10.toFixed(1) + "% and " + s.r30.toFixed(1) + "%" : ""));
       setPeople(Math.round(NOW.r30), Math.round(s.r30));
-      if (!moved) { cur.r10 = NOW.r10; cur.r30 = NOW.r30; drawPlan(NOW.r10, NOW.r30, false); return; }
-      var f10 = cur.r10, f30 = cur.r30;
-      tween(0, 1, animate === false ? 0 : 750, function (e) {
-        cur.r10 = f10 + (s.r10 - f10) * e; cur.r30 = f30 + (s.r30 - f30) * e;
-        drawPlan(cur.r10, cur.r30, true);
-      });
     }
     var auto = !reduced, autoTimer = null, autoIdx = 0;
     var SEQ = [{ statin: false, bp: false, a1c: false }, { statin: true, bp: false, a1c: false }, { statin: true, bp: true, a1c: false }, { statin: true, bp: true, a1c: true }, { statin: true, bp: true, a1c: true }];
@@ -1889,7 +1848,6 @@ Management Considerations:
       rsz = setTimeout(function () {
         if (Math.abs(window.innerWidth - lastW) < 40) return;
         lastW = window.innerWidth;
-        buildTimeline(); render(false);
         buildA1c(); if (trajDone) { var ln = a1c.querySelector("path.ln"), ar = a1c.querySelector("path.ar"); ln.style.strokeDasharray = "none"; ar.setAttribute("opacity", 1); a1c.querySelectorAll("g.pt").forEach(function (g) { g.setAttribute("opacity", 1); }); }
       }, 200);
     });
@@ -2357,10 +2315,10 @@ Management Considerations:
       var t0 = performance.now();
       (function f(t) {
         var k = ((t - t0) / 9000) % 1, w = 0.5 - 0.5 * Math.cos(k * 2 * Math.PI), e = w < .5 ? 4 * w * w * w : 1 - Math.pow(-2 * w + 2, 3) / 2;
-        var y = 40 + 64 * e, c = 160 + 6 * e;
-        plan.setAttribute("d", "M40 170 Q 640 " + c.toFixed(1) + " 1000 " + y.toFixed(1));
-        gap.setAttribute("d", "M40 170 Q 640 160 1000 40 L1000 " + y.toFixed(1) + " Q 640 " + c.toFixed(1) + " 40 170 Z");
-        pd.setAttribute("cy", y.toFixed(1)); pl.setAttribute("y", (y + 32).toFixed(1)); pl.style.opacity = Math.min(1, e * 1.6).toFixed(2);
+        var y = 40 + 46 * e, c = 160 + 4 * e;
+        plan.setAttribute("d", "M40 170 Q 640 " + c.toFixed(1) + " 960 " + y.toFixed(1));
+        gap.setAttribute("d", "M40 170 Q 640 160 960 40 L960 " + y.toFixed(1) + " Q 640 " + c.toFixed(1) + " 40 170 Z");
+        pd.setAttribute("cy", y.toFixed(1)); pl.setAttribute("transform", "translate(0 " + (y - 86).toFixed(1) + ")"); pl.style.opacity = Math.min(1, e * 1.6).toFixed(2);
         requestAnimationFrame(f);
       })(t0);
     }

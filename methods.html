@@ -27,17 +27,17 @@
   <div class="methods-hero">
     <p class="eyebrow">Methods &amp; evidence</p>
     <h1>The logic behind<br />the conversation.</h1>
-    <p class="lede">RCCKM brings risk estimation, clinical findings and treatment scenarios together for the prevention visit. This guide explains the rules, assumptions, option estimates and software checks behind that workflow.</p>
+    <p class="lede">The rules, the evidence and the checks.</p>
     <div class="methods-meta"><span>Document version 1.5 · November 21, 2026</span><span>Implementation reference <code>c63886d</code></span><span>RSS methodology v2</span></div>
     <div class="methods-actions"><a class="method-button" href="#frameworks">Explore the methods</a><a href="downloads/RCCKM_Methods_and_Evidence_v1.pdf" download>Download technical appendix (PDF)</a><a href="downloads/rcckm-methods-data-v1.json" download>Rules &amp; weights (JSON)</a></div>
   </div>
   <div class="methods-layout">
-    <nav class="methods-nav" aria-label="Methods contents"><p>On this page</p><a href="#frameworks">01 · Clinical framework</a><a href="#levels">02 · Level logic</a><a href="#rss">03 · Signal score</a><a href="#simulator">04 · Simulator</a><a href="#engineering">05 · Engineering</a><a href="#evaluation">06 · Evaluation</a><a href="#limits">07 · Clinical use &amp; scope</a><a href="#references">Sources &amp; versions</a></nav>
+    <nav class="methods-nav" aria-label="Methods contents"><p>On this page</p><a href="#frameworks">01 · Clinical framework</a><a href="#levels">02 · Level logic</a><a href="#rss">03 · Signal score</a><a href="#simulator">04 · Simulator</a><a href="#engineering">05 · Engineering</a><a href="#evaluation">06 · Evaluation</a><a href="#limits">07 · Clinical use</a><a href="#references">Sources &amp; versions</a></nav>
     <article class="methods-content">
       <section class="method-section" id="frameworks" aria-labelledby="frameworks-heading" data-export>
         <p class="section-number">01 · Clinical framework</p>
         <h2 id="frameworks-heading">One assessment, distinct kinds of information.</h2>
-        <p>RCCKM combines published risk equations and clinical frameworks with explicit rules for organizing a patient's findings. PREVENT estimates probability; CKM and KDIGO describe clinical context; RCCKM Level and the Risk Signal Score summarize patterns for review.</p>
+        <p>PREVENT estimates probability. CKM and KDIGO describe context. The RCCKM Level and Risk Signal Score summarize the pattern.</p>
         <div class="table-scroll" tabindex="0" role="region" aria-label="Clinical framework comparison"><table><caption>Meaning and authority of each output</caption><thead><tr><th scope="col">Output</th><th scope="col">Question it addresses</th><th scope="col">Basis</th></tr></thead><tbody>
           <tr><th scope="row">PREVENT</th><td>What is the modeled probability of a cardiovascular event over a defined horizon?</td><td>Published AHA equations, with model eligibility and input-domain checks. <a href="#source-prevent">[1]</a></td></tr>
           <tr><th scope="row">AHA CKM stage</th><td>Where do cardiovascular, kidney and metabolic findings sit in the CKM framework?</td><td>AHA's disease and risk staging framework, implemented separately from RCCKM Level. <a href="#source-ckm">[2]</a></td></tr>
@@ -45,12 +45,6 @@
           <tr><th scope="row">RCCKM Level</th><td>Which prespecified clinical pattern best describes the reviewed findings?</td><td>RCCKM's ordered clinical pathways, with the reason for each assignment shown.</td></tr>
           <tr><th scope="row">Risk Signal Score</th><td>Which selected findings contribute to the visible burden summary?</td><td>Prespecified points and domain caps, with individual contributors shown for review.</td></tr>
         </tbody></table></div>
-        <h3>How source evidence becomes a platform rule</h3>
-        <p>Published sources supply the equations, disease definitions and treatment evidence. RCCKM specifies how those inputs are reconciled, which clinical pathway takes priority, and how results are presented together. The Level hierarchy, RSS weights and combined simulator model are documented implementation choices.</p>
-        <p>Each output retains its own role. Domain-specific recommendations follow the applicable clinical findings and treatment pathways. The assessment presents those reasons alongside the summary measures.</p>
-        <h3>Interpreting the findings together</h3>
-        <p>Measured plaque, actionable drivers and modeled event probability provide complementary information. A patient with a small positive CAC result and a patient with diabetes, severe lipid elevation and reduced kidney function may call for different conversations and management pathways. The assessment keeps the underlying findings available alongside its summaries.</p>
-        <p>Input meaning is preserved throughout: measured CAC 0, unmeasured CAC, a bounded UACR result and a finding needing confirmation remain distinct. Clinicians review the supplied information and its dates before using the assessment.</p>
         <h3 id="lipids-and-cac">Lipids and calcium, per the 2026 ACC/AHA guideline</h3>
         <ul class="prose-list">
           <li><b>Non-HDL-C counts.</b> 190–219 mg/dL is a major risk enhancer; above 220 it is an indication on its own. <a href="#source-lipids">[6]</a></li>
@@ -64,22 +58,19 @@
 
       <section class="method-section" id="levels" aria-labelledby="levels-heading" data-export>
         <p class="section-number">02 · Level logic</p>
-        <h2 id="levels-heading">How the Level pathway is assigned.</h2>
-        <p>The engine checks clinical disease and coronary calcium first, then evaluates severe lipid states, kidney findings, modeled risk and specified combinations of risk drivers. The first matching base rule establishes the pathway. Intermediate 10-year PREVENT ASCVD risk has a minimum Level of 3A; the separate 3C modifier identifies qualifying combinations within base 3B pathways.</p>
-        <div class="table-scroll" tabindex="0" role="region" aria-label="RCCKM Level definitions"><table><caption>Level names and principal assignment patterns</caption><thead><tr><th scope="col">Level</th><th scope="col">Principal pattern in the reviewed implementation</th></tr></thead><tbody>
-          <tr><th scope="row" class="level-cell">1<span>No signals found</span></th><td>No earlier qualifying rule or counted mild signal matches, and the classifier's blocking PREVENT inputs are not missing. Read this in the context of the data available.</td></tr>
-          <tr><th scope="row" class="level-cell">2A<span>One early signal</span></th><td>One counted mild signal, or an isolated kidney finding requiring diagnostic confirmation after higher-priority rules have been considered.</td></tr>
-          <tr><th scope="row" class="level-cell">2B<span>Several early signals</span></th><td>At least two counted mild signals without an earlier actionable, disease or plaque pathway.</td></tr>
-          <tr><th scope="row" class="level-cell">3A<span>Modeled risk or single driver</span></th><td>Intermediate 10-year PREVENT ASCVD risk (5–&lt;10%) when a stronger pathway does not apply; qualifying long-term risk; or a single-driver pathway such as LDL-C 160–189 mg/dL, ApoB ≥120 mg/dL or isolated current smoking. The rule and explanation identify the specific pathway.</td></tr>
-          <tr><th scope="row" class="level-cell">3B<span>Actionable drivers</span></th><td>A qualifying severe-lipid or clinical pathway, or a specified combination of atherogenic, metabolic, kidney, enhancer and/or PREVENT findings, before the 3C modifier.</td></tr>
-          <tr><th scope="row" class="level-cell">3C<span>Compounding drivers</span></th><td>A base 3B classification plus any of: 10-year PREVENT ASCVD ≥5%, established diabetes, unconfirmed diabetes-range A1c, or a qualifying kidney finding.</td></tr>
-          <tr><th scope="row" class="level-cell">4<span>Plaque present</span></th><td>Quantitative CAC &gt;0 and &lt;300, after clinical disease exclusions.</td></tr>
-          <tr><th scope="row" class="level-cell">5<span>Advanced plaque or disease</span></th><td>Clinical ASCVD, established heart failure, or quantitative CAC ≥300. The underlying disease context remains explicit; heart failure alone does not imply an ASCVD diagnosis or ASCVD secondary-prevention lipid targets.</td></tr>
-          <tr><th scope="row" class="level-cell">Incomplete</th><td>No earlier qualifying rule matches, PREVENT ASCVD is unavailable, and at least one of age, sex, systolic BP, total cholesterol, HDL-C, eGFR or BMI is recorded as a blocking missing input.</td></tr>
+        <h2 id="levels-heading">How the Level is assigned.</h2>
+        <p>Disease and calcium first, then severe lipids, kidney findings, modeled risk and combinations of drivers. The first rule that matches sets the Level, and its reason is always shown.</p>
+        <div class="table-scroll" tabindex="0" role="region" aria-label="RCCKM Level definitions"><table><caption>Levels</caption><thead><tr><th scope="col">Level</th><th scope="col">Pattern</th></tr></thead><tbody>
+          <tr><th scope="row" class="level-cell">1<span>No signals found</span></th><td>No signals found in the data available.</td></tr>
+          <tr><th scope="row" class="level-cell">2A<span>One early signal</span></th><td>One mild signal, or a kidney finding to confirm.</td></tr>
+          <tr><th scope="row" class="level-cell">2B<span>Several early signals</span></th><td>Two or more mild signals.</td></tr>
+          <tr><th scope="row" class="level-cell">3A<span>Modeled risk or single driver</span></th><td>Intermediate 10-year PREVENT risk, high long-term risk, or one strong driver.</td></tr>
+          <tr><th scope="row" class="level-cell">3B<span>Actionable drivers</span></th><td>Several actionable drivers, or a severe lipid or clinical pathway.</td></tr>
+          <tr><th scope="row" class="level-cell">3C<span>Compounding drivers</span></th><td>3B plus diabetes, kidney disease or 10-year risk ≥5%.</td></tr>
+          <tr><th scope="row" class="level-cell">4<span>Plaque present</span></th><td>CAC 1–299.</td></tr>
+          <tr><th scope="row" class="level-cell">5<span>Advanced plaque or disease</span></th><td>Clinical ASCVD, heart failure, or CAC ≥300.</td></tr>
+          <tr><th scope="row" class="level-cell">Incomplete</th><td>A PREVENT input is missing: age, sex, BP, cholesterol, eGFR or BMI.</td></tr>
         </tbody></table></div>
-        <div class="note"><p><b>Read the Level with its reason.</b> The code summarizes a clinical pattern, while PREVENT supplies the modeled event probability. The rule identifier and contributing findings explain why the patient follows that pathway.</p></div>
-        <h3>Information that keeps its meaning</h3>
-        <p>Numeric CAC determines the plaque-based Level 4/5 pathways. Qualitative incidental calcium remains visible in plaque context, RSS and applicable domain actions. Severe-hypercholesterolemia and suspected FH pathways retain their priority with CAC 0. Kidney measurement categories are interpreted alongside the evidence for chronicity.</p>
         <details class="method-detail" id="level-rule-sequence"><summary>Technical appendix A · Complete base-rule sequence and signal definitions</summary><div class="detail-body">
           <p>The table lists the base classifier in evaluation order. After that pass, the Intermediate-risk minimum applies to base Levels 1, 2A or 2B; existing 3A and stronger pathways are retained. The 3C modifier then applies to qualifying base 3B pathways. Signal counters and RSS domain caps serve separate purposes.</p>
           <div class="table-scroll" tabindex="0" role="region" aria-label="Ordered Level rules"><table class="rule-table"><caption>Ordered base rules, implementation reference c63886d</caption><thead><tr><th scope="col">Order</th><th scope="col">Condition</th><th scope="col">Base output and rule identifier</th></tr></thead><tbody>
@@ -136,9 +127,9 @@
       <section class="method-section" id="rss" aria-labelledby="rss-heading" data-export>
         <p class="section-number">03 · Risk Signal Score</p>
         <h2 id="rss-heading">A visible tally of selected findings.</h2>
-        <p>RSS v2 is a transparent tally of selected findings. Plaque receives greater weight, major biologic states receive intermediate weight, and contextual findings receive smaller weights. The weights and overlap rules below make each contribution visible.</p>
-        <p>The total is the sum of displayed positive contributions, with domain caps applied where specified. Findings can remain visible as context after a cap is reached. Missing measurements remain unknown and contribute no points; interpret the total alongside the available inputs.</p>
-        <h3>How overlap is handled</h3>
+        <p>Plaque weighs most, major biology next, context least. Every point shows its source; missing tests score nothing. A burden summary, not a percentage.</p>
+        <details class="method-detail" id="rss-weights"><summary>Technical appendix B · Every RSS band and point value</summary><div class="detail-body">
+          <h4>How overlap is handled</h4>
         <ul>
           <li><strong>Lipids:</strong> ApoB, or LDL-C ≥190 when ApoB is absent, is allocated first; suspected FH next; triglycerides last. These contributions share a 12-point cap. Lp(a) is a separate measured domain.</li>
           <li><strong>Plaque:</strong> a numeric CAC result supersedes qualitative incidental CAC. The two do not stack.</li>
@@ -147,7 +138,6 @@
           <li><strong>Reproductive history:</strong> 2 points per supported marker, up to 4. Early and premature menopause are reconciled into one menopause item.</li>
           <li><strong>Kidney findings:</strong> eGFR and albuminuria are additive, reflecting separate G and A axes. Their contributions do not by themselves establish CKD chronicity.</li>
         </ul>
-        <details class="method-detail" id="rss-weights"><summary>Technical appendix B · Every RSS band and point value</summary><div class="detail-body">
           <p>These tables are generated from the reviewed engine's canonical RSS methodology export. The downloadable JSON also supplies exact continuous interval endpoints and source fingerprints. Integer-style band labels below follow the engine's display convention.</p>
           <!-- RSS-TABLES:START -->
 <h4>CAC</h4><div class="table-scroll" tabindex="0" role="region" aria-label="CAC scoring"><table class="rss-table"><caption>CAC: prespecified RSS weights</caption><thead><tr><th scope="col">Finding</th><th scope="col">Points</th><th scope="col">Scoring note</th></tr></thead><tbody><tr><th scope="row">1-99</th><td class="points">10</td><td>CAC 1-99 indicates mild plaque burden.</td></tr><tr><th scope="row">100-299</th><td class="points">20</td><td>CAC 100-299 indicates moderate plaque burden.</td></tr><tr><th scope="row">300-999</th><td class="points">30</td><td>CAC 300-999 indicates severe plaque burden.</td></tr><tr><th scope="row">&gt;=1000</th><td class="points">40</td><td>CAC &gt;=1000 indicates extreme plaque burden.</td></tr></tbody></table></div>
@@ -173,20 +163,27 @@
       </section>
 
       <section class="method-section" id="simulator" aria-labelledby="simulator-heading" data-export>
-        <p class="section-number">04 · Simulator methods</p>
-        <h2 id="simulator-heading">Each scenario states how it was modeled.</h2>
-        <p>Each plan forks the reviewed worksheet and reruns the clinical engine. The Level, RSS and domain interpretation reflect that scenario. The clinician view compares ASCVD probability with two explicitly distinguished methods. A separate patient view estimates each eligible option on its own, with its trial interval, and is described after them. Which options appear is the engine's call.</p>
-        <h3>Trial-derived LDL-C and systolic BP scenarios</h3>
+        <p class="section-number">04 · Simulator</p>
+        <h2 id="simulator-heading">Every scenario is a full engine run.</h2>
+        <ul class="prose-list">
+          <li><b>Statin and blood pressure</b> use trial effects (CTT 2010, Ettehad 2016) and combine into the plan. <a href="#source-ctt">[4]</a> <a href="#source-bp">[5]</a></li>
+          <li><b>A1c, UACR and smoking</b> rerun PREVENT with the new value.</li>
+          <li><b>Other options</b> are estimated one at a time with their trial range, never stacked.</li>
+          <li><b>Under 60,</b> statin and BP also get a 30-year projection. <a href="#source-pencina">[14]</a></li>
+          <li><b>The engine decides</b> which options appear.</li>
+        </ul>
+        <details class="method-detail" id="simulator-detail"><summary>Technical appendix D · Equations, assumptions and the option catalog</summary><div class="detail-body">
+        <h4>Trial-derived LDL-C and systolic BP scenarios</h4>
         <p>For LDL-C lowering, the simulator uses the CTT 2010 relative-effect estimate of 0.78 per 1 mmol/L (38.67 mg/dL) reduction. For systolic BP lowering, it uses Ettehad 2016's estimate of 0.80 per 10 mmHg reduction, credited for at most 20 mmHg of lowering, a deliberately conservative limit on compounding the per-10 mmHg effect. <a href="#source-ctt">[4]</a> <a href="#source-bp">[5]</a> The engine scales each factor to the selected change, multiplies the factors, and applies them to baseline survival:</p>
         <div class="equation"><p class="equation-label">Implemented scenario transformation</p><code>f_lipid = 0.78 ^ ((LDL_before − LDL_plan) / 38.67)</code><code>f_BP = 0.80 ^ ((SBP_before − SBP_plan) / 10)</code><code>f_combined = product of applicable factors</code><code>p_plan = 1 − (1 − p_reference) ^ f_combined</code></div>
         <p>Here, <code>p_reference</code> is a proportion between 0 and 1. For lipid/BP changes alone, it is the baseline PREVENT ASCVD estimate. In a mixed scenario, supported risk-factor changes first recalculate PREVENT, then the lipid/BP factors are applied. Each factor is rounded to three decimals before multiplication; risk percentages are reported to two decimal places. Display precision is separate from the uncertainty of a modeled projection. Changes smaller than 0.5 mg/dL LDL-C or 0.5 mmHg systolic BP add no trial-effect factor.</p>
 <div class="note"><p>The combined projection assumes proportional effects and multiplicative combination of the lipid and BP factors. CTT studied major vascular events, including revascularization; Ettehad studied major cardiovascular outcomes, including heart failure. Their endpoints and populations differ from PREVENT ASCVD. The simulator applies these published relative effects to the selected PREVENT horizon as a prespecified modeling assumption.</p></div>
-        <h3>Recalculated risk-factor scenarios</h3>
+        <h4>Recalculated risk-factor scenarios</h4>
         <p>Supported smoking, HbA1c and UACR changes rerun the applicable PREVENT model. A new value affects probability when that predictor belongs to the baseline model. Comparisons preserve the baseline model and diabetes status; changes outside that comparison receive an explanation. These scenarios represent changes in the modeled risk profile, rather than the full benefit of a particular drug.</p>
-        <h3>Prespecified treatment assumptions</h3>
+        <h4>Prespecified treatment assumptions</h4>
         <p>Starting a moderate-intensity statin assumes LDL-C and non-HDL-C decrease by 35%, and ApoB by 30%, with HDL-C held constant for the non-HDL calculation. Intensification starts from the <strong>current on-treatment lipid value</strong>. For a moderate-intensity regimen, the LDL/non-HDL multiplier is 0.50/0.65, approximately 0.769: the assumed remaining fractions of an untreated value on high- and moderate-intensity therapy. A current LDL-C of 100 mg/dL therefore becomes approximately 77 mg/dL, an additional reduction of about 23%. ApoB is multiplied by 0.80. For a represented low-intensity regimen, the current LDL/non-HDL value is multiplied by 0.50/0.80 (0.625), and current ApoB by 0.70. Lipid values are rounded as implemented. These are scenario defaults; observed response requires follow-up.</p>
         <p>The statin effect is sized from LDL-C when the engine trusts it, otherwise from non-HDL-C (including triglycerides 200–399 mg/dL or LDL-C below 70 with a calculated LDL-C). The label says which. ApoB affects interpretation but receives no additional trial ASCVD reduction. Treatment effects and direct predictor changes are separated to avoid counting the same lipid/BP change twice.</p>
-        <h3 id="option-estimates">Option estimates in the patient view</h3>
+        <h4 id="option-estimates">Option estimates in the patient view</h4>
         <p>From <b>Try a plan → Show patient</b>, the clinician can hand the screen to the patient. The patient view lists each option whose trial population the patient resembles and estimates that option's effect on the patient's own PREVENT risk, <strong>alone</strong>. The engine keeps the PREVENT baseline and applies the source's relative effect and 95% interval with the same transformation as the lever scenarios, <code>p_after = 1 − (1 − p) ^ HR</code>. Recalculated risk factors (A1c, UACR, smoking) appear in this view as goals without a number, because a marker recalculation is not a treatment effect.</p>
         <div class="table-scroll" tabindex="0" role="region" aria-label="Option estimate catalog"><table><caption>Option estimate catalog (<code>option_effects_v6</code>). Every option requires an available PREVENT estimate and no clinical ASCVD.</caption><thead><tr><th scope="col">Option</th><th scope="col">Offered when</th><th scope="col">Effect applied (95% interval)</th><th scope="col">Source and endpoint</th></tr></thead><tbody>
           <tr><th scope="row">Statin start or intensification</th><td>The engine allows a statin start or intensification (not contraindicated by intolerance, no clinical ASCVD, not already on high intensity) and a usable LDL-C or non-HDL-C sizes it.</td><td>RR 0.78 (0.76–0.80) per 38.7 mg/dL LDL-C, scaled to the modeled change. Combined into the plan.</td><td>CTT 2010 <a href="#source-ctt">[4]</a>. Broader than PREVENT ASCVD: includes revascularization.</td></tr>
@@ -206,65 +203,36 @@
           <li><b>Reasons from the record.</b> Each option carries the patient's own findings that make it relevant (for example blood pressure and its goal, LDL-C and its expected value, A1c, BMI, eGFR or UACR), emitted by the engine and worded by the interface.</li>
           <li><b>Relative reduction.</b> A relative reduction is shown beside the absolute figure only when the absolute change is at least 1 in 100, rounded to the nearest 5%, and never for an option whose interval includes no benefit.</li>
         </ul>
-        <h3 id="thirty-year-projection">30-year projection for statin and blood pressure</h3>
+        <h4 id="thirty-year-projection">30-year projection for statin and blood pressure</h4>
         <p>For patients aged 30–59, where PREVENT gives a 30-year ASCVD risk, the statin and BP options also carry a projected 30-year benefit, following Pencina et al. <a href="#source-pencina">[14]</a>: the 30-year risk with the trial effect held constant.</p>
         <div class="equation"><p class="equation-label">30-year projection range</p><code>low end = weaker end of the trial interval, held for 30 years</code><code>high end, LDL-C lowering = RR per mmol/L of exp(−0.249 − 0.0152 × (years − 5))</code><code>  (0.78 at 5 years, 0.46 at 40 years)</code><code>high end, systolic BP = stronger end of the trial interval</code></div>
         <p>The long-exposure LDL-C curve is the published formula of Ference et al. <a href="#source-ference">[15]</a> (Table 2 footnote), as used in Pencina's second model; a unit test checks it against all 35 cells of that table. No long-duration effect is published for BP lowering, so its range is the trial interval. No 30-year figure is given at age 60 or older, when PREVENT gives no 30-year risk, for an option whose 10-year interval includes no benefit, or for options other than statin and BP.</p>
         <p>The patient view opens on the 30-year projection under age 50, where 10-year figures undersell treatment, and on 10 years from 50 to 59, with 30 years one tap away; from 60 it shows 10 years only. On the 30-year view the figure is labeled a projection with the assumption that the trial effect, about five years of treatment, is sustained. The risk-category marker stays on 10-year risk, and a result on one horizon never stands in for the other.</p>
-        <h3>Horizon and scope</h3>
+        <h4>Horizon and scope</h4>
         <p>RCCKM reports supported 10-year PREVENT estimates at ages 30–79 and 30-year estimates at ages 30–59. Its eligibility policy directs established clinical cardiovascular disease, established heart failure and CAC ≥300 to their clinical pathways. Eligibility and input-domain checks follow the implemented source guidance. <a href="#source-prevent">[1]</a></p>
         <p>Clinician scenarios cover ASCVD over the supported horizon; the patient view adds the heart-failure lane above. Drug harms other than the reported aspirin bleeding figure, life expectancy, annual event timing and statin withdrawal are outside these calculations. A 30-year trial-effect projection assumes sustained benefit beyond the roughly five-year statin trial follow-up; connecting lines are visual guides. Adherence, competing risks, changing health and subsequent treatment remain part of the clinical discussion.</p>
+      </div></details>
       </section>
 
       <section class="method-section" id="engineering" aria-labelledby="engineering-heading" data-export>
         <p class="section-number">05 · Engineering</p>
-        <h2 id="engineering-heading">A shared engine, with clinician review in the loop.</h2>
-        <ol class="workflow" aria-label="Assessment workflow">
-          <li><b>1 · Reconcile the source</b><p>A rule-based parser proposes structured values, dates, histories and medication states from supported chart text. Missing fields and conflicts remain visible.</p></li>
-          <li><b>2 · Confirm the worksheet</b><p>The clinician reviews or edits the proposed inputs. Structured disease, measurement, treatment and certainty states carry their own meanings.</p></li>
-          <li><b>3 · Run the clinical engine</b><p>The Python engine evaluates inputs, published calculations and explicit domain rules, producing structured results and traceable reasons.</p></li>
-          <li><b>4 · Review and communicate</b><p>The interface presents the assessment, scenarios, clinician note, patient view and patient handout. The clinician reviews these outputs and makes the clinical decisions.</p></li>
-        </ol>
-        <h3>Deterministic core and optional AI</h3>
-        <p>Confirmed inputs, the same engine/evidence version and the same evaluation context follow the same deterministic calculation and decision logic. The Next.js application is the product interface; the earlier Streamlit interface has been retired. The same Python engine runs on the clinician's device in the browser, so chart text and worksheet values are assessed locally, and a parity check compares on-device and server responses for the same journeys. Renderers select and format structured clinical facts rather than independently recomputing them.</p>
-        <p>Optional AI commentary is labeled separately, sends only a de-identified summary when the clinician asks, and is presented for clinician review. It can vary between requests. Calculated risks, Level, RSS and staging come from the shared deterministic engine; the clinician reviews the note, diagnosis support and patient handout before use.</p>
-        <h3>Input meaning and assessment lifecycle</h3>
-        <p>The engine distinguishes absent results from measured zero, quantitative results from bounded/nonnumeric results, current treatment from documented non-use, and established disease from a finding that needs confirmation. Clinical context and observation dates matter. Input changes invalidate a stale assessment and dependent outputs, prompting reassessment.</p>
-        <p>Kidney interpretation retains G/A measurement categories separately from CKD certainty. Glycemia separates established diabetes from unconfirmed diagnostic-range measurements. BP interpretation separates a usable reading, disease authority and treatment context. These distinctions let an abnormal result prompt review without silently creating a confirmed diagnosis.</p>
-        <h3>Versioning and interoperability</h3>
-        <p>Result metadata includes application version, build identifier, rule-set version, evidence-map hash and generation timestamp. Rule traces expose triggering inputs and rule identifiers where implemented. A reproducible review must specify the software/evidence version, confirmed inputs, evaluation date and relevant configuration.</p>
-        <p>The public workflow supports de-identified text or manual entry and clinician-controlled output transfer. A patient's take-home plan travels inside its QR link, in the URL fragment, and is never sent to or stored by RCCKM servers. It carries their numbers, their goals and the options to try, as fixed codes only. FHIR R4 normalization, SMART sandbox and CDS Hooks adapters provide integration capabilities. Production EHR integration requires organization-specific configuration and approval.</p>
+        <h2 id="engineering-heading">Deterministic. On your device.</h2>
+        <p>The same inputs give the same answer. The Python engine runs in the browser, so chart text never leaves the device. The clinician reviews every input and every output.</p>
       </section>
 
       <section class="method-section" id="evaluation" aria-labelledby="evaluation-heading" data-export>
-        <p class="section-number">06 · Software verification and clinical evaluation</p>
-        <h2 id="evaluation-heading">Evidence for a reproducible clinical workflow.</h2>
-        <p>Verification checks the calculations, rule implementation and path from source information to the assessment and copied output. A fixed library of test patients makes threshold behavior, missing-data handling and regressions reproducible across software versions.</p>
-        <div class="evaluation-band"><span class="status">Current software checks passed</span><span class="status pending">Independent clinical evaluation planned</span></div>
-        <div class="table-scroll" tabindex="0" role="region" aria-label="Evidence register"><table><caption>Evidence register, checked November 21, 2026. Every layer ran in CI run <code>44850711406</code> on revision <code>c63886d</code>, November 20, 2026 (Eastern Time).</caption><thead><tr><th scope="col">Verification layer</th><th scope="col">Completed checks</th><th scope="col">What it covers</th></tr></thead><tbody>
-          <tr><th scope="row">Routine software suite</th><td><b>6,595 passed; 182 skipped</b> on each of Linux and Windows.</td><td>Parser, clinical rules, invariants, option estimates, API contracts and output regressions.</td></tr>
-          <tr><th scope="row">Clinical output snapshots</th><td><b>763 snapshots, no clinical output changes.</b> 625 test patients, 100 format variants and 38 demo-gallery patients.</td><td>What the app shows for each case: EMR note, patient roadmap, action list, PREVENT, diagnoses, report panels, statin reconciliation and the patient view's option estimates.</td></tr>
-          <tr><th scope="row">Independent expectations and PREVENT reference</th><td><b>725 journeys passed</b> their independent contracts. PREVENT matched the AHA's official R implementation on every endpoint: 644 eligible, 7 governed boundary projections, 74 clinically ineligible.</td><td>Parsed values, worksheet, eligibility, model selection and all six 10- and 30-year PREVENT endpoints against values computed by <code>AHAprevent 1.1.0</code>.</td></tr>
-          <tr><th scope="row">On-device engine parity</th><td><b>108 journeys, 1,512 responses, zero mismatches</b> between the in-browser and server engines.</td><td>That the engine running on the clinician's device returns what the server engine returns.</td></tr>
-          <tr><th scope="row">FHIR/paste parity</th><td><b>500 journeys passed.</b></td><td>Agreement between supported FHIR normalization and paste-based inputs.</td></tr>
-          <tr><th scope="row">Next.js build and browser tests</th><td><b>Passed</b>, including the patient-view tests.</td><td>Worksheet behavior, rendering, the patient view and take-home link, copied output and account workflows.</td></tr>
+        <p class="section-number">06 · Evaluation</p>
+        <h2 id="evaluation-heading">Checked on every change.</h2>
+        <div class="evaluation-band"><span class="status">Current software checks passed</span><span class="status pending">Independent clinical evaluation next</span></div>
+        <div class="table-scroll" tabindex="0" role="region" aria-label="Evidence register"><table><caption>CI run <code>44850711406</code> on <code>c63886d</code>, November 20, 2026.</caption><thead><tr><th scope="col">Check</th><th scope="col">Result</th></tr></thead><tbody>
+          <tr><th scope="row">Software tests</th><td><b>6,595 passed</b> on Linux and Windows.</td></tr>
+          <tr><th scope="row">Clinical output</th><td><b>763 cases</b>, every screen and note, unchanged.</td></tr>
+          <tr><th scope="row">PREVENT</th><td><b>Exact match</b> with the AHA&rsquo;s own code, all six endpoints, 725 journeys.</td></tr>
+          <tr><th scope="row">On-device engine</th><td><b>1,512 responses, zero mismatches</b> with the server.</td></tr>
+          <tr><th scope="row">FHIR vs. paste</th><td><b>500 journeys agree.</b></td></tr>
+          <tr><th scope="row">App and browser</th><td><b>Passed.</b></td></tr>
         </tbody></table></div>
-        <p>Any code change that alters a clinical snapshot cannot merge until the physician owner reviews the grouped clinical diff and approves it. A change that leaves every snapshot unchanged has no clinical difference by construction. The <a href="downloads/rcckm-evidence-register-v1.json" download>downloadable evidence register</a> records full source identifiers, workflow links, receipt excerpts and review scope.</p>
-        <h3>What the verification layers examine</h3>
-        <ul class="prose-list">
-          <li><b>Calculations:</b> PREVENT values compared on every run with the AHA's official R implementation, including supported models, eligibility and governed boundary projections.</li>
-          <li><b>Clinical rules:</b> test patterns and threshold cases for disease, plaque, lipids, glycemia, kidney findings, BP, treatment options and missing information.</li>
-          <li><b>Clinical output:</b> full snapshots of what clinicians and patients see, so any change to a note, roadmap, recommendation or option estimate surfaces as a reviewable diff.</li>
-          <li><b>Physician approval:</b> clinical differences are grouped by pattern and merge only with the physician owner's recorded approval.</li>
-          <li><b>Browser workflows:</b> ingestion, reconciliation, worksheet state, on-device assessment, the patient view, accessibility and copied output.</li>
-        </ul>
-        <h3>The next stage: independent clinical evaluation</h3>
-        <p>The software is verified. The next question is what it does in real clinics: independent clinician review and prospective usability studies will measure clinical usefulness, decision quality and real-world impact. RCCKM Level and RSS have not been externally calibrated as event-prediction models, and neither the combined simulator projection nor the per-option estimates have been prospectively validated.</p>
-        <div class="table-scroll" tabindex="0" role="region" aria-label="Clinical evaluation priorities"><table><caption>Planned evaluation priorities</caption><thead><tr><th scope="col">Question</th><th scope="col">Evaluation approach</th></tr></thead><tbody>
-          <tr><th scope="row">Are the interpretations and pathways clinically appropriate?</th><td>Independent clinician adjudication of prespecified cases, with agreement, disagreements and safety findings reported.</td></tr>
-          <tr><th scope="row">Does the workflow help a busy clinician?</th><td>Task completion, time to decision, usability, workload and confidence in a prospective workflow study.</td></tr>
-          <tr><th scope="row">Does it support the prevention conversation?</th><td>Patient understanding of their risk and options, shared decision making and clinician use over time.</td></tr>
-        </tbody></table></div>
+        <p>No change to clinical output merges without the physician owner's sign-off. <a href="downloads/rcckm-evidence-register-v1.json" download>Full evidence register</a>.</p>
         <details class="method-detail" id="evidence-governance"><summary>Technical appendix C · Source versions and evidence records</summary><div class="detail-body">
           <p>Each validation receipt identifies the application revision, numerical reference, corpus and workflow used. The November 20 CI run on <code>c63886d</code> passed all five jobs: Linux tests, Windows tests, clinical output snapshots, engine parity and Next.js. The independent PREVENT reference was computed by <code>AHAprevent 1.1.0</code> at AHA commit <code>3a7899b</code> for corpus <code>critic500_corpus_v7</code> (fingerprint <code>2af0b28b…82dfcd</code>) and is compared at display precision on every run.</p>
           <p>Clinical output snapshots replaced the earlier frozen-baseline replay and model-assisted semantic review on November 13, 2026. The last semantic review (revision <code>933e1f6</code>, October 31, 2026, 600 completed reviews) and the November 4 replay (600 journeys, zero changed) remain in the evidence register as historical records tied to their tested sources.</p>
@@ -273,35 +241,33 @@
       </section>
 
       <section class="method-section" id="limits" aria-labelledby="limits-heading" data-export>
-        <p class="section-number">07 · Clinical use and scope</p>
-        <h2 id="limits-heading">Built for clinician-led prevention care.</h2>
-        <p>RCCKM supports assessment and discussion alongside clinical judgment. The patient view and take-home plan are discussion aids the clinician opens with the patient; the figures are rough estimates for that conversation, not treatment orders. Review imported values, dates, unresolved findings and outputs before use. The care plan also reflects diagnostic confirmation, contraindications, adverse effects, tolerability, treatment burden, cost and patient preferences.</p>
-        <p>Keep patient identifiers out of the public demonstration; RCCKM doesn&rsquo;t need them and flags any it finds. Optional AI features have separate data-processing terms, described in the current <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">Terms</a>.</p>
+        <p class="section-number">07 · Clinical use</p>
+        <h2 id="limits-heading">The clinician decides.</h2>
+        <p>RCCKM supports the conversation. Diagnoses, prescriptions and goals stay with the treating clinician.</p>
       </section>
 
       <section class="method-section" id="references" aria-labelledby="references-heading" data-export>
-        <p class="section-number">Sources &amp; version history</p>
-        <h2 id="references-heading">Published foundations. Explicit implementation choices.</h2>
+        <p class="section-number">Sources &amp; versions</p>
+        <h2 id="references-heading">Sources.</h2>
         <ol class="references">
-          <li id="source-prevent"><a href="https://professional.heart.org/en/guidelines-and-statements/about-prevent-calculator">American Heart Association. PREVENT equations and clinical resources.</a><span class="reference-note">Published equation framework, primary-prevention use and optional predictors. Includes the current clinician FAQ and source-method links.</span></li>
-          <li id="source-ckm"><a href="https://professional.heart.org/en/science-news/cardiovascular-kidney-metabolic-health-a-presidential-advisory">American Heart Association. Cardiovascular-Kidney-Metabolic Health Presidential Advisory. 2023.</a><span class="reference-note">Integrated CKM framework and staging.</span></li>
-          <li id="source-kdigo"><a href="https://kdigo.org/guidelines/ckd-evaluation-and-management/">KDIGO. 2024 Clinical Practice Guideline for the Evaluation and Management of CKD.</a><span class="reference-note">Kidney function, albuminuria classification and chronicity, implemented from the 2024 guideline.</span></li>
-          <li id="source-ctt"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2988224/">CTT Collaboration. Efficacy and safety of more intensive lowering of LDL cholesterol. Lancet. 2010;376:1670–1681.</a><span class="reference-note">Trial-derived LDL-C effect used in scenario modeling. DOI: 10.1016/S0140-6736(10)61350-5.</span></li>
-          <li id="source-bp"><a href="https://pubmed.ncbi.nlm.nih.gov/26724178/">Ettehad D, et al. Blood pressure lowering for prevention of cardiovascular disease and death. Lancet. 2016;387:957–967.</a><span class="reference-note">Trial-derived systolic BP effect used in scenario modeling. DOI: 10.1016/S0140-6736(15)01225-8.</span></li>
-          <li id="source-lipids"><a href="https://professional.heart.org/en/science-news/2026-guideline-on-the-management-of-dyslipidemia">2026 ACC/AHA multisociety Guideline on the Management of Dyslipidemia.</a><span class="reference-note">Lipid, biomarker and CAC prevention context. Guideline support for a finding does not validate the RSS weight assigned to it.</span></li>
-          <li id="source-lpa"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9639807/">European Atherosclerosis Society. Lipoprotein(a) consensus statement. 2022.</a><span class="reference-note">Unit-specific Lp(a) concentration context; RSS weights remain prespecified platform choices.</span></li>
-          <li id="source-mesa"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6030975/">Budoff MJ, et al. Ten-year association of coronary artery calcium with ASCVD events: MESA. 2018.</a><span class="reference-note">Observed CAC risk gradients; the RSS point scale itself is not derived or validated by this study.</span></li>
-          <li id="source-glp1"><a href="https://doi.org/10.1136/bmjdrc-2026-006225">Grenet G, Eskandari R, Ko J, et al. Glucagon-like peptide-1 receptor agonists for primary cardiovascular disease prevention in type 2 diabetes, a systematic review. BMJ Open Diabetes Res Care. 2026;14(4):e006225.</a><span class="reference-note">Pooled MACE HR 0.88 (0.74–1.05) in participants without prior CVD, eight trials, 16,672 participants, low-certainty evidence. GLP-1 option estimate; the interval includes no benefit, so the patient view shows “Benefit unclear”.</span></li>
-          <li id="source-ascend"><a href="https://doi.org/10.1056/NEJMoa1804988">ASCEND Study Collaborative Group. Effects of aspirin for primary prevention in persons with diabetes mellitus. N Engl J Med. 2018;379:1529–1539.</a><span class="reference-note">Aspirin effect and major-bleeding figure with diabetes.</span></li>
-          <li id="source-aspirin"><a href="https://doi.org/10.1001/jama.2018.20578">Zheng SL, Roddick AJ. Association of aspirin use for primary prevention with cardiovascular events and bleeding events. JAMA. 2019;321:277–287.</a><span class="reference-note">Aspirin effect and major-bleeding figure without diabetes.</span></li>
-          <li id="source-predimed"><a href="https://doi.org/10.1056/NEJMoa1800389">Estruch R, et al. Primary prevention of cardiovascular disease with a Mediterranean diet supplemented with extra-virgin olive oil or nuts. N Engl J Med. 2018;378:e34.</a><span class="reference-note">Mediterranean eating option; a single large trial.</span></li>
-          <li id="source-sglt2"><a href="https://doi.org/10.1016/S0140-6736(18)32590-X">Zelniker TA, et al. SGLT2 inhibitors for primary and secondary prevention of cardiovascular and renal outcomes in type 2 diabetes. Lancet. 2019;393:31–39.</a><span class="reference-note">Heart-failure hospitalization effect applied to PREVENT 10-year heart failure.</span></li>
-          <li id="source-pencina"><a href="https://doi.org/10.1161/CIRCULATIONAHA.120.045851">Pencina MJ, et al. The expected 30-year benefits of early versus delayed primary prevention of cardiovascular disease by lipid lowering. Circulation. 2020;142:827–837.</a><span class="reference-note">30-year projection method for statin and BP options.</span></li>
-          <li id="source-ference"><a href="https://doi.org/10.1093/eurheartj/ehx144">Ference BA, et al. Low-density lipoproteins cause atherosclerotic cardiovascular disease. 1. Evidence from genetic, epidemiologic, and clinical studies. A consensus statement from the European Atherosclerosis Society Consensus Panel. Eur Heart J. 2017;38:2459–2472.</a><span class="reference-note">Long-exposure LDL-C effect used for the high end of the statin 30-year range.</span></li>
+          <li id="source-prevent"><a href="https://professional.heart.org/en/guidelines-and-statements/about-prevent-calculator">American Heart Association. PREVENT equations and clinical resources.</a></li>
+          <li id="source-ckm"><a href="https://professional.heart.org/en/science-news/cardiovascular-kidney-metabolic-health-a-presidential-advisory">American Heart Association. Cardiovascular-Kidney-Metabolic Health Presidential Advisory. 2023.</a></li>
+          <li id="source-kdigo"><a href="https://kdigo.org/guidelines/ckd-evaluation-and-management/">KDIGO. 2024 Clinical Practice Guideline for the Evaluation and Management of CKD.</a></li>
+          <li id="source-ctt"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2988224/">CTT Collaboration. Efficacy and safety of more intensive lowering of LDL cholesterol. Lancet. 2010;376:1670–1681.</a></li>
+          <li id="source-bp"><a href="https://pubmed.ncbi.nlm.nih.gov/26724178/">Ettehad D, et al. Blood pressure lowering for prevention of cardiovascular disease and death. Lancet. 2016;387:957–967.</a></li>
+          <li id="source-lipids"><a href="https://professional.heart.org/en/science-news/2026-guideline-on-the-management-of-dyslipidemia">2026 ACC/AHA multisociety Guideline on the Management of Dyslipidemia.</a></li>
+          <li id="source-lpa"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9639807/">European Atherosclerosis Society. Lipoprotein(a) consensus statement. 2022.</a></li>
+          <li id="source-mesa"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6030975/">Budoff MJ, et al. Ten-year association of coronary artery calcium with ASCVD events: MESA. 2018.</a></li>
+          <li id="source-glp1"><a href="https://doi.org/10.1136/bmjdrc-2026-006225">Grenet G, Eskandari R, Ko J, et al. Glucagon-like peptide-1 receptor agonists for primary cardiovascular disease prevention in type 2 diabetes, a systematic review. BMJ Open Diabetes Res Care. 2026;14(4):e006225.</a></li>
+          <li id="source-ascend"><a href="https://doi.org/10.1056/NEJMoa1804988">ASCEND Study Collaborative Group. Effects of aspirin for primary prevention in persons with diabetes mellitus. N Engl J Med. 2018;379:1529–1539.</a></li>
+          <li id="source-aspirin"><a href="https://doi.org/10.1001/jama.2018.20578">Zheng SL, Roddick AJ. Association of aspirin use for primary prevention with cardiovascular events and bleeding events. JAMA. 2019;321:277–287.</a></li>
+          <li id="source-predimed"><a href="https://doi.org/10.1056/NEJMoa1800389">Estruch R, et al. Primary prevention of cardiovascular disease with a Mediterranean diet supplemented with extra-virgin olive oil or nuts. N Engl J Med. 2018;378:e34.</a></li>
+          <li id="source-sglt2"><a href="https://doi.org/10.1016/S0140-6736(18)32590-X">Zelniker TA, et al. SGLT2 inhibitors for primary and secondary prevention of cardiovascular and renal outcomes in type 2 diabetes. Lancet. 2019;393:31–39.</a></li>
+          <li id="source-pencina"><a href="https://doi.org/10.1161/CIRCULATIONAHA.120.045851">Pencina MJ, et al. The expected 30-year benefits of early versus delayed primary prevention of cardiovascular disease by lipid lowering. Circulation. 2020;142:827–837.</a></li>
+          <li id="source-ference"><a href="https://doi.org/10.1093/eurheartj/ehx144">Ference BA, et al. Low-density lipoproteins cause atherosclerotic cardiovascular disease. 1. Evidence from genetic, epidemiologic, and clinical studies. A consensus statement from the European Atherosclerosis Society Consensus Panel. Eur Heart J. 2017;38:2459–2472.</a></li>
         </ol>
-        <p>References identify underlying scientific work. RCCKM is independently developed by Risk Continuum Health LLC. References do not imply organizational endorsement.</p>
-        <div class="provenance"><p><strong>Version 1.5 · November 21, 2026.</strong> 2026 ACC/AHA lipid and CAC goals; medication safety states; missing age or sex makes the Level incomplete; simulator options follow the engine; a richer take-home plan. RSS weights and Level rules unchanged. Implementation reference: <code>c63886decd4002868a7875bed9173fec15e8cda1</code>.</p><p><strong>Version 1.4 · November 16, 2026.</strong> The BP treatment effect is credited for at most 20 mmHg of lowering; the aspirin kidney caution is shown beside the bleeding figure; the Ference long-exposure formula is cited to its published source (<code>option_effects_v6</code>). Version 1.3 added the patient view's per-option estimates, the heart-failure lane and the 30-year projection method; the non-HDL-C marker for severe hypercholesterolemia; clinical output snapshots with physician approval; and the latest completed software checks. Level rules and RSS weights are unchanged from version 1.2. Implementation reference: <code>4837b83b12f153504b800ea702273578a1ec4e44</code>.</p><p>The downloadable registers provide source fingerprints, rule identifiers, exact RSS intervals and dated verification receipts. Earlier versions, findings and adjudications remain in the development record.</p></div>
-        <div class="contact-card"><h3>Questions are part of the method.</h3><p>For a methods discussion, supporting evaluation evidence or a structured clinical study, contact <a href="mailto:shereef@riskcontinuum.health?subject=RCCKM%20methods%20and%20evaluation">Shereef El-Ibiary, MD</a>.</p></div>
+        <div class="provenance"><p><strong>Version 1.5 · November 21, 2026.</strong> 2026 ACC/AHA lipid and CAC goals; medication safety states; missing age or sex makes the Level incomplete; simulator options follow the engine; a richer take-home plan. RSS weights and Level rules unchanged. Implementation reference: <code>c63886decd4002868a7875bed9173fec15e8cda1</code>.</p><p>Earlier versions remain in the downloadable registers.</p></div>
+        <div class="contact-card"><h3>Questions?</h3><p>Talk to <a href="mailto:shereef@riskcontinuum.health?subject=RCCKM%20methods">Shereef El-Ibiary, MD</a>.</p></div>
       </section>
     </article>
   </div>

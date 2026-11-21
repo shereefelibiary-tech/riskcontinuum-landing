@@ -1,9 +1,9 @@
 {
-  "document_version": "1.4",
-  "reviewed_on": "2026-11-16",
-  "engine_revision": "4837b83b12f153504b800ea702273578a1ec4e44",
+  "document_version": "1.5",
+  "reviewed_on": "2026-11-21",
+  "engine_revision": "c63886decd4002868a7875bed9173fec15e8cda1",
   "source_sha256": {
-    "modules/levels/level_classifier.py": "a1026820647dceea6aef211118f745cc26179d65731bd9001bd3b151ef1c805f",
+    "modules/levels/level_classifier.py": "e4242fdc70c61c16c1f67eb584a5ef3f19466e624618e89722d66eae940f3feb",
     "modules/levels/definitions.py": "b73bdf07cc0e15f7cb22e957b88794ee486eafdfa76df5f7c44a553bf8579f94",
     "modules/levels/descriptors.py": "31072313cd013526618d3a2e2325e241b567efab10caeada8dfef882d4a4123b",
     "modules/rss/engine.py": "00fd3d770934a5c06b0bf44ff782876bfc506c1e09ff4c0889a438920c5da935",
@@ -13,10 +13,13 @@
     "modules/lipids/severe_hypercholesterolemia.py": "ff42ef3491a5f8b4d7fff96e5913b059e0885f93202a6b5409d7478679c8b5b7",
     "modules/prevent/eligibility.py": "fa21e90c748c85acc4a9c7737fcb25efe50014f6e79a9fccf999c4e93f0dd917",
     "modules/prevent/precision.py": "d7082cd77c765b939ddc2960d296d26b6e89b7ddf1390d55b44e79e528a6eb4a",
-    "modules/prevent/treatment_effects.py": "65df59d48d083b28e0eb2151958664aac75692844b45ff38684ed79c97cd5f2a",
-    "api/simulate.py": "a3f8f63f3a5cca1079f849604b5e57e096abefcdbdcda6c68877fc8c29cef66e",
-    "modules/prevent/option_effects.py": "ef6328f04f68416f879e49333c1825f507161367113a7992f8462d85dd1611c6",
-    "modules/prevent/relative_reduction.py": "b1d9982c540e6f71b6cd05ee5b88afd7371a4b9d419c5cf4609476546fd9e012"
+    "modules/prevent/treatment_effects.py": "f130a69e9d180cba8e07911556a14e58caa7881503b583c383e278e60d95906a",
+    "api/simulate.py": "fefcede5c98d948128da9f0c536353c93efaa660d92900f4676adb380565b83b",
+    "modules/prevent/option_effects.py": "d850efc49278fdc3f050bb6a43ab006a40848366ada084a0886f1a26fd56de10",
+    "modules/prevent/relative_reduction.py": "b1d9982c540e6f71b6cd05ee5b88afd7371a4b9d419c5cf4609476546fd9e012",
+    "modules/actions/plan_options.py": "4c73fdbcc1da29c549c1476253b811f8e4085ab70dbef61298c3e5d169327bab",
+    "modules/prevent/lipid_bands.py": "56f3a8909665cf704595db5d1165310f03d5feaf0386a66554cd72014787fe4d",
+    "modules/lipids/cac_zero_policy.py": "ed029284150ff870043479814af2447d634e8fcd1772d8af04a1d5fb1b9a951a"
   },
   "rss": {
     "version": "rss-methodology-v2",

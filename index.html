@@ -903,8 +903,8 @@
     .hero-curve { position: relative; max-width: 1080px; margin: 54px auto 0; }
     .hero-curve svg { width: 100%; height: auto; display: block; overflow: visible; }
     .hc-axis { stroke: var(--line-2); stroke-width: 1.5; }
-    .hc-today { fill: none; stroke: var(--garnet); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 2 12; animation: pvDash 1.4s linear infinite; }
-    .hc-plan { fill: none; stroke: var(--good); stroke-width: 5; stroke-linecap: round; stroke-dasharray: 2 12; animation: pvDash 1.4s linear infinite; }
+    .hc-today { fill: none; stroke: var(--garnet); stroke-width: 6; stroke-linecap: round; }
+    .hc-plan { fill: none; stroke: var(--good); stroke-width: 7; stroke-linecap: round; }
     .hc-gap { fill: url(#hc-gap); }
     .hc-dot { transition: none; }
     .hc-lbl { font: 600 15px var(--ui); fill: var(--muted); letter-spacing: .02em; }
@@ -913,7 +913,7 @@
     .hc-grid { stroke: var(--line); stroke-width: 1; stroke-dasharray: 3 5; }
     .hc-ax { font: 600 13px var(--ui); fill: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
     .hc-tick { font: 600 15px var(--ui); fill: var(--muted); }
-    .hc-val { font: 600 28px var(--display); font-variant-numeric: tabular-nums; }
+    .hc-val { font: 600 34px var(--display); font-variant-numeric: tabular-nums; }
     .hc-val.r { fill: var(--garnet); } .hc-val.g { fill: var(--good); }
     .hc-leg { display: none; justify-content: center; gap: 18px; margin-top: 6px; font-size: 14px; font-weight: 600; }
     .hc-leg .r { color: var(--garnet); } .hc-leg .g { color: var(--good); }
@@ -1009,24 +1009,24 @@
     </div>
 
     <figure class="hero-curve">
-      <svg viewBox="0 0 1080 230" role="img" aria-label="Example patient, age 52: chance of a heart attack or stroke by age 82 is 12% on today's path and 8% with a plan to lower blood pressure and cholesterol.">
-        <defs><linearGradient id="hc-gap" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1E7148" stop-opacity=".16"/><stop offset="1" stop-color="#1E7148" stop-opacity=".02"/></linearGradient></defs>
+      <svg viewBox="0 0 1080 230" role="img" aria-label="Example patient, age 58, with diabetes and kidney disease: chance of a heart attack or stroke by age 88 is 32% on today's path and 16% with the plan.">
+        <defs><linearGradient id="hc-gap" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1E7148" stop-opacity=".30"/><stop offset="1" stop-color="#1E7148" stop-opacity=".08"/></linearGradient></defs>
         <text class="hc-ax" x="40" y="22">Chance of a heart attack or stroke</text>
         <line class="hc-grid" x1="40" y1="40" x2="960" y2="40"/>
         <line class="hc-axis" x1="40" y1="170" x2="960" y2="170"/>
-        <path class="hc-gap" d="M40 170 Q 640 160 960 40 L960 86 Q 640 164 40 170 Z"/>
-        <path class="hc-today" d="M40 170 Q 640 160 960 40"/>
-        <path class="hc-plan" d="M40 170 Q 640 164 960 86"/>
-        <circle class="hc-dot" cx="960" cy="40" r="7" fill="#861327"/>
-        <circle class="hc-dot hc-pd" cx="960" cy="86" r="8" fill="#1E7148"/>
-        <text class="hc-val r" x="976" y="48">12%</text>
-        <text class="hc-lbl r" x="945" y="26" text-anchor="end">today&rsquo;s path</text>
-        <g class="hc-pl"><text class="hc-val g" x="976" y="94">8%</text><text class="hc-lbl g" x="945" y="124" text-anchor="end">with the plan</text></g>
-        <text class="hc-tick" x="40" y="198">Age 52 &middot; today</text>
-        <text class="hc-tick" x="960" y="198" text-anchor="middle">Age 82</text>
+        <path class="hc-gap" d="M40 170 C 160 170, 260 129.0, 347 106.9 C 434 84.8, 760 70.1, 960 40.0 L960 104.0 C 760 122.7, 434 137.1, 347 145.6 C 260 154.1, 160 170, 40 170 Z"/>
+        <path class="hc-today" d="M40 170 C 160 170, 260 129.0, 347 106.9 C 434 84.8, 760 70.1, 960 40.0"/>
+        <path class="hc-plan" d="M40 170 C 160 170, 260 154.1, 347 145.6 C 434 137.1, 760 122.7, 960 104.0"/>
+        <circle class="hc-dot" cx="960" cy="40.0" r="9" fill="#861327"/>
+        <circle class="hc-dot hc-pd" cx="960" cy="104.0" r="10" fill="#1E7148"/>
+        <text class="hc-val r" x="978" y="50.0">32%</text>
+        <text class="hc-lbl r" x="940" y="26" text-anchor="end">today&rsquo;s path</text>
+        <g class="hc-pl"><text class="hc-val g" x="978" y="114.0">16%</text><text class="hc-lbl g" x="940" y="140.0" text-anchor="end">with the plan</text></g>
+        <text class="hc-tick" x="40" y="198">Age 58 &middot; today</text>
+        <text class="hc-tick" x="960" y="198" text-anchor="middle">Age 88</text>
       </svg>
       <p class="hc-leg" aria-hidden="true"><span class="r">&#9679; Today&rsquo;s path</span><span class="g">&#9679; With the plan</span></p>
-      <figcaption class="hc-cap">A 52-year-old with prediabetes and high triglycerides. Bring her blood pressure to 120 and LDL-C to 79, and her 30-year risk drops by a third.</figcaption>
+      <figcaption class="hc-cap">A 58-year-old with diabetes and kidney disease. Lower his blood pressure, start a statin, cut his albuminuria: his 30-year risk is cut in half.</figcaption>
     </figure>
     <p class="hero-access"><a href="#plan">Try the simulator &darr;</a> &middot; <a href="#patient-view">See the patient view &darr;</a> &middot; <a href="https://app.riskcontinuum.health/">Sign in</a></p>
 
@@ -2351,10 +2351,12 @@ Management Considerations:
       var t0 = performance.now();
       (function f(t) {
         var k = ((t - t0) / 9000) % 1, w = 0.5 - 0.5 * Math.cos(k * 2 * Math.PI), e = w < .5 ? 4 * w * w * w : 1 - Math.pow(-2 * w + 2, 3) / 2;
-        var y = 40 + 46 * e, c = 160 + 4 * e;
-        plan.setAttribute("d", "M40 170 Q 640 " + c.toFixed(1) + " 960 " + y.toFixed(1));
-        gap.setAttribute("d", "M40 170 Q 640 160 960 40 L960 " + y.toFixed(1) + " Q 640 " + c.toFixed(1) + " 40 170 Z");
-        pd.setAttribute("cy", y.toFixed(1)); pl.setAttribute("transform", "translate(0 " + (y - 86).toFixed(1) + ")"); pl.style.opacity = Math.min(1, e * 1.6).toFixed(2);
+        var y1 = 106.9 + 38.7 * e, y2 = 40.0 + 64.0 * e;
+        var c = y1 + (170 - y1) * .35, c3 = 2 * y1 - c, c4 = y2 + (y1 - y2) * .45, n = function (v) { return v.toFixed(1); };
+        var fwd = "M40 170 C 160 170, 260 " + n(c) + ", 347 " + n(y1) + " C 434 " + n(c3) + ", 760 " + n(c4) + ", 960 " + n(y2);
+        plan.setAttribute("d", fwd);
+        gap.setAttribute("d", "M40 170 C 160 170, 260 129.0, 347 106.9 C 434 84.8, 760 70.1, 960 40.0 L960 " + n(y2) + " C 760 " + n(c4) + ", 434 " + n(c3) + ", 347 " + n(y1) + " C 260 " + n(c) + ", 160 170, 40 170 Z");
+        pd.setAttribute("cy", n(y2)); pl.setAttribute("transform", "translate(0 " + n(y2 - 104.0) + ")"); pl.style.opacity = Math.min(1, e * 1.6).toFixed(2);
         requestAnimationFrame(f);
       })(t0);
     }

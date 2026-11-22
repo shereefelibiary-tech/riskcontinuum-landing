@@ -900,25 +900,21 @@
 
 
     /* hero: a risk path that bends */
-    .hero-curve { position: relative; max-width: 1080px; margin: 54px auto 0; }
-    .hero-curve svg { width: 100%; height: auto; display: block; overflow: visible; }
-    .hc-axis { stroke: var(--line-2); stroke-width: 1.5; }
-    .hc-today { fill: none; stroke: var(--garnet); stroke-width: 6; stroke-linecap: round; }
-    .hc-plan { fill: none; stroke: var(--good); stroke-width: 7; stroke-linecap: round; }
+    .hero-curve { position: relative; max-width: 1000px; margin: 48px auto 0; }
+    .hero-curve svg.hc-d, .hero-curve svg.hc-m { width: 100%; height: auto; display: block; overflow: visible; }
+    .hero-curve svg.hc-m { display: none; }
+    .hc-axis { stroke: var(--line-2); stroke-width: 2; }
+    .hc-today { fill: none; stroke: var(--garnet); stroke-linecap: round; }
+    .hc-plan { fill: none; stroke: var(--good); stroke-linecap: round; }
     .hc-gap { fill: url(#hc-gap); }
-    .hc-dot { transition: none; }
-    .hc-lbl { font: 600 15px var(--ui); fill: var(--muted); letter-spacing: .02em; }
-    .hc-lbl.g { fill: var(--good); }
-    .hc-lbl.r { fill: var(--garnet); }
     .hc-grid { stroke: var(--line); stroke-width: 1; stroke-dasharray: 3 5; }
-    .hc-ax { font: 600 13px var(--ui); fill: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
-    .hc-tick { font: 600 15px var(--ui); fill: var(--muted); }
-    .hc-val { font: 600 34px var(--display); font-variant-numeric: tabular-nums; }
-    .hc-val.r { fill: var(--garnet); } .hc-val.g { fill: var(--good); }
-    .hc-leg { display: none; justify-content: center; gap: 18px; margin-top: 6px; font-size: 14px; font-weight: 600; }
-    .hc-leg .r { color: var(--garnet); } .hc-leg .g { color: var(--good); }
-    .hc-cap { margin: 10px auto 0; max-width: 720px; text-align: center; font-size: 14px; color: var(--muted); }
-    @media (max-width: 720px) { .hero-curve { margin-top: 36px; } .hc-lbl, .hc-tick { font-size: 30px; } .hc-ax { font-size: 26px; } .hc-val { font-size: 44px; } .hc-lbl { display: none; } .hc-leg { display: flex; } .hc-cap { font-size: 13px; } }
+    .hc-ax { font-family: var(--ui); font-weight: 600; fill: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
+    .hc-tick { font-family: var(--ui); font-weight: 600; fill: var(--muted); }
+    .hc-lbl { font-family: var(--ui); font-weight: 600; }
+    .hc-val { font-family: var(--display); font-weight: 600; font-variant-numeric: tabular-nums; }
+    .hc-val.r, .hc-lbl.r { fill: var(--garnet); } .hc-val.g, .hc-lbl.g { fill: var(--good); }
+    .hc-cap { margin: 14px auto 0; max-width: 720px; text-align: center; font-size: 15px; color: var(--muted); }
+    @media (max-width: 720px) { .hero-curve { margin-top: 30px; } .hero-curve svg.hc-d { display: none; } .hero-curve svg.hc-m { display: block; } .hc-cap { font-size: 14px; } }
     .wt-show { margin-top: 12px; display: inline-flex; text-decoration: none; }
     /* five more checks */
     .ck { padding: 110px 0 40px; }
@@ -1009,23 +1005,37 @@
     </div>
 
     <figure class="hero-curve">
-      <svg viewBox="0 0 1080 230" role="img" aria-label="Example patient, age 58, with diabetes and kidney disease: chance of a heart attack or stroke by age 88 is 32% on today's path and 16% with the plan.">
-        <defs><linearGradient id="hc-gap" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1E7148" stop-opacity=".30"/><stop offset="1" stop-color="#1E7148" stop-opacity=".08"/></linearGradient></defs>
-        <text class="hc-ax" x="40" y="22">Chance of a heart attack or stroke</text>
-        <line class="hc-grid" x1="40" y1="40" x2="960" y2="40"/>
-        <line class="hc-axis" x1="40" y1="170" x2="960" y2="170"/>
-        <path class="hc-gap" d="M40 170 C 160 170, 260 129.0, 347 106.9 C 434 84.8, 760 70.1, 960 40.0 L960 104.0 C 760 122.7, 434 137.1, 347 145.6 C 260 154.1, 160 170, 40 170 Z"/>
-        <path class="hc-today" d="M40 170 C 160 170, 260 129.0, 347 106.9 C 434 84.8, 760 70.1, 960 40.0"/>
-        <path class="hc-plan" d="M40 170 C 160 170, 260 154.1, 347 145.6 C 434 137.1, 760 122.7, 960 104.0"/>
-        <circle class="hc-dot" cx="960" cy="40.0" r="9" fill="#861327"/>
-        <circle class="hc-dot hc-pd" cx="960" cy="104.0" r="10" fill="#1E7148"/>
-        <text class="hc-val r" x="978" y="50.0">32%</text>
-        <text class="hc-lbl r" x="940" y="26" text-anchor="end">today&rsquo;s path</text>
-        <g class="hc-pl"><text class="hc-val g" x="978" y="114.0">16%</text><text class="hc-lbl g" x="940" y="140.0" text-anchor="end">with the plan</text></g>
-        <text class="hc-tick" x="40" y="198">Age 58 &middot; today</text>
-        <text class="hc-tick" x="960" y="198" text-anchor="middle">Age 88</text>
+      <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="hc-gap" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1E7148" stop-opacity=".32"/><stop offset="1" stop-color="#1E7148" stop-opacity=".08"/></linearGradient></defs></svg>
+      <svg class="hc-d" viewBox="0 0 1080 450" data-g="{&quot;x0&quot;: 40, &quot;x1&quot;: 860, &quot;xm&quot;: 313.3, &quot;base&quot;: 400, &quot;top&quot;: 70, &quot;t1&quot;: 239.7, &quot;t2&quot;: 70.0, &quot;p1&quot;: 338.1, &quot;p2&quot;: 232.5}" role="img" aria-label="Example patient, age 58, with diabetes and kidney disease: chance of a heart attack or stroke by age 88 is 32% on today's path and 16% with the plan.">
+        <text class="hc-ax" x="40" y="34" style="font-size:14px">Chance of a heart attack or stroke</text>
+        <line class="hc-grid" x1="40" y1="70" x2="860" y2="70"/>
+        <line class="hc-axis" x1="40" y1="400" x2="860" y2="400"/>
+        <path class="hc-gap" d="M40 400 C 149.3 400, 236.8 295.8, 313.3 239.7 C 389.8 183.6, 679.6 146.4, 860 70.0 L860 232.5 C 679.6 280.0, 389.8 316.4, 313.3 338.1 C 236.8 359.8, 149.3 400, 40 400 Z"/>
+        <path class="hc-today" d="M40 400 C 149.3 400, 236.8 295.8, 313.3 239.7 C 389.8 183.6, 679.6 146.4, 860 70.0" style="stroke-width:7"/>
+        <path class="hc-plan" d="M40 400 C 149.3 400, 236.8 359.8, 313.3 338.1 C 389.8 316.4, 679.6 280.0, 860 232.5" style="stroke-width:8"/>
+        <circle cx="860" cy="70.0" r="10" fill="#861327"/>
+        <circle class="hc-pd" cx="860" cy="232.5" r="11" fill="#1E7148"/>
+        <text class="hc-val r" x="882" y="88.2" style="font-size:52px">32%</text>
+        <text class="hc-lbl r" x="882" y="111.2" style="font-size:17px">today&rsquo;s path</text>
+        <g class="hc-pl"><text class="hc-val g" x="882" y="250.7" style="font-size:52px">16%</text><text class="hc-lbl g" x="882" y="273.7" style="font-size:17px">with the plan</text></g>
+        <text class="hc-tick" x="40" y="426" style="font-size:16px">Age 58 &middot; today</text>
+        <text class="hc-tick" x="860" y="426" text-anchor="end" style="font-size:16px">Age 88</text>
       </svg>
-      <p class="hc-leg" aria-hidden="true"><span class="r">&#9679; Today&rsquo;s path</span><span class="g">&#9679; With the plan</span></p>
+      <svg class="hc-m" viewBox="0 0 360 340" data-g="{&quot;x0&quot;: 6, &quot;x1&quot;: 262, &quot;xm&quot;: 91.3, &quot;base&quot;: 300, &quot;top&quot;: 58, &quot;t1&quot;: 182.5, &quot;t2&quot;: 58.0, &quot;p1&quot;: 254.6, &quot;p2&quot;: 177.2}" role="img" aria-label="Example patient, age 58, with diabetes and kidney disease: chance of a heart attack or stroke by age 88 is 32% on today's path and 16% with the plan.">
+        <text class="hc-ax" x="6" y="22" style="font-size:11px">Chance of a heart attack or stroke</text>
+        <line class="hc-grid" x1="6" y1="58" x2="262" y2="58"/>
+        <line class="hc-axis" x1="6" y1="300" x2="262" y2="300"/>
+        <path class="hc-gap" d="M6 300 C 40.1 300, 67.4 223.6, 91.3 182.5 C 115.2 141.4, 205.7 114.0, 262 58.0 L262 177.2 C 205.7 212.0, 115.2 238.7, 91.3 254.6 C 67.4 270.5, 40.1 300, 6 300 Z"/>
+        <path class="hc-today" d="M6 300 C 40.1 300, 67.4 223.6, 91.3 182.5 C 115.2 141.4, 205.7 114.0, 262 58.0" style="stroke-width:5"/>
+        <path class="hc-plan" d="M6 300 C 40.1 300, 67.4 270.5, 91.3 254.6 C 115.2 238.7, 205.7 212.0, 262 177.2" style="stroke-width:6"/>
+        <circle cx="262" cy="58.0" r="7" fill="#861327"/>
+        <circle class="hc-pd" cx="262" cy="177.2" r="8" fill="#1E7148"/>
+        <text class="hc-val r" x="274" y="69.9" style="font-size:34px">32%</text>
+        <text class="hc-lbl r" x="274" y="88.9" style="font-size:13px">today&rsquo;s path</text>
+        <g class="hc-pl"><text class="hc-val g" x="274" y="189.1" style="font-size:34px">16%</text><text class="hc-lbl g" x="274" y="208.1" style="font-size:13px">with the plan</text></g>
+        <text class="hc-tick" x="6" y="323" style="font-size:13px">Age 58 &middot; today</text>
+        <text class="hc-tick" x="262" y="323" text-anchor="end" style="font-size:13px">Age 88</text>
+      </svg>
       <figcaption class="hc-cap">A 58-year-old with diabetes and kidney disease. Lower his blood pressure, start a statin, cut his albuminuria: his 30-year risk is cut in half.</figcaption>
     </figure>
     <p class="hero-access"><a href="#plan">Try the simulator &darr;</a> &middot; <a href="#patient-view">See the patient view &darr;</a> &middot; <a href="https://app.riskcontinuum.health/">Sign in</a></p>
@@ -2346,20 +2356,23 @@ Management Considerations:
   (function () {
     var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     /* Hero: the plan path bends away from today's path, and back, slowly. */
-    var plan = document.querySelector(".hc-plan"), gap = document.querySelector(".hc-gap"), pd = document.querySelector(".hc-pd"), pl = document.querySelector(".hc-pl");
-    if (plan && !reduced) {
-      var t0 = performance.now();
+    if (!reduced) document.querySelectorAll(".hero-curve svg[data-g]").forEach(function (svg) {
+      var g = JSON.parse(svg.getAttribute("data-g")), plan = svg.querySelector(".hc-plan"), gap = svg.querySelector(".hc-gap"), pd = svg.querySelector(".hc-pd"), pl = svg.querySelector(".hc-pl");
+      var n = function (v) { return (+v).toFixed(1); };
+      var seg = function (y1, y2) {
+        var a1 = g.x0 + (g.xm - g.x0) * .4, a2 = g.x0 + (g.xm - g.x0) * .72, c = y1 + (g.base - y1) * .35, a3 = 2 * g.xm - a2, c3 = 2 * y1 - c, a4 = g.x1 - (g.x1 - g.xm) * .33, c4 = y2 + (y1 - y2) * .45;
+        return { f: "M" + g.x0 + " " + g.base + " C " + n(a1) + " " + g.base + ", " + n(a2) + " " + n(c) + ", " + g.xm + " " + n(y1) + " C " + n(a3) + " " + n(c3) + ", " + n(a4) + " " + n(c4) + ", " + g.x1 + " " + n(y2),
+                 r: "C " + n(a4) + " " + n(c4) + ", " + n(a3) + " " + n(c3) + ", " + g.xm + " " + n(y1) + " C " + n(a2) + " " + n(c) + ", " + n(a1) + " " + g.base + ", " + g.x0 + " " + g.base };
+      };
+      var today = seg(g.t1, g.t2).f, t0 = performance.now();
       (function f(t) {
         var k = ((t - t0) / 9000) % 1, w = 0.5 - 0.5 * Math.cos(k * 2 * Math.PI), e = w < .5 ? 4 * w * w * w : 1 - Math.pow(-2 * w + 2, 3) / 2;
-        var y1 = 106.9 + 38.7 * e, y2 = 40.0 + 64.0 * e;
-        var c = y1 + (170 - y1) * .35, c3 = 2 * y1 - c, c4 = y2 + (y1 - y2) * .45, n = function (v) { return v.toFixed(1); };
-        var fwd = "M40 170 C 160 170, 260 " + n(c) + ", 347 " + n(y1) + " C 434 " + n(c3) + ", 760 " + n(c4) + ", 960 " + n(y2);
-        plan.setAttribute("d", fwd);
-        gap.setAttribute("d", "M40 170 C 160 170, 260 129.0, 347 106.9 C 434 84.8, 760 70.1, 960 40.0 L960 " + n(y2) + " C 760 " + n(c4) + ", 434 " + n(c3) + ", 347 " + n(y1) + " C 260 " + n(c) + ", 160 170, 40 170 Z");
-        pd.setAttribute("cy", n(y2)); pl.setAttribute("transform", "translate(0 " + n(y2 - 104.0) + ")"); pl.style.opacity = Math.min(1, e * 1.6).toFixed(2);
+        var y1 = g.t1 + (g.p1 - g.t1) * e, y2 = g.t2 + (g.p2 - g.t2) * e, p = seg(y1, y2);
+        plan.setAttribute("d", p.f); gap.setAttribute("d", today + " L" + g.x1 + " " + n(y2) + " " + p.r + " Z");
+        pd.setAttribute("cy", n(y2)); pl.setAttribute("transform", "translate(0 " + n(y2 - g.p2) + ")"); pl.style.opacity = Math.min(1, e * 1.6).toFixed(2);
         requestAnimationFrame(f);
       })(t0);
-    }
+    });
     /* Checks: tags slide in on view. */
     var ckp = document.getElementById("ck-panel");
     if (ckp) { if (reduced) ckp.classList.add("in"); else new IntersectionObserver(function (es, ob) { if (es[0].isIntersecting) { ckp.classList.add("in"); ob.disconnect(); } }, { threshold: 0.5 }).observe(ckp); }

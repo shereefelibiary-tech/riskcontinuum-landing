@@ -920,6 +920,21 @@
     .hc-cap { margin: 10px auto 0; max-width: 720px; text-align: center; font-size: 14px; color: var(--muted); }
     @media (max-width: 720px) { .hero-curve { margin-top: 36px; } .hc-lbl, .hc-tick { font-size: 30px; } .hc-ax { font-size: 26px; } .hc-val { font-size: 44px; } .hc-lbl { display: none; } .hc-leg { display: flex; } .hc-cap { font-size: 13px; } }
     .wt-show { margin-top: 12px; display: inline-flex; text-decoration: none; }
+    /* five more checks */
+    .ck { padding: 110px 0 40px; }
+    .ck-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; align-items: end; }
+    .ck-panel { margin-top: 40px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 26px 28px; font: 500 16px/1.65 var(--ui); color: var(--ink); box-shadow: 0 20px 50px -30px rgba(40, 10, 20, .25); }
+    .ck-panel small { display: block; font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+    .ck-line { padding: 10px 0; border-top: 1px solid var(--line); }
+    .ck-line:first-of-type { border-top: 0; }
+    .ck-line b { font-weight: 600; }
+    .ck-line .dim { color: var(--muted); }
+    .ck-tag { display: inline-block; margin-left: 6px; padding: 1px 10px; border-radius: 999px; background: #F6E7EA; color: var(--garnet); font-weight: 600; white-space: nowrap; opacity: 0; transform: translateY(4px); transition: opacity .5s var(--ease), transform .5s var(--ease); }
+    .ck-panel.in .ck-tag { opacity: 1; transform: none; }
+    .ck-panel.in .ck-line:nth-of-type(2) .ck-tag { transition-delay: .25s; } .ck-panel.in .ck-line:nth-of-type(3) .ck-tag { transition-delay: .5s; } .ck-panel.in .ck-line:nth-of-type(4) .ck-tag { transition-delay: .75s; }
+    .ck-names { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 22px; font-size: 15px; font-weight: 600; color: var(--muted); }
+    @media (max-width: 860px) { .ck-head { grid-template-columns: 1fr; gap: 14px; } .ck { padding-top: 70px; } .ck-tag { white-space: normal; margin-left: 0; } }
+    @media (prefers-reduced-motion: reduce) { .ck-tag { opacity: 1; transform: none; transition: none; } }
   </style>
 </head>
 <body>
@@ -1440,7 +1455,28 @@ Management Considerations:
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
+<!-- FIVE MORE CHECKS -->
+<section data-analytics-section="checks" class="ck" id="checks" aria-labelledby="ck-h2">
+  <div class="wrap">
+    <div class="ck-head reveal">
+      <div>
+        <span class="eyebrow">New</span>
+        <h2 class="h2" id="ck-h2">Five more checks. No new lines.</h2>
+      </div>
+      <p class="lede">They stay quiet until they matter.</p>
+    </div>
+    <div class="ck-panel" id="ck-panel">
+      <small>From the note</small>
+      <div class="ck-line"><b>Kidney:</b> <span class="dim">Optimize kidney protection.</span><span class="ck-tag">KFRE 5y 7.0% &rarr; nephrology</span></div>
+      <div class="ck-line"><b>BP:</b> <span class="dim">Confirm BP; optimize RAAS if persistent.</span><span class="ck-tag">Screen PA (K 3.3)</span></div>
+      <div class="ck-line"><b>Metabolic:</b> <span class="dim">Glycemia treatment review.</span><span class="ck-tag">FIB-4 1.62 &rarr; elastography/ELF</span></div>
+      <div class="ck-line"><b>Aspirin:</b> <span class="dim">Not indicated.</span><span class="ck-tag">AF, CHA&#8322;DS&#8322;-VASc 2 &rarr; start DOAC</span></div>
+    </div>
+    <p class="ck-names"><span>FIB-4</span><span>KFRE</span><span>CHA&#8322;DS&#8322;-VASc</span><span>Pre-heart failure</span><span>Primary aldosteronism</span></p>
+  </div>
+</section>
+
+<!-- WHO -->
 <section data-analytics-section="who" class="who" aria-labelledby="who-h2">
   <div class="wrap">
     <span class="eyebrow">Who it's for</span>
@@ -1496,6 +1532,7 @@ Management Considerations:
     <div class="faq-preview-list">
       <div id="levels"><h3><a href="methods.html#levels">What do the RCCKM Levels mean?</a></h3><p>From no signals to advanced plaque. What separates 3B from 3C?</p></div>
       <div id="signal"><h3><a href="methods.html#rss">What does the Risk Signal Score add?</a></h3><p>What PREVENT doesn&rsquo;t count, tallied in the open.</p></div>
+      <div><h3><a href="methods.html#ckm-checks">What else does RCCKM check?</a></h3><p>Liver, kidney failure, AF, early heart failure, adrenal.</p></div>
       <div><h3><a href="methods.html#lipids-and-cac">When isn&rsquo;t CAC 0 the end of the story?</a></h3><p>The 2026 ACC/AHA lipid guideline, built in.</p></div>
       <div><h3><a href="methods.html#simulator">How is each option estimated?</a></h3><p>Trial evidence, applied to one patient&rsquo;s own risk.</p></div>
       <div><h3><a href="methods.html#evaluation">What supports the platform?</a></h3><p>Every PREVENT value checked against the AHA&rsquo;s own code. Every clinical change signed off by a physician.</p></div>
@@ -2321,6 +2358,9 @@ Management Considerations:
         requestAnimationFrame(f);
       })(t0);
     }
+    /* Checks: tags slide in on view. */
+    var ckp = document.getElementById("ck-panel");
+    if (ckp) { if (reduced) ckp.classList.add("in"); else new IntersectionObserver(function (es, ob) { if (es[0].isIntersecting) { ckp.classList.add("in"); ob.disconnect(); } }, { threshold: 0.5 }).observe(ckp); }
     /* Stats count up the first time they come into view; the HTML already holds the final values. */
     document.querySelectorAll(".stat-num").forEach(function (el) {
       var m = el.textContent.match(/^(\d+)(.*)$/);

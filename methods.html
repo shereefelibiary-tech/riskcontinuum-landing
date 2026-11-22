@@ -28,7 +28,7 @@
     <p class="eyebrow">Methods &amp; evidence</p>
     <h1>The logic behind<br />the conversation.</h1>
     <p class="lede">The rules, the evidence and the checks.</p>
-    <div class="methods-meta"><span>Document version 1.5 · November 21, 2026</span><span>Implementation reference <code>c63886d</code></span><span>RSS methodology v2</span></div>
+    <div class="methods-meta"><span>Document version 1.6 · November 21, 2026</span><span>Implementation reference <code>2ba8cc6</code></span><span>RSS methodology v2</span></div>
     <div class="methods-actions"><a class="method-button" href="#frameworks">Explore the methods</a><a href="downloads/RCCKM_Methods_and_Evidence_v1.pdf" download>Download technical appendix (PDF)</a><a href="downloads/rcckm-methods-data-v1.json" download>Rules &amp; weights (JSON)</a></div>
   </div>
   <div class="methods-layout">
@@ -55,12 +55,13 @@
           <tr><th scope="row">Primary aldosteronism</th><td>Resistant hypertension, low potassium, OSA or adrenal mass; or a positive screen</td><td>Aldosterone/renin screen; endocrinology <a href="#source-htn">[19]</a></td></tr>
         </tbody></table></div>
         <details class="method-detail" id="ckm-checks-detail"><summary>Technical appendix E · Formulas, cutoffs and quiet states</summary><div class="detail-body">
+          <p>Every check classifies the unrounded value; a shown number never rounds across a cutoff.</p>
           <h4>FIB-4</h4>
           <div class="equation"><code>FIB-4 = (age × AST) / (platelets × √ALT)</code></div>
           <p>Low &lt;1.3 (&lt;2.0 at age ≥65); indeterminate 1.3–2.67; high &gt;2.67. Not reported below age 35 or during acute aminotransferase elevation. Missing AST, ALT or platelets prompt an order only when MASLD is on the record.</p>
           <h4>KFRE (4-variable, North American)</h4>
           <div class="equation"><code>risk = 1 − S0 ^ exp(−0.2201·(age/10 − 7.036) + 0.2467·(male − 0.5642) − 0.5567·(eGFR/5 − 7.222) + 0.4510·(ln UACR − 5.137))</code><code>S0 = 0.9750 (2 years), 0.9240 (5 years)</code></div>
-          <p>CKD G3–G5 only. Withheld when sex is not recorded. A 5-year risk below 3% stays silent.</p>
+          <p>CKD G3–G5 only, and held back until the CKD is confirmed. Withheld when sex is not recorded. A 5-year risk below 3% stays silent.</p>
           <h4>AF stroke prevention</h4>
           <p>Anticoagulation recommended at CHA&#8322;DS&#8322;-VASc ≥2 in men or ≥3 in women; reasonable at 1 in men or 2 in women. DOACs over warfarin except with a mechanical valve or moderate-severe rheumatic mitral stenosis. Aspirin is never offered as a substitute. With sex unrecorded, the sex-free CHA&#8322;DS&#8322;-VA is used; its tiers are the same. Silent when an anticoagulant is recorded or the score is 0.</p>
           <h4>Pre-heart failure</h4>
@@ -96,7 +97,7 @@
         </tbody></table></div>
         <details class="method-detail" id="level-rule-sequence"><summary>Technical appendix A · Complete base-rule sequence and signal definitions</summary><div class="detail-body">
           <p>The table lists the base classifier in evaluation order. After that pass, the Intermediate-risk minimum applies to base Levels 1, 2A or 2B; existing 3A and stronger pathways are retained. The 3C modifier then applies to qualifying base 3B pathways. Signal counters and RSS domain caps serve separate purposes.</p>
-          <div class="table-scroll" tabindex="0" role="region" aria-label="Ordered Level rules"><table class="rule-table"><caption>Ordered base rules, implementation reference c63886d</caption><thead><tr><th scope="col">Order</th><th scope="col">Condition</th><th scope="col">Base output and rule identifier</th></tr></thead><tbody>
+          <div class="table-scroll" tabindex="0" role="region" aria-label="Ordered Level rules"><table class="rule-table"><caption>Ordered base rules, implementation reference 2ba8cc6</caption><thead><tr><th scope="col">Order</th><th scope="col">Condition</th><th scope="col">Base output and rule identifier</th></tr></thead><tbody>
             <tr><th scope="row">1</th><td>Clinical ASCVD.</td><td>5<code>LEVEL_5_CLINICAL_ASCVD</code></td></tr>
             <tr><th scope="row">2</th><td>Established heart failure, HFpEF or HFrEF.</td><td>5<code>LEVEL_5_HEART_FAILURE</code></td></tr>
             <tr><th scope="row">3</th><td>Quantitative CAC ≥300.</td><td>5<code>LEVEL_5_CAC_GE_300</code></td></tr>
@@ -247,8 +248,8 @@
         <p class="section-number">06 · Evaluation</p>
         <h2 id="evaluation-heading">Checked on every change.</h2>
         <div class="evaluation-band"><span class="status">Current software checks passed</span><span class="status pending">Independent clinical evaluation next</span></div>
-        <div class="table-scroll" tabindex="0" role="region" aria-label="Evidence register"><table><caption>CI run <code>44850711406</code> on <code>c63886d</code>, November 20, 2026.</caption><thead><tr><th scope="col">Check</th><th scope="col">Result</th></tr></thead><tbody>
-          <tr><th scope="row">Software tests</th><td><b>6,595 passed</b> on Linux and Windows.</td></tr>
+        <div class="table-scroll" tabindex="0" role="region" aria-label="Evidence register"><table><caption>CI run <code>44963454994</code> on <code>2ba8cc6</code>, November 21, 2026.</caption><thead><tr><th scope="col">Check</th><th scope="col">Result</th></tr></thead><tbody>
+          <tr><th scope="row">Software tests</th><td><b>6,676 passed</b> on Linux and Windows.</td></tr>
           <tr><th scope="row">Clinical output</th><td><b>763 cases</b>, every screen and note, unchanged.</td></tr>
           <tr><th scope="row">PREVENT</th><td><b>Exact match</b> with the AHA&rsquo;s own code, all six endpoints, 725 journeys.</td></tr>
           <tr><th scope="row">On-device engine</th><td><b>1,512 responses, zero mismatches</b> with the server.</td></tr>
@@ -257,7 +258,7 @@
         </tbody></table></div>
         <p>No change to clinical output merges without the physician owner's sign-off. <a href="downloads/rcckm-evidence-register-v1.json" download>Full evidence register</a>.</p>
         <details class="method-detail" id="evidence-governance"><summary>Technical appendix C · Source versions and evidence records</summary><div class="detail-body">
-          <p>Each validation receipt identifies the application revision, numerical reference, corpus and workflow used. The November 20 CI run on <code>c63886d</code> passed all five jobs: Linux tests, Windows tests, clinical output snapshots, engine parity and Next.js. The independent PREVENT reference was computed by <code>AHAprevent 1.1.0</code> at AHA commit <code>3a7899b</code> for corpus <code>critic500_corpus_v7</code> (fingerprint <code>2af0b28b…82dfcd</code>) and is compared at display precision on every run.</p>
+          <p>Each validation receipt identifies the application revision, numerical reference, corpus and workflow used. The November 21 CI run on <code>2ba8cc6</code> passed all five jobs: Linux tests, Windows tests, clinical output snapshots, engine parity and Next.js. The independent PREVENT reference was computed by <code>AHAprevent 1.1.0</code> at AHA commit <code>3a7899b</code> for corpus <code>critic500_corpus_v7</code> (fingerprint <code>2af0b28b…82dfcd</code>) and is compared at display precision on every run.</p>
           <p>Clinical output snapshots replaced the earlier frozen-baseline replay and model-assisted semantic review on November 13, 2026. The last semantic review (revision <code>933e1f6</code>, October 31, 2026, 600 completed reviews) and the November 4 replay (600 journeys, zero changed) remain in the evidence register as historical records tied to their tested sources.</p>
           <p>Original findings, adjudications and superseded runs remain in the development record. Software revisions and recorded test sources are listed separately from deployment status. Test counts refer to software checks and test journeys, not clinical study participants.</p>
         </div></details>
@@ -293,7 +294,7 @@
           <li id="source-ada"><a href="https://doi.org/10.2337/dc26-S010">American Diabetes Association. 10. Cardiovascular disease and risk management: Standards of Care in Diabetes—2026. Diabetes Care. 2026;49(Suppl 1):S216–S245.</a></li>
           <li id="source-htn"><a href="https://doi.org/10.1161/HYP.0000000000000249">Jones DW, et al. 2025 AHA/ACC guideline for the prevention, detection, evaluation and management of high blood pressure in adults. Hypertension. 2025;82:e212–e316.</a></li>
         </ol>
-        <div class="provenance"><p><strong>Version 1.5 · November 21, 2026.</strong> 2026 ACC/AHA lipid and CAC goals; medication safety states; missing age or sex makes the Level incomplete; simulator options follow the engine; a richer take-home plan. RSS weights and Level rules unchanged. Implementation reference: <code>c63886decd4002868a7875bed9173fec15e8cda1</code>.</p><p>Earlier versions remain in the downloadable registers.</p></div>
+        <div class="provenance"><p><strong>Version 1.6 · November 21, 2026.</strong> Five more checks: FIB-4, KFRE, CHA&#8322;DS&#8322;-VASc, pre-heart failure and primary aldosteronism. RSS weights and Level rules unchanged.</p><p><strong>Version 1.5 · November 21, 2026.</strong> 2026 ACC/AHA lipid and CAC goals; medication safety states; missing age or sex makes the Level incomplete; simulator options follow the engine; a richer take-home plan. RSS weights and Level rules unchanged. Implementation reference: <code>c63886decd4002868a7875bed9173fec15e8cda1</code>.</p><p>Earlier versions remain in the downloadable registers.</p></div>
         <div class="contact-card"><h3>Questions?</h3><p>Talk to <a href="mailto:shereef@riskcontinuum.health?subject=RCCKM%20methods">Shereef El-Ibiary, MD</a>.</p></div>
       </section>
     </article>

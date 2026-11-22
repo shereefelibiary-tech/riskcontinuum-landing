@@ -1,6 +1,13 @@
 # Methods and evidence: maintenance
 
-Version 1.5 describes application revision
+Version 1.6 describes application revision
+`2ba8cc6b4f059ec09b4e6ed71d08c70b5022d4b3` (app PR #146), tested in CI run
+`44963454994`. It adds the five CKM checks (FIB-4, KFRE, CHA2DS2-VASc,
+pre-heart failure, primary aldosteronism): a table in section 01, technical
+appendix E and references 16-19. Tests: 6,676 passed. Snapshot, contract,
+PREVENT and parity counts are unchanged from v1.5.
+
+Version 1.5 described application revision
 `c63886decd4002868a7875bed9173fec15e8cda1`, tested in CI run `44850711406`
 (November 20, 2026 ET). It adds 2026 ACC/AHA lipid and CAC goals (non-HDL-C
 enhancer, optional CAC goals, graded incidental CAC), the CAC 0

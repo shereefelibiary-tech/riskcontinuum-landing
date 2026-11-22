@@ -19,7 +19,7 @@ import subprocess
 from typing import Any, Optional
 
 ROOT = Path(__file__).resolve().parents[1]
-ENGINE_REVISION = "c63886decd4002868a7875bed9173fec15e8cda1"
+ENGINE_REVISION = "2ba8cc6b4f059ec09b4e6ed71d08c70b5022d4b3"
 SOURCE_FILES = (
     "modules/levels/level_classifier.py", "modules/levels/definitions.py",
     "modules/levels/descriptors.py", "modules/rss/engine.py",
@@ -30,6 +30,8 @@ SOURCE_FILES = (
     "modules/prevent/option_effects.py", "modules/prevent/relative_reduction.py",
     "modules/actions/plan_options.py", "modules/prevent/lipid_bands.py",
     "modules/lipids/cac_zero_policy.py",
+    "modules/liver/fib4.py", "modules/kidney/kfre.py", "modules/heart_failure/pre_hf.py",
+    "modules/hypertension/primary_aldosteronism.py", "modules/af/stroke_prevention.py",
 )
 
 
@@ -63,7 +65,7 @@ def export(source: Path) -> dict:
     level_source = (source / "modules/levels/level_classifier.py").read_text()
     rule_ids = list(dict.fromkeys(re.findall(r'"(LEVEL_(?:[1-5][A-C]?|INCOMPLETE)_[A-Z0-9_]+)"', level_source)))
     return {
-        "document_version": "1.5", "reviewed_on": "2026-11-21",
+        "document_version": "1.6", "reviewed_on": "2026-11-21",
         "engine_revision": ENGINE_REVISION,
         "source_sha256": {name: hashlib.sha256((source / name).read_bytes()).hexdigest() for name in SOURCE_FILES},
         "rss": method, "rss_exact_numeric_intervals": bands,

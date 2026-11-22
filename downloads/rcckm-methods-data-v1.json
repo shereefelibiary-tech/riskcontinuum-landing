@@ -1,7 +1,7 @@
 {
-  "document_version": "1.5",
+  "document_version": "1.6",
   "reviewed_on": "2026-11-21",
-  "engine_revision": "c63886decd4002868a7875bed9173fec15e8cda1",
+  "engine_revision": "2ba8cc6b4f059ec09b4e6ed71d08c70b5022d4b3",
   "source_sha256": {
     "modules/levels/level_classifier.py": "e4242fdc70c61c16c1f67eb584a5ef3f19466e624618e89722d66eae940f3feb",
     "modules/levels/definitions.py": "b73bdf07cc0e15f7cb22e957b88794ee486eafdfa76df5f7c44a553bf8579f94",
@@ -19,7 +19,12 @@
     "modules/prevent/relative_reduction.py": "b1d9982c540e6f71b6cd05ee5b88afd7371a4b9d419c5cf4609476546fd9e012",
     "modules/actions/plan_options.py": "4c73fdbcc1da29c549c1476253b811f8e4085ab70dbef61298c3e5d169327bab",
     "modules/prevent/lipid_bands.py": "56f3a8909665cf704595db5d1165310f03d5feaf0386a66554cd72014787fe4d",
-    "modules/lipids/cac_zero_policy.py": "ed029284150ff870043479814af2447d634e8fcd1772d8af04a1d5fb1b9a951a"
+    "modules/lipids/cac_zero_policy.py": "ed029284150ff870043479814af2447d634e8fcd1772d8af04a1d5fb1b9a951a",
+    "modules/liver/fib4.py": "01562139406dd83d0d1dd0ff327db94a5cad79ab04d433f3229ebcc93681e428",
+    "modules/kidney/kfre.py": "aedfd2a25d898db4d4a25f48645c79ab0228fe9eb762630fa4ae44bfb82f67d3",
+    "modules/heart_failure/pre_hf.py": "8e5e800e06f4e8ee4c34cf9208732cbe76a3cf8a1e73dc31ae0da47a9fc7d56a",
+    "modules/hypertension/primary_aldosteronism.py": "4bfe2cda48dc71066c555b6a9af03de937987c33964b7b5d053cda282b4c7604",
+    "modules/af/stroke_prevention.py": "10a9ae4dbee1ead3556dfb1b26b6021dde49890ba80f28fc2ec52b38fff9f405"
   },
   "rss": {
     "version": "rss-methodology-v2",

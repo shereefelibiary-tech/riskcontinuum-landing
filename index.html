@@ -248,9 +248,9 @@
     .hero .lede { margin: 24px auto 0; text-align: center; max-width: 56ch; }
     .hero-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 36px; }
     .hero-meta { margin-top: 20px; font-size: 15px; color: var(--muted); }
-    .hero-access { margin-top: 10px; font-size: 15px; color: var(--muted); }
+    .hero-access { margin-top: 14px; font-size: 15px; color: var(--muted); text-align: center; }
     .levels-sub { display: block; margin-top: 10px; }
-    .privacy-note { margin-top: 10px; font-size: 15px; color: var(--muted); }
+    .privacy-note { margin-top: 18px; font-size: 15px; color: var(--muted); }
     .hero-access a { color: var(--accent); text-underline-offset: 3px; }
     .copy-status { min-height: 1.5em; padding: 0 28px 16px; font-size: 14px; color: var(--muted); }
 
@@ -986,14 +986,11 @@
       </div>
       <h1 id="hero-h1">Make prevention <span class="soft">visible.</span></h1>
       <p class="sub">A clinical decision-support engine for every clinician in CKM care.</p>
-      <p class="lede">Explore your patient's risk continuum over time, show them what each option would change, and carry the decision into the note.</p>
       <div class="hero-ctas">
         <a href="https://app.riskcontinuum.health/sign-up" class="btn btn-primary">Create a free account</a>
         <a href="#pilot" class="btn btn-ghost">Discuss a pilot</a>
       </div>
-      <p class="hero-meta">Deterministic engine &middot; Auditable calculations &middot; Clinician-reviewed output &middot; Runs in your browser</p>
-      <p class="privacy-note"><span aria-hidden="true">🔒</span> Patient data stays on your device: chart text is assessed in your browser and never sent to our servers. RCCKM doesn&rsquo;t need names, dates of birth or MRNs, and flags any it finds.</p>
-      <p class="hero-access"><a href="#plan">Try the simulator &darr;</a> &middot; <a href="#patient-view">See the patient view &darr;</a> &middot; <a href="https://app.riskcontinuum.health/">Sign in</a></p>
+      <p class="privacy-note"><span aria-hidden="true">🔒</span> Chart text never leaves your device.</p>
     </div>
 
     <figure class="hero-curve">
@@ -1016,6 +1013,7 @@
       <p class="hc-leg" aria-hidden="true"><span class="r">&#9679; Today&rsquo;s path</span><span class="g">&#9679; With the plan</span></p>
       <figcaption class="hc-cap">A 52-year-old with prediabetes and high triglycerides. Bring her blood pressure to 120 and LDL-C to 79, and her 30-year risk drops by a third.</figcaption>
     </figure>
+    <p class="hero-access"><a href="#plan">Try the simulator &darr;</a> &middot; <a href="#patient-view">See the patient view &darr;</a> &middot; <a href="https://app.riskcontinuum.health/">Sign in</a></p>
 
   </div>
 </section>

@@ -1,16 +1,16 @@
 {
-  "document_version": "1.4",
-  "verified_on": "2026-11-16",
+  "document_version": "1.5",
+  "verified_on": "2026-11-21",
   "maintained_by": "Risk Continuum Health LLC",
   "engine_repository": "rcckm-nextjs-preview",
-  "engine_revision": "4837b83b12f153504b800ea702273578a1ec4e44",
-  "tested_application_revision": "4837b83b12f153504b800ea702273578a1ec4e44",
+  "engine_revision": "c63886decd4002868a7875bed9173fec15e8cda1",
+  "tested_application_revision": "c63886decd4002868a7875bed9173fec15e8cda1",
   "source_relationship": "The documented implementation reference is the tested revision; CI ran on the merge to main.",
   "deployment_note": "Source revision alone does not establish which version is being served.",
   "current_ci": {
-    "run_id": 43795718876,
-    "url": "https://github.com/shereefelibiary-tech/rcckm-nextjs-preview/actions/runs/43795718876",
-    "date_et": "2026-11-15",
+    "run_id": 44850711406,
+    "url": "https://github.com/shereefelibiary-tech/rcckm-nextjs-preview/actions/runs/44850711406",
+    "date_et": "2026-11-20",
     "conclusion": "success",
     "jobs": [
       {
@@ -36,36 +36,35 @@
     ]
   },
   "routine_validation": {
-    "run_id": 43795718876,
-    "revision": "4837b83b12f153504b800ea702273578a1ec4e44",
-    "date_et": "2026-11-15",
+    "run_id": 44850711406,
+    "revision": "c63886decd4002868a7875bed9173fec15e8cda1",
+    "date_et": "2026-11-20",
     "suite": "Full pytest suite, each of Ubuntu and Windows",
-    "passed": 6279,
-    "skipped": 179,
+    "passed": 6595,
+    "skipped": 182,
     "warnings": 2,
     "platform_log_receipts": {
       "Ubuntu": [
-        "6279 passed, 179 skipped, 2 warnings in 518.24s (0:08:38)"
+        "6595 passed, 182 skipped, 2 warnings in 691.24s (0:11:31)"
       ],
       "Windows": [
-        "6279 passed, 179 skipped, 2 warnings in 419.08s (0:06:59)"
+        "6595 passed, 182 skipped, 2 warnings in 500.52s (0:08:20)"
       ]
-    },
-    "note": "The suite is smaller than on November 4 after the retired Streamlit app, its duplicate clinical logic and the retired harness were removed (application PRs #98, #101, #104)."
+    }
   },
   "clinical_output_snapshots": {
-    "run_id": 43795718876,
-    "revision": "4837b83b12f153504b800ea702273578a1ec4e44",
-    "date_et": "2026-11-15",
+    "run_id": 44850711406,
+    "revision": "c63886decd4002868a7875bed9173fec15e8cda1",
+    "date_et": "2026-11-20",
     "status": "PASS",
-    "snapshots": 738,
-    "primary_patients": 600,
+    "snapshots": 763,
+    "primary_patients": 625,
     "format_variants": 100,
     "demo_gallery_patients": 38,
     "result": "No clinical output changes across the snapshot set.",
     "contents": "EMR note, patient roadmap, action list, PREVENT, diagnoses, report panels, scripted statin reconciliation and the patient view's plan options, produced through the same API functions the web app calls.",
     "independent_contract": "critic500_contract_v6",
-    "contract_journeys": 700,
+    "contract_journeys": 725,
     "contract_failures": 0,
     "approval_rule": "A pull request that changes any snapshot file blocks merge until the physician owner applies the clinical-approved label after reviewing the grouped diff.",
     "adopted": "2026-11-13",
@@ -77,12 +76,12 @@
     "package": "AHAprevent 1.1.0",
     "package_sha256": "87f0cc27d6f599a7ebdc090f118057ed08184b9dd0184b2bceb329f56f54cc7b",
     "r_source_member": "AHAprevent/R/AHA_prevent_equations_2026.R",
-    "corpus": "critic500_corpus_v5",
-    "corpus_fingerprint": "1b7b2079183944adc16d226f21af995d96f1f7711d3920cbddb4686ad3bebbd7",
-    "journeys_compared": 700,
-    "clinically_eligible_direct": 622,
+    "corpus": "critic500_corpus_v7",
+    "corpus_fingerprint": "2af0b28b88847dbce92ab858b1d1aef88055e8aa6c7111af9034fe328f82dfcd",
+    "journeys_compared": 725,
+    "clinically_eligible_direct": 644,
     "governed_boundary_projections": 7,
-    "clinically_ineligible": 71,
+    "clinically_ineligible": 74,
     "endpoints": [
       "prevent_10y_ascvd",
       "prevent_10y_total_cvd",
@@ -95,7 +94,7 @@
     "differences": 0
   },
   "on_device_engine_parity": {
-    "run_id": 43795718876,
+    "run_id": 44850711406,
     "runtime": "pyodide",
     "journeys": 108,
     "responses_compared": 1512,
@@ -106,13 +105,13 @@
     "mismatches": 0
   },
   "fhir_paste_parity": {
-    "run_id": 43795718876,
+    "run_id": 44850711406,
     "journeys": 500,
     "status": "PASS",
     "scope": "Agreement of supported FHIR and paste-normalized synthetic inputs."
   },
   "nextjs_build_and_browser": {
-    "run_id": 43795718876,
+    "run_id": 44850711406,
     "status": "PASS",
     "scope": "Next.js build, typecheck and web tests, including the patient-view and take-home link tests."
   },
@@ -128,7 +127,8 @@
       "#119",
       "#121 (clinical-approved label)"
     ],
-    "changes_in_v6": "BP effect credited for at most 20 mmHg (224 of 738 snapshots changed; largest 10-year BP relative reduction 60% to 35%); aspirin kidney caution shown beside the bleeding figure; Ference long-exposure formula cited to Eur Heart J 2017;38:2459."
+    "changes_in_v6": "BP effect credited for at most 20 mmHg (224 of 738 snapshots changed; largest 10-year BP relative reduction 60% to 35%); aspirin kidney caution shown beside the bleeding figure; Ference long-exposure formula cited to Eur Heart J 2017;38:2459.",
+    "changes_since_v6_release": "Catalog unchanged (option_effects_v6). Options are now gated by the engine (modules/actions/plan_options.py, application PR #140): statin start/intensify follow statin-therapy and intolerance determinations, SGLT2 and GLP-1 follow the engine decisions; the statin effect uses the engine lipid basis, including non-HDL-C when triglycerides are 200-399 mg/dL or calculated LDL-C is below 70 (PR #143)."
   },
   "clinical_evaluation": {
     "status": "PLANNED",
@@ -145,6 +145,133 @@
     "Independent clinical usefulness, prospective benefit and calibration of the RCCKM-specific frameworks remain evaluation priorities."
   ],
   "historical_validation": {
+    "2026-11-16_v1.4": {
+      "engine_revision": "4837b83b12f153504b800ea702273578a1ec4e44",
+      "tested_application_revision": "4837b83b12f153504b800ea702273578a1ec4e44",
+      "current_ci": {
+        "run_id": 43795718876,
+        "url": "https://github.com/shereefelibiary-tech/rcckm-nextjs-preview/actions/runs/43795718876",
+        "date_et": "2026-11-15",
+        "conclusion": "success",
+        "jobs": [
+          {
+            "name": "tests (ubuntu-24.04)",
+            "conclusion": "success"
+          },
+          {
+            "name": "tests (windows-latest)",
+            "conclusion": "success"
+          },
+          {
+            "name": "clinical-outputs",
+            "conclusion": "success"
+          },
+          {
+            "name": "parity",
+            "conclusion": "success"
+          },
+          {
+            "name": "nextjs",
+            "conclusion": "success"
+          }
+        ]
+      },
+      "routine_validation": {
+        "run_id": 43795718876,
+        "revision": "4837b83b12f153504b800ea702273578a1ec4e44",
+        "date_et": "2026-11-15",
+        "suite": "Full pytest suite, each of Ubuntu and Windows",
+        "passed": 6279,
+        "skipped": 179,
+        "warnings": 2,
+        "platform_log_receipts": {
+          "Ubuntu": [
+            "6279 passed, 179 skipped, 2 warnings in 518.24s (0:08:38)"
+          ],
+          "Windows": [
+            "6279 passed, 179 skipped, 2 warnings in 419.08s (0:06:59)"
+          ]
+        },
+        "note": "The suite is smaller than on November 4 after the retired Streamlit app, its duplicate clinical logic and the retired harness were removed (application PRs #98, #101, #104)."
+      },
+      "clinical_output_snapshots": {
+        "run_id": 43795718876,
+        "revision": "4837b83b12f153504b800ea702273578a1ec4e44",
+        "date_et": "2026-11-15",
+        "status": "PASS",
+        "snapshots": 738,
+        "primary_patients": 600,
+        "format_variants": 100,
+        "demo_gallery_patients": 38,
+        "result": "No clinical output changes across the snapshot set.",
+        "contents": "EMR note, patient roadmap, action list, PREVENT, diagnoses, report panels, scripted statin reconciliation and the patient view's plan options, produced through the same API functions the web app calls.",
+        "independent_contract": "critic500_contract_v6",
+        "contract_journeys": 700,
+        "contract_failures": 0,
+        "approval_rule": "A pull request that changes any snapshot file blocks merge until the physician owner applies the clinical-approved label after reviewing the grouped diff.",
+        "adopted": "2026-11-13",
+        "replaces": "Frozen-candidate deterministic replay and model-assisted semantic review (application PRs #97, #101)."
+      },
+      "independent_prevent_reference": {
+        "official_repository": "AHA-DS-Analytics/PREVENT",
+        "official_commit": "3a7899b5456bab73d4482ac6d95c6043394d0910",
+        "package": "AHAprevent 1.1.0",
+        "package_sha256": "87f0cc27d6f599a7ebdc090f118057ed08184b9dd0184b2bceb329f56f54cc7b",
+        "r_source_member": "AHAprevent/R/AHA_prevent_equations_2026.R",
+        "corpus": "critic500_corpus_v5",
+        "corpus_fingerprint": "1b7b2079183944adc16d226f21af995d96f1f7711d3920cbddb4686ad3bebbd7",
+        "journeys_compared": 700,
+        "clinically_eligible_direct": 622,
+        "governed_boundary_projections": 7,
+        "clinically_ineligible": 71,
+        "endpoints": [
+          "prevent_10y_ascvd",
+          "prevent_10y_total_cvd",
+          "prevent_10y_hf",
+          "prevent_30y_ascvd",
+          "prevent_30y_total_cvd",
+          "prevent_30y_hf"
+        ],
+        "comparison": "Exact at display precision for every applicable endpoint, plus PREVENT model selection for eligible journeys, on every CI run.",
+        "differences": 0
+      },
+      "on_device_engine_parity": {
+        "run_id": 43795718876,
+        "runtime": "pyodide",
+        "journeys": 108,
+        "responses_compared": 1512,
+        "server_statuses": {
+          "200": 1442,
+          "422": 70
+        },
+        "mismatches": 0
+      },
+      "fhir_paste_parity": {
+        "run_id": 43795718876,
+        "journeys": 500,
+        "status": "PASS",
+        "scope": "Agreement of supported FHIR and paste-normalized synthetic inputs."
+      },
+      "nextjs_build_and_browser": {
+        "run_id": 43795718876,
+        "status": "PASS",
+        "scope": "Next.js build, typecheck and web tests, including the patient-view and take-home link tests."
+      },
+      "option_estimates": {
+        "catalog": "option_effects_v6",
+        "source_file": "modules/prevent/option_effects.py",
+        "snapshot_coverage": "Every journey and demo records its options, estimates, intervals, harms, combinability, endpoints, sources, 30-year projections and patient-view horizon.",
+        "physician_approvals": [
+          "application PR #115",
+          "#116",
+          "#117",
+          "#118",
+          "#119",
+          "#121 (clinical-approved label)"
+        ],
+        "changes_in_v6": "BP effect credited for at most 20 mmHg (224 of 738 snapshots changed; largest 10-year BP relative reduction 60% to 35%); aspirin kidney caution shown beside the bleeding figure; Ference long-exposure formula cited to Eur Heart J 2017;38:2459."
+      }
+    },
     "2026-11-15_v1.3": {
       "engine_revision": "5e7cb9911d1c5231e751b55b7b89cde5ad010c56",
       "current_ci": {
@@ -397,6 +524,66 @@
       "level_floor_rule": "LEVEL_3A_INTERMEDIATE_PREVENT",
       "level_3a_definition": "Modeled risk or single driver",
       "ci_run_id": 41950817613
+    },
+    {
+      "pr": 126,
+      "url": "https://github.com/shereefelibiary-tech/rcckm-nextjs-preview/pull/126",
+      "status": "MERGED",
+      "scope": "Metformin state on the clinician note, EMR line and roadmap."
+    },
+    {
+      "pr": 130,
+      "url": "https://github.com/shereefelibiary-tech/rcckm-nextjs-preview/pull/130",
+      "status": "MERGED",
+      "scope": "CAC 0 noncalcified-plaque note when a recognized exception keeps lipid treatment in play."
+    },
+    {
+      "pr": 133,
+      "url": "https://github.com/shereefelibiary-tech/rcckm-nextjs-preview/pull/133",
+      "status": "MERGED",
+      "scope": "Finerenone state on the EMR kidney line and patient roadmap."
+    },
+    {
+      "pr": 134,
+      "url": "https://github.com/shereefelibiary-tech/rcckm-nextjs-preview/pull/134",
+      "status": "MERGED",
+      "scope": "Medication safety: metformin renal alert, potassium in ACEi/ARB advice, inactive antiplatelets."
+    },
+    {
+      "pr": 137,
+      "url": "https://github.com/shereefelibiary-tech/rcckm-nextjs-preview/pull/137",
+      "status": "MERGED",
+      "scope": "Missing age or sex makes the Level incomplete; CAC 0 policy owns A1c >=6.5% and LDL-C 160-189 rules; A1c rounding never crosses a threshold."
+    },
+    {
+      "pr": 140,
+      "url": "https://github.com/shereefelibiary-tech/rcckm-nextjs-preview/pull/140",
+      "status": "MERGED",
+      "scope": "Simulator options follow the engine gate and LDL-C validity."
+    },
+    {
+      "pr": 143,
+      "url": "https://github.com/shereefelibiary-tech/rcckm-nextjs-preview/pull/143",
+      "status": "MERGED",
+      "scope": "Non-HDL-C 190-219 as a major risk enhancer; non-HDL-C simulator basis; non-HDL-C on the targets card."
+    },
+    {
+      "pr": 144,
+      "url": "https://github.com/shereefelibiary-tech/rcckm-nextjs-preview/pull/144",
+      "status": "MERGED",
+      "scope": "2026 ACC/AHA optional intensified goals by CAC; graded incidental CAC."
+    },
+    {
+      "pr": 145,
+      "url": "https://github.com/shereefelibiary-tech/rcckm-nextjs-preview/pull/145",
+      "status": "MERGED",
+      "scope": "Incidental CAC only strengthens lipid goals and statin advice."
+    },
+    {
+      "pr": 129,
+      "url": "https://github.com/shereefelibiary-tech/rcckm-nextjs-preview/pull/129",
+      "status": "MERGED",
+      "scope": "Take-home plan v3: roadmap numbers and tests on the phone."
     }
   ],
   "pending_changes": [

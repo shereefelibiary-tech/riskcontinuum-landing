@@ -19,7 +19,7 @@ import subprocess
 from typing import Any, Optional
 
 ROOT = Path(__file__).resolve().parents[1]
-ENGINE_REVISION = "4837b83b12f153504b800ea702273578a1ec4e44"
+ENGINE_REVISION = "c63886decd4002868a7875bed9173fec15e8cda1"
 SOURCE_FILES = (
     "modules/levels/level_classifier.py", "modules/levels/definitions.py",
     "modules/levels/descriptors.py", "modules/rss/engine.py",
@@ -28,6 +28,8 @@ SOURCE_FILES = (
     "modules/prevent/eligibility.py", "modules/prevent/precision.py",
     "modules/prevent/treatment_effects.py", "api/simulate.py",
     "modules/prevent/option_effects.py", "modules/prevent/relative_reduction.py",
+    "modules/actions/plan_options.py", "modules/prevent/lipid_bands.py",
+    "modules/lipids/cac_zero_policy.py",
 )
 
 
@@ -61,7 +63,7 @@ def export(source: Path) -> dict:
     level_source = (source / "modules/levels/level_classifier.py").read_text()
     rule_ids = list(dict.fromkeys(re.findall(r'"(LEVEL_(?:[1-5][A-C]?|INCOMPLETE)_[A-Z0-9_]+)"', level_source)))
     return {
-        "document_version": "1.4", "reviewed_on": "2026-11-16",
+        "document_version": "1.5", "reviewed_on": "2026-11-21",
         "engine_revision": ENGINE_REVISION,
         "source_sha256": {name: hashlib.sha256((source / name).read_bytes()).hexdigest() for name in SOURCE_FILES},
         "rss": method, "rss_exact_numeric_intervals": bands,

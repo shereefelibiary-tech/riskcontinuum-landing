@@ -1,6 +1,16 @@
 # Methods and evidence: maintenance
 
-Version 1.4 describes application revision
+Version 1.5 describes application revision
+`c63886decd4002868a7875bed9173fec15e8cda1`, tested in CI run `44850711406`
+(November 20, 2026 ET). It adds 2026 ACC/AHA lipid and CAC goals (non-HDL-C
+enhancer, optional CAC goals, graded incidental CAC), the CAC 0
+noncalcified-plaque note, metformin/finerenone/potassium safety states, age and
+sex as blocking PREVENT inputs for Level incomplete, engine-gated simulator
+options with the engine lipid basis, and the take-home plan v3. RSS weights and
+Level rule IDs are unchanged. The register keeps v1.4 under
+`historical_validation`.
+
+Version 1.4 described application revision
 `4837b83b12f153504b800ea702273578a1ec4e44` (catalog `option_effects_v6`: BP effect
 capped at 20 mmHg, aspirin kidney caution beside the bleeding figure, Ference
 cited to Eur Heart J 2017), tested in CI run `43795718876`. Version 1.3
@@ -19,6 +29,9 @@ and the separate 3C modifier. The probability-first UI proposal in PR #79
 remains unmerged and appears only in the downloadable pending-change metadata.
 
 ## Editorial approach
+
+Keep it short and confident. Say what RCCKM does; let readers explore the
+details. Avoid "synthetic"; say "test patients" or "test journeys".
 
 Lead with the clinical workflow, implementation and completed verification.
 Keep the equations, counters, weights and assumptions available in the technical
@@ -61,6 +74,13 @@ the page, JSON downloads and PDF consistent in the same change. Check local
 anchors, links, Level rule coverage and the RSS export before publication.
 
 ## Evidence records
+
+The November 20, 2026 CI run `44850711406` on `c63886d` passed all five jobs:
+Linux and Windows tests (6,595 passed, 182 skipped each), clinical output
+snapshots (763 snapshots, no changes; 725 journeys passed their contracts,
+PREVENT reference corpus `critic500_corpus_v7`: 644 eligible, 7 projections,
+74 ineligible), engine parity (108 journeys, 1,512 responses, zero
+mismatches; FHIR/paste parity 500 journeys) and Next.js.
 
 The November 15, 2026 CI run `43795718876` passed all five jobs: Linux and
 Windows tests (6,279 passed, 179 skipped each), clinical output snapshots (738

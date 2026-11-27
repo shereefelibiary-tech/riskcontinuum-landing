@@ -300,6 +300,13 @@
     .stat-num { font-family: var(--display); font-size: 54px; line-height: 1; color: var(--ink); font-weight: 500; }
     .stat p { margin-top: 14px; font-size: 17px; color: var(--body); }
     .stat cite { display: block; margin-top: 14px; font-size: 14px; font-style: normal; color: var(--muted); }
+    .stats-head { margin-bottom: 48px; }
+    .stats-routine { margin-top: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 40px 44px; }
+    .stats-routine-k { font-family: var(--display); font-size: 14px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); }
+    .stats-routine h3 { font-size: clamp(26px, 2.6vw, 34px); line-height: 1.15; margin: 14px 0 0; }
+    .stats-routine p { font-size: 17px; color: var(--body); }
+    .stats-routine p + p { margin-top: 14px; }
+    .stats-routine cite { display: block; margin-top: 14px; font-size: 14px; font-style: normal; color: var(--muted); }
 
     /* TRAJECTORY */
     .traj { padding: 120px 0; border-top: 1px solid var(--line); }
@@ -704,6 +711,7 @@
       .cont.shown .tile.here, .demo-cont .tile.here { transform: none; }
       .walker, .cont-foot { display: none; }
       .stats-grid { grid-template-columns: 1fr; }
+      .stats-routine { grid-template-columns: 1fr; gap: 20px; padding: 28px 24px; }
       .traj, .plan, .sdm, .report, .demo, .founder, .cta { padding: 84px 0; }
       .who { padding: 20px 0 84px; }
       .founder-photo { max-width: 420px; margin: 0 auto; }
@@ -1044,23 +1052,39 @@
 </section>
 
 <!-- STATS -->
-<section data-analytics-section="stats" class="stats" aria-label="Why this matters">
+<section data-analytics-section="stats" class="stats" id="why" aria-labelledby="stats-h2">
   <div class="wrap">
+    <div class="stats-head center reveal">
+      <span class="eyebrow">Why it matters</span>
+      <h2 class="h2" id="stats-h2">The scale of the CKM <em>prevention opportunity.</em></h2>
+      <p class="lede">Routine blood pressure readings and tests for cholesterol, blood sugar and kidney health can reveal cardiovascular-kidney-metabolic (CKM) risk before symptoms appear. Acting early can help prevent heart attacks and strokes and slow kidney disease.</p>
+    </div>
     <div class="stats-grid reveal">
       <div class="stat">
-        <div class="stat-num">90%</div>
-        <p>of U.S. adults meet criteria for CKM syndrome. Nearly half are at stage 2, with metabolic risk factors or kidney disease, where prevention has the most room to work.</p>
-        <cite>Aggarwal et al., <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11079779/" target="_blank" rel="noopener">JAMA, 2024</a></cite>
+        <div class="stat-num">162M</div>
+        <p>U.S. adults are estimated to have stage 2 or higher CKM, about two-thirds of adults age 20 and older. About 36 million already meet criteria for advanced CKM.</p>
+        <cite>Hyun et al., <a href="https://doi.org/10.1161/JAHA.126.053440" target="_blank" rel="noopener">JAHA, 2026</a></cite>
       </div>
       <div class="stat">
-        <div class="stat-num">15 min</div>
-        <p>is the median primary care visit. The evidence is ready; bringing the whole cardiometabolic picture together in that time is the opportunity.</p>
-        <cite>Neprash et al., <a href="https://pubmed.ncbi.nlm.nih.gov/33301282/" target="_blank" rel="noopener">Medical Care, 2021</a></cite>
+        <div class="stat-num">1 in 2</div>
+        <p>Only about half of adults with stage 2 or higher CKM and high blood pressure are being treated for it. The same is true for high cholesterol.</p>
+        <cite>Gong et al., <a href="https://doi.org/10.1016/j.jacc.2026.04.031" target="_blank" rel="noopener">JACC, 2026</a></cite>
       </div>
       <div class="stat">
-        <div class="stat-num">47%</div>
-        <p>of U.S. adults 40&ndash;75 without heart disease are eligible for cholesterol-lowering therapy, and about 23% take it. A clear risk conversation at the point of care can help close that gap.</p>
-        <cite>Alexander et al., <a href="https://doi.org/10.1007/s11606-025-09625-0" target="_blank" rel="noopener">J Gen Intern Med, 2025</a></cite>
+        <div class="stat-num">1M</div>
+        <p>heart attacks and strokes could be prevented over five years, Million Hearts estimates, with a 20% improvement in blood pressure control, cholesterol management and smoking cessation.</p>
+        <cite>CDC and CMS, <a href="https://millionhearts.hhs.gov/about-million-hearts/index.html" target="_blank" rel="noopener">Million Hearts</a></cite>
+      </div>
+    </div>
+    <div class="stats-routine reveal">
+      <div>
+        <span class="stats-routine-k">Make prevention routine</span>
+        <h3>Cancer screening made prevention part of the visit. <em>CKM deserves the same.</em></h3>
+      </div>
+      <div>
+        <p>Cancer screening and vaccination against infectious diseases show how prevention can become part of routine care. CKM prevention deserves that same attention, even in a median primary care visit of about 15 minutes.</p>
+        <p>Risk Continuum CKM brings blood pressure, lab trends and prior diagnoses together at the visit, so gaps such as a missing urine albumin test get caught.</p>
+        <cite>Visit length: Neprash et al., <a href="https://pubmed.ncbi.nlm.nih.gov/33301282/" target="_blank" rel="noopener">Medical Care, 2021</a></cite>
       </div>
     </div>
   </div>

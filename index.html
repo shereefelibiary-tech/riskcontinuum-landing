@@ -301,12 +301,15 @@
     .stat p { margin-top: 14px; font-size: 17px; color: var(--body); }
     .stat cite { display: block; margin-top: 14px; font-size: 14px; font-style: normal; color: var(--muted); }
     .stats-head { margin-bottom: 48px; }
-    .stats-routine { margin-top: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 40px 44px; }
-    .stats-routine-k { font-family: var(--display); font-size: 14px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); }
-    .stats-routine h3 { font-size: clamp(26px, 2.6vw, 34px); line-height: 1.15; margin: 14px 0 0; }
-    .stats-routine p { font-size: 17px; color: var(--body); }
-    .stats-routine p + p { margin-top: 14px; }
-    .stats-routine cite { display: block; margin-top: 14px; font-size: 14px; font-style: normal; color: var(--muted); }
+    .why-list { list-style: none; margin: 0; padding: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+    .why-list li { display: grid; grid-template-columns: 56px minmax(0, 5fr) minmax(0, 7fr); gap: 28px; align-items: start; padding: 30px 36px; }
+    .why-list li + li { border-top: 1px solid var(--line); }
+    .why-n { font-family: var(--display); font-size: 18px; font-weight: 600; color: var(--accent); line-height: 1.5; }
+    .why-list h3 { font-size: 26px; line-height: 1.2; margin: 0; }
+    .why-list p { margin: 0; font-size: 17px; color: var(--body); }
+    .why-list cite { display: block; margin-top: 10px; font-size: 14px; font-style: normal; color: var(--muted); }
+    .why-close { margin: 32px auto 0; max-width: 60ch; text-align: center; font-size: 19px; color: var(--ink); }
+    .why-close a { color: var(--accent); font-weight: 600; text-decoration: none; white-space: nowrap; }
 
     /* TRAJECTORY */
     .traj { padding: 120px 0; border-top: 1px solid var(--line); }
@@ -711,7 +714,8 @@
       .cont.shown .tile.here, .demo-cont .tile.here { transform: none; }
       .walker, .cont-foot { display: none; }
       .stats-grid { grid-template-columns: 1fr; }
-      .stats-routine { grid-template-columns: 1fr; gap: 20px; padding: 28px 24px; }
+      .why-list li { grid-template-columns: 1fr; gap: 8px; padding: 24px 22px; }
+      .why-list h3 { font-size: 22px; }
       .traj, .plan, .sdm, .report, .demo, .founder, .cta { padding: 84px 0; }
       .who { padding: 20px 0 84px; }
       .founder-photo { max-width: 420px; margin: 0 auto; }
@@ -1056,37 +1060,51 @@
   <div class="wrap">
     <div class="stats-head center reveal">
       <span class="eyebrow">Why it matters</span>
-      <h2 class="h2" id="stats-h2">The scale of the CKM <em>prevention opportunity.</em></h2>
-      <p class="lede">Blood pressure, cholesterol, blood sugar and kidney tests show cardiovascular-kidney-metabolic (CKM) risk years before symptoms. Treating it early prevents heart attacks and strokes and slows kidney disease.</p>
+      <h2 class="h2" id="stats-h2">A big problem, plenty of proven treatments, <em>and 15 minutes.</em></h2>
+      <p class="lede">The evidence for preventing cardiovascular-kidney-metabolic (CKM) disease is strong. Applying all of it to one patient, in one short visit, is the hard part.</p>
     </div>
-    <div class="stats-grid reveal">
-      <div class="stat">
-        <div class="stat-num">162 million</div>
-        <p>U.S. adults are estimated to have stage 2 or higher CKM, about two-thirds of adults age 20 and older. About 36 million already meet criteria for advanced CKM.</p>
-        <cite>Hyun et al., <a href="https://doi.org/10.1161/JAHA.126.053440" target="_blank" rel="noopener">JAHA, 2026</a></cite>
-      </div>
-      <div class="stat">
-        <div class="stat-num">1 in 2</div>
-        <p>adults with stage 2 or higher CKM and high blood pressure are on treatment for it. The numbers are similar for high cholesterol.</p>
-        <cite>Gong et al., <a href="https://doi.org/10.1016/j.jacc.2026.04.031" target="_blank" rel="noopener">JACC, 2026</a></cite>
-      </div>
-      <div class="stat">
-        <div class="stat-num">1 million</div>
-        <p>heart attacks and strokes could be prevented in five years with a 20% improvement in blood pressure control, cholesterol management and smoking cessation, Million Hearts estimates.</p>
-        <cite>CDC and CMS, <a href="https://millionhearts.hhs.gov/about-million-hearts/index.html" target="_blank" rel="noopener">Million Hearts</a></cite>
-      </div>
-    </div>
-    <div class="stats-routine reveal">
-      <div>
-        <span class="stats-routine-k">At the visit</span>
-        <h3>You already do prevention. <em>RCCKM puts it on one screen.</em></h3>
-      </div>
-      <div>
-        <p>Cancer screening, vaccines, blood pressure, cholesterol, diabetes: it all fits into a primary care visit of about 15 minutes. CKM risk ties those numbers together.</p>
-        <p>RCCKM pulls blood pressure, lab trends and prior diagnoses into one view, so something like a missing urine albumin test is easy to spot.</p>
-        <cite>Visit length: Neprash et al., <a href="https://pubmed.ncbi.nlm.nih.gov/33301282/" target="_blank" rel="noopener">Medical Care, 2021</a></cite>
-      </div>
-    </div>
+    <ol class="why-list reveal">
+      <li>
+        <span class="why-n">01</span>
+        <h3>Most adults are on the CKM spectrum.</h3>
+        <div>
+          <p>An estimated 162 million U.S. adults have stage 2 or higher CKM, and 36 million are already at an advanced stage.</p>
+          <cite>Hyun et al., <a href="https://doi.org/10.1161/JAHA.126.053440" target="_blank" rel="noopener">JAHA, 2026</a></cite>
+        </div>
+      </li>
+      <li>
+        <span class="why-n">02</span>
+        <h3>A lot of treatments work.</h3>
+        <div>
+          <p>Statins, blood pressure treatment, SGLT2 inhibitors, GLP-1 drugs and finerenone each lower heart, stroke or kidney events in large trials. Better blood pressure, cholesterol and smoking care alone could prevent 1 million heart attacks and strokes in five years.</p>
+          <cite>Estimate: CDC and CMS, <a href="https://millionhearts.hhs.gov/about-million-hearts/index.html" target="_blank" rel="noopener">Million Hearts</a></cite>
+        </div>
+      </li>
+      <li>
+        <span class="why-n">03</span>
+        <h3>The advice doesn&rsquo;t always line up.</h3>
+        <div>
+          <p>Cardiology, diabetes, kidney and lipid guidelines set their own thresholds and targets, and they don&rsquo;t always agree. The 2026 CKM guideline from the AHA, ACC, ADA and ASN is a start at bringing them together.</p>
+          <cite><a href="https://www.jacc.org/doi/10.1016/j.jacc.2026.03.056" target="_blank" rel="noopener">2026 AHA/ACC/ADA/ASN CKM Guideline</a></cite>
+        </div>
+      </li>
+      <li>
+        <span class="why-n">04</span>
+        <h3>There&rsquo;s a lot to pull together.</h3>
+        <div>
+          <p>Blood pressure, lipids, A1c, eGFR, urine albumin, weight, smoking, medications, family history and prior diagnoses, often scattered across years of the chart.</p>
+        </div>
+      </li>
+      <li>
+        <span class="why-n">05</span>
+        <h3>And about 15 minutes to do it.</h3>
+        <div>
+          <p>The median primary care exam is 15 minutes, and the average is 18. CKM shares that time with everything else the patient came in for.</p>
+          <cite>Neprash et al., <a href="https://pubmed.ncbi.nlm.nih.gov/33301282/" target="_blank" rel="noopener">Medical Care, 2021</a></cite>
+        </div>
+      </li>
+    </ol>
+    <p class="why-close reveal">RCCKM gathers the inputs, applies the guidelines and lays out the options, so the visit can go to the decision. <a href="#walkthrough">See it run&nbsp;&darr;</a></p>
   </div>
 </section>
 
